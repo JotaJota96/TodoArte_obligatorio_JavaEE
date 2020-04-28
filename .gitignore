@@ -1,0 +1,199 @@
+
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+**/.directory
+.metadata/
+**/*.ini
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+TodoArte/.metadata
+TodoArte/bin/
+TodoArte/tmp/
+TodoArte/*.tmp
+TodoArte/*.bak
+TodoArte/*.swp
+TodoArte/*~.nib
+TodoArte/local.properties
+# Este conviene no ignorarlo...
+# TodoArte/.settings/
+TodoArte/.loadpath
+TodoArte/.recommenders
+
+# External tool builders
+TodoArte/.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+TodoArte/*.launch
+
+# PyDev specific (Python IDE for Eclipse)
+TodoArte/*.pydevproject
+
+# CDT-specific (C/C++ Development Tooling)
+TodoArte/.cproject
+
+# CDT- autotools
+TodoArte/.autotools
+
+# Java annotation processor (APT)
+TodoArte/.factorypath
+
+# PDT-specific (PHP Development Tools)
+TodoArte/.buildpath
+
+# sbteclipse plugin
+TodoArte/.target
+
+# Tern plugin
+TodoArte/.tern-project
+
+# TeXlipse plugin
+TodoArte/.texlipse
+
+# STS (Spring Tool Suite)
+TodoArte/.springBeans
+
+# Code Recommenders
+TodoArte/.recommenders/
+
+# Annotation Processing
+TodoArte/.apt_generated/
+TodoArte/.apt_generated_test/
+
+# Scala IDE specific (Scala & Java development for Eclipse)
+TodoArte/.cache-main
+TodoArte/.scala_dependencies
+TodoArte/.worksheet
+
+# Uncomment this line if you wish to ignore the project description file.
+# Typically, this file would be tracked if it contains build/dependency configurations:
+#.project 
+
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+TodoArteEJB/.metadata
+TodoArteEJB/bin/
+TodoArteEJB/tmp/
+TodoArteEJB/*.tmp
+TodoArteEJB/*.bak
+TodoArteEJB/*.swp
+TodoArteEJB/*~.nib
+TodoArteEJB/local.properties
+# Este conviene no ignorarlo...
+# TodoArteEJB/.settings/
+TodoArteEJB/.loadpath
+TodoArteEJB/.recommenders
+
+# External tool builders
+TodoArteEJB/.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+TodoArteEJB/*.launch
+
+# PyDev specific (Python IDE for Eclipse)
+TodoArteEJB/*.pydevproject
+
+# CDT-specific (C/C++ Development Tooling)
+TodoArteEJB/.cproject
+
+# CDT- autotools
+TodoArteEJB/.autotools
+
+# Java annotation processor (APT)
+TodoArteEJB/.factorypath
+
+# PDT-specific (PHP Development Tools)
+TodoArteEJB/.buildpath
+
+# sbteclipse plugin
+TodoArteEJB/.target
+
+# Tern plugin
+TodoArteEJB/.tern-project
+
+# TeXlipse plugin
+TodoArteEJB/.texlipse
+
+# STS (Spring Tool Suite)
+TodoArteEJB/.springBeans
+
+# Code Recommenders
+TodoArteEJB/.recommenders/
+
+# Annotation Processing
+TodoArteEJB/.apt_generated/
+TodoArteEJB/.apt_generated_test/
+
+# Scala IDE specific (Scala & Java development for Eclipse)
+TodoArteEJB/.cache-main
+TodoArteEJB/.scala_dependencies
+TodoArteEJB/.worksheet
+
+# Uncomment this line if you wish to ignore the project description file.
+# Typically, this file would be tracked if it contains build/dependency configurations:
+#.project 
+
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+TodoArteWeb/.metadata
+TodoArteWeb/bin/
+TodoArteWeb/tmp/
+TodoArteWeb/*.tmp
+TodoArteWeb/*.bak
+TodoArteWeb/*.swp
+TodoArteWeb/*~.nib
+TodoArteWeb/local.properties
+# Este conviene no ignorarlo...
+# TodoArteWeb/.settings/
+TodoArteWeb/.loadpath
+TodoArteWeb/.recommenders
+
+# External tool builders
+TodoArteWeb/.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+TodoArteWeb/*.launch
+
+# PyDev specific (Python IDE for Eclipse)
+TodoArteWeb/*.pydevproject
+
+# CDT-specific (C/C++ Development Tooling)
+TodoArteWeb/.cproject
+
+# CDT- autotools
+TodoArteWeb/.autotools
+
+# Java annotation processor (APT)
+TodoArteWeb/.factorypath
+
+# PDT-specific (PHP Development Tools)
+TodoArteWeb/.buildpath
+
+# sbteclipse plugin
+TodoArteWeb/.target
+
+# Tern plugin
+TodoArteWeb/.tern-project
+
+# TeXlipse plugin
+TodoArteWeb/.texlipse
+
+# STS (Spring Tool Suite)
+TodoArteWeb/.springBeans
+
+# Code Recommenders
+TodoArteWeb/.recommenders/
+
+# Annotation Processing
+TodoArteWeb/.apt_generated/
+TodoArteWeb/.apt_generated_test/
+
+# Scala IDE specific (Scala & Java development for Eclipse)
+TodoArteWeb/.cache-main
+TodoArteWeb/.scala_dependencies
+TodoArteWeb/.worksheet
+
+# Uncomment this line if you wish to ignore the project description file.
+# Typically, this file would be tracked if it contains build/dependency configurations:
+#.project 
+
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 
