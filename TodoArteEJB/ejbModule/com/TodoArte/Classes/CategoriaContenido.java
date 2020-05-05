@@ -1,23 +1,36 @@
 package com.TodoArte.Classes;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "categoriaContenido")
 public class CategoriaContenido {
-	private int Id;
-	private String NombreCategoria;
+	
+	@javax.persistence.Id 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+
+	@Column(name = "nombreCategoria") private 
+	String NombreCategoria;
 
 	public CategoriaContenido() {
 	}
 
 	public CategoriaContenido(int Id, String NombreCategoria) {
-		this.Id = Id;
+		this.id = Id;
 		this.NombreCategoria = NombreCategoria;
 	}
 
 	public int getId() {
-		return this.Id;
+		return this.id;
 	}
 
 	public void setId(int Id) {
-		this.Id = Id;
+		this.id = Id;
 	}
 
 	public String getNombreCategoria() {
