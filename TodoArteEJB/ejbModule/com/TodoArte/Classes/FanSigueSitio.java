@@ -1,20 +1,40 @@
 package com.TodoArte.Classes;
 
-public class FanSigueSitio {
+import java.io.Serializable;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "comentario")
+public class FanSigueSitio implements Serializable{
+	
+	@Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
-    private String nickArrista;
+	
+	@Column(name = "nickArtista")
+    private String nickArtista;
+    
+	@Column(name = "bloqueado")
     private boolean bloqueado;
+    
+	@Column(name = "premiun")
     private boolean premiun;
+    
+    @OneToMany(cascade = CascadeType.ALL, 
+            orphanRemoval = true)
+    @JoinColumn(name = "nombre_Fan")
     private Fan miFan;
 
     public FanSigueSitio() {
     }
 
-    public FanSigueSitio(int id, String nickArrista, boolean bloqueado, boolean premiun, Fan fan) {
+    public FanSigueSitio(int id, String nickArtista, boolean bloqueado, boolean premiun, Fan fan) {
         this.id = id;
-        this.nickArrista = nickArrista;
-        this.bloqueado = bloqueado;
-        this.premiun = premiun;
+        this.nickArtista = nickArtista;     
+        this.bloqueado = bloqueado;   
+        this.premiun = premiun;     
         this.miFan = fan;
     }
 
@@ -26,12 +46,12 @@ public class FanSigueSitio {
         this.id = id;
     }
 
-    public String getNickArrista() {
-        return this.nickArrista;
+    public String getNickArtista() {
+        return this.nickArtista;
     }
 
-    public void setNickArrista(String nickArrista) {
-        this.nickArrista = nickArrista;
+    public void setNickArtista(String nickArtista) {
+        this.nickArtista = nickArtista;
     }
 
     public boolean getBloqueado() {

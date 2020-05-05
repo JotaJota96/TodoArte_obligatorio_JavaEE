@@ -2,9 +2,22 @@ package com.TodoArte.Classes;
 
 import java.util.Date;
 
-public class QyAProgramado {
+import java.io.Serializable;
+import javax.persistence.*;
+
+public class QyAProgramado implements Serializable{
+	
+	@Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+	
+	@Basic
+	@Column(name = "fechaYHoraInicio")
     private Date fechaYHoraInicio;
+    
+	@Basic
+	@Column(name = "fechaYHoraFin")
     private Date fechaYHoraFin;
 
     public QyAProgramado() {

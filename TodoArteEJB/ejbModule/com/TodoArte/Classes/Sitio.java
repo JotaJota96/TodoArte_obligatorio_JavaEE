@@ -1,25 +1,76 @@
 package com.TodoArte.Classes;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class Sitio {
+import javax.persistence.*;
+
+@Entity
+@Table(name = "sitio")
+public class Sitio implements Serializable {
+	
+	@Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+	
+	@Lob
+    @Column(name = "imagenPortada")
     private byte[] imagenPortada;
+	
+	@Column(name = "precioPremium")
     private float precioPremium;
+    
+	@Column(name = "colorDeFondo")
     private String colorDeFondo;
+	
+	@Column(name = "colorDeMenu")
     private String colorDeMenu;
+	
+	@Column(name = "colorDeTexto")
     private String colorDeTexto;
+	
+	@Column(name = "rrssYouTube")
     private String rrssYouTube;
+	
+	@Column(name = "rrssFacebook")
     private String rrssFacebook;
+	
+	@Column(name = "rrssInstagram")
     private String rrssInstagram;
+	
+	@Column(name = "rrssTwitter")
     private String rrssTwitter;
+    
+	@Column(name = "seccionTwitter")
     private int seccionTwitter;
+	
+	@ManyToOne()
+    @JoinColumn(name = "idCategoria")
     private CategoriaSitio miCategoria;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "nomber_Artista")
     private Artista miArtista;
+	
+	@ManyToOne()
+    @JoinColumn(name = "idFuente")
     private Fuente miFuente;
+    
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "id_Sitio")
+	@MapKey(name = "id")
     private Map<Integer, FanSigueSitio> MisFans;
+    
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "id_Sitio")
+	@MapKey(name = "id")
     private Map<Integer, QyAProgramado> MisQyA;
+    
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "id_Sitio")
+	@MapKey(name = "id")
     private Map<Integer, Contenido> MisContenidos;
 
     public Sitio() {

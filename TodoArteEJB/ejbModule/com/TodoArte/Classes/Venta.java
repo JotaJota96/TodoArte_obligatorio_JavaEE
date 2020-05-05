@@ -1,11 +1,29 @@
 package com.TodoArte.Classes;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Venta {
+import javax.persistence.*;
+
+@Entity
+@Table(name = "venta")
+public class Venta implements Serializable{
+	
+	@Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id")
 	private int id;
+	
+	@Column(name = "precio")
 	private float precio;
+	
+	@Basic
+	@Column(name = "fechaYHora")
 	private Date fechaYHora;
+	
+	@OneToMany(cascade = CascadeType.ALL, 
+            orphanRemoval = true)
+    @JoinColumn(name = "nombre_Fan")
 	private Fan miFan;
 
 	public Venta() {
