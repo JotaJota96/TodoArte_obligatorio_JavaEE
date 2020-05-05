@@ -60,14 +60,17 @@ public class Sitio implements Serializable {
     
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id_Sitio")
+	@MapKey(name = "id")
     private Map<Integer, FanSigueSitio> MisFans;
     
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id_Sitio")
+	@MapKey(name = "id")
     private Map<Integer, QyAProgramado> MisQyA;
     
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id_Sitio")
+	@MapKey(name = "id")
     private Map<Integer, Contenido> MisContenidos;
 
     public Sitio() {
