@@ -2,17 +2,22 @@ package com.TodoArte.Classes;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import javax.persistence.*;
-
+@Entity
+@Table(name = "pagoAPlataforma")
 public class PagoAPlataforma implements Serializable{
-	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-	
-	@Column(name = "monto")
+
+	@Column(name = "moto")
     private float monto;
 	
 	@Basic

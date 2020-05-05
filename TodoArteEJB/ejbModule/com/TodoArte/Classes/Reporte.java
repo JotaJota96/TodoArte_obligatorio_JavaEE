@@ -15,8 +15,7 @@ public class Reporte implements Serializable{
 	@Column(name = "reporte")
 	private String reporte;
 	
-	@OneToMany(cascade = CascadeType.ALL, 
-            orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "nombre_Fan")
 	private Fan miFan;
 
@@ -34,7 +33,7 @@ public class Reporte implements Serializable{
 	}
 
 	public void setId(int id) {
-		id = id;
+		this.id = id;
 	}
 
 	public Fan getMiFan() {
