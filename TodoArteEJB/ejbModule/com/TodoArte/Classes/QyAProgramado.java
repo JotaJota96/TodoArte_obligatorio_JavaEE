@@ -2,8 +2,14 @@ package com.TodoArte.Classes;
 
 import java.util.Date;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import java.io.Serializable;
-import javax.persistence.*;
+
 
 public class QyAProgramado implements Serializable{
 	

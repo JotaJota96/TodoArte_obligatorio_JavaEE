@@ -2,7 +2,15 @@ package com.TodoArte.Classes;
 
 import java.io.Serializable;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "valoracion")
@@ -16,8 +24,7 @@ public class Valoracion implements Serializable{
 	@Column(name = "val")
 	private int val;
 	
-	@OneToMany(cascade = CascadeType.ALL, 
-            orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn(name = "nombre_Fan")
 	private Fan miFan;
 
