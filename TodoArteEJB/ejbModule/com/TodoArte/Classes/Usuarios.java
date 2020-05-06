@@ -35,7 +35,7 @@ public abstract class Usuarios implements Serializable{
     protected boolean bloqueado;
 
 	
-    public Usuarios() {
+    public Usuarios(){
     }
 
     public Usuarios(String nikname, String contrasenia, String correo, float saldo, byte[] imagen) {
