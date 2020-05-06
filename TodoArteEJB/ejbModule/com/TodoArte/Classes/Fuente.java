@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "fuebte")
+@Table(name = "fuente")
 public class Fuente implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

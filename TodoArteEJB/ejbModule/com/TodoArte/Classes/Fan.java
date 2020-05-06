@@ -1,7 +1,7 @@
 package com.TodoArte.Classes;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Map;
 import java.util.TreeMap;
 

@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="TodoArtePersistenceUnit" transaction-type="RESOURCE_LOCAL">
+		<class>com.TodoArte.Classes.Administrador</class>
+		<class>com.TodoArte.Classes.Artista</class>
+		<class>com.TodoArte.Classes.CategoriaContenido</class>
+		<class>com.TodoArte.Classes.CategoriaSitio</class>
+		<class>com.TodoArte.Classes.Comentario</class>
+		<class>com.TodoArte.Classes.Contenido</class>
+		<class>com.TodoArte.Classes.Fan</class>
+		<class>com.TodoArte.Classes.FanSigueSitio</class>
+		<class>com.TodoArte.Classes.Fuente</class>
+		<class>com.TodoArte.Classes.NotificacionArtista</class>
+		<class>com.TodoArte.Classes.NotificacionFan</class>
+		<class>com.TodoArte.Classes.PagoAPlataforma</class>
+		<class>com.TodoArte.Classes.QyAProgramado</class>
+		<class>com.TodoArte.Classes.Reporte</class>
+		<class>com.TodoArte.Classes.Sitio</class>
+		<class>com.TodoArte.Classes.Usuarios</class>
+		<class>com.TodoArte.Classes.Valoracion</class>
+		<class>com.TodoArte.Classes.Venta</class>
+
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/TodoArte"/>
 			<property name="javax.persistence.jdbc.user" value="todoarte"/>
