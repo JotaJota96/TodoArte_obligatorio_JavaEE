@@ -3,6 +3,7 @@ package com.TodoArte;
 import java.sql.Date;
 
 import com.TodoArte.Classes.Fan;
+import com.TodoArte.Enums.MensajesExcepciones;
 import com.TodoArte.Enums.Sexo;
 import com.TodoArte.JPAControllerClasses.FanJpaController;
 
