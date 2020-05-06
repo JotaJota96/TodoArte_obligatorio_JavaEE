@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,7 +20,6 @@ public class Venta implements Serializable{
 	
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id")
 	private int id;
 	
 	@Column(name = "precio")
@@ -29,8 +29,8 @@ public class Venta implements Serializable{
 	@Column(name = "fechaYHora")
 	private Date fechaYHora;
 	
-	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
-    @JoinColumn(name = "nombre_Fan")
+	@ManyToOne()
+	@JoinColumn(name = "id_Fan")
 	private Fan miFan;
 
 	public Venta() {

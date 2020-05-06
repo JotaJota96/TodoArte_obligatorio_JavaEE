@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -20,7 +22,6 @@ public class Comentario implements Serializable{
 	
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "Id")
 	private int id;
 	
 	@Column(name = "texto")
@@ -29,8 +30,8 @@ public class Comentario implements Serializable{
 	@Basic
 	@Column(name = "fechaYHora")
 	private Date fechaYHora;
-	
-	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+
+	@ManyToOne()
 	@JoinColumn(name = "id_Fan")
 	private Fan miFan;
 

@@ -1,5 +1,6 @@
 package com.TodoArte.Classes;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -14,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "artista")
-public class Artista extends Usuarios {
+public class Artista extends Usuarios implements Serializable {
 	@Column(name = "nombre")
     private String nombre;
 	
@@ -26,7 +27,6 @@ public class Artista extends Usuarios {
 	@MapKey(name = "id")
     private Map<Integer, NotificacionArtista> notificacion;
 	
-
 	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
 	@JoinColumn(name = "id_artista")
 	@MapKey(name = "id")

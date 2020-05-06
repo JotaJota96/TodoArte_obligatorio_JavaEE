@@ -1,21 +1,24 @@
 package com.TodoArte.Classes;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "categoriaContenido")
-public class CategoriaContenido {
-	
-	@javax.persistence.Id 
+public class CategoriaContenido implements Serializable {
+
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "nombreCategoria") private 
-	String NombreCategoria;
+	@Column(name = "nombreCategoria")
+	private String NombreCategoria;
 
 	public CategoriaContenido() {
 	}

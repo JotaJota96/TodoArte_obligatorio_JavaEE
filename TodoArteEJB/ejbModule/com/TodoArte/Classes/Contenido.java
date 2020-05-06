@@ -1,5 +1,6 @@
 package com.TodoArte.Classes;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
@@ -25,7 +26,7 @@ import com.TodoArte.Enums.TipoContenido;
 
 @Entity
 @Table(name = "contenido")
-public class Contenido {
+public class Contenido implements Serializable {
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;

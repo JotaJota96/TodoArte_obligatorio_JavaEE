@@ -25,7 +25,6 @@ public class Sitio implements Serializable {
 	
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id")
     private int id;
 	
 	@Lob
@@ -60,15 +59,14 @@ public class Sitio implements Serializable {
     private int seccionTwitter;
 	
 	@ManyToOne()
-    @JoinColumn(name = "idCategoria")
+    @JoinColumn(name = "id_Categoria")
     private CategoriaSitio miCategoria;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "nomber_Artista")
+	@OneToOne(mappedBy = "miSitio")
     private Artista miArtista;
 	
 	@ManyToOne()
-    @JoinColumn(name = "idFuente")
+    @JoinColumn(name = "id_Fuente")
     private Fuente miFuente;
     
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)

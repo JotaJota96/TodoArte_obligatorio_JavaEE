@@ -1,18 +1,16 @@
 package com.TodoArte.Classes;
 
-import javax.annotation.Generated;
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "administrador")
-public class Administrador{
+public class Administrador implements Serializable {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
     public String nickname;
 
 	@Column(name = "contrasenia")

@@ -9,17 +9,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "comentario")
-public class FanSigueSitio implements Serializable{
+public class FanSigueSitio implements Serializable {
 	
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id")
     private int id;
 	
 	@Column(name = "nickArtista")
@@ -31,8 +31,8 @@ public class FanSigueSitio implements Serializable{
 	@Column(name = "premiun")
     private boolean premiun;
     
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "nombre_Fan")
+    @ManyToOne
+    @JoinColumn(name = "id_fan")
     private Fan miFan;
 
     public FanSigueSitio() {

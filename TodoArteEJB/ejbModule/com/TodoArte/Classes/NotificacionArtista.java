@@ -1,5 +1,6 @@
 package com.TodoArte.Classes;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Basic;
@@ -12,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "notificacionArtista")
-public class NotificacionArtista {
+public class NotificacionArtista implements Serializable {
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;

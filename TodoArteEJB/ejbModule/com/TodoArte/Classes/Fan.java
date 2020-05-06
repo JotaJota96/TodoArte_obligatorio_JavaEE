@@ -1,5 +1,6 @@
 package com.TodoArte.Classes;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
@@ -20,7 +21,7 @@ import com.TodoArte.Enums.Sexo;
 
 @Entity
 @Table(name = "fan")
-public class Fan extends Usuarios{
+public class Fan extends Usuarios implements Serializable {
 	@Column(name = "nombre")
     private String nombre;
 	
@@ -35,18 +36,16 @@ public class Fan extends Usuarios{
     private String ubicacion;
 	
 	@Enumerated(EnumType.STRING)
+	@Column(name = "sexo")
     private Sexo sexo;
 	
-
 	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
 	@JoinColumn(name = "id_fan")
 	@MapKey(name = "id")
     private Map<Integer, NotificacionFan> notificaciones;
 
-	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
-	@JoinColumn(name = "id_fan")
-	@MapKey(name = "id")
-    private Map<Integer, FanSigueSitio> misSitiosSeguidos;
+	@OneToMany(mappedBy = "miFan")
+	private Map<Integer, FanSigueSitio> misSitiosSeguidos;
 
     public Fan() {
         super();

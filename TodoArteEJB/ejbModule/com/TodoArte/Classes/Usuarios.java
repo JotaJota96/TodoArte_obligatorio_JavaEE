@@ -1,3 +1,4 @@
+
 package com.TodoArte.Classes;
 
 import java.io.Serializable;
@@ -12,12 +13,13 @@ import javax.persistence.Lob;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Usuarios implements Serializable{
 	@Id
+	@Column(name = "id")
     protected String nikname;
 	
 	@Column(name = "contrasenia")
     protected String contrasenia;
 	
-	@Column(name = "correo")
+	@Column(name = "correo", unique = true)
     protected String correo;
 	
 	@Column(name = "saldo")
