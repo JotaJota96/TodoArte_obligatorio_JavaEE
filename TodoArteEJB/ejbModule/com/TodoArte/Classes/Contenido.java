@@ -122,7 +122,7 @@ public class Contenido implements Serializable {
     		throw new RuntimeException(MensajesExcepciones.fechaYHora);
     	}
 		if(miCategoria == null){
-    		throw new RuntimeException(MensajesExcepciones.categoriaContenido);
+    		throw new RuntimeException(MensajesExcepciones.categoria);
     	}
 		
 		this.id = id;
@@ -258,7 +258,7 @@ public class Contenido implements Serializable {
 
 	public void setMiCategoria(CategoriaContenido miCategoria) {
 		if(miCategoria == null){
-    		throw new RuntimeException(MensajesExcepciones.categoriaContenido);
+    		throw new RuntimeException(MensajesExcepciones.categoria);
     	}
 		
 		this.miCategoria = miCategoria;

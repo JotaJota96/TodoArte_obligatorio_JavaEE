@@ -18,6 +18,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.TodoArte.Enums.MensajesExcepciones;
+
 
 @Entity
 @Table(name = "sitio")
@@ -91,7 +93,19 @@ public class Sitio implements Serializable {
     }
   
     public Sitio(int id, byte[] imagenPortada, float precioPremium, String colorDeFondo, String colorDeMenu, String colorDeTexto, String rrssYouTube, String rrssFacebook, String rrssInstagram, String rrssTwitter, int seccionTwitter, CategoriaSitio miCategoria, Artista miArtista, Fuente miFuente) {
-		this.id = id;
+    	if(precioPremium <= 0){
+            throw new RuntimeException(MensajesExcepciones.precio);
+		}
+    	if(miCategoria == null){
+            throw new RuntimeException(MensajesExcepciones.categoria);
+		}
+    	if(miArtista == null){
+            throw new RuntimeException(MensajesExcepciones.artista);
+		}
+    	if(miFuente == null){
+            throw new RuntimeException(MensajesExcepciones.fuente);
+		}
+    	this.id = id;
 		this.imagenPortada = imagenPortada;
 		this.precioPremium = precioPremium;
 		this.colorDeFondo = colorDeFondo;
@@ -131,6 +145,9 @@ public class Sitio implements Serializable {
 	}
 
 	public void setPrecioPremium(float precioPremium) {
+		if(precioPremium <= 0){
+            throw new RuntimeException(MensajesExcepciones.precio);
+		}
 		this.precioPremium = precioPremium;
 	}
 
@@ -203,6 +220,9 @@ public class Sitio implements Serializable {
 	}
 
 	public void setMiCategoria(CategoriaSitio miCategoria) {
+		if(miCategoria == null){
+            throw new RuntimeException(MensajesExcepciones.categoria);
+		}
 		this.miCategoria = miCategoria;
 	}
 
@@ -211,6 +231,9 @@ public class Sitio implements Serializable {
 	}
 
 	public void setMiArtista(Artista miArtista) {
+		if(miArtista == null){
+            throw new RuntimeException(MensajesExcepciones.artista);
+		}
 		this.miArtista = miArtista;
 	}
 
@@ -219,6 +242,9 @@ public class Sitio implements Serializable {
 	}
 
 	public void setMiFuente(Fuente miFuente) {
+		if(miFuente == null){
+            throw new RuntimeException(MensajesExcepciones.fuente);
+		}
 		this.miFuente = miFuente;
 	}
 

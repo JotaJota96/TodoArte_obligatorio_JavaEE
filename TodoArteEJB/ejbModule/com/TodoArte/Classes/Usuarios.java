@@ -9,6 +9,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Lob;
 
+import com.TodoArte.Enums.MensajesExcepciones;
+
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Usuarios implements Serializable{
@@ -36,13 +38,24 @@ public abstract class Usuarios implements Serializable{
     public Usuarios() {
     }
 
-    public Usuarios(String nikname, String contrasenia, String correo, float saldo, byte[] imagen, boolean bloqueado) {
-        this.nikname = nikname;
+    public Usuarios(String nikname, String contrasenia, String correo, float saldo, byte[] imagen) {
+    	if(nikname.equals("")){
+            throw new RuntimeException(MensajesExcepciones.nickname);
+		}
+    	if(contrasenia.equals("")){
+            throw new RuntimeException(MensajesExcepciones.contrasenia);
+		}
+    	if(correo.equals("")){
+            throw new RuntimeException(MensajesExcepciones.correo);
+		}
+    	if(saldo <= 0){
+            throw new RuntimeException(MensajesExcepciones.saldo);
+		}
+    	this.nikname = nikname;
         this.contrasenia = contrasenia;
         this.correo = correo;
         this.saldo = saldo;
         this.imagen = imagen;
-        this.bloqueado = bloqueado;
     }
 
     public String getNikname() {
@@ -50,6 +63,9 @@ public abstract class Usuarios implements Serializable{
     }
 
     public void setNikname(String nikname) {
+    	if(nikname.equals("")){
+            throw new RuntimeException(MensajesExcepciones.nickname);
+		}
         this.nikname = nikname;
     }
 
@@ -58,6 +74,9 @@ public abstract class Usuarios implements Serializable{
     }
 
     public void setContrasenia(String contrasenia) {
+    	if(contrasenia.equals("")){
+            throw new RuntimeException(MensajesExcepciones.contrasenia);
+		}
         this.contrasenia = contrasenia;
     }
 
@@ -66,6 +85,9 @@ public abstract class Usuarios implements Serializable{
     }
 
     public void setCorreo(String correo) {
+    	if(correo.equals("")){
+            throw new RuntimeException(MensajesExcepciones.correo);
+		}
         this.correo = correo;
     }
 
@@ -74,6 +96,9 @@ public abstract class Usuarios implements Serializable{
     }
 
     public void setSaldo(float saldo) {
+    	if(saldo <= 0){
+            throw new RuntimeException(MensajesExcepciones.saldo);
+		}
         this.saldo = saldo;
     }
 

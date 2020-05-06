@@ -21,10 +21,18 @@ public abstract class MensajesExcepciones {
 	public static final String descripcion = "La descripcion no puede ser vacia";
 	public static final String titulo = "El titulo no puede ser vacia";
 	public static final String archivo = "El archivo no puede ser null";
-	public static final String categoriaContenido = "La categoria no puede ser null";
+	public static final String categoria = "La categoria no puede ser null";
 	public static final String apellido = "El apellido no puede ser vacia";
 	public static final String ubicacion = "La ubicacion no puede ser vacia";
 	public static final String sexo = "El sexo no puede ser null";
 	public static final String Fan = "El fan no puede ser null";
-
+	public static final String precio = "El precio debe ser mayor a cero";
+	public static final String fechaYHora = "Fecha y hora no pueden ser null";
+	public static final String miFan = "Fan no pueden ser null";
+	public static final String valoracion = "Valoracion no pueden ser null";
+	public static final String saldo = "Saldo debe ser mayor a cero";
+	public static final String reporte = "Reporte no puede ser vacío";
+	public static final String monto = "Monto debe ser mayor a cero";
+	public static final String artista = "Artista no puede ser null";
+	public static final String fuente = "Fuente no puede ser null";
 }

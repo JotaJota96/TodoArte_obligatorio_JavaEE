@@ -54,8 +54,8 @@ public class Fan extends Usuarios implements Serializable {
 		this.notificaciones = new TreeMap<Integer, NotificacionFan>();
     }
 
-	public Fan(String nikname, String contrasenia, String correo, float saldo, byte[] imagen, boolean bloqueado, String nombre, String apellido, Date fechaNac, String ubicacion, Sexo sexo) {
-		super(nikname, contrasenia, correo, saldo, imagen, bloqueado);
+	public Fan(String nikname, String contrasenia, String correo, float saldo, byte[] imagen, String nombre, String apellido, Date fechaNac, String ubicacion, Sexo sexo) {
+		super(nikname, contrasenia, correo, saldo, imagen);
 		if(nombre.equals("")){
     		throw new RuntimeException(MensajesExcepciones.nombre);
     	}

@@ -45,8 +45,8 @@ public class Artista extends Usuarios implements Serializable {
         this.pagos = new TreeMap<Integer, PagoAPlataforma>();
     }
 
-    public Artista(String nikname, String contrasenia, String correo, float saldo, byte[] imagen, boolean bloqueado, String nombre, String biografia, Sitio sitio) {
-		super(nikname, contrasenia, correo, saldo, imagen, bloqueado);
+    public Artista(String nikname, String contrasenia, String correo, float saldo, byte[] imagen, String nombre, String biografia, Sitio sitio) {
+		super(nikname, contrasenia, correo, saldo, imagen);
 		if(nombre.equals("")){
     		throw new RuntimeException(MensajesExcepciones.nombre);
     	}
