@@ -1,29 +1,53 @@
 package com.TodoArte.Classes;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.sql.Date;
 
-public class Comentario {
-	private int Id;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "comentario")
+public class Comentario implements Serializable{
+	
+	@Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
+	
+	@Column(name = "texto")
 	private String texto;
+	
+	@Basic
+	@Column(name = "fechaYHora")
 	private Date fechaYHora;
+
+	@ManyToOne()
+	@JoinColumn(name = "id_Fan")
 	private Fan miFan;
 
 	public Comentario() {
 	}
 	
 	public Comentario(int id, String texto, Date fechaYHora, Fan miFan) {
-		Id = id;
+		this.id = id;
 		this.texto = texto;
 		this.fechaYHora = fechaYHora;
 		this.miFan = miFan;
 	}
 
 	public int getId() {
-		return this.Id;
+		return this.id;
 	}
 
 	public void setId(int Id) {
-		this.Id = Id;
+		this.id = Id;
 	}
 
 	public String getTexto() {

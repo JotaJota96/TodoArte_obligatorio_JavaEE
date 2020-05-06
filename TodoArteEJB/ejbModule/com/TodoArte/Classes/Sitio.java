@@ -1,25 +1,87 @@
 package com.TodoArte.Classes;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class Sitio {
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapKey;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = "sitio")
+public class Sitio implements Serializable {
+	
+	@Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
+	
+	@Lob
+    @Column(name = "imagenPortada")
     private byte[] imagenPortada;
+	
+	@Column(name = "precioPremium")
     private float precioPremium;
+    
+	@Column(name = "colorDeFondo")
     private String colorDeFondo;
+	
+	@Column(name = "colorDeMenu")
     private String colorDeMenu;
+	
+	@Column(name = "colorDeTexto")
     private String colorDeTexto;
+	
+	@Column(name = "rrssYouTube")
     private String rrssYouTube;
+	
+	@Column(name = "rrssFacebook")
     private String rrssFacebook;
+	
+	@Column(name = "rrssInstagram")
     private String rrssInstagram;
+	
+	@Column(name = "rrssTwitter")
     private String rrssTwitter;
+    
+	@Column(name = "seccionTwitter")
     private int seccionTwitter;
+	
+	@ManyToOne()
+    @JoinColumn(name = "id_Categoria")
     private CategoriaSitio miCategoria;
+	
+	@OneToOne(mappedBy = "miSitio")
     private Artista miArtista;
+	
+	@ManyToOne()
+    @JoinColumn(name = "id_Fuente")
     private Fuente miFuente;
+    
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "id_Sitio")
+	@MapKey(name = "id")
     private Map<Integer, FanSigueSitio> MisFans;
+    
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "id_Sitio")
+	@MapKey(name = "id")
     private Map<Integer, QyAProgramado> MisQyA;
+    
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "id_Sitio")
+	@MapKey(name = "id")
     private Map<Integer, Contenido> MisContenidos;
 
     public Sitio() {

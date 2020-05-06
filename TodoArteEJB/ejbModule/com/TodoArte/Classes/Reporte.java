@@ -1,25 +1,46 @@
 package com.TodoArte.Classes;
 
-public class Reporte {
-	private int Id;
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = "reporte")
+public class Reporte implements Serializable{
+	@Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
+	
+	@Column(name = "reporte")
 	private String reporte;
+	
+	@ManyToOne()
+	@JoinColumn(name = "id_Fan")
 	private Fan miFan;
 
 	public Reporte() {
 	}
 
 	public Reporte(int id, String reporte, Fan miFan) {
-		Id = id;
+		this.id = id;
 		this.setReporte(reporte);
 		this.miFan = miFan;
 	}
 
 	public int getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(int id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public Fan getMiFan() {

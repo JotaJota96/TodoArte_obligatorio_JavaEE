@@ -1,19 +1,51 @@
 package com.TodoArte.Classes;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.sql.Date;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapKey;
+import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+
 import com.TodoArte.Enums.Sexo;
 
-public class Fan extends Usuarios{
+@Entity
+@Table(name = "fan")
+public class Fan extends Usuarios implements Serializable {
+	@Column(name = "nombre")
     private String nombre;
+	
+	@Column(name = "apellido")
     private String apellido;
+	
+	@Basic
+	@Column(name = "fecha_nacimiento")
     private Date fechaNac;
+	
+	@Column(name = "ubicacion")
     private String ubicacion;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "sexo")
     private Sexo sexo;
+	
+	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+	@JoinColumn(name = "id_fan")
+	@MapKey(name = "id")
     private Map<Integer, NotificacionFan> notificaciones;
-    private Map<Integer, FanSigueSitio> misSitiosSeguidos;
+
+	@OneToMany(mappedBy = "miFan")
+	private Map<Integer, FanSigueSitio> misSitiosSeguidos;
 
     public Fan() {
         super();

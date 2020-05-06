@@ -1,10 +1,28 @@
 package com.TodoArte.Classes;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.sql.Date;
 
-public class PagoAPlataforma {
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "pagoAPlataforma")
+public class PagoAPlataforma implements Serializable{
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+	@Column(name = "moto")
     private float monto;
+	
+	@Basic
+	@Column(name = "fechaYHora")
     private Date fechaYHora;
 
     public PagoAPlataforma() {

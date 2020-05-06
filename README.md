@@ -12,7 +12,7 @@
 		+ [Artistas](#Artistas)
 		+ [Fans](#Fans)
 		+ [Invitados](#Invitados)
-+ [Requerimientos Opcionales](#Requerimientos%20Opcionales)
++ [Requerimientos Opcionales](#Requerimientos-Opcionales)
 
 -----------------------------------------------------------------
 

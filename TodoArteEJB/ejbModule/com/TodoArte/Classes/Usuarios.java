@@ -1,13 +1,38 @@
+
 package com.TodoArte.Classes;
 
-public class Usuarios{
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Lob;
+
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Usuarios implements Serializable{
+	@Id
+	@Column(name = "id")
     protected String nikname;
+	
+	@Column(name = "contrasenia")
     protected String contrasenia;
+	
+	@Column(name = "correo", unique = true)
     protected String correo;
+	
+	@Column(name = "saldo")
     protected float saldo;
+	
+	@Lob
+	@Column(name = "imagen")
     protected byte[] imagen;
+    
+	@Column(name = "bloqueado")
     protected boolean bloqueado;
 
+	
     public Usuarios() {
     }
 

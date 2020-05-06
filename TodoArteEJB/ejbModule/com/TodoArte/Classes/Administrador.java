@@ -1,13 +1,27 @@
 package com.TodoArte.Classes;
 
-public class Administrador{
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "administrador")
+public class Administrador implements Serializable {
+	@Id
     public String nickname;
+
+	@Column(name = "contrasenia")
     public String contrasenia;
+	
+	@Column(name = "correo")
     public String correo;
 
     public Administrador() {
     }
-
+    
     public Administrador(String nickname, String contrasenia, String correo) {
         this.nickname = nickname;
         this.contrasenia = contrasenia;

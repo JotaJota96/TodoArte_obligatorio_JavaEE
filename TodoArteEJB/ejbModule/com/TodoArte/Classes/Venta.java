@@ -1,11 +1,36 @@
 package com.TodoArte.Classes;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.sql.Date;
 
-public class Venta {
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "venta")
+public class Venta implements Serializable{
+	
+	@Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	
+	@Column(name = "precio")
 	private float precio;
+	
+	@Basic
+	@Column(name = "fechaYHora")
 	private Date fechaYHora;
+	
+	@ManyToOne()
+	@JoinColumn(name = "id_Fan")
 	private Fan miFan;
 
 	public Venta() {

@@ -1,13 +1,40 @@
 package com.TodoArte.Classes;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class Artista extends Usuarios {
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapKey;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "artista")
+public class Artista extends Usuarios implements Serializable {
+	@Column(name = "nombre")
     private String nombre;
+	
+	@Column(name = "biografia")
     private String biografia;
+	
+	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+	@JoinColumn(name = "id_artista")
+	@MapKey(name = "id")
     private Map<Integer, NotificacionArtista> notificacion;
+	
+	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+	@JoinColumn(name = "id_artista")
+	@MapKey(name = "id")
     private Map<Integer, PagoAPlataforma> pagos;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_sitio")
     private Sitio miSitio;
 
     public Artista() {
