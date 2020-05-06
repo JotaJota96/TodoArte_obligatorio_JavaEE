@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.TodoArte.Enums.MensajesExcepciones;
+
 @Entity
 @Table(name = "venta")
 public class Venta implements Serializable{
@@ -37,6 +39,15 @@ public class Venta implements Serializable{
 	}
 
 	public Venta(int id, float precio, Date fechaYHora, Fan miFan) {
+		if(precio <= 0){
+            throw new RuntimeException(MensajesExcepciones.precio);
+		}
+		if(fechaYHora == null){
+            throw new RuntimeException(MensajesExcepciones.fechaYHora);
+		}
+		if(miFan == null){
+            throw new RuntimeException(MensajesExcepciones.miFan);
+		}
 		this.id = id;
 		this.precio = precio;
 		this.fechaYHora = fechaYHora;
@@ -56,6 +67,9 @@ public class Venta implements Serializable{
 	}
 
 	public void setPrecio(float precio) {
+		if(precio <= 0){
+            throw new RuntimeException(MensajesExcepciones.precio);
+		}
 		this.precio = precio;
 	}
 
@@ -64,6 +78,9 @@ public class Venta implements Serializable{
 	}
 
 	public void setFechaYHora(Date fechaYHora) {
+		if(fechaYHora == null){
+            throw new RuntimeException(MensajesExcepciones.fechaYHora);
+		}
 		this.fechaYHora = fechaYHora;
 	}
 
@@ -72,6 +89,9 @@ public class Venta implements Serializable{
 	}
 
 	public void setMiFan(Fan miFan) {
+		if(miFan == null){
+            throw new RuntimeException(MensajesExcepciones.miFan);
+		}
 		this.miFan = miFan;
 	}
 }

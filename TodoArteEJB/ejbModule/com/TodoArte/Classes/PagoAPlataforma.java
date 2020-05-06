@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.TodoArte.Enums.MensajesExcepciones;
+
 @Entity
 @Table(name = "pagoAPlataforma")
 public class PagoAPlataforma implements Serializable{
@@ -29,6 +31,12 @@ public class PagoAPlataforma implements Serializable{
     }
 
     public PagoAPlataforma(int id, float monto, Date fechaYHora) {
+    	if(monto <= 0){
+            throw new RuntimeException(MensajesExcepciones.monto);
+		}
+    	if(fechaYHora == null){
+            throw new RuntimeException(MensajesExcepciones.fechaYHora);
+		}
         this.id = id;
         this.monto = monto;
         this.fechaYHora = fechaYHora;
@@ -47,6 +55,9 @@ public class PagoAPlataforma implements Serializable{
     }
 
     public void setMonto(float monto) {
+    	if(monto <= 0){
+            throw new RuntimeException(MensajesExcepciones.monto);
+		}
         this.monto = monto;
     }
 
@@ -55,6 +66,9 @@ public class PagoAPlataforma implements Serializable{
     }
 
     public void setFechaYHora(Date fechaYHora) {
+    	if(fechaYHora == null){
+            throw new RuntimeException(MensajesExcepciones.fechaYHora);
+		}
         this.fechaYHora = fechaYHora;
     }
 }
