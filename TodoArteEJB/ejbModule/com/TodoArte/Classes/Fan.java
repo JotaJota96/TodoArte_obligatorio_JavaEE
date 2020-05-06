@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import com.TodoArte.Enums.MensajesExcepciones;
 import com.TodoArte.Enums.Sexo;
 
 @Entity
@@ -55,6 +56,22 @@ public class Fan extends Usuarios implements Serializable {
 
 	public Fan(String nikname, String contrasenia, String correo, float saldo, byte[] imagen, boolean bloqueado, String nombre, String apellido, Date fechaNac, String ubicacion, Sexo sexo) {
 		super(nikname, contrasenia, correo, saldo, imagen, bloqueado);
+		if(nombre.equals("")){
+    		throw new RuntimeException(MensajesExcepciones.nombre);
+    	}
+		if(apellido.equals("")){
+    		throw new RuntimeException(MensajesExcepciones.apellido);
+    	}
+		if(fechaNac.equals(null)){
+    		throw new RuntimeException(MensajesExcepciones.fechaYHora);
+    	}
+		if(ubicacion.equals("")){
+    		throw new RuntimeException(MensajesExcepciones.ubicacion);
+    	}
+		if(sexo.equals(null)){
+    		throw new RuntimeException(MensajesExcepciones.sexo);
+    	}
+		
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.fechaNac = fechaNac;
@@ -69,6 +86,10 @@ public class Fan extends Usuarios implements Serializable {
     }
 
     public void setNombre(String nombre) {
+    	if(nombre.equals("")){
+    		throw new RuntimeException(MensajesExcepciones.nombre);
+    	}
+		
         this.nombre = nombre;
     }
 
@@ -77,6 +98,10 @@ public class Fan extends Usuarios implements Serializable {
     }
 
     public void setApellido(String apellido) {
+    	if(apellido.equals("")){
+    		throw new RuntimeException(MensajesExcepciones.apellido);
+    	}
+		
         this.apellido = apellido;
     }
 
@@ -85,6 +110,10 @@ public class Fan extends Usuarios implements Serializable {
     }
 
     public void setFechaNac(Date fechaNac) {
+    	if(fechaNac.equals(null)){
+    		throw new RuntimeException(MensajesExcepciones.fechaYHora);
+    	}
+		
         this.fechaNac = fechaNac;
     }
 
@@ -93,6 +122,10 @@ public class Fan extends Usuarios implements Serializable {
     }
 
     public void setUbicacion(String ubicacion) {
+    	if(ubicacion.equals("")){
+    		throw new RuntimeException(MensajesExcepciones.ubicacion);
+    	}
+		
         this.ubicacion = ubicacion;
     }
 
@@ -101,6 +134,10 @@ public class Fan extends Usuarios implements Serializable {
 	}
 
 	public void setSexo(Sexo sexo) {
+		if(sexo.equals(null)){
+    		throw new RuntimeException(MensajesExcepciones.sexo);
+    	}
+		
 		this.sexo = sexo;
 	}
 
@@ -119,7 +156,4 @@ public class Fan extends Usuarios implements Serializable {
 	public void setMisSitiosSeguidos(Map<Integer, FanSigueSitio> misSitiosSeguidos) {
 		this.misSitiosSeguidos = misSitiosSeguidos;
 	}
-
-
-
 }

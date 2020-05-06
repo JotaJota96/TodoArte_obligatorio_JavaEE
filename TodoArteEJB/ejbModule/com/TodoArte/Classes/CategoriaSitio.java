@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.TodoArte.Enums.MensajesExcepciones;
+
 @Entity
 @Table(name = "categoriaSitio")
 public class CategoriaSitio implements Serializable {
@@ -23,6 +25,9 @@ public class CategoriaSitio implements Serializable {
     }
     
     public CategoriaSitio(int id, String nombreCat) {
+    	if(nombreCat.equals("")){
+    		throw new RuntimeException(MensajesExcepciones.nombreCatSitio);
+    	}
 		this.id = id;
 		this.nombreCat = nombreCat;
 	}
@@ -32,6 +37,10 @@ public class CategoriaSitio implements Serializable {
     }
 
     public void setNombreCat(String nombreCat) {
+    	if(nombreCat.equals("")){
+    		throw new RuntimeException(MensajesExcepciones.nombreCatSitio);
+    	}
+    	
         this.nombreCat = nombreCat;
     }
 

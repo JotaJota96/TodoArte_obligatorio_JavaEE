@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.TodoArte.Enums.MensajesExcepciones;
+
 @Entity
 @Table(name = "comentario")
 public class Comentario implements Serializable{
@@ -36,6 +38,15 @@ public class Comentario implements Serializable{
 	}
 	
 	public Comentario(int id, String texto, Date fechaYHora, Fan miFan) {
+		if(texto.equals("")){
+    		throw new RuntimeException(MensajesExcepciones.texto);
+    	}
+		if(fechaYHora.equals(null)){
+    		throw new RuntimeException(MensajesExcepciones.fechaYHora);
+    	}
+		if(miFan == null){
+    		throw new RuntimeException(MensajesExcepciones.miFan);
+    	}
 		this.id = id;
 		this.texto = texto;
 		this.fechaYHora = fechaYHora;
@@ -55,6 +66,10 @@ public class Comentario implements Serializable{
 	}
 
 	public void setTexto(String texto) {
+		if(texto.equals("")){
+    		throw new RuntimeException(MensajesExcepciones.texto);
+    	}
+		
 		this.texto = texto;
 	}
 
@@ -63,6 +78,10 @@ public class Comentario implements Serializable{
 	}
 
 	public void setFechaYHora(Date fechaYHora) {
+		if(fechaYHora.equals(null)){
+    		throw new RuntimeException(MensajesExcepciones.fechaYHora);
+    	}
+		
 		this.fechaYHora = fechaYHora;
 	}
 
@@ -71,6 +90,9 @@ public class Comentario implements Serializable{
 	}
 
 	public void setMiFan(Fan miFan) {
+		if(miFan.equals(null)){
+    		throw new RuntimeException(MensajesExcepciones.miFan);
+    	}
 		this.miFan = miFan;
 	}
 }
