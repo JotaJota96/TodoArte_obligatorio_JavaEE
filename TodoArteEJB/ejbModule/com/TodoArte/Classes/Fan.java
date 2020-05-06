@@ -14,10 +14,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import com.TodoArte.Enums.Sexo;
-
 
 @Entity
 @Table(name = "fan")

@@ -11,7 +11,7 @@ import javax.persistence.Lob;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Usuarios implements Serializable{
+public abstract class Usuarios implements Serializable{
 	@Id
 	@Column(name = "id")
     protected String nikname;
