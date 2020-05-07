@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.TodoArte.Enums.MensajesExcepciones;
+
 import java.io.Serializable;
 
 @Entity
@@ -32,6 +34,9 @@ public class QyAProgramado implements Serializable{
     }
 
     public QyAProgramado(int id, Date fechaYHoraInicio, Date fechaYHoraFin) {
+    	if(fechaYHoraInicio == null){
+            throw new RuntimeException(MensajesExcepciones.fechaYHora);
+		}
         this.id = id;
         this.fechaYHoraInicio = fechaYHoraInicio;
         this.fechaYHoraFin = fechaYHoraFin;
@@ -50,6 +55,9 @@ public class QyAProgramado implements Serializable{
     }
 
     public void setFechaYHoraInicio(Date fechaYHoraInicio) {
+    	if(fechaYHoraInicio == null){
+            throw new RuntimeException(MensajesExcepciones.fechaYHora);
+		}
         this.fechaYHoraInicio = fechaYHoraInicio;
     }
 

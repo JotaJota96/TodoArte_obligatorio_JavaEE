@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.TodoArte.Enums.MensajesExcepciones;
+
 @Entity
 @Table(name = "fuente")
 public class Fuente implements Serializable {
@@ -23,6 +25,10 @@ public class Fuente implements Serializable {
     }
     
     public Fuente(int id, String nombre) {
+    	if(nombre.equals("")){
+    		throw new RuntimeException(MensajesExcepciones.nombre);
+    	}
+    	
 		this.id = id;
 		this.nombre = nombre;
 	}
@@ -32,6 +38,10 @@ public class Fuente implements Serializable {
     }
 
     public void setNombre(String nombre) {
+    	if(nombre.equals("")){
+    		throw new RuntimeException(MensajesExcepciones.nombre);
+    	}
+    	
         this.nombre = nombre;
     }
 

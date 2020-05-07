@@ -20,7 +20,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Null;
 
+import com.TodoArte.Enums.MensajesExcepciones;
 import com.TodoArte.Enums.Privacidad;
 import com.TodoArte.Enums.TipoContenido;
 
@@ -95,6 +97,34 @@ public class Contenido implements Serializable {
 	}
 	
 	public Contenido(int id, TipoContenido tipo, Privacidad privacidad, int precio, String descripcion, String titulo, byte[] archivo, Date fechaPublicado, boolean bloqueado, boolean eliminado, CategoriaContenido miCategoria) {
+		if(tipo == null){
+    		throw new RuntimeException(MensajesExcepciones.tipoContenido);
+    	}
+		if(privacidad == null){
+    		throw new RuntimeException(MensajesExcepciones.privacidadContenido);
+    	}
+		if(privacidad != privacidad.Premium){
+			if(precio < 0){
+	    		throw new RuntimeException(MensajesExcepciones.precio);
+	    	}
+		}
+		
+		if(descripcion.equals("")){
+    		throw new RuntimeException(MensajesExcepciones.descripcion);
+    	}
+		if(titulo.equals("")){
+    		throw new RuntimeException(MensajesExcepciones.titulo);
+    	}
+		if(archivo.equals(null)){
+    		throw new RuntimeException(MensajesExcepciones.archivo);
+    	}
+		if(fechaPublicado.equals(null)){
+    		throw new RuntimeException(MensajesExcepciones.fechaYHora);
+    	}
+		if(miCategoria == null){
+    		throw new RuntimeException(MensajesExcepciones.categoria);
+    	}
+		
 		this.id = id;
 		this.tipo = tipo;
 		this.privacidad = privacidad;
@@ -103,8 +133,8 @@ public class Contenido implements Serializable {
 		this.titulo = titulo;
 		this.archivo = archivo;
 		this.fechaPublicado = fechaPublicado;
-		this.bloqueado = bloqueado;
-		this.eliminado = eliminado;
+		this.bloqueado = false;
+		this.eliminado = false;
 		this.miCategoria = miCategoria;
 		MisVentas = new TreeMap<Integer, Venta>();
 		MisReporte = new TreeMap<Integer, Reporte>();
@@ -125,6 +155,10 @@ public class Contenido implements Serializable {
 	}
 
 	public void setTipo(TipoContenido tipo) {
+		if(tipo == null){
+    		throw new RuntimeException(MensajesExcepciones.tipoContenido);
+    	}
+		
 		this.tipo = tipo;
 	}
 
@@ -133,6 +167,10 @@ public class Contenido implements Serializable {
 	}
 
 	public void setPrivacidad(Privacidad privacidad) {
+		if(privacidad == null){
+    		throw new RuntimeException(MensajesExcepciones.privacidadContenido);
+    	}
+		
 		this.privacidad = privacidad;
 	}
 
@@ -141,6 +179,12 @@ public class Contenido implements Serializable {
 	}
 
 	public void setPrecio(float precio) {
+		if(privacidad != privacidad.Premium){
+			if(precio < 0){
+	    		throw new RuntimeException(MensajesExcepciones.precio);
+	    	}
+		}
+		
 		this.precio = precio;
 	}
 
@@ -149,6 +193,10 @@ public class Contenido implements Serializable {
 	}
 
 	public void setDescripcion(String descripcion) {
+		if(descripcion.equals("")){
+    		throw new RuntimeException(MensajesExcepciones.descripcion);
+    	}
+		
 		this.descripcion = descripcion;
 	}
 
@@ -157,6 +205,10 @@ public class Contenido implements Serializable {
 	}
 
 	public void setTitulo(String titulo) {
+		if(titulo.equals("")){
+    		throw new RuntimeException(MensajesExcepciones.titulo);
+    	}
+		
 		this.titulo = titulo;
 	}
 
@@ -165,6 +217,10 @@ public class Contenido implements Serializable {
 	}
 
 	public void setArchivo(byte[] archivo) {
+		if(archivo.equals(null)){
+    		throw new RuntimeException(MensajesExcepciones.archivo);
+    	}
+		
 		this.archivo = archivo;
 	}
 
@@ -173,10 +229,14 @@ public class Contenido implements Serializable {
 	}
 
 	public void setFechaPublicado(Date fechaPublicado) {
+		if(fechaPublicado.equals(null)){
+    		throw new RuntimeException(MensajesExcepciones.fechaYHora);
+    	}
+		
 		this.fechaPublicado = fechaPublicado;
 	}
 
-	public boolean isBloqueado() {
+	public boolean getBloqueado() {
 		return bloqueado;
 	}
 
@@ -184,7 +244,7 @@ public class Contenido implements Serializable {
 		this.bloqueado = bloqueado;
 	}
 
-	public boolean isEliminado() {
+	public boolean getEliminado() {
 		return eliminado;
 	}
 
@@ -197,6 +257,10 @@ public class Contenido implements Serializable {
 	}
 
 	public void setMiCategoria(CategoriaContenido miCategoria) {
+		if(miCategoria == null){
+    		throw new RuntimeException(MensajesExcepciones.categoria);
+    	}
+		
 		this.miCategoria = miCategoria;
 	}
 

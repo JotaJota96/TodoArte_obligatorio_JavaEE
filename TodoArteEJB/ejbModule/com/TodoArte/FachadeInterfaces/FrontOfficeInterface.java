@@ -2,18 +2,71 @@ package com.TodoArte.FachadeInterfaces;
 
 import java.util.ArrayList;
 
-import javax.ejb.Local;
+import com.TodoArte.Classes.*;
 
-import com.TodoArte.Classes.Artista;
-import com.TodoArte.Classes.Comentario;
-import com.TodoArte.Classes.Contenido;
-import com.TodoArte.Classes.Fan;
-import com.TodoArte.Classes.QyAProgramado;
-import com.TodoArte.Classes.Sitio;
-import com.TodoArte.Classes.Usuarios;
-
-@Local
 public interface FrontOfficeInterface {
+	/**
+	 * Calificar un contenido especifico
+	 * @param val la Valoracion realizado
+	 * @param idFan nickname del usuario que realizo el comentario
+	 * @param idContenido el id del contenido al cual se hizo el comentario
+	 * @param idArtista el id del artista propietario del comentario
+	 */
+	public void calificarContenido(Valoracion val, String idFan, int idContenido, String idArtista);
+	
+	/**
+	 * Comenta un contenido especifico
+	 * @param comentario realizado
+	 * @param idFan nickname del usuario que realizo el comentario
+	 * @param idContenido el id del contenido al cual se hizo el comentario
+	 * @param idArtista el id del artista propietario del comentario
+	 */
+	public void comentarContenido(Comentario comentario, String idFan, int idContenido, String idArtista);
+	
+	/**
+	 * Reporta un contenido especifico
+	 * @param reporte realizado por el usuario
+	 * @param idFan nickname del usuario que realizo el comentario
+	 * @param idContenido el id del contenido al cual se hizo el comentario
+	 * @param idArtista el id del artista propietario del comentario
+	 */
+	public void reportarContenido(Reporte reporte, String idFan, int idContenido, String idArtista);
+	
+	/**
+	 * Obtiene las notificacion de un fan especifico
+	 * @param idFan nickname del usuario del que se decea listar las notificaciones
+	 * @return debuelve las notificaciones del usaurio en un ArrayList
+	 */
+	public ArrayList<NotificacionFan> listarNotificacionesFan(String idFan);
+
+	/**
+	 * Obtiene las notificacion de un fan especifico
+	 * @param idArtista nickname del usuario del que se decea listar las notificaciones
+	 * @return debuelve las notificaciones del usaurio en un ArrayList
+	 */
+	public ArrayList<NotificacionArtista> listarNotificacionesArtista(String idArtista);
+	
+	/**
+	 * Agrega un comentario a un contenido de un artista
+	 * @param idFan nickname del usuario que compro el contenido
+	 * @param idContenido es el id del contenido comprado
+	 * @param idArtista nickname del artista due�o del contenido
+	 */
+	public void comprarContenido(String idFan, int idContenido, int idArtista);
+	
+	/**
+	 * Actualiza el tipo de suscripcion de un fan al sitio de un artista a Premium
+	 * @param idFan nickname del fan que compra el premium
+	 * @param idArtista nickname del artista
+	 */
+	public void comprarPremium(String idFan, String idArtista);
+	
+	/**
+	 * Suscribe un fan a un artista
+	 * @param idFan nickname del fan que se suscribio
+	 * @param idArtista nickname del artista
+	 */
+	public void suscribirseFanArtista(String idFan, String idArtista);
 	
 	/**
 	 * Registra un nuevo fan en el sistema
@@ -104,14 +157,4 @@ public interface FrontOfficeInterface {
 	public ArrayList<Fan> obtenerFansDeSitio(String idArtista);
 	
 }
-
-
-
-
-
-
-
-
-
-
 

@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.TodoArte.Enums.MensajesExcepciones;
+
 
 @Entity
 @Table(name = "fanSigueSitio")
@@ -36,10 +38,17 @@ public class FanSigueSitio implements Serializable {
     public FanSigueSitio() {
     }
 
-    public FanSigueSitio(int id, String nickArtista, boolean bloqueado, boolean premiun, Fan fan) {
-        this.id = id;
+    public FanSigueSitio(int id, String nickArtista, boolean premiun, Fan fan) {
+    	if(nickArtista.equals("")){
+    		throw new RuntimeException(MensajesExcepciones.nombre);
+    	}
+    	if(miFan == null){
+    		throw new RuntimeException(MensajesExcepciones.Fan);
+    	}
+    	
+    	this.id = id;
         this.nickArtista = nickArtista;     
-        this.bloqueado = bloqueado;   
+        this.bloqueado = false;   
         this.premiun = premiun;     
         this.miFan = fan;
     }
@@ -57,6 +66,10 @@ public class FanSigueSitio implements Serializable {
     }
 
     public void setNickArtista(String nickArtista) {
+    	if(nickArtista.equals("")){
+    		throw new RuntimeException(MensajesExcepciones.nombre);
+    	}
+    	
         this.nickArtista = nickArtista;
     }
 
@@ -81,6 +94,10 @@ public class FanSigueSitio implements Serializable {
 	}
 
 	public void setMiFan(Fan miFan) {
+    	if(miFan.equals(null)){
+    		throw new RuntimeException(MensajesExcepciones.Fan);
+    	}
+    	
 		this.miFan = miFan;
 	}
 }

@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.TodoArte.Enums.MensajesExcepciones;
+
 @Entity
 @Table(name = "notificacionFan")
 public class NotificacionFan implements Serializable {
@@ -33,6 +35,15 @@ public class NotificacionFan implements Serializable {
     }
 
     public NotificacionFan(int id, String titulo, String descripcion, Date fechaYHora) {
+    	if(titulo.equals("")){
+            throw new RuntimeException(MensajesExcepciones.titulo);
+		}
+    	if(descripcion.equals("")){
+            throw new RuntimeException(MensajesExcepciones.descripcion);
+		}
+    	if(fechaYHora == null){
+            throw new RuntimeException(MensajesExcepciones.fechaYHora);
+		}
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -52,6 +63,9 @@ public class NotificacionFan implements Serializable {
     }
 
     public void setTitulo(String titulo) {
+    	if(titulo.equals("")){
+            throw new RuntimeException(MensajesExcepciones.titulo);
+		}
         this.titulo = titulo;
     }
 
@@ -60,6 +74,9 @@ public class NotificacionFan implements Serializable {
     }
 
     public void setDescripcion(String descripcion) {
+    	if(descripcion.equals("")){
+            throw new RuntimeException(MensajesExcepciones.descripcion);
+		}
         this.descripcion = descripcion;
     }
 
@@ -68,6 +85,9 @@ public class NotificacionFan implements Serializable {
     }
 
     public void setFechaYHora(Date fechaYHora) {
+    	if(fechaYHora == null){
+            throw new RuntimeException(MensajesExcepciones.fechaYHora);
+		}
         this.fechaYHora = fechaYHora;
     }
 }

@@ -14,6 +14,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import com.TodoArte.Enums.MensajesExcepciones;
+
 @Entity
 @Table(name = "artista")
 public class Artista extends Usuarios implements Serializable {
@@ -43,8 +45,18 @@ public class Artista extends Usuarios implements Serializable {
         this.pagos = new TreeMap<Integer, PagoAPlataforma>();
     }
 
-    public Artista(String nikname, String contrasenia, String correo, float saldo, byte[] imagen, boolean bloqueado, String nombre, String biografia, Sitio sitio) {
-		super(nikname, contrasenia, correo, saldo, imagen, bloqueado);
+    public Artista(String nikname, String contrasenia, String correo, float saldo, byte[] imagen, String nombre, String biografia, Sitio sitio) {
+		super(nikname, contrasenia, correo, saldo, imagen);
+		if(nombre.equals("")){
+    		throw new RuntimeException(MensajesExcepciones.nombre);
+    	}
+		if(biografia.equals("")){
+    		throw new RuntimeException(MensajesExcepciones.biografia);
+    	}
+		if(sitio.equals(null)){
+    		throw new RuntimeException(MensajesExcepciones.sitio);
+    	}
+		
         this.nombre = nombre;
         this.biografia = biografia;
         this.notificacion = new TreeMap<Integer, NotificacionArtista>();
@@ -57,6 +69,10 @@ public class Artista extends Usuarios implements Serializable {
 	}
 
 	public void setNombre(String nombre) {
+		if(nombre.equals("")){
+    		throw new RuntimeException(MensajesExcepciones.nombre);
+    	}
+		
 		this.nombre = nombre;
 	}
 
@@ -65,6 +81,10 @@ public class Artista extends Usuarios implements Serializable {
 	}
 
 	public void setBiografia(String biografia) {
+		if(biografia.equals("")){
+    		throw new RuntimeException(MensajesExcepciones.biografia);
+    	}
+		
 		this.biografia = biografia;
 	}
 
@@ -89,6 +109,10 @@ public class Artista extends Usuarios implements Serializable {
 	}
 
 	public void setMiSitio(Sitio miSitio) {
+		if(miSitio.equals(null)){
+    		throw new RuntimeException(MensajesExcepciones.sitio);
+    	}
+		
 		this.miSitio = miSitio;
 	}
     

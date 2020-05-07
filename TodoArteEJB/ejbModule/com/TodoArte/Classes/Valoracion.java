@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.TodoArte.Enums.MensajesExcepciones;
+
 
 @Entity
 @Table(name = "valoracion")
@@ -31,6 +33,12 @@ public class Valoracion implements Serializable{
 	}
 
 	public Valoracion(int id, int val, Fan miFan) {
+		if(val>0 && val<6){
+            throw new RuntimeException(MensajesExcepciones.valoracion);
+		}
+		if(miFan == null){
+            throw new RuntimeException(MensajesExcepciones.miFan);
+		}
 		this.id = id;
 		this.val = val;
 		this.miFan = miFan;
@@ -49,6 +57,9 @@ public class Valoracion implements Serializable{
 	}
 
 	public void setVal(int val) {
+		if(val>0 && val<6){
+            throw new RuntimeException(MensajesExcepciones.valoracion);
+		}
 		this.val = val;
 	}
 
@@ -57,6 +68,9 @@ public class Valoracion implements Serializable{
 	}
 
 	public void setMiFan(Fan miFan) {
+		if(miFan == null){
+            throw new RuntimeException(MensajesExcepciones.miFan);
+		}
 		this.miFan = miFan;
 	}
 }
