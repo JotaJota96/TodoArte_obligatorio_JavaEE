@@ -80,7 +80,13 @@ public class Fan extends Usuario implements Serializable {
         this.misSitiosSeguidos = new TreeMap<Integer, FanSigueSitio>();
 		this.notificaciones = new TreeMap<Integer, NotificacionFan>();
 	}
+	//***************************************************************************
 
+	public void agregarNotificacion(NotificacionFan notificacion) {
+    	// persistir la notificacion y agregar a coleccion
+    }
+    
+	//***************************************************************************
 	public String getNombre() {
         return this.nombre;
     }

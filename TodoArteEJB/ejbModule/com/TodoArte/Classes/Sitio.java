@@ -149,6 +149,33 @@ public class Sitio implements Serializable {
 		return null;
 	}
 	
+	public Contenido agregarContenido(Contenido contenido) {
+		// persistir el contenido
+		// agregarlo a la coleccion y devolverlo
+		return null;
+	}
+
+	public Contenido eliminarContenido(int idContenido) {
+		// eliminar el contenido de la coleccion y de la base de datos
+		return null;
+	}
+
+	public boolean esFan(String idFan) {
+		// devuelve si el fan es seguidor del sitio
+		return false;
+	}
+	
+	public boolean fanBloqueado(String idFan) {
+		// devuelve si el fan se encuentra bloqueado de este sitio
+		return false;
+	}
+	
+	public boolean fanEsPremium(String idFan) {
+		// devuelve si el fan es premium
+		return false;
+	}
+	
+	
     //**********************************************************************
 	public int getId() {
 		return id;

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.TodoArte.Classes.Fan;
 import com.TodoArte.Classes.FanSigueSitio;
+import com.TodoArte.Classes.NotificacionArtista;
 import com.TodoArte.Classes.NotificacionFan;
 import com.TodoArte.Classes.Usuario;
 import com.TodoArte.Enums.MensajesExcepciones;
@@ -67,5 +68,12 @@ public class FanController implements FanInterface{
 		// recordar persistir lo que haga falta
 	}
 	
+	@Override
+	public void notificarFan(String idFan, NotificacionFan notificacion) {
+		// obtener el fan por id
+		// decirle que registre la notificacion
+		Fan
+	}
+
 	
 }

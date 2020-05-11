@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.TodoArte.Classes.Fan;
 import com.TodoArte.Classes.FanSigueSitio;
+import com.TodoArte.Classes.NotificacionArtista;
 import com.TodoArte.Classes.NotificacionFan;
 import com.TodoArte.Classes.Usuario;
 
@@ -59,4 +60,13 @@ public interface FanInterface {
 	 * @param idFan ID del Fan que se debe vincular
 	 */
 	public void vincularFanASitio(FanSigueSitio fanSigueSitio, String idFan);
+
+	/**
+	 * Envia una notificacion a un fan
+	 * @param idFan ID del fan a notificar
+	 * @param notificacion Notificacion a enviar
+	 */
+	public void notificarFan(String idFan, NotificacionFan notificacion);
+
+	
 }

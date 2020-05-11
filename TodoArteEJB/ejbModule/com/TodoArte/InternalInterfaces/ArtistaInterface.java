@@ -121,5 +121,21 @@ public interface ArtistaInterface {
 	 * @return retorna el QyA programado creado
 	 */
 	public QyAProgramado programarQyA(String idArtista, QyAProgramado qyaProgramado);
+	
+	/**
+	 * Agrega el contenido al artista especificado
+	 * @param idArtista ID del artista al que se le desea agregar contenido
+	 * @param contenido Contenido que se desea agregar
+	 * @return
+	 */
+	public Contenido agregarContenido(String idArtista, Contenido contenido);
+	
+	/**
+	 * Elimina un contenido especifico de un artista
+	 * @param idArtista ID del artista propietario del contenido a eliminar
+	 * @param idContenido ID del contenido a eliminar
+	 * @return
+	 */
+	public Contenido eliminarContenido(String idArtista, int idContenido);
 
 }

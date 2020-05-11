@@ -27,7 +27,9 @@ public class ArtistaController implements ArtistaInterface{
 
 	@Override
 	public void notificarArtista(String idArtista, NotificacionArtista notificacion) {
-		// TODO Auto-generated method stub
+		// obtener el artista por id
+		// decirle que registre la notificacion
+		
 	}
 
 	@Override
@@ -125,4 +127,24 @@ public class ArtistaController implements ArtistaInterface{
 		// decirle al sitio que agregue el QyA, y devuelve lo obtenido
 		return null;
 	}
+
+	@Override
+	public Contenido agregarContenido(String idArtista, Contenido contenido) {
+		// obtener el artista por id
+		// obtener el sitio de ese artista
+		// decirle al sitio del artista que agregue el contenido
+		return null;
+	}
+
+	@Override
+	public Contenido eliminarContenido(String idArtista, int idContenido) {
+		// obtener el artista por id
+		// obtener el sitio de ese artista
+		// decirle al sitio del artista que elimine el contenido
+		// update del sitio
+		return null;
+	}
+
+	
+	
 }
