@@ -14,8 +14,14 @@ import com.TodoArte.Classes.Sitio;
 import com.TodoArte.Classes.Usuario;
 import com.TodoArte.Classes.Valoracion;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
+import com.TodoArte.InternalControllers.FanController;
+import com.TodoArte.InternalInterfaces.FanInterface;
 
 public class FrontOfficeController implements FrontOfficeInterface{
+	
+	FanInterface cFan = new FanController();
+	
+	public FrontOfficeController() {}
 
 	@Override
 	public void calificarContenido(Valoracion val, String idFan, int idContenido, String idArtista) {
@@ -67,8 +73,7 @@ public class FrontOfficeController implements FrontOfficeInterface{
 
 	@Override
 	public Fan registrarUsuarioFan(Fan fan) {
-		// TODO Auto-generated method stub
-		return null;
+		return cFan.registrarUsuarioFan(fan);
 	}
 
 	@Override

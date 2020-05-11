@@ -48,7 +48,7 @@ public abstract class Usuario implements Serializable{
     	if(correo.equals("")){
             throw new RuntimeException(MensajesExcepciones.correo);
 		}
-    	if(saldo <= 0){
+    	if(saldo != 0){
             throw new RuntimeException(MensajesExcepciones.saldo);
 		}
     	this.nikname = nikname;
