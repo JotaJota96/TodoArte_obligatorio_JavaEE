@@ -12,6 +12,8 @@ import com.TodoArte.FachadeInterfaces.BackOfficeInterface;
 
 public class BackOfficeController implements BackOfficeInterface {
 
+	public BackOfficeController() {}
+	
 	@Override
 	public void bloquearDesbloquearArtista(String idArtista) {
 		// TODO Auto-generated method stub
