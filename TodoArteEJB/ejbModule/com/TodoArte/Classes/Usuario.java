@@ -13,7 +13,7 @@ import com.TodoArte.Enums.MensajesExcepciones;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Usuarios implements Serializable{
+public abstract class Usuario implements Serializable{
 	@Id
 	@Column(name = "id")
     protected String nikname;
@@ -35,10 +35,10 @@ public abstract class Usuarios implements Serializable{
     protected boolean bloqueado;
 
 	
-    public Usuarios(){
+    public Usuario(){
     }
 
-    public Usuarios(String nikname, String contrasenia, String correo, float saldo, byte[] imagen) {
+    public Usuario(String nikname, String contrasenia, String correo, float saldo, byte[] imagen) {
     	if(nikname.equals("")){
             throw new RuntimeException(MensajesExcepciones.nickname);
 		}

@@ -52,9 +52,9 @@ public interface BackOfficeInterface {
 	 * Valida los datos de inicio de sesion de un administrador
 	 * @param nickname ID (nickname o email) del administrador
 	 * @param contrasenia Contrasenia del administrador
-	 * @return TRUE si los datos son correctos, de lo contrario FALSE
+	 * @return si los datos son correctos retorna el administrador que ha iniciado sesion, de lo contrario NULL
 	 */
-	public boolean iniciarSesion(String id, String contrasenia);
+	public Administrador iniciarSesion(String id, String contrasenia);
 	
 	/**
 	 * Obtiene el listado de pagos realizados por un artista especifico
@@ -66,8 +66,9 @@ public interface BackOfficeInterface {
 	/**
 	 * Agrega un nuevo administrador al sistema
 	 * @param administrador Nuevo administrador
+	 * @return retorna el administrador creado
 	 */
-	public void agregarAdministrador(Administrador administrador);
+	public Administrador agregarAdministrador(Administrador administrador);
 }
 
 

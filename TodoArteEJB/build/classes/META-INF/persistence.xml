@@ -16,7 +16,7 @@
 		<class>com.TodoArte.Classes.QyAProgramado</class>
 		<class>com.TodoArte.Classes.Reporte</class>
 		<class>com.TodoArte.Classes.Sitio</class>
-		<class>com.TodoArte.Classes.Usuarios</class>
+		<class>com.TodoArte.Classes.Usuario</class>
 		<class>com.TodoArte.Classes.Valoracion</class>
 		<class>com.TodoArte.Classes.Venta</class>
 

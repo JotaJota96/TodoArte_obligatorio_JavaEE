@@ -71,31 +71,34 @@ public interface FrontOfficeInterface {
 	/**
 	 * Registra un nuevo fan en el sistema
 	 * @param Fan Fan a registrar
+	 * @return devuelve el fan creado
 	 */
-	public void registrarUsuarioFan(Fan fan);
+	public Fan registrarUsuarioFan(Fan fan);
 	
 	/**
 	 * Registra un nuevo artista y su sitio en el sistema
 	 * @param artista Artista a registrar
 	 * @param sitio Sitio del artista a registrar
+	 * @return devuelve el artista creado (no su sitio)
 	 */
-	public void registrarUsuarioArtista(Artista artista, Sitio sitio);
+	public Artista registrarUsuarioArtista(Artista artista, Sitio sitio);
 
 	/**
 	 * Valida los datos de inicio de sesion de un usuario (sea fan o artista)
 	 * Si el usuario se encuentra bloqueado, no se le permite iniciar sesion y se retorna FALSE
 	 * @param idUsuario ID (nickname o email) del usuario que desea iniciar sesion
 	 * @param contrasenia Contrasenia del usuario
-	 * @return TRUE si los datos son correctos, de lo contrario FALSE
+	 * @return si los datos son correctos retorna el usuario que ha iniciado sesion, de lo contrario NULL
 	 */
-	public boolean iniciarSesion(String idUsuario, String contrasenia);
+	public Usuario iniciarSesion(String idUsuario, String contrasenia);
 	
 	/**
 	 * Agrega en el sistema, un contenido a un artista. Si el artista ya tiene un contenido con el ID recibido, lo actualiza
 	 * @param idArtista ID del artista propietario del contenido
 	 * @param contenido Contenido a agregar o modificar
+	 * @return retorna el contenido agregado o modificado
 	 */
-	public void agregarModificarContenido(String idArtista, Contenido contenido);
+	public Contenido agregarModificarContenido(String idArtista, Contenido contenido);
 	
 	/**
 	 * Elimina un contenido especifico de un artista especifico
@@ -108,15 +111,16 @@ public interface FrontOfficeInterface {
 	 * Programa un QyA para un artista
 	 * @param idArtista ID del artista que realizará el QyA
 	 * @param qyaProgramado QyA a programar
+	 * @return retorna el QyA programado creado
 	 */
-	public void programarQyA(String idArtista, QyAProgramado qyaProgramado);
+	public QyAProgramado programarQyA(String idArtista, QyAProgramado qyaProgramado);
 	
 	/**
 	 * Devuelve los datos del usuario, sea Fan o Artista
 	 * @param idUsuario ID del usuario que se desea obtener
 	 * @return Si el usuario existe, devuelve sus datos, de lo contrario NULL
 	 */
-	public Usuarios obtenerDatosUsuario(String idUsuario);
+	public Usuario obtenerDatosUsuario(String idUsuario);
 	
 	/**
 	 * Recarga el saldo de un usuario, sea fan o artista

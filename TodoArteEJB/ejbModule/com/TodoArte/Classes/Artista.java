@@ -18,7 +18,7 @@ import com.TodoArte.Enums.MensajesExcepciones;
 
 @Entity
 @Table(name = "artista")
-public class Artista extends Usuarios implements Serializable {
+public class Artista extends Usuario implements Serializable {
 	@Column(name = "nombre")
     private String nombre;
 	

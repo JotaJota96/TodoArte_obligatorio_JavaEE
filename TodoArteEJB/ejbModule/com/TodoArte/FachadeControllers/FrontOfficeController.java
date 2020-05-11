@@ -11,7 +11,7 @@ import com.TodoArte.Classes.NotificacionFan;
 import com.TodoArte.Classes.QyAProgramado;
 import com.TodoArte.Classes.Reporte;
 import com.TodoArte.Classes.Sitio;
-import com.TodoArte.Classes.Usuarios;
+import com.TodoArte.Classes.Usuario;
 import com.TodoArte.Classes.Valoracion;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
 
@@ -66,27 +66,27 @@ public class FrontOfficeController implements FrontOfficeInterface{
 	}
 
 	@Override
-	public void registrarUsuarioFan(Fan fan) {
+	public Fan registrarUsuarioFan(Fan fan) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void registrarUsuarioArtista(Artista artista, Sitio sitio) {
+	public Artista registrarUsuarioArtista(Artista artista, Sitio sitio) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public boolean iniciarSesion(String idUsuario, String contrasenia) {
+	public Usuario iniciarSesion(String idUsuario, String contrasenia) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public void agregarModificarContenido(String idArtista, Contenido contenido) {
+	public Contenido agregarModificarContenido(String idArtista, Contenido contenido) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
@@ -96,13 +96,13 @@ public class FrontOfficeController implements FrontOfficeInterface{
 	}
 
 	@Override
-	public void programarQyA(String idArtista, QyAProgramado qyaProgramado) {
+	public QyAProgramado programarQyA(String idArtista, QyAProgramado qyaProgramado) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public Usuarios obtenerDatosUsuario(String idUsuario) {
+	public Usuario obtenerDatosUsuario(String idUsuario) {
 		// TODO Auto-generated method stub
 		return null;
 	}

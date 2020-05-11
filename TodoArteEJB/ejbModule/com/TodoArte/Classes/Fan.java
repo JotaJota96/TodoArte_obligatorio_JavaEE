@@ -22,7 +22,7 @@ import com.TodoArte.Enums.Sexo;
 
 @Entity
 @Table(name = "fan")
-public class Fan extends Usuarios implements Serializable {
+public class Fan extends Usuario implements Serializable {
 	@Column(name = "nombre")
     private String nombre;
 	
