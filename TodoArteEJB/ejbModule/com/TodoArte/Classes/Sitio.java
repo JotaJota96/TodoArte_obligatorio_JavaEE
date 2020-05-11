@@ -1,6 +1,7 @@
 package com.TodoArte.Classes;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -123,7 +124,32 @@ public class Sitio implements Serializable {
         this.MisQyA = new TreeMap<Integer, QyAProgramado>();
         this.MisContenidos = new TreeMap<Integer, Contenido>();
 	}
-
+    //**********************************************************************
+	public void comprarPremium(String idFan) {
+		// encontrar FanSigueASitio de ese fan y actualizarlo, tambien en BDD
+	}
+    
+	public FanSigueSitio agregarSeguidor() {
+		// crear un nuevo FanSigueSitio , agregarlo a coleccion, persistirlo y devolverlo
+		return null;
+	}
+    
+	public void bloquearDesbloquearUsuarioDeSitio(String idFan) {
+		// busca el fanSigueSitio entre los seguidores del sitio
+		// actualiza el estado del bloqueo
+	}
+	
+	public ArrayList<String> obtenerIdDeFans(){
+		// recorre los FanSigueSitio obteniendo los nicknames de cada fan y agregandolos al array de retorno
+		return null;
+	}
+	
+	public QyAProgramado programarQyA(QyAProgramado qyaProgramado) {
+		// crea el QyA, lo agrega a la coleccion y lo devuelve
+		return null;
+	}
+	
+    //**********************************************************************
 	public int getId() {
 		return id;
 	}

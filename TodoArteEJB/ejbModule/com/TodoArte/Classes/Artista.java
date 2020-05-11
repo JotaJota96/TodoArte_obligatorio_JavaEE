@@ -63,7 +63,13 @@ public class Artista extends Usuario implements Serializable {
         this.pagos = new TreeMap<Integer, PagoAPlataforma>();
         this.miSitio = sitio;
     }
+    //**********************************************************************
 
+    public void agregarNotificacion(NotificacionArtista notificacion) {
+    	// persistir la notificacion y agregar a coleccion
+    }
+    
+    //**********************************************************************
 	public String getNombre() {
 		return nombre;
 	}

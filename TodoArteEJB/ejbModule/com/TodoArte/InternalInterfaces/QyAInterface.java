@@ -1,5 +1,6 @@
 package com.TodoArte.InternalInterfaces;
 
-public interface QyAInterface {
 
+public interface QyAInterface {
+	
 }
