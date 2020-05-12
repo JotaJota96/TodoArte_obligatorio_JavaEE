@@ -4,27 +4,29 @@ import java.util.ArrayList;
 
 import com.TodoArte.Classes.Fan;
 import com.TodoArte.Classes.FanSigueSitio;
-import com.TodoArte.Classes.NotificacionArtista;
 import com.TodoArte.Classes.NotificacionFan;
 import com.TodoArte.Classes.Usuario;
 import com.TodoArte.Enums.MensajesExcepciones;
+import com.TodoArte.InternalInterfaces.ArtistaInterface;
 import com.TodoArte.InternalInterfaces.FanInterface;
 import com.TodoArte.JPAControllerClasses.FanJpaController;
 
 public class FanController implements FanInterface{
-
+	
 	public FanController() {}
 
 	@Override
 	public Fan registrarUsuarioFan(Fan fan) {
-		FanJpaController fjpa = new FanJpaController();
-		if (fjpa.findFan(fan.getNikname()) != null){
-			throw new RuntimeException(MensajesExcepciones.fanExiste);
+		if (fan == null) {
+			throw new RuntimeException(MensajesExcepciones.miFan);
 		}
-		// Aca falta verificar el correo
+		ArtistaInterface ac = new ArtistaController();
 		
+		FanJpaController fjpa = new FanJpaController();
+		if (fjpa.findFan(fan.getNikname()) != null || ac.obtenerDatosUsuario(fan.getNikname()) != null || ac.obtenerDatosUsuario(fan.getCorreo()) != null){
+			throw new RuntimeException(MensajesExcepciones.usuarioExiste);
+		}
 		fjpa.create(fan);
-		
 		return fan;
 	}
 

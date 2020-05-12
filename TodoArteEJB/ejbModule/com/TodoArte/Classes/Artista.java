@@ -53,10 +53,11 @@ public class Artista extends Usuario implements Serializable {
 		if(biografia.equals("")){
     		throw new RuntimeException(MensajesExcepciones.biografia);
     	}
-		if(sitio.equals(null)){
+		/*
+		if(sitio == null){
     		throw new RuntimeException(MensajesExcepciones.sitio);
     	}
-		
+		*/
         this.nombre = nombre;
         this.biografia = biografia;
         this.notificacion = new TreeMap<Integer, NotificacionArtista>();

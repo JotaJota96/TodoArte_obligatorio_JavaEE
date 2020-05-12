@@ -4,6 +4,7 @@ import com.TodoArte.JPAControllerClasses.exceptions.NonexistentEntityException;
 
 import com.TodoArte.Classes.Artista;
 import com.TodoArte.Classes.Fan;
+import com.TodoArte.Classes.Sitio;
 
 import java.io.Serializable;
 import java.util.List;
@@ -44,6 +45,20 @@ public class ArtistaJpaController implements Serializable {
         }
     }
 
+    public void create(Artista artista, Sitio sitio) {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            em.persist(artista);
+            em.persist(sitio);
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
     public void edit(Artista artista) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {

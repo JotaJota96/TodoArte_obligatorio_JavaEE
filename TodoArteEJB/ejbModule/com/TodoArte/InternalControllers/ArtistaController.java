@@ -10,12 +10,14 @@ import com.TodoArte.Classes.PagoAPlataforma;
 import com.TodoArte.Classes.QyAProgramado;
 import com.TodoArte.Classes.Sitio;
 import com.TodoArte.Classes.Usuario;
+import com.TodoArte.Enums.MensajesExcepciones;
 import com.TodoArte.InternalInterfaces.ArtistaInterface;
 import com.TodoArte.InternalInterfaces.FanInterface;
+import com.TodoArte.JPAControllerClasses.ArtistaJpaController;
+import com.TodoArte.JPAControllerClasses.SitioJpaController;
+
 
 public class ArtistaController implements ArtistaInterface{
-	
-	FanInterface fc = new FanController();
 	
 	public ArtistaController() {}
 
@@ -61,12 +63,25 @@ public class ArtistaController implements ArtistaInterface{
 
 	@Override
 	public Artista registrarUsuarioArtista(Artista artista, Sitio sitio) {
-		// Crea un nuevo artista
-		// un nuevo sitio
-		// los vincula
-		// los persiste, y retorna el artista
-		// recordar validar
-		return null;
+		if (artista == null) {
+			throw new RuntimeException(MensajesExcepciones.artista);
+		}
+		if (sitio == null) {
+			throw new RuntimeException(MensajesExcepciones.sitio);
+		}
+		FanInterface fc = new FanController();
+		ArtistaJpaController aJpa = new ArtistaJpaController();
+		SitioJpaController sJpa = new SitioJpaController();
+
+		if (aJpa.findArtista(artista.getNikname()) != null || fc.obtenerDatosUsuario(artista.getNikname()) != null || fc.obtenerDatosUsuario(artista.getCorreo()) != null) {
+			throw new RuntimeException(MensajesExcepciones.usuarioExiste);
+		}
+		artista.setMiSitio(sitio);
+		sitio.setMiArtista(artista);
+
+		aJpa.create(artista, sitio);
+		
+		return artista;
 	}
 
 	@Override

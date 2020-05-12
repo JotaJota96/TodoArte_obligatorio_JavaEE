@@ -35,5 +35,5 @@ public abstract class MensajesExcepciones {
 	public static final String monto = "Monto debe ser mayor a cero";
 	public static final String artista = "Artista no puede ser null";
 	public static final String fuente = "Fuente no puede ser null";
-	public static final String fanExiste = "Ya existe un fan con ese nickname o email";
+	public static final String usuarioExiste = "Ya existe un usuario con ese nickname o email";
 }
