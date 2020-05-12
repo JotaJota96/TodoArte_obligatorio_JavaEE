@@ -141,7 +141,34 @@ public class Contenido implements Serializable {
 		MisComentario = new TreeMap<Integer, Comentario>();
 		MisValoracion = new TreeMap<Integer, Valoracion>();
 	}
+	//***************************************************************************
+	
+	public void crearValoracion(Valoracion val, Fan fan) {
+		// vincular la valoracion con el fan
+		// persistir la valoracion
+		// agregarlo a la coleccion
+	}
 
+	public void crearComentario(Comentario comentario, Fan fan) {
+		// vincular el comentario con el fan
+		// persistir el comentario
+		// agregarlo a la coleccion
+	}
+	
+	public void crearReporte(Reporte reporte, Fan fan) {
+		// vincular el reporte con el fan
+		// persistir el reporte
+		// agregarlo a la coleccion
+	}
+
+	public void crearVenta(Fan fan) {
+		// crear una nueva venta
+		// vincular la venta con el fan
+		// persistir la venta
+		// agregarlo a la coleccion
+	}
+	
+	//***************************************************************************
 	public int getId() {
 		return id;
 	}

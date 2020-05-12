@@ -3,6 +3,8 @@ package com.TodoArte.JPAControllerClasses;
 import com.TodoArte.JPAControllerClasses.exceptions.NonexistentEntityException;
 
 import com.TodoArte.Classes.Administrador;
+import com.TodoArte.Classes.Fan;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -113,7 +115,21 @@ public class AdministradorJpaController implements Serializable {
     public Administrador findAdministrador(String id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Administrador.class, id);
+        	// originalmente solo tenia la siguiente linea
+            // return em.find(Administrador.class, id);
+        	// Yo lo cambie por:
+        	
+        	Query q;
+        	q = em.createQuery("SELECT f FROM Fan f WHERE f.nikname = ?1 OR f.correo = ?2");
+        	q.setParameter(1, id);
+        	q.setParameter(2, id);
+        	List<Administrador> aux = (List<Administrador>) q.getResultList();
+        	
+        	if (aux.size() == 1) {
+        		return (Administrador) aux.get(0);
+        	}else {
+        		return null;
+        	}
         } finally {
             em.close();
         }
