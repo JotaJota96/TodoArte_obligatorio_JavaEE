@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+</h:head>
+
+
+<h:body class="bg-light">
+
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">TodoArte</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+      aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Opciones</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Opciones</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">Registrarse</a>
+          <div class="dropdown-menu" aria-labelledby="dropdown01">
+            <a class="dropdown-item" href="http://localhost:8080/TodoArteWeb/RegistrarArtista.jsf">Como Artista</a>
+            <a class="dropdown-item" href="#">Como Amatista</a>
+            <a class="dropdown-item" href="#">Como Fasista</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  
+  <br />
+  
+  <main role="main" class="container mt-5 mb-5">
+    <h:form class="form-signin">
+      <h4 class="text-center">Registro de Fan</h4>
+	  <hr/>
+      <div class="row">
+        <div class="col-md-1 "></div>
+        <div class="col-md-5 ">
+        
+        <div class="form-group">
+          <label for="nickname">Nickname</label>
+          <h:inputText type="text" class="form-control" id="nickname" value=""></h:inputText>
+         </div>
+         
+         <div class="form-group">
+         	<label for="correo">Correo</label>
+          	<h:inputText type="email" class="form-control" id="correo" value=""></h:inputText>
+          </div>
+          
+          <div class="form-group">
+          	<label for="contrasenia1">Contraseña</label>
+          	<h:inputSecret class="form-control" id="contrasenia1" value=""></h:inputSecret>
+          </div>
+          
+          <div class="form-group">
+          	<label for="contrasenia2">Verificar</label>
+          	<h:inputSecret class="form-control" id="contrasenia2" value=""></h:inputSecret>
+          </div>
+          
+          <div class="form-group">
+          	<label for="imagen">Imagen</label> 
+          	<br/>      	
+          	 <h:inputFile value="#{bean.file}" id="imagen">
+        		<f:ajax listener="#{bean.save}" />
+    		</h:inputFile>
+          </div>
+          
+        </div>
+        <div class="col-md-5 ">
+        
+        <div class="form-group">
+        	<label for="nombre">Nombre</label>
+	        <h:inputText  class="form-control" id="nombre" value="" ></h:inputText>
+         </div>
+         
+         <div class="form-group">
+         	<label for="apellido">Apellido</label>
+	        <h:inputText class="form-control" id="apellido" value=""></h:inputText>
+          </div>
+          
+          <div class="form-group">
+          	<label for="fechaNac">Fecha de nacimiento</label>
+	        <h:inputText class="form-control" id="fechaNac" value=""></h:inputText>
+          </div>
+          
+          <div class="form-group">
+          	<label for="ubicacion">Ubicacion</label>
+	        <h:inputText class="form-control" id="ubicacion" value=""></h:inputText>
+          </div>
+          
+          <div class="form-group">
+          <label for="sexo" >Sexo</label>
+	          <h:selectOneMenu class="form-control" id="sexo" label="Service Level" value="">
+	            <f:selectItem itemLabel="Hombre" itemValue="m" />
+	            <f:selectItem itemLabel="Mujer" itemValue="f" />
+	          </h:selectOneMenu>
+          </div>
+          
+        </div>
+        <div class="col-md-1 "></div>
+      </div>
+      <hr/>
+      <div class="row">
+	      <div class="col-md-1 "></div>
+	      <div class="col-md-5 "></div>
+	      <div class="col-md-5 d-flex justify-content-end">
+	      	<h:commandButton class="btn btn-danger mt-2 mr-2" value="Canselar" action="cancelar" />
+	      	<h:commandButton class="btn btn-primary mt-2" value="Registrarse" action="register" />
+	      </div>
+	      <div class="col-md-1 "></div>
+      </div>
+    </h:form>
+
+  </main>
+
+  <footer class="page-footer text-white">
+    <div class="footer-copyright bg-dark text-center py-3">© 2020 Copyright: TodoArte</div>
+  </footer>
+
+</h:body>
+
+</html>
+
+<!-- http://localhost:8080/TodoArteWeb/RegistrarFan.jsf -->
