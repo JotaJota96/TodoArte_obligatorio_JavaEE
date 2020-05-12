@@ -12,6 +12,8 @@ import com.TodoArte.Classes.Sitio;
 import com.TodoArte.Classes.Usuario;
 import com.TodoArte.InternalInterfaces.ArtistaInterface;
 import com.TodoArte.InternalInterfaces.FanInterface;
+import com.TodoArte.JPAControllerClasses.ArtistaJpaController;
+import com.TodoArte.JPAControllerClasses.FanJpaController;
 
 public class ArtistaController implements ArtistaInterface{
 	
@@ -73,6 +75,14 @@ public class ArtistaController implements ArtistaInterface{
 	public Usuario iniciarSesion(String idUsuario, String contrasenia) {
 		// verifica los datos de inicio de sesion del artista
 		// el id puede ser nickname o email
+		
+		ArtistaJpaController Ajpa = new ArtistaJpaController();
+		Artista artista = Ajpa.findArtista(idUsuario);
+		if(artista != null){
+			if(artista.getContrasenia() == contrasenia){
+				return artista;
+			}
+		}
 		return null;
 	}
 

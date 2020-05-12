@@ -11,9 +11,8 @@ public class Pruebas {
 
 	public static void main(String[] args) {
 		FrontOfficeInterface fo = new FrontOfficeController();
-		
-		// testea tu code here
-		
+
+		System.out.println(fo.iniciarSesion("prueba", "2"));
 		System.out.println("exito");
 	}
 
