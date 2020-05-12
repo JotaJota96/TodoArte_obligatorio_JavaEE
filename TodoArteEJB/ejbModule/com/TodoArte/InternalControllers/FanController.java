@@ -72,7 +72,7 @@ public class FanController implements FanInterface{
 	public void notificarFan(String idFan, NotificacionFan notificacion) {
 		// obtener el fan por id
 		// decirle que registre la notificacion
-		Fan
+
 	}
 
 	

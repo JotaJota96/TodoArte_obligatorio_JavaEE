@@ -4,6 +4,7 @@ import com.TodoArte.JPAControllerClasses.exceptions.NonexistentEntityException;
 
 import com.TodoArte.Classes.Fan;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -113,7 +114,22 @@ public class FanJpaController implements Serializable {
     public Fan findFan(String id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Fan.class, id);
+        	// originalmente solo tenia la siguiente linea
+            // return em.find(Fan.class, id);
+        	// Yo lo cambie por:
+        	
+        	Query q;
+        	q = em.createQuery("SELECT f FROM Fan f WHERE f.nikname = ?1 OR f.correo = ?2");
+        	q.setParameter(1, id);
+        	q.setParameter(2, id);
+        	List<Fan> aux = (List<Fan>) q.getResultList();
+        	
+        	if (aux.size() == 1) {
+        		return (Fan) aux.get(0);
+        	}else {
+        		return null;
+        	}
+        	
         } finally {
             em.close();
         }
