@@ -3,7 +3,6 @@ package com.TodoArte.JPAControllerClasses;
 import com.TodoArte.JPAControllerClasses.exceptions.NonexistentEntityException;
 
 import com.TodoArte.Classes.Administrador;
-import com.TodoArte.Classes.Fan;
 
 import java.io.Serializable;
 import java.util.List;
@@ -120,7 +119,7 @@ public class AdministradorJpaController implements Serializable {
         	// Yo lo cambie por:
         	
         	Query q;
-        	q = em.createQuery("SELECT f FROM Fan f WHERE f.nikname = ?1 OR f.correo = ?2");
+        	q = em.createQuery("SELECT f FROM Administrador f WHERE f.nikname = ?1 OR f.correo = ?2");
         	q.setParameter(1, id);
         	q.setParameter(2, id);
         	List<Administrador> aux = (List<Administrador>) q.getResultList();

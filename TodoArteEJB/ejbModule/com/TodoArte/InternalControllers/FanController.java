@@ -2,6 +2,7 @@ package com.TodoArte.InternalControllers;
 
 import java.util.ArrayList;
 
+import com.TodoArte.Classes.Artista;
 import com.TodoArte.Classes.Fan;
 import com.TodoArte.Classes.FanSigueSitio;
 import com.TodoArte.Classes.NotificacionFan;
@@ -9,6 +10,7 @@ import com.TodoArte.Classes.Usuario;
 import com.TodoArte.Enums.MensajesExcepciones;
 import com.TodoArte.InternalInterfaces.ArtistaInterface;
 import com.TodoArte.InternalInterfaces.FanInterface;
+import com.TodoArte.JPAControllerClasses.ArtistaJpaController;
 import com.TodoArte.JPAControllerClasses.FanJpaController;
 
 public class FanController implements FanInterface{
@@ -47,7 +49,7 @@ public class FanController implements FanInterface{
 	@Override
 	public Usuario obtenerDatosUsuario(String idUsuario) {
 		// obtener el fan por su ID y devolverlo (nill si no se encuentra)
-		return null;
+		return new FanJpaController().findFan(idUsuario);
 	}
 
 	@Override
@@ -72,9 +74,17 @@ public class FanController implements FanInterface{
 	
 	@Override
 	public void notificarFan(String idFan, NotificacionFan notificacion) {
-		// obtener el fan por id
-		// decirle que registre la notificacion
-
+		FanJpaController fJpa = new FanJpaController();
+		Fan f = fJpa.findFan(idFan);
+		if (f == null) {
+			throw new RuntimeException(MensajesExcepciones.fanNoExiste);
+		}
+		f.agregarNotificacion(notificacion);
+		try {
+			fJpa.edit(f);
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
 	}
 
 	

@@ -29,9 +29,17 @@ public class ArtistaController implements ArtistaInterface{
 
 	@Override
 	public void notificarArtista(String idArtista, NotificacionArtista notificacion) {
-		// obtener el artista por id
-		// decirle que registre la notificacion
-		
+		ArtistaJpaController aJpa = new ArtistaJpaController();
+		Artista a = aJpa.findArtista(idArtista);
+		if (a == null) {
+			throw new RuntimeException(MensajesExcepciones.artistaNoExiste);
+		}
+		a.agregarNotificacion(notificacion);
+		try {
+			aJpa.edit(a);
+		}catch(Exception e){
+			throw new RuntimeException(e.getMessage());
+		}
 	}
 
 	@Override
@@ -94,7 +102,7 @@ public class ArtistaController implements ArtistaInterface{
 	@Override
 	public Usuario obtenerDatosUsuario(String idUsuario) {
 		// obtener el artista por su ID y devolverlo (nill si no se encuentra)
-		return null;
+		return new ArtistaJpaController().findArtista(idUsuario);
 	}
 
 	@Override

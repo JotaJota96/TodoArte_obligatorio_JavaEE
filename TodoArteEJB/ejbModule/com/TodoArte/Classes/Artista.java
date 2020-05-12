@@ -15,6 +15,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import com.TodoArte.Enums.MensajesExcepciones;
+import com.TodoArte.JPAControllerClasses.NotificacionArtistaJpaController;
 
 @Entity
 @Table(name = "artista")
@@ -67,7 +68,9 @@ public class Artista extends Usuario implements Serializable {
     //**********************************************************************
 
     public void agregarNotificacion(NotificacionArtista notificacion) {
-    	// persistir la notificacion y agregar a coleccion
+    	notificacion.setId(0);
+    	new NotificacionArtistaJpaController().create(notificacion);
+    	this.notificacion.put(notificacion.getId(), notificacion);
     }
     
     //**********************************************************************

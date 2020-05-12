@@ -9,6 +9,7 @@ import com.TodoArte.Classes.NotificacionArtista;
 import com.TodoArte.Classes.PagoAPlataforma;
 import com.TodoArte.Classes.Reporte;
 import com.TodoArte.FachadeInterfaces.BackOfficeInterface;
+import com.TodoArte.InternalControllers.ArtistaController;
 
 public class BackOfficeController implements BackOfficeInterface {
 
@@ -34,8 +35,7 @@ public class BackOfficeController implements BackOfficeInterface {
 
 	@Override
 	public void notificarArtista(String idArtista, NotificacionArtista notificacion) {
-		// TODO Auto-generated method stub
-		
+		new ArtistaController().notificarArtista(idArtista, notificacion);
 	}
 
 	@Override

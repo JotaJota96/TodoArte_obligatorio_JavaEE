@@ -110,8 +110,14 @@ public class FrontOfficeController implements FrontOfficeInterface{
 
 	@Override
 	public Usuario obtenerDatosUsuario(String idUsuario) {
-		// TODO Auto-generated method stub
-		return null;
+		FanInterface fc = new FanController();
+		ArtistaInterface ac = new ArtistaController();
+		
+		Usuario u = fc.obtenerDatosUsuario(idUsuario);
+		if (u == null) {
+			u = ac.obtenerDatosUsuario(idUsuario);
+		}
+		return u;
 	}
 
 	@Override
