@@ -87,7 +87,7 @@ public class ArtistaController implements ArtistaInterface{
 	}
 
 	@Override
-	public Usuario obtenerDatosUsuario(String idUsuario) {
+	public Artista obtenerDatosUsuario(String idUsuario) {
 		// obtener el artista por su ID y devolverlo (nill si no se encuentra)
 		return null;
 	}
