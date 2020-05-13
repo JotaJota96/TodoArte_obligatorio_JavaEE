@@ -74,9 +74,9 @@ public interface ArtistaInterface {
 	/**
 	 * Devuelve los datos del usuario, sea Fan o Artista
 	 * @param idUsuario ID del usuario que se desea obtener
-	 * @return Si el usuario existe, devuelve sus datos, de lo contrario NULL
+	 * @return Si el artista existe, devuelve sus datos, de lo contrario NULL
 	 */
-	public Usuario obtenerDatosUsuario(String idUsuario);
+	public Artista obtenerDatosUsuario(String idUsuario);
 
 	/**
 	 * Recarga el saldo de un usuario

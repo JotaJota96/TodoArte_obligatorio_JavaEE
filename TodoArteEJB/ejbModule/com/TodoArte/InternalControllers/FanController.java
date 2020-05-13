@@ -39,6 +39,14 @@ public class FanController implements FanInterface{
 	public Usuario iniciarSesion(String idUsuario, String contrasenia) {
 		// verifica los datos de inicio de sesion del fan
 		// el id puede ser nickname o email
+		
+		FanJpaController fjpa = new FanJpaController();
+		Fan fan = fjpa.findFan(idUsuario);
+		if(fan != null){
+			if(fan.getContrasenia() == contrasenia){
+				return fan;
+			}
+		}
 		return null;
 	}
 
@@ -72,7 +80,6 @@ public class FanController implements FanInterface{
 	public void notificarFan(String idFan, NotificacionFan notificacion) {
 		// obtener el fan por id
 		// decirle que registre la notificacion
-
 	}
 
 	

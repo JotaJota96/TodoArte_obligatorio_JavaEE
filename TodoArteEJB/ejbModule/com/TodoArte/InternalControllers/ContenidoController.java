@@ -2,11 +2,22 @@ package com.TodoArte.InternalControllers;
 
 import java.util.ArrayList;
 
+import javax.validation.constraints.Null;
+
+import com.TodoArte.Classes.Artista;
 import com.TodoArte.Classes.Comentario;
 import com.TodoArte.Classes.Contenido;
+import com.TodoArte.Classes.Fan;
 import com.TodoArte.Classes.Reporte;
+import com.TodoArte.Classes.Sitio;
+import com.TodoArte.Classes.Usuario;
 import com.TodoArte.Classes.Valoracion;
+import com.TodoArte.Enums.MensajesExcepciones;
+import com.TodoArte.Enums.Privacidad;
+import com.TodoArte.InternalInterfaces.ArtistaInterface;
 import com.TodoArte.InternalInterfaces.ContenidoInterface;
+import com.TodoArte.JPAControllerClasses.ContenidoJpaController;
+import com.TodoArte.JPAControllerClasses.FanJpaController;
 
 public class ContenidoController implements ContenidoInterface{
 
@@ -95,6 +106,36 @@ public class ContenidoController implements ContenidoInterface{
 									privado		contenido
 									premium		error
 		*/
-		return null;
+
+		ContenidoJpaController Cjpa = new ContenidoJpaController();
+		Contenido contenido = Cjpa.findContenido(idContenido);
+		Sitio sitioArtista = new ArtistaController().obtenerDatosUsuario(idArtista).getMiSitio();
+		
+		if(sitioArtista.esFan(idFan) == false) {
+			if(contenido.getPrivacidad() == Privacidad.Publico){
+				return contenido;				
+			}
+			else {
+				throw new RuntimeException("Crear mensaje: el contenido no es publico");
+			}
+		}
+		else{
+			if(sitioArtista.fanBloqueado(idFan) == true){
+				throw new RuntimeException("Crear mensaje: el fan esta bloqueado");
+			}
+			else{
+				if(sitioArtista.fanEsPremium(idFan) == true){
+					return contenido;
+				}
+				else{
+					if(contenido.getPrivacidad() == Privacidad.Premium){
+						throw new RuntimeException("Crear mensaje: el fan no es premiun");
+					}
+					else {
+						return contenido;
+					}
+				}
+			}	
+		}
 	}
 }

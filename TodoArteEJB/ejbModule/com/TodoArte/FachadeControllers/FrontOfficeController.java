@@ -14,12 +14,17 @@ import com.TodoArte.Classes.Sitio;
 import com.TodoArte.Classes.Usuario;
 import com.TodoArte.Classes.Valoracion;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
+import com.TodoArte.InternalControllers.ArtistaController;
+import com.TodoArte.InternalControllers.ContenidoController;
 import com.TodoArte.InternalControllers.FanController;
+import com.TodoArte.InternalInterfaces.ArtistaInterface;
+import com.TodoArte.InternalInterfaces.ContenidoInterface;
 import com.TodoArte.InternalInterfaces.FanInterface;
 
 public class FrontOfficeController implements FrontOfficeInterface{
 	
 	FanInterface cFan = new FanController();
+	ArtistaInterface cAtrtista = new ArtistaController();
 	
 	public FrontOfficeController() {}
 
@@ -84,7 +89,14 @@ public class FrontOfficeController implements FrontOfficeInterface{
 
 	@Override
 	public Usuario iniciarSesion(String idUsuario, String contrasenia) {
-		// TODO Auto-generated method stub
+		Usuario usu = cFan.iniciarSesion(idUsuario, contrasenia);
+		if(usu != null) {
+			return usu;
+		}
+		usu = cAtrtista.iniciarSesion(idUsuario, contrasenia);
+		if(usu != null) {
+			return usu;
+		}		
 		return null;
 	}
 
@@ -120,8 +132,7 @@ public class FrontOfficeController implements FrontOfficeInterface{
 
 	@Override
 	public Contenido obtenerContenido(String idArtista, int idContenido, String idFan) {
-		// TODO Auto-generated method stub
-		return null;
+		return new ContenidoController().obtenerContenido(idArtista, idContenido, idFan);
 	}
 
 	@Override
