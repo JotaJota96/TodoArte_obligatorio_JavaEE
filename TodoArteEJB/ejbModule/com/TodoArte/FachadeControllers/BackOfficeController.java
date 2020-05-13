@@ -9,6 +9,8 @@ import com.TodoArte.Classes.NotificacionArtista;
 import com.TodoArte.Classes.PagoAPlataforma;
 import com.TodoArte.Classes.Reporte;
 import com.TodoArte.FachadeInterfaces.BackOfficeInterface;
+import com.TodoArte.InternalControllers.ArtistaController;
+import com.TodoArte.InternalControllers.ContenidoController;
 
 public class BackOfficeController implements BackOfficeInterface {
 
@@ -16,14 +18,12 @@ public class BackOfficeController implements BackOfficeInterface {
 	
 	@Override
 	public void bloquearDesbloquearArtista(String idArtista) {
-		// TODO Auto-generated method stub
-		
+		new ArtistaController().bloquearDesbloquearArtista(idArtista);
 	}
 
 	@Override
 	public void bloquearDesbloquearContenido(int idContenido) {
-		// TODO Auto-generated method stub
-		
+		new ContenidoController().bloquearDesbloquearContenido(idContenido);
 	}
 
 	@Override

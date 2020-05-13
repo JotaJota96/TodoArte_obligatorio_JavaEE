@@ -10,6 +10,7 @@ import com.TodoArte.Classes.PagoAPlataforma;
 import com.TodoArte.Classes.QyAProgramado;
 import com.TodoArte.Classes.Sitio;
 import com.TodoArte.Classes.Usuario;
+import com.TodoArte.Enums.MensajesExcepciones;
 import com.TodoArte.InternalInterfaces.ArtistaInterface;
 import com.TodoArte.InternalInterfaces.FanInterface;
 import com.TodoArte.JPAControllerClasses.ArtistaJpaController;
@@ -24,6 +25,24 @@ public class ArtistaController implements ArtistaInterface{
 	@Override
 	public void bloquearDesbloquearArtista(String idArtista) {
 		// actualizar el artista bloqueado o desbloqueado
+		ArtistaJpaController ajpa = new ArtistaJpaController();
+		Artista art = ajpa.findArtista(idArtista);
+		if(art == null){
+			throw new RuntimeException(MensajesExcepchiones.artistaNoExiste);
+		}
+		
+		if(art.getBloqueado() == true){
+			art.setBloqueado(false);
+		}
+		else {
+			art.setBloqueado(true);
+		}
+		
+		try {
+			ajpa.edit(art);
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
 		
 	}
 

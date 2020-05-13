@@ -27,6 +27,26 @@ public class ContenidoController implements ContenidoInterface{
 	public void bloquearDesbloquearContenido(int idContenido) {
 		// obtener el contenido por su ID
 		// actualizar el estado de bloqueado
+		ContenidoJpaController cJpa = new ContenidoJpaController();
+		Contenido contenido = cJpa.findContenido(idContenido);
+		
+		if(contenido == null){
+			throw new RuntimeException(MensajesExcepciones.contenidoNoExiste);
+		}
+		
+		if(contenido.getBloqueado() == true){
+			contenido.setBloqueado(false);
+		}
+		else {
+			contenido.setBloqueado(true);
+		}
+		
+		try {
+			cJpa.edit(contenido);
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
+		
 	}
 
 	@Override
