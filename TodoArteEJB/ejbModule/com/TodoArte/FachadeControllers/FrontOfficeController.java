@@ -24,7 +24,7 @@ import com.TodoArte.InternalInterfaces.FanInterface;
 public class FrontOfficeController implements FrontOfficeInterface{
 	
 	FanInterface cFan = new FanController();
-	ArtistaInterface cAtrtista = new ArtistaController();
+	ArtistaInterface cArtista = new ArtistaController();
 	
 	public FrontOfficeController() {}
 
@@ -48,14 +48,12 @@ public class FrontOfficeController implements FrontOfficeInterface{
 
 	@Override
 	public ArrayList<NotificacionFan> listarNotificacionesFan(String idFan) {
-		// TODO Auto-generated method stub
-		return null;
+		return cFan.listarNotificacionesFan(idFan);
 	}
 
 	@Override
 	public ArrayList<NotificacionArtista> listarNotificacionesArtista(String idArtista) {
-		// TODO Auto-generated method stub
-		return null;
+		return cArtista.listarNotificacionesArtista(idArtista);
 	}
 
 	@Override
@@ -83,8 +81,7 @@ public class FrontOfficeController implements FrontOfficeInterface{
 
 	@Override
 	public Artista registrarUsuarioArtista(Artista artista, Sitio sitio) {
-		// TODO Auto-generated method stub
-		return null;
+		return cArtista.registrarUsuarioArtista(artista, sitio);
 	}
 
 	@Override
@@ -93,7 +90,7 @@ public class FrontOfficeController implements FrontOfficeInterface{
 		if(usu != null) {
 			return usu;
 		}
-		usu = cAtrtista.iniciarSesion(idUsuario, contrasenia);
+		usu = cArtista.iniciarSesion(idUsuario, contrasenia);
 		if(usu != null) {
 			return usu;
 		}		
@@ -102,8 +99,7 @@ public class FrontOfficeController implements FrontOfficeInterface{
 
 	@Override
 	public Contenido agregarModificarContenido(String idArtista, Contenido contenido) {
-		// TODO Auto-generated method stub
-		return null;
+		return new ContenidoController().agregarModificarContenido(idArtista, contenido);
 	}
 
 	@Override
@@ -114,14 +110,16 @@ public class FrontOfficeController implements FrontOfficeInterface{
 
 	@Override
 	public QyAProgramado programarQyA(String idArtista, QyAProgramado qyaProgramado) {
-		// TODO Auto-generated method stub
-		return null;
+		return cArtista.programarQyA(idArtista, qyaProgramado);
 	}
 
 	@Override
 	public Usuario obtenerDatosUsuario(String idUsuario) {
-		// TODO Auto-generated method stub
-		return null;
+		Usuario u = cFan.obtenerDatosUsuario(idUsuario);
+		if (u == null) {
+			u = cArtista.obtenerDatosUsuario(idUsuario);
+		}
+		return u;
 	}
 
 	@Override

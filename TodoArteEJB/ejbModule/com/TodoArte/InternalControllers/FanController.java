@@ -1,30 +1,33 @@
 package com.TodoArte.InternalControllers;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.TodoArte.Classes.Fan;
 import com.TodoArte.Classes.FanSigueSitio;
-import com.TodoArte.Classes.NotificacionArtista;
 import com.TodoArte.Classes.NotificacionFan;
 import com.TodoArte.Classes.Usuario;
 import com.TodoArte.Enums.MensajesExcepciones;
+import com.TodoArte.InternalInterfaces.ArtistaInterface;
 import com.TodoArte.InternalInterfaces.FanInterface;
 import com.TodoArte.JPAControllerClasses.FanJpaController;
 
 public class FanController implements FanInterface{
-
+	
 	public FanController() {}
 
 	@Override
 	public Fan registrarUsuarioFan(Fan fan) {
-		FanJpaController fjpa = new FanJpaController();
-		if (fjpa.findFan(fan.getNikname()) != null){
-			throw new RuntimeException(MensajesExcepciones.fanExiste);
+		if (fan == null) {
+			throw new RuntimeException(MensajesExcepciones.miFan);
 		}
-		// Aca falta verificar el correo
+		ArtistaInterface ac = new ArtistaController();
 		
+		FanJpaController fjpa = new FanJpaController();
+		if (fjpa.findFan(fan.getNikname()) != null || ac.obtenerDatosUsuario(fan.getNikname()) != null || ac.obtenerDatosUsuario(fan.getCorreo()) != null){
+			throw new RuntimeException(MensajesExcepciones.usuarioExiste);
+		}
 		fjpa.create(fan);
-		
 		return fan;
 	}
 
@@ -32,7 +35,15 @@ public class FanController implements FanInterface{
 	public ArrayList<NotificacionFan> listarNotificacionesFan(String idFan) {
 		// obtener el fan por id
 		// obtener sus notificaciones, convertirlas a ArrayList y devolverlas
-		return null;
+		Fan f = (Fan) this.obtenerDatosUsuario(idFan);
+		if (f == null) {
+			throw new RuntimeException(MensajesExcepciones.fanNoExiste);
+		}
+		ArrayList<NotificacionFan> ret = new ArrayList<NotificacionFan>();
+		for (Map.Entry<Integer, NotificacionFan> entry : f.getNotificaciones().entrySet()) {
+			ret.add(entry.getValue());
+		}
+		return ret;
 	}
 
 	@Override
@@ -51,9 +62,9 @@ public class FanController implements FanInterface{
 	}
 
 	@Override
-	public Usuario obtenerDatosUsuario(String idUsuario) {
+	public Fan obtenerDatosUsuario(String idUsuario) {
 		// obtener el fan por su ID y devolverlo (nill si no se encuentra)
-		return null;
+		return new FanJpaController().findFan(idUsuario);
 	}
 
 	@Override
@@ -80,6 +91,17 @@ public class FanController implements FanInterface{
 	public void notificarFan(String idFan, NotificacionFan notificacion) {
 		// obtener el fan por id
 		// decirle que registre la notificacion
+		FanJpaController fJpa = new FanJpaController();
+		Fan f = fJpa.findFan(idFan);
+		if (f == null) {
+			throw new RuntimeException(MensajesExcepciones.fanNoExiste);
+		}
+		f.agregarNotificacion(notificacion);
+		try {
+			fJpa.edit(f);
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
 	}
 
 	

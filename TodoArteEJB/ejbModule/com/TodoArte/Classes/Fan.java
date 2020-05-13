@@ -19,6 +19,8 @@ import javax.persistence.Table;
 
 import com.TodoArte.Enums.MensajesExcepciones;
 import com.TodoArte.Enums.Sexo;
+import com.TodoArte.JPAControllerClasses.NotificacionArtistaJpaController;
+import com.TodoArte.JPAControllerClasses.NotificacionFanJpaController;
 
 @Entity
 @Table(name = "fan")
@@ -83,7 +85,9 @@ public class Fan extends Usuario implements Serializable {
 	//***************************************************************************
 
 	public void agregarNotificacion(NotificacionFan notificacion) {
-    	// persistir la notificacion y agregar a coleccion
+		notificacion.setId(0);
+		new NotificacionFanJpaController().create(notificacion);
+		this.notificaciones.put(notificacion.getId(), notificacion);
     }
     
 	//***************************************************************************

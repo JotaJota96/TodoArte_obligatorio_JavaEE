@@ -97,7 +97,23 @@ public class ContenidoController implements ContenidoInterface{
 	public Contenido agregarModificarContenido(String idArtista, Contenido contenido) {
 		// si el contenido existe, modificarlo
 		// si no existe, decirle al controlador de artista que agregue e contenido para ese artista
-		return null;
+		boolean agregar = (contenido.getId() == 0);
+		
+		if (agregar) {
+			contenido = new ArtistaController().agregarContenido(idArtista, contenido);
+		}else {
+			ContenidoJpaController cJpa = new ContenidoJpaController();
+			Contenido c = cJpa.findContenido(contenido.getId());
+			if (c == null) {
+				throw new RuntimeException(MensajesExcepciones.contenidoNoExiste);
+			}
+			try {
+				cJpa.edit(contenido);
+			} catch (Exception e) {
+				throw new RuntimeException(e.getMessage());
+			}
+		}
+		return contenido;
 	}
 
 	@Override

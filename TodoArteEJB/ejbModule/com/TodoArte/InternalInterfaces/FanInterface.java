@@ -38,7 +38,7 @@ public interface FanInterface {
 	 * @param idUsuario ID del usuario que se desea obtener
 	 * @return Si el usuario existe, devuelve sus datos, de lo contrario NULL
 	 */
-	public Usuario obtenerDatosUsuario(String idUsuario);
+	public Fan obtenerDatosUsuario(String idUsuario);
 	
 	/**
 	 * Recarga el saldo de un usuario

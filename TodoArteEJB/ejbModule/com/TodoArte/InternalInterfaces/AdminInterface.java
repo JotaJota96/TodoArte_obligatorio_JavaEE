@@ -3,20 +3,30 @@ package com.TodoArte.InternalInterfaces;
 import com.TodoArte.Classes.Administrador;
 import com.TodoArte.Classes.CategoriaContenido;
 import com.TodoArte.Classes.CategoriaSitio;
+import com.TodoArte.Classes.Fuente;
 
 public interface AdminInterface {
 	
 	/**
 	 * Agrega al sistema una nueva categoria de sitios
 	 * @param categoriaSitio Categoria a agregar
+	 * @return categoria creada
 	 */
-	public void agregarCategoriaDeSitio(CategoriaSitio categoriaSitio);
+	public CategoriaSitio agregarCategoriaDeSitio(CategoriaSitio categoriaSitio);
 
 	/**
 	 * Agrega al sistema una nueva categoria de contenido
 	 * @param categoriaContenido Categoria a agregar
+	 * @return categoria creada
 	 */
-	public void agregarCategoriaDeContenido(CategoriaContenido categoriaContenido);
+	public CategoriaContenido agregarCategoriaDeContenido(CategoriaContenido categoriaContenido);
+
+	/**
+	 * Agrega al sistema una nueva fuente
+	 * @param fuente Fuente a agregar
+	 * @return
+	 */
+	public Fuente agregarFuente(Fuente fuente);
 	
 	/**
 	 * Valida los datos de inicio de sesion de un administrador

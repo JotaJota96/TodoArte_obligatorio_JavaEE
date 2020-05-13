@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import com.TodoArte.Classes.Administrador;
 import com.TodoArte.Classes.CategoriaContenido;
 import com.TodoArte.Classes.CategoriaSitio;
+import com.TodoArte.Classes.Fuente;
 import com.TodoArte.Classes.NotificacionArtista;
 import com.TodoArte.Classes.PagoAPlataforma;
 import com.TodoArte.Classes.Reporte;
 import com.TodoArte.FachadeInterfaces.BackOfficeInterface;
+import com.TodoArte.InternalControllers.AdminController;
 import com.TodoArte.InternalControllers.ArtistaController;
 import com.TodoArte.InternalControllers.ContenidoController;
+import com.TodoArte.JPAControllerClasses.CategoriaContenidoJpaController;
 
 public class BackOfficeController implements BackOfficeInterface {
 
@@ -34,26 +37,27 @@ public class BackOfficeController implements BackOfficeInterface {
 
 	@Override
 	public void notificarArtista(String idArtista, NotificacionArtista notificacion) {
-		// TODO Auto-generated method stub
-		
+		new ArtistaController().notificarArtista(idArtista, notificacion);
 	}
 
 	@Override
-	public void agregarCategoriaDeSitio(CategoriaSitio categoriaSitio) {
-		// TODO Auto-generated method stub
-		
+	public CategoriaSitio agregarCategoriaDeSitio(CategoriaSitio categoriaSitio) {
+		return new AdminController().agregarCategoriaDeSitio(categoriaSitio);
 	}
 
 	@Override
-	public void agregarCategoriaDeContenido(CategoriaContenido categoriaContenido) {
-		// TODO Auto-generated method stub
-		
+	public CategoriaContenido agregarCategoriaDeContenido(CategoriaContenido categoriaContenido) {
+		return new AdminController().agregarCategoriaDeContenido(categoriaContenido);
 	}
 
+	@Override
+	public Fuente agregarFuente(Fuente fuente) {
+		return new AdminController().agregarFuente(fuente);
+	}
+	
 	@Override
 	public Administrador iniciarSesion(String id, String contrasenia) {
-		// TODO Auto-generated method stub
-		return null;
+		return new AdminController().iniciarSesion(id, contrasenia);
 	}
 
 	@Override
@@ -64,8 +68,7 @@ public class BackOfficeController implements BackOfficeInterface {
 
 	@Override
 	public Administrador agregarAdministrador(Administrador administrador) {
-		// TODO Auto-generated method stub
-		return null;
+		return new AdminController().agregarAdministrador(administrador);
 	}
 
 }
