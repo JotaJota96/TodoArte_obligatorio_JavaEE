@@ -22,7 +22,9 @@ import javax.persistence.Table;
 import org.postgresql.shaded.com.ongres.scram.common.bouncycastle.pbkdf2.RuntimeCryptoException;
 
 import com.TodoArte.Enums.MensajesExcepciones;
+import com.TodoArte.JPAControllerClasses.ContenidoJpaController;
 import com.TodoArte.JPAControllerClasses.FanSigueSitioJpaController;
+import com.TodoArte.JPAControllerClasses.QyAProgramadoJpaController;
 
 
 @Entity
@@ -162,13 +164,19 @@ public class Sitio implements Serializable {
 	
 	public QyAProgramado programarQyA(QyAProgramado qyaProgramado) {
 		// crea el QyA, lo agrega a la coleccion y lo devuelve
-		return null;
+		qyaProgramado.setId(0);
+		qyaProgramado.setFechaYHoraFin(null);
+		new QyAProgramadoJpaController().create(qyaProgramado);
+		this.MisQyA.put(qyaProgramado.getId(), qyaProgramado);
+		return qyaProgramado;
 	}
 	
 	public Contenido agregarContenido(Contenido contenido) {
 		// persistir el contenido
 		// agregarlo a la coleccion y devolverlo
-		return null;
+		new ContenidoJpaController().create(contenido);
+		this.MisContenidos.put(contenido.getId(), contenido);
+		return contenido;
 	}
 
 	public Contenido eliminarContenido(int idContenido) {

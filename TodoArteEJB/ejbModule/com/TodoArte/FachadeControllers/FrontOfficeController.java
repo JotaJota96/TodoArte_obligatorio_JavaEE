@@ -15,6 +15,7 @@ import com.TodoArte.Classes.Usuario;
 import com.TodoArte.Classes.Valoracion;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
 import com.TodoArte.InternalControllers.ArtistaController;
+import com.TodoArte.InternalControllers.ContenidoController;
 import com.TodoArte.InternalControllers.FanController;
 import com.TodoArte.InternalInterfaces.ArtistaInterface;
 import com.TodoArte.InternalInterfaces.FanInterface;
@@ -46,14 +47,12 @@ public class FrontOfficeController implements FrontOfficeInterface{
 
 	@Override
 	public ArrayList<NotificacionFan> listarNotificacionesFan(String idFan) {
-		// TODO Auto-generated method stub
-		return null;
+		return cFan.listarNotificacionesFan(idFan);
 	}
 
 	@Override
 	public ArrayList<NotificacionArtista> listarNotificacionesArtista(String idArtista) {
-		// TODO Auto-generated method stub
-		return null;
+		return cArtista.listarNotificacionesArtista(idArtista);
 	}
 
 	@Override
@@ -92,8 +91,7 @@ public class FrontOfficeController implements FrontOfficeInterface{
 
 	@Override
 	public Contenido agregarModificarContenido(String idArtista, Contenido contenido) {
-		// TODO Auto-generated method stub
-		return null;
+		return new ContenidoController().agregarModificarContenido(idArtista, contenido);
 	}
 
 	@Override
@@ -104,18 +102,14 @@ public class FrontOfficeController implements FrontOfficeInterface{
 
 	@Override
 	public QyAProgramado programarQyA(String idArtista, QyAProgramado qyaProgramado) {
-		// TODO Auto-generated method stub
-		return null;
+		return cArtista.programarQyA(idArtista, qyaProgramado);
 	}
 
 	@Override
 	public Usuario obtenerDatosUsuario(String idUsuario) {
-		FanInterface fc = new FanController();
-		ArtistaInterface ac = new ArtistaController();
-		
-		Usuario u = fc.obtenerDatosUsuario(idUsuario);
+		Usuario u = cFan.obtenerDatosUsuario(idUsuario);
 		if (u == null) {
-			u = ac.obtenerDatosUsuario(idUsuario);
+			u = cArtista.obtenerDatosUsuario(idUsuario);
 		}
 		return u;
 	}

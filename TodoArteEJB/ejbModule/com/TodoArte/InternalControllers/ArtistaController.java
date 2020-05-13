@@ -1,11 +1,13 @@
 package com.TodoArte.InternalControllers;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.TodoArte.Classes.Artista;
 import com.TodoArte.Classes.Contenido;
 import com.TodoArte.Classes.Fan;
 import com.TodoArte.Classes.NotificacionArtista;
+import com.TodoArte.Classes.NotificacionFan;
 import com.TodoArte.Classes.PagoAPlataforma;
 import com.TodoArte.Classes.QyAProgramado;
 import com.TodoArte.Classes.Sitio;
@@ -51,7 +53,15 @@ public class ArtistaController implements ArtistaInterface{
 	@Override
 	public ArrayList<NotificacionArtista> listarNotificacionesArtista(String idArtista) {
 		// obtener las notificaciones del artista y convertirlos en ArrayList
-		return null;
+		Artista f = (Artista) this.obtenerDatosUsuario(idArtista);
+		if (f == null) {
+			throw new RuntimeException(MensajesExcepciones.artistaNoExiste);
+		}
+		ArrayList<NotificacionArtista> ret = new ArrayList<NotificacionArtista>();
+		for (Map.Entry<Integer, NotificacionArtista> entry : f.getNotificacion().entrySet()) {
+			ret.add(entry.getValue());
+		}
+		return ret;
 	}
 
 	@Override
@@ -100,7 +110,7 @@ public class ArtistaController implements ArtistaInterface{
 	}
 
 	@Override
-	public Usuario obtenerDatosUsuario(String idUsuario) {
+	public Artista obtenerDatosUsuario(String idUsuario) {
 		// obtener el artista por su ID y devolverlo (nill si no se encuentra)
 		return new ArtistaJpaController().findArtista(idUsuario);
 	}
@@ -148,7 +158,14 @@ public class ArtistaController implements ArtistaInterface{
 		// obtener el artista por id
 		// obtener su sitio
 		// decirle al sitio que agregue el QyA, y devuelve lo obtenido
-		return null;
+		Sitio s = ((Artista) this.obtenerDatosUsuario(idArtista)).getMiSitio();
+		QyAProgramado ret = s.programarQyA(qyaProgramado);
+		try {
+			new SitioJpaController().edit(s);
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
+		return ret;
 	}
 
 	@Override
@@ -156,7 +173,18 @@ public class ArtistaController implements ArtistaInterface{
 		// obtener el artista por id
 		// obtener el sitio de ese artista
 		// decirle al sitio del artista que agregue el contenido
-		return null;
+		Artista a = new ArtistaJpaController().findArtista(idArtista);
+		if (a == null) {
+			throw new RuntimeException(MensajesExcepciones.artistaNoExiste);
+		}
+		Sitio s = a.getMiSitio();
+		contenido = s.agregarContenido(contenido);
+		try {
+			new SitioJpaController().edit(s);
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
+		return contenido;
 	}
 
 	@Override
