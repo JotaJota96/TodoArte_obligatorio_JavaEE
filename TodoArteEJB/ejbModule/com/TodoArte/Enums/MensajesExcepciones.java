@@ -36,4 +36,8 @@ public abstract class MensajesExcepciones {
 	public static final String artista = "Artista no puede ser null";
 	public static final String fuente = "Fuente no puede ser null";
 	public static final String fanExiste = "Ya existe un fan con ese nickname o email";
+	public static final String admExiste = "Ya existe un Administrador con ese nickname";
+	public static final String contenidoNoEsPublico = "El contenido no es publico";
+	public static final String fanBloqueado = "El fan esta bloqueado de este sitio";
+	public static final String FanNoPremium = "El fan no es premium";
 }
