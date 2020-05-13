@@ -30,18 +30,18 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost:8080/TodoArteWeb/SubirContenido.jsf">Subir Contenido</a>
+          <a class="nav-link" href="http://localhost:8080/TodoArteWeb/VerContenido.jsf">Ver Contenido</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost:8080/TodoArteWeb/VerContenido.jsf">Ver Contenido</a>
+          <a class="nav-link" href="#">Opciones</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">Registrarse</a>
           <div class="dropdown-menu" aria-labelledby="dropdown01">
-            <a class="dropdown-item" href="http://localhost:8080/TodoArteWeb/RegistrarArtista.jsf">Como Artista</a>
-            <a class="dropdown-item" href="#">Como Amatista</a>
-            <a class="dropdown-item" href="#">Como Fasista</a>
+            <a class="dropdown-item" href="http://localhost:8080/TodoArteWeb/RegistrarFan.jsf">Como Fan</a>
+            <a class="dropdown-item" href="#">Como Pan</a>
+            <a class="dropdown-item" href="#">Como Sam</a>
           </div>
         </li>
       </ul>
@@ -52,71 +52,49 @@
   
   <main role="main" class="container mt-5 mb-5">
     <h:form class="form-signin">
-      <h4 class="text-center">Registro de Fan</h4>
+      <h4 class="text-center">Subir Contenido</h4>
 	  <hr/>
       <div class="row">
         <div class="col-md-1 "></div>
         <div class="col-md-5 ">
         
         <div class="form-group">
-          <label for="nickname">Nickname</label>
-          <h:inputText type="text" class="form-control" id="nickname" value=""></h:inputText>
+          <label for="titulo">Titulo</label>
+          <h:inputText type="text" class="form-control" id="titulo" value=""></h:inputText>
          </div>
          
          <div class="form-group">
-         	<label for="correo">Correo</label>
-          	<h:inputText type="email" class="form-control" id="correo" value=""></h:inputText>
+         	<label for="descripcion">Descripcion</label>
+	        <h:inputTextarea class="form-control" id="descripcion" value="#{spintax.content}" rows="3" />
+	        <small id="biografia" class="form-text text-muted">Dé una breve descripción del Contenido.</small>
           </div>
-          
+         
           <div class="form-group">
-          	<label for="contrasenia1">Contraseña</label>
-          	<h:inputSecret class="form-control" id="contrasenia1" value=""></h:inputSecret>
-          </div>
+          	<label for="precio">Precio</label>
+          	<h:inputText type="text" class="form-control" id="precio" value=""></h:inputText>
+         </div>
           
-          <div class="form-group">
-          	<label for="contrasenia2">Verificar</label>
-          	<h:inputSecret class="form-control" id="contrasenia2" value=""></h:inputSecret>
-          </div>
-          
-          <div class="form-group">
-          	<label for="imagen">Imagen</label> 
-          	<br/>      	
-          	 <h:inputFile value="#{bean.file}" id="imagen">
-        		<f:ajax listener="#{bean.save}" />
-    		</h:inputFile>
-          </div>
           
         </div>
         <div class="col-md-5 ">
         
         <div class="form-group">
-        	<label for="nombre">Nombre</label>
-	        <h:inputText  class="form-control" id="nombre" value="" ></h:inputText>
-         </div>
-         
-         <div class="form-group">
-         	<label for="apellido">Apellido</label>
-	        <h:inputText class="form-control" id="apellido" value=""></h:inputText>
-          </div>
-          
-          <div class="form-group">
-          	<label for="fechaNac">Fecha de nacimiento</label>
-	        <h:inputText class="form-control" id="fechaNac" value=""></h:inputText>
-          </div>
-          
-          <div class="form-group">
-          	<label for="ubicacion">Ubicacion</label>
-	        <h:inputText class="form-control" id="ubicacion" value=""></h:inputText>
-          </div>
-          
-          <div class="form-group">
-          <label for="sexo" >Sexo</label>
-	          <h:selectOneMenu class="form-control" id="sexo" label="Service Level" value="">
-	            <f:selectItem itemLabel="Hombre" itemValue="m" />
-	            <f:selectItem itemLabel="Mujer" itemValue="f" />
+          <label for="privacidad" >Privacidad</label>
+	          <h:selectOneMenu class="form-control" id="privacidad" label="Service Level" value="">
+	            <f:selectItem itemLabel="PUBLICO" itemValue="PUBLICO" />
+	            <f:selectItem itemLabel="PRIVADO" itemValue="PRIVADO" />
+	            <f:selectItem itemLabel="PREMIUM" itemValue="PREMIUM" />
 	          </h:selectOneMenu>
           </div>
           
+          <div class="form-group mt-5">
+          	<label for="archivo">Archivo</label> 
+          	<br/>      	
+          	 <h:inputFile value="#{bean.file}" id="archivo">
+        		<f:ajax listener="#{bean.save}" />
+    		</h:inputFile>
+          </div>
+
         </div>
         <div class="col-md-1 "></div>
       </div>
@@ -126,7 +104,7 @@
 	      <div class="col-md-5 "></div>
 	      <div class="col-md-5 d-flex justify-content-end">
 	      	<h:commandButton class="btn btn-danger mt-2 mr-2" value="Canselar" action="cancelar" />
-	      	<h:commandButton class="btn btn-primary mt-2" value="Registrarse" action="register" />
+	      	<h:commandButton class="btn btn-primary mt-2 px-4" value="Subir" action="Subir" />
 	      </div>
 	      <div class="col-md-1 "></div>
       </div>
@@ -134,7 +112,7 @@
 
   </main>
 
-  <footer class="page-footer text-white">
+<footer class="page-footer text-white">
     <div class="footer-copyright bg-dark text-center py-3">© 2020 Copyright: TodoArte</div>
   </footer>
 
@@ -142,4 +120,4 @@
 
 </html>
 
-<!-- http://localhost:8080/TodoArteWeb/RegistrarFan.jsf -->
+<!-- http://localhost:8080/TodoArteWeb/SubirContenido.jsf -->
