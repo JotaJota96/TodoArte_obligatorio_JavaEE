@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:h="http://java.sun.com/jsf/html" 
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+    
+</h:head>
+
+
+<h:body class="bg-light">
+
+<ui:include src="heather/heather.xhtml"/>
+  
+ <main role="main" class="container mt-5 mb-5">
+  
+<!--********************************* Inicio    PRIMER TARJETA ***********************************-->
+	<div class="card m-3">
+	<h5 class="card-header">Musica del Artista</h5>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card m-3">
+					<h5 class="card-header">Playa peligrosa</h5>
+					<div class="card-body">
+						
+						<audio controls="x">
+							<source src="music/ls.mp3" type="audio/mp3" />
+						</audio> 
+						
+						<br/>
+						
+						<span class="text-muted">Descripcion:</span>
+						<p class="card-text mt-1">Una imagen hecha para todas esas personas que deseen conoser el peligro en la playa que mas te gusta, no se yo que se, comprala, hace lo que quieras.</p>
+						<hr/>
+						
+						<div class="row">
+							<div class="col-md-3">
+							 	<span class="text-muted">Precio:</span>
+								<p class="card-text mt-1">$45</p>
+							</div>
+							<div class="col-md-5"> 
+								<span class="text-muted">Fecha de Post:</span>
+								<p class="card-text mt-1">2020/05/12</p>
+							</div>
+							<div class="col-md-4">
+							 	<span class="text-muted">Calificacion:</span>
+								<p class="card-text mt-1">5 estrellas</p>
+							</div>
+						</div>
+
+					</div>
+					
+					<h5 class="card-footer text-center">
+						<h:form>
+						
+							<div class="row mt-2">
+								<div class="col-md-5 m-1">
+									<h:commandButton class="btn btn-info" value="Comprar" action="Comprar" />
+								</div>
+								<div class="col-md-5 m-1">
+									<h:commandButton class="btn btn-danger" value="Denunciar" action="Denunciar" />
+								</div>
+							</div>
+							<hr/>
+							<div class="row">
+								<div class="col-md-5 m-1">
+									<h:commandButton class="btn btn-warning" value="Califiar" action="Califiar" />
+								</div>
+								<div class="col-md-5 m-1">
+							          <h:selectOneMenu class="form-control" id="Califiar" label="Service Level" value="">
+							            <f:selectItem itemLabel="1" itemValue="1" />
+							            <f:selectItem itemLabel="2" itemValue="2" />
+							            <f:selectItem itemLabel="3" itemValue="3" />
+							            <f:selectItem itemLabel="4" itemValue="4" />
+							            <f:selectItem itemLabel="5" itemValue="5" />
+							          </h:selectOneMenu>
+								</div>
+							</div>
+							
+							
+						</h:form>
+					</h5>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<!-- inicio del chat -->
+				<div class="card m-3">
+					<h5 class="card-header">Comentarios</h5>
+					<div class="card-body" style="height: 300px; overflow: auto;">
+						<ul >
+							<li><p>Hola</p></li>
+							<li><p>Hola todo bien</p></li>
+							<li><p>como andan?</p></li>
+							<li><p>como andan?</p></li>
+							<li><p>como andan?</p></li>
+							<li><p>como andan?</p></li>
+							<li><p>como andan?</p></li>
+						</ul>
+					</div>
+					<h5 class="card-footer text-right">
+					<h:form>
+        				<h:inputTextarea class="form-control" id="biografia" value=""/>
+        				<h:commandButton class="btn btn-primary mt-3" value="Comentar" action="Comentar" />
+        			</h:form>
+					</h5>
+				</div>
+				<!-- fin del chat -->
+			</div>
+		</div>
+	</div>
+<!--************************************ FIN    PRIMER TARJETA ***********************************-->
+
+<!--********************************* Inicio    SEGUNDA TARJETA **********************************-->
+	<div class="card m-3">
+	<h5 class="card-header">Contenido</h5>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card m-3">
+					<h5 class="card-header">Playa peligrosa</h5>
+					<div class="card-body">
+					
+						<audio controls="x">
+							<source src="music/ls.mp3" type="audio/mp3" />
+						</audio> 
+						
+						<br/>
+						<span class="text-muted">Descripcion:</span>
+						<p class="card-text mt-1">Una imagen hecha para todas esas personas que deseen conoser el peligro en la playa que mas te gusta, no se yo que se, comprala, hace lo que quieras.</p>
+						<hr/>
+						<div class="row">
+							<div class="col-md-3">
+							 	<span class="text-muted">Precio:</span>
+								<p class="card-text mt-1">$45</p>
+							</div>
+							<div class="col-md-5"> 
+								<span class="text-muted">Fecha de Post:</span>
+								<p class="card-text mt-1">2020/05/12</p>
+							</div>
+							<div class="col-md-4">
+							 	<span class="text-muted">Calificacion:</span>
+								<p class="card-text mt-1">5 estrellas</p>
+							</div>
+						</div>
+
+					</div>
+					
+					<h5 class="card-footer text-center">
+						<h:form>
+							<div class="row mt-2">
+								<div class="col-md-5 m-1">
+									<h:commandButton class="btn btn-info" value="Comprar" action="Comprar" />
+								</div>
+								<div class="col-md-5 m-1">
+									<h:commandButton class="btn btn-danger" value="Denunciar" action="Denunciar" />
+								</div>
+							</div>
+							<hr/>
+							<div class="row">
+								<div class="col-md-5 m-1">
+									<h:commandButton class="btn btn-warning" value="Califiar" action="Califiar" />
+								</div>
+								<div class="col-md-5 m-1">
+							          <h:selectOneMenu class="form-control" id="Califiar" label="Service Level" value="">
+							            <f:selectItem itemLabel="1" itemValue="1" />
+							            <f:selectItem itemLabel="2" itemValue="2" />
+							            <f:selectItem itemLabel="3" itemValue="3" />
+							            <f:selectItem itemLabel="4" itemValue="4" />
+							            <f:selectItem itemLabel="5" itemValue="5" />
+							          </h:selectOneMenu>
+								</div>
+							</div>
+						</h:form>
+					</h5>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<!-- inicio del chat -->
+				<div class="card m-3">
+					<h5 class="card-header">Comentarios</h5>
+					<div class="card-body" style="height: 300px; overflow: auto;">
+						<ul >
+							<li><p>Hola</p></li>
+							<li><p>Hola todo bien</p></li>
+							<li><p>como andan?</p></li>
+							<li><p>como andan?</p></li>
+							<li><p>como andan?</p></li>
+							<li><p>como andan?</p></li>
+							<li><p>como andan?</p></li>
+						</ul>
+					</div>
+					<h5 class="card-footer text-right">
+					<h:form>
+        				<h:inputTextarea class="form-control" id="biografia" value=""/>
+        				<h:commandButton class="btn btn-primary mt-3" value="Comentar" action="Comentar" />
+        			</h:form>
+					</h5>
+				</div>
+				<!-- fin del chat -->
+			</div>
+		</div>
+	</div>
+<!--********************************* FIN    SEGUNDA TARJETA *************************************-->
+
+</main>
+
+<ui:include src="footer/footer.xhtml"/>
+
+</h:body>
+
+</html>
+
+<!-- http://localhost:8080/TodoArteWeb/VerMusica.jsf -->
