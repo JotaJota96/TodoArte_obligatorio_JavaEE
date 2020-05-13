@@ -4,27 +4,37 @@ import com.TodoArte.Classes.Administrador;
 import com.TodoArte.Classes.CategoriaContenido;
 import com.TodoArte.Classes.CategoriaSitio;
 import com.TodoArte.Classes.Fan;
+import com.TodoArte.Classes.Fuente;
 import com.TodoArte.Enums.MensajesExcepciones;
 import com.TodoArte.InternalInterfaces.AdminInterface;
 import com.TodoArte.JPAControllerClasses.AdministradorJpaController;
 import com.TodoArte.JPAControllerClasses.CategoriaContenidoJpaController;
 import com.TodoArte.JPAControllerClasses.CategoriaSitioJpaController;
 import com.TodoArte.JPAControllerClasses.FanJpaController;
+import com.TodoArte.JPAControllerClasses.FuenteJpaController;
 
 public class AdminController implements AdminInterface{
 
 	public AdminController() {}
 
 	@Override
-	public void agregarCategoriaDeSitio(CategoriaSitio categoriaSitio) {
+	public CategoriaSitio agregarCategoriaDeSitio(CategoriaSitio categoriaSitio) {
 		// persiste la categoria en la base de datos
 		 new CategoriaSitioJpaController().create(categoriaSitio);
+		 return categoriaSitio;
 	}
 
 	@Override
-	public void agregarCategoriaDeContenido(CategoriaContenido categoriaContenido) {
+	public CategoriaContenido agregarCategoriaDeContenido(CategoriaContenido categoriaContenido) {
 		// persiste la categoria en la base de datos
 		 new CategoriaContenidoJpaController().create(categoriaContenido);
+		 return categoriaContenido;
+	}
+	
+	@Override
+	public Fuente agregarFuente(Fuente fuente) {
+		 new FuenteJpaController().create(fuente);
+		 return fuente;
 	}
 
 	@Override

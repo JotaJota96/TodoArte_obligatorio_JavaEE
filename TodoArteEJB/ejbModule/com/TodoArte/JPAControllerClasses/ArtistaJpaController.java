@@ -1,9 +1,8 @@
 package com.TodoArte.JPAControllerClasses;
 
 import com.TodoArte.JPAControllerClasses.exceptions.NonexistentEntityException;
-
 import com.TodoArte.Classes.Artista;
-import com.TodoArte.Classes.Fan;
+import com.TodoArte.Classes.Sitio;
 
 import java.io.Serializable;
 import java.util.List;
@@ -44,6 +43,20 @@ public class ArtistaJpaController implements Serializable {
         }
     }
 
+    public void create(Artista artista, Sitio sitio) {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            em.persist(artista);
+            em.persist(sitio);
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
     public void edit(Artista artista) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
@@ -118,9 +131,9 @@ public class ArtistaJpaController implements Serializable {
         	// originalmente solo tenia la siguiente linea
             // return em.find(Artista.class, id);
         	// Yo lo cambie por:
-        	
+
         	Query q;
-        	q = em.createQuery("SELECT f FROM Fan f WHERE f.nikname = ?1 OR f.correo = ?2");
+        	q = em.createQuery("SELECT f FROM Artista f WHERE f.nikname = ?1 OR f.correo = ?2");
         	q.setParameter(1, id);
         	q.setParameter(2, id);
         	List<Artista> aux = (List<Artista>) q.getResultList();

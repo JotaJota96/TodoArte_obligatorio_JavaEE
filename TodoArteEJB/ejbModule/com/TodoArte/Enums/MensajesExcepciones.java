@@ -40,4 +40,10 @@ public abstract class MensajesExcepciones {
 	public static final String contenidoNoEsPublico = "El contenido no es publico";
 	public static final String fanBloqueado = "El fan esta bloqueado de este sitio";
 	public static final String FanNoPremium = "El fan no es premium";
+	public static final String usuarioExiste = "Ya existe un usuario con ese nickname o email";
+	public static final String artistaNoExiste = "No se encontro ningun artista con ese ID";
+	public static final String fanNoExiste = "No se encontro ningun fan con ese ID";
+	public static final String contenidoNoExiste = "No se encontro ningun contenido con ese ID";
 }
+
+

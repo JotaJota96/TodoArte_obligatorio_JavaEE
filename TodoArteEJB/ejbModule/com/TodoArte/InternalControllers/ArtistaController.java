@@ -1,6 +1,7 @@
 package com.TodoArte.InternalControllers;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.TodoArte.Classes.Artista;
 import com.TodoArte.Classes.Contenido;
@@ -13,12 +14,11 @@ import com.TodoArte.Classes.Usuario;
 import com.TodoArte.Enums.MensajesExcepciones;
 import com.TodoArte.InternalInterfaces.ArtistaInterface;
 import com.TodoArte.InternalInterfaces.FanInterface;
+import com.TodoArte.JPAControllerClasses.SitioJpaController;
 import com.TodoArte.JPAControllerClasses.ArtistaJpaController;
-import com.TodoArte.JPAControllerClasses.FanJpaController;
+
 
 public class ArtistaController implements ArtistaInterface{
-	
-	FanInterface fc = new FanController();
 	
 	public ArtistaController() {}
 
@@ -28,7 +28,7 @@ public class ArtistaController implements ArtistaInterface{
 		ArtistaJpaController ajpa = new ArtistaJpaController();
 		Artista art = ajpa.findArtista(idArtista);
 		if(art == null){
-			throw new RuntimeException(MensajesExcepchiones.artistaNoExiste);
+			throw new RuntimeException(MensajesExcepciones.artistaNoExiste);
 		}
 		
 		if(art.getBloqueado() == true){
@@ -48,9 +48,17 @@ public class ArtistaController implements ArtistaInterface{
 
 	@Override
 	public void notificarArtista(String idArtista, NotificacionArtista notificacion) {
-		// obtener el artista por id
-		// decirle que registre la notificacion
-		
+		ArtistaJpaController aJpa = new ArtistaJpaController();
+		Artista a = aJpa.findArtista(idArtista);
+		if (a == null) {
+			throw new RuntimeException(MensajesExcepciones.artistaNoExiste);
+		}
+		a.agregarNotificacion(notificacion);
+		try {
+			aJpa.edit(a);
+		}catch(Exception e){
+			throw new RuntimeException(e.getMessage());
+		}
 	}
 
 	@Override
@@ -62,7 +70,15 @@ public class ArtistaController implements ArtistaInterface{
 	@Override
 	public ArrayList<NotificacionArtista> listarNotificacionesArtista(String idArtista) {
 		// obtener las notificaciones del artista y convertirlos en ArrayList
-		return null;
+		Artista f = (Artista) this.obtenerDatosUsuario(idArtista);
+		if (f == null) {
+			throw new RuntimeException(MensajesExcepciones.artistaNoExiste);
+		}
+		ArrayList<NotificacionArtista> ret = new ArrayList<NotificacionArtista>();
+		for (Map.Entry<Integer, NotificacionArtista> entry : f.getNotificacion().entrySet()) {
+			ret.add(entry.getValue());
+		}
+		return ret;
 	}
 
 	@Override
@@ -82,12 +98,24 @@ public class ArtistaController implements ArtistaInterface{
 
 	@Override
 	public Artista registrarUsuarioArtista(Artista artista, Sitio sitio) {
-		// Crea un nuevo artista
-		// un nuevo sitio
-		// los vincula
-		// los persiste, y retorna el artista
-		// recordar validar
-		return null;
+		if (artista == null) {
+			throw new RuntimeException(MensajesExcepciones.artista);
+		}
+		if (sitio == null) {
+			throw new RuntimeException(MensajesExcepciones.sitio);
+		}
+		FanInterface fc = new FanController();
+		ArtistaJpaController aJpa = new ArtistaJpaController();
+
+		if (aJpa.findArtista(artista.getNikname()) != null || fc.obtenerDatosUsuario(artista.getNikname()) != null || fc.obtenerDatosUsuario(artista.getCorreo()) != null) {
+			throw new RuntimeException(MensajesExcepciones.usuarioExiste);
+		}
+		artista.setMiSitio(sitio);
+		sitio.setMiArtista(artista);
+
+		aJpa.create(artista, sitio);
+		
+		return artista;
 	}
 
 	@Override
@@ -108,7 +136,7 @@ public class ArtistaController implements ArtistaInterface{
 	@Override
 	public Artista obtenerDatosUsuario(String idUsuario) {
 		// obtener el artista por su ID y devolverlo (nill si no se encuentra)
-		return null;
+		return new ArtistaJpaController().findArtista(idUsuario);
 	}
 
 	@Override
@@ -154,7 +182,14 @@ public class ArtistaController implements ArtistaInterface{
 		// obtener el artista por id
 		// obtener su sitio
 		// decirle al sitio que agregue el QyA, y devuelve lo obtenido
-		return null;
+		Sitio s = ((Artista) this.obtenerDatosUsuario(idArtista)).getMiSitio();
+		QyAProgramado ret = s.programarQyA(qyaProgramado);
+		try {
+			new SitioJpaController().edit(s);
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
+		return ret;
 	}
 
 	@Override
@@ -162,7 +197,18 @@ public class ArtistaController implements ArtistaInterface{
 		// obtener el artista por id
 		// obtener el sitio de ese artista
 		// decirle al sitio del artista que agregue el contenido
-		return null;
+		Artista a = new ArtistaJpaController().findArtista(idArtista);
+		if (a == null) {
+			throw new RuntimeException(MensajesExcepciones.artistaNoExiste);
+		}
+		Sitio s = a.getMiSitio();
+		contenido = s.agregarContenido(contenido);
+		try {
+			new SitioJpaController().edit(s);
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
+		return contenido;
 	}
 
 	@Override
@@ -173,7 +219,5 @@ public class ArtistaController implements ArtistaInterface{
 		// update del sitio
 		return null;
 	}
-
-	
-	
+    
 }
