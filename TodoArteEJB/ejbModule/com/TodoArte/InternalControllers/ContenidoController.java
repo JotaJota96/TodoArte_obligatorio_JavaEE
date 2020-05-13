@@ -116,12 +116,12 @@ public class ContenidoController implements ContenidoInterface{
 				return contenido;				
 			}
 			else {
-				throw new RuntimeException("Crear mensaje: el contenido no es publico");
+				throw new RuntimeException(MensajesExcepciones.contenidoNoEsPublico);
 			}
 		}
 		else{
 			if(sitioArtista.fanBloqueado(idFan) == true){
-				throw new RuntimeException("Crear mensaje: el fan esta bloqueado");
+				throw new RuntimeException(MensajesExcepciones.fanBloqueado);
 			}
 			else{
 				if(sitioArtista.fanEsPremium(idFan) == true){
@@ -129,7 +129,7 @@ public class ContenidoController implements ContenidoInterface{
 				}
 				else{
 					if(contenido.getPrivacidad() == Privacidad.Premium){
-						throw new RuntimeException("Crear mensaje: el fan no es premiun");
+						throw new RuntimeException(MensajesExcepciones.FanNoPremium);
 					}
 					else {
 						return contenido;
