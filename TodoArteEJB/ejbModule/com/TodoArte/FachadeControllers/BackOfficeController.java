@@ -57,8 +57,7 @@ public class BackOfficeController implements BackOfficeInterface {
 	
 	@Override
 	public Administrador iniciarSesion(String id, String contrasenia) {
-		// TODO Auto-generated method stub
-		return null;
+		return new AdminController().iniciarSesion(id, contrasenia);
 	}
 
 	@Override
@@ -69,8 +68,7 @@ public class BackOfficeController implements BackOfficeInterface {
 
 	@Override
 	public Administrador agregarAdministrador(Administrador administrador) {
-		// TODO Auto-generated method stub
-		return null;
+		return new AdminController().agregarAdministrador(administrador);
 	}
 
 }

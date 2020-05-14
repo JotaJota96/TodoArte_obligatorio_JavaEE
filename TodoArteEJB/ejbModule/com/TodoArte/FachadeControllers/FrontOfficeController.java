@@ -30,14 +30,12 @@ public class FrontOfficeController implements FrontOfficeInterface{
 
 	@Override
 	public void calificarContenido(Valoracion val, String idFan, int idContenido, String idArtista) {
-		// TODO Auto-generated method stub
-		
+			new ContenidoController().calificarContenido(val, idFan, idContenido, idArtista);
 	}
 
 	@Override
 	public void comentarContenido(Comentario comentario, String idFan, int idContenido, String idArtista) {
-		// TODO Auto-generated method stub
-		
+		new ContenidoController().comentarContenido(comentario, idFan, idContenido, idArtista);
 	}
 
 	@Override

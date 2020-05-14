@@ -25,6 +25,8 @@ import javax.validation.constraints.Null;
 import com.TodoArte.Enums.MensajesExcepciones;
 import com.TodoArte.Enums.Privacidad;
 import com.TodoArte.Enums.TipoContenido;
+import com.TodoArte.JPAControllerClasses.ComentarioJpaController;
+import com.TodoArte.JPAControllerClasses.ValoracionJpaController;
 
 @Entity
 @Table(name = "contenido")
@@ -147,12 +149,20 @@ public class Contenido implements Serializable {
 		// vincular la valoracion con el fan
 		// persistir la valoracion
 		// agregarlo a la coleccion
+		
+		val.setMiFan(fan);
+		new ValoracionJpaController().create(val);
+		this.MisValoracion.put(val.getId(), val);
 	}
 
 	public void crearComentario(Comentario comentario, Fan fan) {
 		// vincular el comentario con el fan
 		// persistir el comentario
 		// agregarlo a la coleccion
+		
+		comentario.setMiFan(fan);
+		new ComentarioJpaController().create(comentario);
+		this.MisComentario.put(comentario.getId(), comentario);
 	}
 	
 	public void crearReporte(Reporte reporte, Fan fan) {
