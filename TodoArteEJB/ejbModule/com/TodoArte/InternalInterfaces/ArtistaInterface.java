@@ -136,6 +136,6 @@ public interface ArtistaInterface {
 	 * @param idContenido ID del contenido a eliminar
 	 * @return
 	 */
-	public Contenido eliminarContenido(String idArtista, int idContenido);
+	public void eliminarContenido(String idArtista, int idContenido);
 
 }

@@ -86,6 +86,16 @@ public class ArtistaController implements ArtistaInterface{
 		// obtener artista
 		// obtener su sitio
 		// pedir al controlador fan que le descuente
+		
+		Artista artista = new ArtistaJpaController().findArtista(idArtista);
+		Sitio sitio = artista.getMiSitio();
+		
+		if(sitio.getPrecioPremium() > new FanController().obtenerDatosUsuario(idFan).getSaldo()){
+			throw new RuntimeException(MensajesExcepciones.saldoInsuficiente);
+		}
+		
+		new FanController().descontarSaldo(idFan, sitio.getPrecioPremium());
+		sitio.comprarPremium(idFan);
 	}
 
 	@Override
@@ -212,12 +222,21 @@ public class ArtistaController implements ArtistaInterface{
 	}
 
 	@Override
-	public Contenido eliminarContenido(String idArtista, int idContenido) {
+	public void eliminarContenido(String idArtista, int idContenido) {
 		// obtener el artista por id
 		// obtener el sitio de ese artista
 		// decirle al sitio del artista que elimine el contenido
 		// update del sitio
-		return null;
+		
+		Artista artista = new ArtistaJpaController().findArtista(idArtista);
+		Sitio sitio = artista.getMiSitio();
+		sitio.eliminarContenido(idContenido);
+		
+		try {
+			new SitioJpaController().edit(sitio);
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
 	}
     
 }

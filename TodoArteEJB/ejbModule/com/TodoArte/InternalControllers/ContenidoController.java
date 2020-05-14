@@ -184,7 +184,7 @@ public class ContenidoController implements ContenidoInterface{
 	@Override
 	public void eliminarContenido(String idArtista, int idContenido) {
 		// decirle al controlador de artista que elimine el contenido
-		
+		new ArtistaController().eliminarContenido(idArtista, idContenido);		
 	}
 
 	@Override

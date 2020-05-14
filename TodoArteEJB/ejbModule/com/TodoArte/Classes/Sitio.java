@@ -134,6 +134,17 @@ public class Sitio implements Serializable {
     //**********************************************************************
 	public void comprarPremium(String idFan) {
 		// encontrar FanSigueASitio de ese fan y actualizarlo, tambien en BDD
+		
+		FanSigueSitio fss = this.obtenerSeguidor(idFan);
+		if(fss != null){
+			fss.setPremiun(true);
+			try {
+				new FanSigueSitioJpaController().edit(fss);
+			} catch (Exception e) {
+				throw new RuntimeCryptoException(e.getMessage());
+			}
+		}
+		
 	}
     
 	public FanSigueSitio agregarSeguidor() {
@@ -181,9 +192,24 @@ public class Sitio implements Serializable {
 		return contenido;
 	}
 
-	public Contenido eliminarContenido(int idContenido) {
+	public void eliminarContenido(int idContenido) {
 		// eliminar el contenido de la coleccion y de la base de datos
-		return null;
+		
+		Contenido contenido = null;
+		
+		for (Map.Entry<Integer, Contenido> entry : this.MisContenidos.entrySet()) {
+			if(entry.getValue().getId() == idContenido) {
+				contenido = entry.getValue();
+			}
+		}
+		contenido.setEliminado(true);
+		
+		try {
+			new ContenidoJpaController().edit(contenido);
+		} catch (Exception e) {
+			throw new RuntimeCryptoException(e.getMessage());
+		}
+		
 	}
 
 	public boolean esFan(String idFan) {

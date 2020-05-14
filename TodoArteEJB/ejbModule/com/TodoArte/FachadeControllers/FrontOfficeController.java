@@ -20,6 +20,7 @@ import com.TodoArte.InternalControllers.FanController;
 import com.TodoArte.InternalInterfaces.ArtistaInterface;
 import com.TodoArte.InternalInterfaces.ContenidoInterface;
 import com.TodoArte.InternalInterfaces.FanInterface;
+import com.TodoArte.JPAControllerClasses.ContenidoJpaController;
 
 public class FrontOfficeController implements FrontOfficeInterface{
 	
@@ -60,8 +61,7 @@ public class FrontOfficeController implements FrontOfficeInterface{
 
 	@Override
 	public void comprarPremium(String idFan, String idArtista) {
-		// TODO Auto-generated method stub
-		
+		new ArtistaController().comprarPremium(idFan, idArtista);
 	}
 
 	@Override
@@ -100,8 +100,7 @@ public class FrontOfficeController implements FrontOfficeInterface{
 
 	@Override
 	public void eliminarContenido(String idArtista, int idContenido) {
-		// TODO Auto-generated method stub
-		
+		new ContenidoController().eliminarContenido(idArtista, idContenido);
 	}
 
 	@Override
