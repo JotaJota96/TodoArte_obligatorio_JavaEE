@@ -40,8 +40,7 @@ public class FrontOfficeController implements FrontOfficeInterface{
 
 	@Override
 	public void reportarContenido(Reporte reporte, String idFan, int idContenido, String idArtista) {
-		// TODO Auto-generated method stub
-		
+		new ContenidoController().reportarContenido(reporte, idFan, idContenido, idArtista);		
 	}
 
 	@Override
@@ -56,8 +55,7 @@ public class FrontOfficeController implements FrontOfficeInterface{
 
 	@Override
 	public void comprarContenido(String idFan, int idContenido, int idArtista) {
-		// TODO Auto-generated method stub
-		
+		new ContenidoController().comprarContenido(idFan, idContenido, idArtista); 
 	}
 
 	@Override

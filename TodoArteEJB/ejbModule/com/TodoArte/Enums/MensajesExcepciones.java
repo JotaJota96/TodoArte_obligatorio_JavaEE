@@ -45,6 +45,7 @@ public abstract class MensajesExcepciones {
 	public static final String fanNoExiste = "No se encontro ningun fan con ese ID";
 	public static final String contenidoNoExiste = "No se encontro ningun contenido con ese ID";
 	public static final String comentario = "Comentario no pueden ser null";
+	public static final String saldoInsuficiente = "Su saldo es insuficiente";
 }
 
 
