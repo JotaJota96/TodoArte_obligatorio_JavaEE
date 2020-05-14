@@ -6,6 +6,7 @@ import com.TodoArte.Classes.Administrador;
 import com.TodoArte.Classes.Artista;
 import com.TodoArte.Classes.CategoriaContenido;
 import com.TodoArte.Classes.CategoriaSitio;
+import com.TodoArte.Classes.Contenido;
 import com.TodoArte.Classes.Fan;
 import com.TodoArte.Classes.Fuente;
 import com.TodoArte.Classes.NotificacionArtista;
@@ -21,9 +22,6 @@ public class Pruebas {
 		BackOfficeController bo = new BackOfficeController();
 		
 		cargarDatosDePrueba();
-		Administrador adm = new Administrador("nickname", "contrasenia", "correo");
-		bo.agregarAdministrador(adm);
-		System.out.println(bo.iniciarSesion("nickcname", "contrasenia").getNickname());
 		
 		System.out.println("-- fin --");
 	}

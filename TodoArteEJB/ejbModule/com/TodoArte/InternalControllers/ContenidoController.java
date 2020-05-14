@@ -62,6 +62,28 @@ public class ContenidoController implements ContenidoInterface{
 		// obtener el contenido por su ID
 		// pasarle al contenido la valoracion y el fan
 		// update contenido
+		
+		Fan fan = new FanController().obtenerDatosUsuario(idFan);
+		Contenido contenido = new ContenidoJpaController().findContenido(idContenido);
+		
+		if(val == null){
+			throw new RuntimeException(MensajesExcepciones.valoracion);
+		}
+		if(fan == null){
+			throw new RuntimeException(MensajesExcepciones.fanNoExiste);
+		}
+		if(contenido == null) {
+			throw new RuntimeException(MensajesExcepciones.contenidoNoExiste);
+		}
+		
+		contenido.crearValoracion(val, fan);
+		
+		try {
+			new ContenidoJpaController().edit(contenido);
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
+		
 	}
 
 	@Override
@@ -71,6 +93,26 @@ public class ContenidoController implements ContenidoInterface{
 		// pasarle al contenido el comentario y el fan
 		// update contenido
 		
+		Fan fan = new FanController().obtenerDatosUsuario(idFan);
+		Contenido contenido = new ContenidoJpaController().findContenido(idContenido);
+		
+		if(comentario == null){
+			throw new RuntimeException(MensajesExcepciones.comentario);
+		}
+		if(fan == null){
+			throw new RuntimeException(MensajesExcepciones.fanNoExiste);
+		}
+		if(contenido == null) {
+			throw new RuntimeException(MensajesExcepciones.contenidoNoExiste);
+		}
+		
+		contenido.crearComentario(comentario, fan);
+		
+		try {
+			new ContenidoJpaController().edit(contenido);
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}		
 	}
 
 	@Override
