@@ -66,8 +66,7 @@ public class FrontOfficeController implements FrontOfficeInterface{
 
 	@Override
 	public void suscribirseFanArtista(String idFan, String idArtista) {
-		// TODO Auto-generated method stub
-		
+		new ArtistaController().suscribirseFanArtista(idFan, idArtista);
 	}
 
 	@Override

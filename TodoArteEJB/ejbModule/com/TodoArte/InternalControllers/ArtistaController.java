@@ -6,6 +6,7 @@ import java.util.Map;
 import com.TodoArte.Classes.Artista;
 import com.TodoArte.Classes.Contenido;
 import com.TodoArte.Classes.Fan;
+import com.TodoArte.Classes.FanSigueSitio;
 import com.TodoArte.Classes.NotificacionArtista;
 import com.TodoArte.Classes.PagoAPlataforma;
 import com.TodoArte.Classes.QyAProgramado;
@@ -16,6 +17,7 @@ import com.TodoArte.InternalInterfaces.ArtistaInterface;
 import com.TodoArte.InternalInterfaces.FanInterface;
 import com.TodoArte.JPAControllerClasses.SitioJpaController;
 import com.TodoArte.JPAControllerClasses.ArtistaJpaController;
+import com.TodoArte.JPAControllerClasses.FanJpaController;
 
 
 public class ArtistaController implements ArtistaInterface{
@@ -103,7 +105,22 @@ public class ArtistaController implements ArtistaInterface{
 		// obtener artista
 		// obtener su sitio
 		// decirle al sitio que cree y devuelva el nuevo FanSigueASitio
+		Sitio sitio = new ArtistaJpaController().findArtista(idArtista).getMiSitio();
+		Fan fan = new FanJpaController().findFan(idFan);
+		if(sitio == null) {
+			throw new RuntimeException(MensajesExcepciones.artistaNoExiste);
+		}
+		if(fan == null) {
+			throw new RuntimeException(MensajesExcepciones.fanNoExiste);
+		}
+		FanSigueSitio fss = sitio.agregarSeguidor(fan);
+		new FanController().vincularFanASitio(fss, idFan);
 		
+		try {
+			new SitioJpaController().edit(sitio);
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
 	}
 
 	@Override

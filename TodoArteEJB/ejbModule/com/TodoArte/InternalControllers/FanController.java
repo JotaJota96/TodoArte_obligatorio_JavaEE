@@ -85,6 +85,15 @@ public class FanController implements FanInterface{
 		// obtiene el fan
 		// vincular mutuamente al fan con el fanSigueSitio
 		// recordar persistir lo que haga falta
+		
+		Fan fan = new FanJpaController().findFan(idFan);
+		fan.getMisSitiosSeguidos().put(fanSigueSitio.getId(), fanSigueSitio);
+		
+		try {
+			new FanJpaController().edit(fan);
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
 	}
 	
 	@Override

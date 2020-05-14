@@ -147,9 +147,13 @@ public class Sitio implements Serializable {
 		
 	}
     
-	public FanSigueSitio agregarSeguidor() {
+	public FanSigueSitio agregarSeguidor(Fan fan) {
 		// crear un nuevo FanSigueSitio , agregarlo a coleccion, persistirlo y devolverlo
-		return null;
+		
+		FanSigueSitio fanNuevo = new FanSigueSitio(0, this.getMiArtista().getNikname(), false, fan);
+		new FanSigueSitioJpaController().create(fanNuevo);		
+		this.MisFans.put(fanNuevo.getId(), fanNuevo);
+		return fanNuevo;
 	}
     
 	public void bloquearDesbloquearUsuarioDeSitio(String idFan) {

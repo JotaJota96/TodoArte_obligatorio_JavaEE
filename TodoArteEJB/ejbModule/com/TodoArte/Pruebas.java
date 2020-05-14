@@ -15,7 +15,7 @@ public class Pruebas {
 		BackOfficeController bo = new BackOfficeController();
 		
 		cargarDatosDePrueba();
-		
+		fo.suscribirseFanArtista("luc31g","ergo");
 		System.out.println("-- fin --");
 	}
 	
