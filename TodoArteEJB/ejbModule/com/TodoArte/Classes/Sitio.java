@@ -1,6 +1,7 @@
 package com.TodoArte.Classes;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -18,7 +19,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.postgresql.shaded.com.ongres.scram.common.bouncycastle.pbkdf2.RuntimeCryptoException;
+
 import com.TodoArte.Enums.MensajesExcepciones;
+import com.TodoArte.JPAControllerClasses.ContenidoJpaController;
+import com.TodoArte.JPAControllerClasses.FanSigueSitioJpaController;
+import com.TodoArte.JPAControllerClasses.QyAProgramadoJpaController;
 
 
 @Entity
@@ -93,15 +99,17 @@ public class Sitio implements Serializable {
     }
   
     public Sitio(int id, byte[] imagenPortada, float precioPremium, String colorDeFondo, String colorDeMenu, String colorDeTexto, String rrssYouTube, String rrssFacebook, String rrssInstagram, String rrssTwitter, int seccionTwitter, CategoriaSitio miCategoria, Artista miArtista, Fuente miFuente) {
-    	if(precioPremium <= 0){
+    	if(precioPremium < 0){
             throw new RuntimeException(MensajesExcepciones.precio);
 		}
     	if(miCategoria == null){
             throw new RuntimeException(MensajesExcepciones.categoria);
 		}
+    	/*
     	if(miArtista == null){
             throw new RuntimeException(MensajesExcepciones.artista);
 		}
+    	*/
     	if(miFuente == null){
             throw new RuntimeException(MensajesExcepciones.fuente);
 		}
@@ -123,7 +131,117 @@ public class Sitio implements Serializable {
         this.MisQyA = new TreeMap<Integer, QyAProgramado>();
         this.MisContenidos = new TreeMap<Integer, Contenido>();
 	}
+    //**********************************************************************
+	public void comprarPremium(String idFan) {
+		// encontrar FanSigueASitio de ese fan y actualizarlo, tambien en BDD
+		
+		FanSigueSitio fss = this.obtenerSeguidor(idFan);
+		if(fss != null){
+			fss.setPremiun(true);
+			try {
+				new FanSigueSitioJpaController().edit(fss);
+			} catch (Exception e) {
+				throw new RuntimeCryptoException(e.getMessage());
+			}
+		}
+		
+	}
+    
+	public FanSigueSitio agregarSeguidor(Fan fan) {
+		// crear un nuevo FanSigueSitio , agregarlo a coleccion, persistirlo y devolverlo
+		
+		FanSigueSitio fanNuevo = new FanSigueSitio(0, this.getMiArtista().getNikname(), false, fan);
+		new FanSigueSitioJpaController().create(fanNuevo);		
+		this.MisFans.put(fanNuevo.getId(), fanNuevo);
+		return fanNuevo;
+	}
+    
+	public void bloquearDesbloquearUsuarioDeSitio(String idFan) {
+		// busca el fanSigueSitio entre los seguidores del sitio
+		// actualiza el estado del bloqueo
+		FanSigueSitio fss = this.obtenerSeguidor(idFan);
+		if (fss != null) {
+			fss.setBloqueado( ! fss.getBloqueado());
+			try {
+				new FanSigueSitioJpaController().edit(fss);
+			} catch (Exception e) {
+				throw new RuntimeCryptoException(e.getMessage());
+			}
+		}
+	}
+	
+	public ArrayList<String> obtenerIdDeFans(){
+		// recorre los FanSigueSitio obteniendo los nicknames de cada fan y agregandolos al array de retorno
+		ArrayList<String> ret = new ArrayList<String>();
+		for (Map.Entry<Integer, FanSigueSitio> entry : this.MisFans.entrySet()) {
+			ret.add(entry.getValue().getMiFan().getNikname());
+		}
+		return ret;
+	}
+	
+	public QyAProgramado programarQyA(QyAProgramado qyaProgramado) {
+		// crea el QyA, lo agrega a la coleccion y lo devuelve
+		qyaProgramado.setId(0);
+		qyaProgramado.setFechaYHoraFin(null);
+		new QyAProgramadoJpaController().create(qyaProgramado);
+		this.MisQyA.put(qyaProgramado.getId(), qyaProgramado);
+		return qyaProgramado;
+	}
+	
+	public Contenido agregarContenido(Contenido contenido) {
+		// persistir el contenido
+		// agregarlo a la coleccion y devolverlo
+		new ContenidoJpaController().create(contenido);
+		this.MisContenidos.put(contenido.getId(), contenido);
+		return contenido;
+	}
 
+	public void eliminarContenido(int idContenido) {
+		// eliminar el contenido de la coleccion y de la base de datos
+		
+		Contenido contenido = null;
+		
+		for (Map.Entry<Integer, Contenido> entry : this.MisContenidos.entrySet()) {
+			if(entry.getValue().getId() == idContenido) {
+				contenido = entry.getValue();
+			}
+		}
+		contenido.setEliminado(true);
+		
+		try {
+			new ContenidoJpaController().edit(contenido);
+		} catch (Exception e) {
+			throw new RuntimeCryptoException(e.getMessage());
+		}
+		
+	}
+
+	public boolean esFan(String idFan) {
+		// devuelve si el fan es seguidor del sitio
+		return (obtenerSeguidor(idFan) != null);
+	}
+	
+	public boolean fanBloqueado(String idFan) {
+		// devuelve si el fan se encuentra bloqueado de este sitio
+		return obtenerSeguidor(idFan).getBloqueado();
+	}
+	
+	public boolean fanEsPremium(String idFan) {
+		// devuelve si el fan es premium
+		return obtenerSeguidor(idFan).getPremiun();
+	}
+	
+	private FanSigueSitio obtenerSeguidor(String idFan) {
+		for (Map.Entry<Integer, FanSigueSitio> entry : this.MisFans.entrySet()) {
+			// entrada del mapa -> elemento -> fan -> nikname -> igual a -> idFan
+			if (entry.getValue().getMiFan().getNikname().equals(idFan)) {
+				return entry.getValue();
+			}
+		}
+		return null;
+	}
+	
+    //**********************************************************************
 	public int getId() {
 		return id;
 	}

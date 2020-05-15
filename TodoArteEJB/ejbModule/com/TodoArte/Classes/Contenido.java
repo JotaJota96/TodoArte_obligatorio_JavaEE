@@ -25,6 +25,10 @@ import javax.validation.constraints.Null;
 import com.TodoArte.Enums.MensajesExcepciones;
 import com.TodoArte.Enums.Privacidad;
 import com.TodoArte.Enums.TipoContenido;
+import com.TodoArte.JPAControllerClasses.ComentarioJpaController;
+import com.TodoArte.JPAControllerClasses.ReporteJpaController;
+import com.TodoArte.JPAControllerClasses.ValoracionJpaController;
+import com.TodoArte.JPAControllerClasses.VentaJpaController;
 
 @Entity
 @Table(name = "contenido")
@@ -141,7 +145,51 @@ public class Contenido implements Serializable {
 		MisComentario = new TreeMap<Integer, Comentario>();
 		MisValoracion = new TreeMap<Integer, Valoracion>();
 	}
+	//***************************************************************************
+	
+	public void crearValoracion(Valoracion val, Fan fan) {
+		// vincular la valoracion con el fan
+		// persistir la valoracion
+		// agregarlo a la coleccion
+		
+		val.setMiFan(fan);
+		new ValoracionJpaController().create(val);
+		this.MisValoracion.put(val.getId(), val);
+	}
 
+	public void crearComentario(Comentario comentario, Fan fan) {
+		// vincular el comentario con el fan
+		// persistir el comentario
+		// agregarlo a la coleccion
+		
+		comentario.setMiFan(fan);
+		new ComentarioJpaController().create(comentario);
+		this.MisComentario.put(comentario.getId(), comentario);
+	}
+	
+	public void crearReporte(Reporte reporte, Fan fan) {
+		// vincular el reporte con el fan
+		// persistir el reporte
+		// agregarlo a la coleccion
+		
+		reporte.setMiFan(fan);
+		new ReporteJpaController().create(reporte);
+		this.MisReporte.put(reporte.getId(), reporte);
+	}
+
+	public void crearVenta(Fan fan) {
+		// crear una nueva venta
+		// vincular la venta con el fan
+		// persistir la venta
+		// agregarlo a la coleccion
+		
+		Date fechaYHora = new Date(System.currentTimeMillis());
+		Venta venta = new Venta(0, this.getPrecio(), fechaYHora, fan);
+		new VentaJpaController().create(venta);
+		this.MisVentas.put(venta.getId(), venta);
+	}
+	
+	//***************************************************************************
 	public int getId() {
 		return id;
 	}

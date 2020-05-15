@@ -15,6 +15,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import com.TodoArte.Enums.MensajesExcepciones;
+import com.TodoArte.JPAControllerClasses.NotificacionArtistaJpaController;
 
 @Entity
 @Table(name = "artista")
@@ -53,17 +54,27 @@ public class Artista extends Usuario implements Serializable {
 		if(biografia.equals("")){
     		throw new RuntimeException(MensajesExcepciones.biografia);
     	}
-		if(sitio.equals(null)){
+		/*
+		if(sitio == null){
     		throw new RuntimeException(MensajesExcepciones.sitio);
     	}
-		
+		*/
         this.nombre = nombre;
         this.biografia = biografia;
         this.notificacion = new TreeMap<Integer, NotificacionArtista>();
         this.pagos = new TreeMap<Integer, PagoAPlataforma>();
         this.miSitio = sitio;
+        this.miSitio.setMiArtista(this);
     }
+    //**********************************************************************
 
+    public void agregarNotificacion(NotificacionArtista notificacion) {
+    	notificacion.setId(0);
+    	new NotificacionArtistaJpaController().create(notificacion);
+    	this.notificacion.put(notificacion.getId(), notificacion);
+    }
+    
+    //**********************************************************************
 	public String getNombre() {
 		return nombre;
 	}
