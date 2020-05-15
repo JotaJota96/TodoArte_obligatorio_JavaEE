@@ -46,6 +46,8 @@ public abstract class MensajesExcepciones {
 	public static final String contenidoNoExiste = "No se encontro ningun contenido con ese ID";
 	public static final String comentario = "Comentario no pueden ser null";
 	public static final String saldoInsuficiente = "Su saldo es insuficiente";
+	public static final String usuarioNoExiste = "No existe un usuario con ese nickname o email";
+	public static final String fanNoSeguidor = "El fan no es seguidor";
 }
 
 

@@ -2,6 +2,8 @@ package com.TodoArte.FachadeControllers;
 
 import java.util.ArrayList;
 
+import org.jboss.resteasy.spi.ReaderException;
+
 import com.TodoArte.Classes.Artista;
 import com.TodoArte.Classes.Comentario;
 import com.TodoArte.Classes.Contenido;
@@ -13,6 +15,7 @@ import com.TodoArte.Classes.Reporte;
 import com.TodoArte.Classes.Sitio;
 import com.TodoArte.Classes.Usuario;
 import com.TodoArte.Classes.Valoracion;
+import com.TodoArte.Enums.MensajesExcepciones;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
 import com.TodoArte.InternalControllers.ArtistaController;
 import com.TodoArte.InternalControllers.ContenidoController;
@@ -20,7 +23,9 @@ import com.TodoArte.InternalControllers.FanController;
 import com.TodoArte.InternalInterfaces.ArtistaInterface;
 import com.TodoArte.InternalInterfaces.ContenidoInterface;
 import com.TodoArte.InternalInterfaces.FanInterface;
+import com.TodoArte.JPAControllerClasses.ArtistaJpaController;
 import com.TodoArte.JPAControllerClasses.ContenidoJpaController;
+import com.TodoArte.JPAControllerClasses.FanJpaController;
 
 public class FrontOfficeController implements FrontOfficeInterface{
 	
@@ -118,8 +123,20 @@ public class FrontOfficeController implements FrontOfficeInterface{
 
 	@Override
 	public void recargarSaldo(String idUsuario, float monto) {
-		// TODO Auto-generated method stub
+		Artista artista = new ArtistaJpaController().findArtista(idUsuario);
+		Fan fan = new FanJpaController().findFan(idUsuario);
 		
+		if(fan == null && artista == null){
+			throw new ReaderException(MensajesExcepciones.usuarioNoExiste);
+		}
+		
+		if(artista != null) {
+			new ArtistaController().recargarSaldo(idUsuario, monto);
+		}
+		
+		if(fan != null){
+			new FanController().recargarSaldo(idUsuario, monto);
+		}
 	}
 
 	@Override
@@ -135,7 +152,7 @@ public class FrontOfficeController implements FrontOfficeInterface{
 
 	@Override
 	public void bloquearDesbloquearUsuarioDeSitio(String idArtista, String idFan) {
-		// TODO Auto-generated method stub
+		new ArtistaController().bloquearDesbloquearUsuarioDeSitio(idArtista, idFan);
 		
 	}
 

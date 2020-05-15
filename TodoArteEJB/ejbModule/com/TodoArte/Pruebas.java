@@ -16,6 +16,7 @@ public class Pruebas {
 		
 		cargarDatosDePrueba();
 		fo.suscribirseFanArtista("luc31g","ergo");
+		fo.bloquearDesbloquearUsuarioDeSitio("ergo", "luc31g");
 		System.out.println("-- fin --");
 	}
 	

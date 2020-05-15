@@ -3,6 +3,9 @@ package com.TodoArte.InternalControllers;
 import java.util.ArrayList;
 import java.util.Map;
 
+import org.jboss.resteasy.spi.ReaderException;
+
+import com.TodoArte.Classes.Artista;
 import com.TodoArte.Classes.Fan;
 import com.TodoArte.Classes.FanSigueSitio;
 import com.TodoArte.Classes.NotificacionFan;
@@ -10,6 +13,7 @@ import com.TodoArte.Classes.Usuario;
 import com.TodoArte.Enums.MensajesExcepciones;
 import com.TodoArte.InternalInterfaces.ArtistaInterface;
 import com.TodoArte.InternalInterfaces.FanInterface;
+import com.TodoArte.JPAControllerClasses.ArtistaJpaController;
 import com.TodoArte.JPAControllerClasses.FanJpaController;
 
 public class FanController implements FanInterface{
@@ -71,6 +75,15 @@ public class FanController implements FanInterface{
 	public void recargarSaldo(String idUsuario, float monto) {
 		// obtener el fan por id e incrementar su saldo
 		
+
+		Fan fan = new FanJpaController().findFan(idUsuario);
+		fan.setSaldo(fan.getSaldo() + monto);
+		try {
+			new FanJpaController().edit(fan);
+		} catch (Exception e) {
+			throw new ReaderException(e.getMessage());
+		}
+		
 	}
 
 	@Override
@@ -78,6 +91,19 @@ public class FanController implements FanInterface{
 		// obtener el fan por id
 		// descuenta el monto del saldo del artista
 		
+		Fan fan = new FanJpaController().findFan(idUsuario);
+		
+		if(fan.getSaldo() < monto){
+			throw new ReaderException(MensajesExcepciones.saldoInsuficiente);
+		}
+		
+		fan.setSaldo(fan.getSaldo() - monto);
+		
+		try {
+			new FanJpaController().edit(fan);
+		} catch (Exception e) {
+			throw new ReaderException(e.getMessage());
+		}
 	}
 
 	@Override

@@ -3,6 +3,8 @@ package com.TodoArte.InternalControllers;
 import java.util.ArrayList;
 import java.util.Map;
 
+import org.jboss.resteasy.spi.ReaderException;
+
 import com.TodoArte.Classes.Artista;
 import com.TodoArte.Classes.Contenido;
 import com.TodoArte.Classes.Fan;
@@ -18,6 +20,7 @@ import com.TodoArte.InternalInterfaces.FanInterface;
 import com.TodoArte.JPAControllerClasses.SitioJpaController;
 import com.TodoArte.JPAControllerClasses.ArtistaJpaController;
 import com.TodoArte.JPAControllerClasses.FanJpaController;
+import com.TodoArte.JPAControllerClasses.FanSigueSitioJpaController;
 
 
 public class ArtistaController implements ArtistaInterface{
@@ -170,6 +173,13 @@ public class ArtistaController implements ArtistaInterface{
 	public void recargarSaldo(String idUsuario, float monto) {
 		// obtener el artista por id e incrementar su saldo
 		
+		Artista artista = new ArtistaJpaController().findArtista(idUsuario);
+		artista.setSaldo(artista.getSaldo() + monto);
+		try {
+			new ArtistaJpaController().edit(artista);
+		} catch (Exception e) {
+			throw new ReaderException(e.getMessage());
+		}
 	}
 
 	@Override
@@ -186,6 +196,8 @@ public class ArtistaController implements ArtistaInterface{
 		// obtener el sitio del artista
 		// decirle al sitio que bloquee el fan por id
 		
+		Sitio sitioArtista = new ArtistaJpaController().findArtista(idArtista).getMiSitio();
+		sitioArtista.bloquearDesbloquearUsuarioDeSitio(idFan);
 	}
 
 	@Override
@@ -202,6 +214,21 @@ public class ArtistaController implements ArtistaInterface{
 	public void descontarSaldo(String idUsuario, float monto) {
 		// obtener el artista por id
 		// descuenta el monto del saldo del artista
+		
+
+		Artista artista = new ArtistaJpaController().findArtista(idUsuario);
+		
+		if(artista.getSaldo() < monto){
+			throw new ReaderException(MensajesExcepciones.saldoInsuficiente);
+		}
+		
+		artista.setSaldo(artista.getSaldo() - monto);
+		
+		try {
+			new ArtistaJpaController().edit(artista);
+		} catch (Exception e) {
+			throw new ReaderException(e.getMessage());
+		}
 	}
 
 	@Override
