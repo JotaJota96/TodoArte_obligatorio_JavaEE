@@ -122,6 +122,15 @@ public class ContenidoController implements ContenidoInterface{
 		// pasarle al contenido el reporte y el fan
 		// update contenido
 		
+		Fan fan = new FanController().obtenerDatosUsuario(idFan);
+		Contenido contenido = new ContenidoJpaController().findContenido(idContenido);
+		
+		contenido.crearReporte(reporte, fan);
+		try {
+			new ContenidoJpaController().edit(contenido);
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
 	}
 
 	@Override
@@ -133,6 +142,20 @@ public class ContenidoController implements ContenidoInterface{
 		// pasarle al contenido el fan
 		// update contenido
 		
+		Fan fan = new FanController().obtenerDatosUsuario(idFan);
+		Contenido contenido = new ContenidoJpaController().findContenido(idContenido);
+		
+		if(contenido.getPrecio() > fan.getSaldo()) {
+			throw new RuntimeException(MensajesExcepciones.saldoInsuficiente);
+		}
+		new FanController().descontarSaldo(idFan, contenido.getPrecio());
+		
+		contenido.crearVenta(fan);
+		try {
+			new ContenidoJpaController().edit(contenido);
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
 	}
 
 	@Override
@@ -161,7 +184,7 @@ public class ContenidoController implements ContenidoInterface{
 	@Override
 	public void eliminarContenido(String idArtista, int idContenido) {
 		// decirle al controlador de artista que elimine el contenido
-		
+		new ArtistaController().eliminarContenido(idArtista, idContenido);		
 	}
 
 	@Override

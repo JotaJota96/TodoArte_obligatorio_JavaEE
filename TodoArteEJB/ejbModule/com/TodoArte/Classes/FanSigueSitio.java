@@ -42,7 +42,7 @@ public class FanSigueSitio implements Serializable {
     	if(nickArtista.equals("")){
     		throw new RuntimeException(MensajesExcepciones.nombre);
     	}
-    	if(miFan == null){
+    	if(fan == null){
     		throw new RuntimeException(MensajesExcepciones.Fan);
     	}
     	

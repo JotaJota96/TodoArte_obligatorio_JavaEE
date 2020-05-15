@@ -26,7 +26,9 @@ import com.TodoArte.Enums.MensajesExcepciones;
 import com.TodoArte.Enums.Privacidad;
 import com.TodoArte.Enums.TipoContenido;
 import com.TodoArte.JPAControllerClasses.ComentarioJpaController;
+import com.TodoArte.JPAControllerClasses.ReporteJpaController;
 import com.TodoArte.JPAControllerClasses.ValoracionJpaController;
+import com.TodoArte.JPAControllerClasses.VentaJpaController;
 
 @Entity
 @Table(name = "contenido")
@@ -169,6 +171,10 @@ public class Contenido implements Serializable {
 		// vincular el reporte con el fan
 		// persistir el reporte
 		// agregarlo a la coleccion
+		
+		reporte.setMiFan(fan);
+		new ReporteJpaController().create(reporte);
+		this.MisReporte.put(reporte.getId(), reporte);
 	}
 
 	public void crearVenta(Fan fan) {
@@ -176,6 +182,11 @@ public class Contenido implements Serializable {
 		// vincular la venta con el fan
 		// persistir la venta
 		// agregarlo a la coleccion
+		
+		Date fechaYHora = new Date(System.currentTimeMillis());
+		Venta venta = new Venta(0, this.getPrecio(), fechaYHora, fan);
+		new VentaJpaController().create(venta);
+		this.MisVentas.put(venta.getId(), venta);
 	}
 	
 	//***************************************************************************

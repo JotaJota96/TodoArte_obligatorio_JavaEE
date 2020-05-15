@@ -2,14 +2,10 @@ package com.TodoArte;
 
 import java.sql.Date;
 
-import com.TodoArte.Classes.Artista;
-import com.TodoArte.Classes.CategoriaContenido;
-import com.TodoArte.Classes.CategoriaSitio;
-import com.TodoArte.Classes.Fan;
-import com.TodoArte.Classes.Fuente;
-import com.TodoArte.Classes.NotificacionArtista;
-import com.TodoArte.Classes.Sitio;
-import com.TodoArte.Enums.Sexo;
+
+import com.TodoArte.Classes.*;
+import com.TodoArte.Enums.*;
+import com.TodoArte.JPAControllerClasses.*;
 import com.TodoArte.FachadeControllers.BackOfficeController;
 import com.TodoArte.FachadeControllers.FrontOfficeController;
 
@@ -20,9 +16,7 @@ public class Pruebas {
 		BackOfficeController bo = new BackOfficeController();
 		
 		cargarDatosDePrueba();
-		
-		
-		
+
 		System.out.println("-- fin --");
 	}
 	

@@ -3,9 +3,12 @@ package com.TodoArte.InternalControllers;
 import java.util.ArrayList;
 import java.util.Map;
 
+import org.jboss.resteasy.spi.ReaderException;
+
 import com.TodoArte.Classes.Artista;
 import com.TodoArte.Classes.Contenido;
 import com.TodoArte.Classes.Fan;
+import com.TodoArte.Classes.FanSigueSitio;
 import com.TodoArte.Classes.NotificacionArtista;
 import com.TodoArte.Classes.PagoAPlataforma;
 import com.TodoArte.Classes.QyAProgramado;
@@ -16,6 +19,8 @@ import com.TodoArte.InternalInterfaces.ArtistaInterface;
 import com.TodoArte.InternalInterfaces.FanInterface;
 import com.TodoArte.JPAControllerClasses.SitioJpaController;
 import com.TodoArte.JPAControllerClasses.ArtistaJpaController;
+import com.TodoArte.JPAControllerClasses.FanJpaController;
+import com.TodoArte.JPAControllerClasses.FanSigueSitioJpaController;
 
 
 public class ArtistaController implements ArtistaInterface{
@@ -86,6 +91,16 @@ public class ArtistaController implements ArtistaInterface{
 		// obtener artista
 		// obtener su sitio
 		// pedir al controlador fan que le descuente
+		
+		Artista artista = new ArtistaJpaController().findArtista(idArtista);
+		Sitio sitio = artista.getMiSitio();
+		
+		if(sitio.getPrecioPremium() > new FanController().obtenerDatosUsuario(idFan).getSaldo()){
+			throw new RuntimeException(MensajesExcepciones.saldoInsuficiente);
+		}
+		
+		new FanController().descontarSaldo(idFan, sitio.getPrecioPremium());
+		sitio.comprarPremium(idFan);
 	}
 
 	@Override
@@ -93,7 +108,22 @@ public class ArtistaController implements ArtistaInterface{
 		// obtener artista
 		// obtener su sitio
 		// decirle al sitio que cree y devuelva el nuevo FanSigueASitio
+		Sitio sitio = new ArtistaJpaController().findArtista(idArtista).getMiSitio();
+		Fan fan = new FanJpaController().findFan(idFan);
+		if(sitio == null) {
+			throw new RuntimeException(MensajesExcepciones.artistaNoExiste);
+		}
+		if(fan == null) {
+			throw new RuntimeException(MensajesExcepciones.fanNoExiste);
+		}
+		FanSigueSitio fss = sitio.agregarSeguidor(fan);
+		new FanController().vincularFanASitio(fss, idFan);
 		
+		try {
+			new SitioJpaController().edit(sitio);
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
 	}
 
 	@Override
@@ -143,6 +173,13 @@ public class ArtistaController implements ArtistaInterface{
 	public void recargarSaldo(String idUsuario, float monto) {
 		// obtener el artista por id e incrementar su saldo
 		
+		Artista artista = new ArtistaJpaController().findArtista(idUsuario);
+		artista.setSaldo(artista.getSaldo() + monto);
+		try {
+			new ArtistaJpaController().edit(artista);
+		} catch (Exception e) {
+			throw new ReaderException(e.getMessage());
+		}
 	}
 
 	@Override
@@ -159,6 +196,8 @@ public class ArtistaController implements ArtistaInterface{
 		// obtener el sitio del artista
 		// decirle al sitio que bloquee el fan por id
 		
+		Sitio sitioArtista = new ArtistaJpaController().findArtista(idArtista).getMiSitio();
+		sitioArtista.bloquearDesbloquearUsuarioDeSitio(idFan);
 	}
 
 	@Override
@@ -175,6 +214,21 @@ public class ArtistaController implements ArtistaInterface{
 	public void descontarSaldo(String idUsuario, float monto) {
 		// obtener el artista por id
 		// descuenta el monto del saldo del artista
+		
+
+		Artista artista = new ArtistaJpaController().findArtista(idUsuario);
+		
+		if(artista.getSaldo() < monto){
+			throw new ReaderException(MensajesExcepciones.saldoInsuficiente);
+		}
+		
+		artista.setSaldo(artista.getSaldo() - monto);
+		
+		try {
+			new ArtistaJpaController().edit(artista);
+		} catch (Exception e) {
+			throw new ReaderException(e.getMessage());
+		}
 	}
 
 	@Override
@@ -212,12 +266,21 @@ public class ArtistaController implements ArtistaInterface{
 	}
 
 	@Override
-	public Contenido eliminarContenido(String idArtista, int idContenido) {
+	public void eliminarContenido(String idArtista, int idContenido) {
 		// obtener el artista por id
 		// obtener el sitio de ese artista
 		// decirle al sitio del artista que elimine el contenido
 		// update del sitio
-		return null;
+		
+		Artista artista = new ArtistaJpaController().findArtista(idArtista);
+		Sitio sitio = artista.getMiSitio();
+		sitio.eliminarContenido(idContenido);
+		
+		try {
+			new SitioJpaController().edit(sitio);
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
 	}
     
 }
