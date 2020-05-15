@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+</h:head>
+
+
+<h:body class="bg-light">
+
+<ui:include src="heather/heather.xhtml"/>
+  
+  <main role="main" class="container mt-5 mb-5">
+    <h:form class="form-signin">
+      <h4 class="text-center">Subir Contenido</h4>
+	  <hr/>
+      <div class="row">
+        <div class="col-md-1 "></div>
+        <div class="col-md-5 ">
+        
+        <div class="form-group">
+          <label for="titulo">Titulo</label>
+          <h:inputText type="text" class="form-control" id="titulo" value=""></h:inputText>
+         </div>
+         
+         <div class="form-group">
+         	<label for="descripcion">Descripcion</label>
+	        <h:inputTextarea class="form-control" id="descripcion" value="#{spintax.content}" rows="3" />
+	        <small id="biografia" class="form-text text-muted">Dé una breve descripción del Contenido.</small>
+          </div>
+         
+          <div class="form-group">
+          	<label for="precio">Precio</label>
+          	<h:inputText type="text" class="form-control" id="precio" value=""></h:inputText>
+         </div>
+          
+          
+        </div>
+        <div class="col-md-5 ">
+        
+        <div class="form-group">
+          <label for="privacidad" >Privacidad</label>
+	          <h:selectOneMenu class="form-control" id="privacidad" label="Service Level" value="">
+	            <f:selectItem itemLabel="PUBLICO" itemValue="PUBLICO" />
+	            <f:selectItem itemLabel="PRIVADO" itemValue="PRIVADO" />
+	            <f:selectItem itemLabel="PREMIUM" itemValue="PREMIUM" />
+	          </h:selectOneMenu>
+          </div>
+          
+          <div class="form-group mt-5">
+          	<label for="archivo">Archivo</label> 
+          	<br/>      	
+          	 <h:inputFile value="#{bean.file}" id="archivo">
+        		<f:ajax listener="#{bean.save}" />
+    		</h:inputFile>
+          </div>
+
+        </div>
+        <div class="col-md-1 "></div>
+      </div>
+      <hr/>
+      <div class="row">
+	      <div class="col-md-1 "></div>
+	      <div class="col-md-5 "></div>
+	      <div class="col-md-5 d-flex justify-content-end">
+	      	<h:commandButton class="btn btn-danger mt-2 mr-2" value="Canselar" action="cancelar" />
+	      	<h:commandButton class="btn btn-primary mt-2 px-4" value="Subir" action="Subir" />
+	      </div>
+	      <div class="col-md-1 "></div>
+      </div>
+    </h:form>
+
+  </main>
+
+<ui:include src="footer/footer.xhtml"/>
+
+</h:body>
+
+</html>
+
+<!-- http://localhost:8080/TodoArteWeb/SubirContenido.jsf -->
