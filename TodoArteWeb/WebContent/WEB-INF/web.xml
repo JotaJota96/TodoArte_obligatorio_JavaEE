@@ -4,7 +4,7 @@
 
   <welcome-file-list>
   	<welcome-file>
-  	login.jsf
+  	home.jsf
   	</welcome-file>
   </welcome-file-list>
   <servlet>

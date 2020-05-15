@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+    
+    <script>
+		function esconder(id) {
+		  var x = document.getElementById(id);
+		  if (x.style.display === "none") {
+		    x.style.display = "block";
+		  } else {
+		    x.style.display = "none";
+		  }
+		}
+	</script>
+	
+</h:head>
+
+<h:body class="bg-light">
+
+	<ui:include src="heather/heatherSimple.xhtml"/>
+		
+	<main role="main" class="container mt-5 mb-5">
+		
+		<h2  class="mb-3">Mantenimineto del Sitio</h2>
+		
+		<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#Publicar" role="tab" aria-controls="pills-home" aria-selected="true">Publicar</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#Modificar" role="tab" aria-controls="pills-profile" aria-selected="false">Modificar</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#Eliminar" role="tab" aria-controls="pills-profile" aria-selected="false">Eliminar</a>
+			</li>
+			
+			<li class="nav-item">
+				<a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#Saldo" role="tab" aria-controls="pills-profile" aria-selected="false">Saldo</a>
+			</li>
+			
+			<li class="nav-item">
+				<a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#fans" role="tab" aria-controls="pills-profile" aria-selected="false">Mis Fans</a>
+			</li>
+			
+			<li class="nav-item">
+				<a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#estadisticas" role="tab" aria-controls="pills-profile" aria-selected="false">Estadisticas</a>
+			</li>
+		</ul>
+		
+		<hr/>
+		
+		<div class="tab-content" id="pills-tabContent">
+		
+			<!-- Inicio del Caso -->
+			<div class="tab-pane fade show active" id="Publicar" role="tabpanel" aria-labelledby="pills-home-tab">
+				<h:form class="form-signin">
+					<div class="row">
+						<div class="col-md-3"></div>
+						<div class="col-md-6 text-center">
+							<h5 class="my-3">Publicar Contenido</h5>
+							<h:form class="form-signin">
+							 	<div class="form-group">
+						          <label for="titulo">Titulo</label>
+						          <h:inputText type="text" class="form-control" id="titulo" value=""></h:inputText>
+						         </div>
+						         
+						         <div class="form-group">
+						         	<label for="descripcion">Descripcion</label>
+							        <h:inputTextarea class="form-control" id="descripcion" value="#{spintax.content}" rows="3" />
+							        <small id="biografia" class="form-text text-muted">Dé una breve descripción del Contenido.</small>
+						          </div>
+						         
+						          <div class="form-group">
+						          	<label for="precio">Precio</label>
+						          	<h:inputText type="text" class="form-control" id="precio" value=""></h:inputText>
+						         </div>
+						         
+						         <div class="form-group mt-5">
+						          	<label for="archivo">Archivo</label> 
+						          	<br/>      	
+						          	 <h:inputFile value="#{bean.file}" id="archivo">
+						        		<f:ajax listener="#{bean.save}" />
+						    		</h:inputFile>
+						          </div>
+						          <br/>
+					         	<div class="form-group">
+						          	<h:commandButton class="btn btn-lg btn-primary btn-block" value="Publicar" action="publicar"/>
+					         	</div>
+						 	</h:form>
+						</div>
+						<div class="col-md-3"></div>
+					</div>
+				</h:form>
+			</div>
+			<!-- Fin del Caso -->
+			
+			<!-- Inicio del Caso -->
+			<div class="tab-pane fade" id="Modificar" role="tabpanel" aria-labelledby="pills-profile-tab">
+				<div class="card m-3">
+					<h5 class="card-header">Modificar Contenido</h5>
+					 
+					<div class="card-body" style="height: 350px; overflow: auto;">
+						
+						<!-- ***** Listado de contenido **** -->
+						
+						<!-- ***** contenido 1 **** -->
+						<div class="card my-2">
+							<div class="card-body">
+								<h:form class="form-signin">
+									<div class="row">
+										<div class="col-3">
+							         		<label for="titulo">Titulo</label>
+							         		<h:inputText type="text" class="form-control" id="titulo" value=""></h:inputText>
+										</div>
+										<div class="col-3">
+							          		<label for="precio">Precio</label>
+							          		<h:inputText type="text" class="form-control" id="precio" value=""></h:inputText>
+										</div>
+										<div class="col-6">
+								          	<label for="archivo">Archivo</label> 
+								          	<br/>      	
+								          	<h:inputFile value="#{bean.file}" id="archivo">
+								        	<f:ajax listener="#{bean.save}" />
+								    		</h:inputFile>
+										</div>
+									</div>	
+									<hr/>
+									<div class="row">
+										<div class="col-9">
+							         		<label for="descripcion">Descripcion</label>
+								     		<h:inputTextarea class="form-control" id="descripcion" value="#{spintax.content}" rows="1" />
+										</div>
+										<div class="col-3 text-center mt-4">
+							          		<h:commandButton class="btn  btn-primary " value="Modificar" action="Modificar"/>
+										</div>
+									</div>	
+								</h:form>
+							</div>
+						</div>
+						<!-- ***** fin de contenido 1 **** -->
+						
+						<!-- ***** contenido 2 **** -->
+						<div class="card my-2">
+							<div class="card-body">
+								<h:form class="form-signin">
+									<div class="row">
+										<div class="col-3">
+							         		<label for="titulo">Titulo</label>
+							         		<h:inputText type="text" class="form-control" id="titulo" value=""></h:inputText>
+										</div>
+										<div class="col-3">
+							          		<label for="precio">Precio</label>
+							          		<h:inputText type="text" class="form-control" id="precio" value=""></h:inputText>
+										</div>
+										<div class="col-6">
+								          	<label for="archivo">Archivo</label> 
+								          	<br/>      	
+								          	<h:inputFile value="#{bean.file}" id="archivo">
+								        	<f:ajax listener="#{bean.save}" />
+								    		</h:inputFile>
+										</div>
+									</div>	
+									<hr/>
+									<div class="row">
+										<div class="col-9">
+							         		<label for="descripcion">Descripcion</label>
+								     		<h:inputTextarea class="form-control" id="descripcion" value="#{spintax.content}" rows="1" />
+										</div>
+										<div class="col-3 text-center mt-4">
+							          		<h:commandButton class="btn  btn-primary " value="Modificar" action="Modificar"/>
+										</div>
+									</div>	
+								</h:form>
+							</div>
+						</div>
+						<!-- ***** fin de contenido 2 **** -->
+						
+						<!-- ********* fin de Listado de contenido ******* -->
+
+					</div>
+				</div>
+			</div>
+			<!-- Fin del Caso -->
+			
+			<!-- Inicio del Caso -->
+			<div class="tab-pane fade" id="Eliminar" role="tabpanel" aria-labelledby="pills-profile-tab">
+				<div class="row">
+					<div class="col-3">
+					</div>
+					<div class="col-6">
+						<div class="card m-3">
+							<h5 class="card-header">Eliminar Contenido</h5>	 
+							<div class="card-body" style="height: 350px; overflow: auto;">
+								<!-- ***** Listado de contenido **** -->
+								<!-- ***** contenido 1 **** -->
+								<div class="card my-2">
+									<div class="card-body">
+										<h:form class="form-signin">
+											<div class="row text-center">
+												<div class="col-6">
+									         		<h5>Titulo</h5>
+												</div>
+												<div class="col-6 ">
+									          		<h:commandButton class="btn  btn-danger " value="Eliminar" action="Eliminar"/>
+												</div>
+											</div>	
+										</h:form>
+									</div>
+								</div>
+								<!-- ***** fin de contenido 1 **** -->
+								
+								<!-- ***** contenido 1 **** -->
+								<div class="card my-2">
+									<div class="card-body">
+										<h:form class="form-signin">
+											<div class="row text-center">
+												<div class="col-6">
+									         		<h5>Titulo</h5>
+												</div>
+												<div class="col-6 ">
+									          		<h:commandButton class="btn  btn-danger " value="Eliminar" action="Eliminar"/>
+												</div>
+											</div>	
+										</h:form>
+									</div>
+								</div>
+								<!-- ***** fin de contenido 1 **** -->
+								<!-- ********* fin de Listado de contenido ******* -->
+							</div>
+						</div>
+					</div>
+					<div class="col-3">
+					</div>
+				</div>
+			</div>
+			<!-- Fin del Caso -->
+			
+			<!-- Inicio del Caso -->
+			<div class="tab-pane fade" id="Saldo" role="tabpanel" aria-labelledby="pills-profile-tab">
+				<div class="row">
+					<div class="col-3"></div>
+					<div class="col-6 text-center">
+						<!-- Inicio del Caso -->
+						<div class="card">
+							<h5 class="card-header">Consulta de Saldo</h5>
+							<div class="card-body">
+								<h:form class="form-signin">									
+									<h5 class="my-4">Su saldo es: <h:outputText value=" $0" id="saldo"/></h5>
+									<h:commandButton class="btn btn-primary my-2 " value="Consular" action="Consular" />
+								</h:form>
+							</div>
+						</div>
+							
+						<div class="card mt-4">
+							<h5 class="card-header">Recarga de Saldo</h5>
+							<div class="card-body">
+								<h:form class="form-signin">
+									<div class="row">
+										<div class="col-2"></div>
+										<div class="col-8">
+											<div class="form-group">
+							        			<label for="tarjeta">Numero de tarjeta</label>
+								        		<h:inputText  class="form-control" id="tarjeta" value="" ></h:inputText>
+									        </div>
+									        
+									        <div class="form-group">
+									        	<label for="verificar">Codigo de verificacion</label>
+										        <h:inputText  class="form-control" id="verificar" value="" ></h:inputText>
+									        </div>
+									        
+									        <h:commandButton class="btn btn-primary my-2" value="Recargar" action="Recargar" />
+									        
+									        <h5 class="my-4">Recargar terminada: <h:outputText value=" Con exito" id="saldo"/></h5>
+									        
+								        	<hr/>
+								        	
+								        	<div class="form-group">
+								        		<h5 class="my-4">Recargar con</h5>
+								        		<a class="navbar-brand" href="https://www.paypal.com/uy/home">
+								        			<img src="img/paypal.png" width="200px" height="100px"></img>
+								        		</a>
+								         	</div>
+								        	
+										</div>
+										<div class="col-2"></div>
+									</div>	
+
+								</h:form>
+							</div>
+						</div>
+					</div>
+					<div class="col-3"></div>
+				</div>
+			</div>
+			<!-- Fin del Caso -->
+			
+			<!-- Inicio del Caso -->
+			<div class="tab-pane fade" id="fans" role="tabpanel" aria-labelledby="pills-profile-tab">
+				<div class="row">
+					<div class="col-md-1"></div>
+					<div class="col-md-10">
+					
+						<div class="card m-3">
+							<h5 class="card-header">Listado de Fans</h5>
+							 
+							<div class="card-body" style="height: 350px; overflow: auto;">
+								<!-- inicio de lista de fans -->
+								
+								
+								<!-- ***** inico fan **** -->
+			
+								<div class="card my-2">
+									<div class="card-body">
+										<div class="row text-center">
+											<div class="col-lg-3 my-1">
+												<h5>Marcelito17</h5>
+											</div>
+											
+											<div class="col-lg-2 my-1"></div>
+											
+											<div class="col-lg-2 my-1">
+												<h:form class="form-signin">
+													<h:commandButton class="btn  btn-danger " value="Bloquear" action="bloquear"/>
+												</h:form>
+											</div>
+											
+											<div class="col-lg-2 my-1">
+												<h:form class="form-signin">
+													<h:commandButton class="btn  btn-warning " value="Desbloquear" action="desbloquear"/>
+												</h:form>
+											</div>
+											
+											
+											<div class="col-lg-3 my-1">
+											
+												<h:form class="form-signin">
+													<a class="btn  btn-primary text-white" onclick="esconder('fan1')">Más informacion</a>
+												</h:form>
+												
+											</div>
+											
+										</div>
+										
+										<!-- inicio Informacion del fan -->
+										<div id="fan1" class="text-center" style="display:none;">
+											<hr/>
+											<h5>Ubicacion: <h:outputText value="San Jose de mayo" id="ubicacion"/></h5>
+											<h5>Sexo: <h:outputText value="1" id="sexo"/></h5>
+											<h5>Gustos: <h:outputText value="Maluma" id="gustos"/></h5>
+										</div>
+										<!-- fin Informacion del fan -->
+									</div>
+								</div>
+
+								<!-- ********* fin fan ******* -->
+								
+								<!-- ***** inico fan **** -->
+			
+								<div class="card my-2">
+									<div class="card-body">
+										<div class="row text-center">
+											<div class="col-lg-3 my-1">
+												<h5>Hernesto34</h5>
+											</div>
+											
+											<div class="col-lg-2 my-1"></div>
+											
+											<div class="col-lg-2 my-1">
+												<h:form class="form-signin">   												
+													<h:commandButton class="btn  btn-danger " value="Bloquear" action="bloquear"/>
+												</h:form>
+											</div>
+											
+											<div class="col-lg-2 my-1">
+												<h:form class="form-signin">
+													<h:commandButton class="btn  btn-warning " value="Desbloquear" action="desbloquear"/>
+												</h:form>
+											</div>
+											
+											
+											<div class="col-lg-3 my-1">
+											
+												<h:form class="form-signin">
+													<a class="btn  btn-primary text-white" onclick="esconder('fan2')">Más informacion</a>
+												</h:form>
+											</div>
+											
+										</div>
+										
+										<!-- inicio Informacion del fan -->
+										<div id="fan2" class="text-center" style="display:none;">
+											<hr/>
+											<h5>Ubicacion: <h:outputText value="San Jose de mayo" id="ubicacion2"/></h5>
+											<h5>Sexo: <h:outputText value="1" id="sexo2"/></h5>
+											<h5>Gustos: <h:outputText value="Maluma" id="gustos2"/></h5>
+										</div>
+										<!-- fin Informacion del fan -->
+									</div>
+								</div>
+
+								<!-- ********* fin fan ******* -->
+								
+								
+								<!-- fin de lista de fans -->
+							</div>
+						</div>
+					</div>
+					<div class="col-md-1"></div>
+				</div>
+			</div>
+			<!-- Fin del Caso -->
+			
+			<!-- Inicio del Caso -->
+			<div class="tab-pane fade" id="estadisticas" role="tabpanel" aria-labelledby="pills-profile-tab">
+				<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-10">
+					<div class="card m-3">
+						<h5 class="card-header">Estadisticas</h5>
+						 
+						<div class="card-body" style="height: 350px; overflow: auto;">
+							<!-- inicio de lista de contenidos -->
+							
+							<!-- ***** inico de estadistica **** -->
+							<div class="card my-2">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-4">
+											<h5>titulo del contenido</h5>
+										</div>
+										<div class="col-4">
+											<h5>tipo:<h:outputText value=" Imagen" id="tipo1"/></h5>
+										</div>
+										<div class="col-4">
+											<h5>Total de compras: <h:outputText value=" 38 " id="totalde1"/></h5>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- ********* fin de estadistica ******* -->
+
+							<!-- ***** inico de estadistica **** -->
+							<div class="card my-2">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-4">
+											<h5>titulo del contenido</h5>
+										</div>
+										<div class="col-4">
+											<h5>tipo:<h:outputText value=" Imagen" id="tipo2"/></h5>
+										</div>
+										<div class="col-4">
+											<h5>Total de compras: <h:outputText value=" 38 " id="totalde2"/></h5>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- ********* fin de estadistica ******* -->
+							
+							<!-- ***** inico de estadistica **** -->
+							<div class="card my-2">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-4">
+											<h5>titulo del contenido</h5>
+										</div>
+										<div class="col-4">
+											<h5>tipo:<h:outputText value=" Imagen" id="tipo3"/></h5>
+										</div>
+										<div class="col-4">
+											<h5>Total de compras: <h:outputText value=" 38 " id="totalde3"/></h5>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- ********* fin de estadistica ******* -->
+							
+
+							
+							<!-- fin de lista de contenidos -->
+						</div>
+					</div>
+				</div>
+				<div class="col-md-1"></div>
+				</div>
+			</div>
+			<!-- Fin del Caso -->
+			
+		</div>
+			
+	</main>
+	
+	<ui:include src="footer/footer.xhtml"/>
+</h:body>
+</html>

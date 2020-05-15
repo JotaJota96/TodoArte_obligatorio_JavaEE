@@ -25,65 +25,65 @@
   
  <main role="main" class="container mt-5 mb-5">
 	<div class="row">
-		<div class="col-md-1"></div>
-		<div class="col-md-10">
+		<div class="col-md-2"></div>
+		
+		<div class="col-md-8">
+			<h4 class="ml-3">Centro de Notificaciones</h4>
 			<div class="card m-3">
-				<h5 class="card-header">Chat en vivo con Artista</h5>
-				<div class="card-body" style="height: 350px; overflow: auto;">
-				
-					<!-- inicio de comentarios -->
+				<div class="card-body" style="height: 400px; overflow: auto;">
 					
+					<!-- ***** inicio de la noticia **** -->
 					<div class="card my-2">
 						<div class="card-body">
-							<h5 class="card-text " style="color: rgb(70,70,255);">Marcelo17</h5>
-							<p class="card-text ">Hola</p>
+							<h5 class="card-text align-middle ">Marcelito17 ha subido un nuevo video</h5>
 						</div>
 					</div>
 					
 					<div class="card my-2">
 						<div class="card-body">
-							<h5 class="card-text " style="color: rgb(70,70,255);">RamiroCabeza</h5>
-							<p class="card-text ">Hola</p>
+							<div class="row">
+								<div class="col-9">
+									<h5 class="card-text align-middle ">Marcelito17 ha Programado una nueva QA</h5>
+								</div>
+								<div class="col-3">
+									<h:form>
+										<h:commandButton class="btn btn-info" value="Subscribirse" action="Subscribirse" />
+									</h:form>
+								</div>
+							</div>
 						</div>
 					</div>
 					
 					<div class="card my-2">
 						<div class="card-body">
-							<h5 class="card-text " style="color: rgb(70,70,255);">Marcelo17</h5>
-							<p class="card-text ">como estan?</p>
+							<h5 class="card-text align-middle ">Marcelito17 ha subido una nueva cancion</h5>
 						</div>
 					</div>
 					
 					<div class="card my-2">
 						<div class="card-body">
-							<h5 class="card-text " style="color: rgb(70,70,255);">RamiroCabeza</h5>
-							<p class="card-text ">dsfjh dsfkjdh fsdufud sdh fdsyf7d dshfue ee euue eeee</p>
+							<div class="row">
+								<div class="col-9">
+									<h5 class="card-text align-middle ">Marcelito17 ha Iniciado QA</h5>
+								</div>
+								<div class="col-3">
+									<a class="btn btn-info" href="http://localhost:8080/TodoArteWeb/ParticiparQA.jsf">Participar</a>
+								</div>
+							</div>
 						</div>
 					</div>
 					
+					<div class="card my-2">
+						<div class="card-body">
+							<h5 class="card-text align-middle ">Marcelito17 ha subido un nuevo video</h5>
+						</div>
+					</div>
+					<!-- ********* fin de la noticia ******* -->
 					
-					
-					<!-- fin de comentarios -->
 				</div>
-				<h5 class="card-footer text-right">
-				<h:form>
-				
-					<div class="row">
-
-						<div class="col-12 col-lg-9 text-right m-1">
-							<h:inputText type="text" class="form-control" id="chatear" value=""></h:inputText>
-						</div>
-						<div class="col-12 col-lg-2 h-75 d-flex align-content-center">
-							<h:commandButton class="btn btn-primary m-1" value="Comentar" action="Comentar" />
-						</div>
-	
-       				</div>
-       				
-       			</h:form>
-				</h5>
 			</div>
 		</div>
-		<div class="col-md-1"></div>
+		<div class="col-md-2"></div>
 	</div>
 </main>
 
@@ -92,5 +92,4 @@
 </h:body>
 
 </html>
-
-<!-- http://localhost:8080/TodoArteWeb/ParticiparQA.jsf -->
+<!-- http://localhost:8080/TodoArteWeb/home.jsf -->
