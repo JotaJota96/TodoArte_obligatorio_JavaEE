@@ -22,7 +22,7 @@
 
 <h:body class="bg-light">
 
-<ui:include src="heather/heather.xhtml"/> 
+  <ui:include src="heather/heatherSimple.xhtml"/>
   
   <main role="main" class="container mt-5 mb-5">
     <h:form class="form-signin">
@@ -86,10 +86,9 @@
          <div class="form-group">
           <label for="stwitter" >Seccion Twitter</label>
 	          <h:selectOneMenu class="form-control" id="stwitter" label="Service Level" value="">
-	            <f:selectItem itemLabel="Arriba" itemValue="arriba" />
-	            <f:selectItem itemLabel="Abajo" itemValue="abajo" />
-	            <f:selectItem itemLabel="Derecha" itemValue="derecha" />
-	            <f:selectItem itemLabel="Izquierda" itemValue="izquierda" />
+	            <f:selectItem itemLabel="Deshabilitado" itemValue="Deshabilitado" />
+	            <f:selectItem itemLabel="Derecha" itemValue="Derecha" />
+	            <f:selectItem itemLabel="Izquierda" itemValue="Izquierda" />
 	          </h:selectOneMenu>
           </div>
 
@@ -103,7 +102,6 @@
 	      <div class="col-md-5 "></div>
 	      <div class="col-md-5 d-flex justify-content-end">
 	      	<h:commandButton class="btn btn-danger mt-2 mr-2" value="Canselar" action="cancelar" />
-	      	<a  href="http://localhost:8080/TodoArteWeb/RegistrarArtista.jsf" class="btn btn-primary mt-2 mr-2">Atrás</a>
 	      	<h:commandButton class="btn btn-primary mt-2" value="Registrarse" action="register" />
 	      </div>
 	      <div class="col-md-1 "></div>

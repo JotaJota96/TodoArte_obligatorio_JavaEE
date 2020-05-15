@@ -1,61 +1,64 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"/>
-	<link rel="stylesheet" href="css/login.css"/>
-	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+    
 </h:head>
 
 
 <h:body class="bg-light">
 
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+<ui:include src="heather/heatherSimple.xhtml"/>
+  
+<main role="main" class="container mt-5 mb-5">
+	<div class="row">
+		<div class="col-md-4"></div>
+		<div class="col-md-4 text-center">
+			<h:form class="form-signin">
+				<div class="form-group">
+		          	<img src="img/logoLong.png" width="200px" height="200px"></img>
+	         	</div>
+			 	<div class="form-group text-left">
+		          	<label for="nickname">NickName</label>
+		          	<h:inputText type="text" class="form-control" id="nickname" value=""></h:inputText>
+	         	</div>
+	         	<div class="form-group text-left">
+		          	<label for="password">Contraseña</label>
+		          	<h:inputSecret class="form-control" id="password" value=""></h:inputSecret>
+	         	</div>
+	         	<div class="form-group">
+		          	<h:commandButton class="btn btn-lg btn-primary mt-2 btn-block" value="Entrar" action="login"/>
+	         	</div>
+		 	</h:form>
+		</div>
+		<div class="col-md-4"></div>
+	</div>
 
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    <br/>
-    
-<div  class="container main mt-5 text-center">
+<!--  -
 
   <h:form class="form-login">
-	  <dir class="form-group row">
+	  <div class="form-group row">
+	  	<img src="img/logoLong.png" width="50px" height="50px"></img>
 	  	<h4 class="col-sm-12">Inicio de Sesión</h4>
-	  </dir>
+	  </div>
 	  <div class="form-group row">
 	  	<div class="col-sm-2"></div>
 	    <label for="nickname" class="col-sm-2 col-form-label">NickName</label>
 	    <div class="col-sm-4">
-	      <h:inputText class="form-control" value="" id="nickname"></h:inputText>
+	      <h:inputText class="form-control"  value="" id="nickname"></h:inputText>
 	    </div>
 	    <div class="col-sm-4"></div>
 	  </div>
@@ -72,66 +75,18 @@
 	  <div class="form-group row">
 	  	<div class="col-sm-4"></div>
 	  	<div class="col-sm-4">
-	  		<h:commandButton class="btn btn-primary mt-2" value="Entrar" action="login"/>
+	  		<h:commandButton class="btn btn-lg btn-primary mt-2 btn-block" value="Entrar" action="login"/>
+	  		<p class="mt-5 mb-3 text-muted">&copy; 2020-2021</p>
 	  	</div>
 	  	<div class="col-sm-4"></div>
 	  </div>    
   </h:form>
-
 </div>
+-->
+</main>
 
-<!-- Footer -->
-<footer class="page-footer font-small bg-secondary text-white pt-4">
-  <!-- Footer Links -->
-  <div class="container-fluid text-center text-md-left">
-     <div class="row">    
-      <div class="col-md-6 mt-md-0 mt-3">
-        <h5 class="text-uppercase">Footer Content</h5>
-        <p>Here you can use rows and columns to organize your footer content.</p>
-      </div>
+<ui:include src="footer/footer.xhtml"/>
 
-      <div class="col-md-3 mb-md-0 mb-3">
-        <h5 class="text-uppercase">Links</h5>
-        <ul class="list-unstyled">
-          <li>
-            <a href="#!">Link 1</a>
-          </li>
-          <li>
-            <a href="#!">Link 2</a>
-          </li>
-          
-        </ul>
-      </div>
-      <!-- Grid column -->
-
-      <!-- Grid column -->
-      <div class="col-md-3 mb-md-0 mb-3">
-
-        <!-- Links -->
-        <h5 class="text-uppercase">Links</h5>
-
-        <ul class="list-unstyled ">
-          <li>
-            <a href="#!">Link 1</a>
-          </li>
-          <li>
-            <a href="#!">Link 2</a>
-          </li>          
-        </ul>
-      </div>
-      <!-- Grid column -->
-    </div>
-    <!-- Grid row -->
-  </div>
-  <!-- Footer Links -->
-
-  <!-- Copyright -->
-  <div class="footer-copyright bg-dark text-center py-3">© 2020 Copyright:
-    <a href="https://todoarte.com/"> TodoArte.com</a>
-  </div>
-  <!-- Copyright -->
-</footer>
-
-      
 </h:body>
+
 </html>
