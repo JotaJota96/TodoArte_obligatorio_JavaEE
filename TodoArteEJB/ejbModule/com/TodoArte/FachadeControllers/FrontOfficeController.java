@@ -2,6 +2,9 @@ package com.TodoArte.FachadeControllers;
 
 import java.util.ArrayList;
 
+import javax.ejb.Singleton;
+import javax.ejb.Stateless;
+
 import org.jboss.resteasy.spi.ReaderException;
 
 import com.TodoArte.Classes.Artista;
@@ -27,6 +30,7 @@ import com.TodoArte.JPAControllerClasses.ArtistaJpaController;
 import com.TodoArte.JPAControllerClasses.ContenidoJpaController;
 import com.TodoArte.JPAControllerClasses.FanJpaController;
 
+@Stateless
 public class FrontOfficeController implements FrontOfficeInterface{
 	
 	FanInterface cFan = new FanController();

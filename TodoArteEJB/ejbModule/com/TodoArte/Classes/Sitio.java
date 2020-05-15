@@ -19,8 +19,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.postgresql.shaded.com.ongres.scram.common.bouncycastle.pbkdf2.RuntimeCryptoException;
-
 import com.TodoArte.Enums.MensajesExcepciones;
 import com.TodoArte.JPAControllerClasses.ContenidoJpaController;
 import com.TodoArte.JPAControllerClasses.FanSigueSitioJpaController;
@@ -141,7 +139,7 @@ public class Sitio implements Serializable {
 			try {
 				new FanSigueSitioJpaController().edit(fss);
 			} catch (Exception e) {
-				throw new RuntimeCryptoException(e.getMessage());
+				throw new RuntimeException(e.getMessage());
 			}
 		}
 		
@@ -165,7 +163,7 @@ public class Sitio implements Serializable {
 			try {
 				new FanSigueSitioJpaController().edit(fss);
 			} catch (Exception e) {
-				throw new RuntimeCryptoException(e.getMessage());
+				throw new RuntimeException(e.getMessage());
 			}
 		}
 	}
@@ -211,7 +209,7 @@ public class Sitio implements Serializable {
 		try {
 			new ContenidoJpaController().edit(contenido);
 		} catch (Exception e) {
-			throw new RuntimeCryptoException(e.getMessage());
+			throw new RuntimeException(e.getMessage());
 		}
 		
 	}

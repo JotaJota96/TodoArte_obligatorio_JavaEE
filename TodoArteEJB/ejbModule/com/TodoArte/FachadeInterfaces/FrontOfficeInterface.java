@@ -2,8 +2,11 @@ package com.TodoArte.FachadeInterfaces;
 
 import java.util.ArrayList;
 
+import javax.ejb.Local;
+
 import com.TodoArte.Classes.*;
 
+@Local
 public interface FrontOfficeInterface {
 	/**
 	 * Calificar un contenido especifico
