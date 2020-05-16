@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:ui="http://java.sun.com/jsf/facelets">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:f="http://java.sun.com/jsf/core"
+  	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -38,20 +40,47 @@
          </div>
          
          <div class="form-group">
-          <label for="cfondo">Color de Fondo</label>
-          <h:inputText type="text" class="form-control" id="cfondo" value=""></h:inputText>
-         </div>
-         
+	         <label for="cfondo" >Color de Fondo</label>
+	          <h:selectOneMenu class="form-control" id="cfondo" label="Service Level" value="">
+	          	<f:selectItem itemLabel="Blanco" itemValue="Blanco" />
+	          	<f:selectItem itemLabel="Negro" itemValue="Negro" />
+	            <f:selectItem itemLabel="Rojo" itemValue="Rojo" />
+	            <f:selectItem itemLabel="Azul" itemValue="Azul" />
+	            <f:selectItem itemLabel="Verde" itemValue="Verde" />
+	            <f:selectItem itemLabel="Amarillo" itemValue="Amarillo" />
+	            <f:selectItem itemLabel="Rosado" itemValue="Rosado" />
+	            <f:selectItem itemLabel="Naranja" itemValue="Naranja" />
+	          </h:selectOneMenu>
+	     </div>
+	         
          <div class="form-group">
-          <label for="cmenu">Color del Menú</label>
-          <h:inputText type="text" class="form-control" id="cmenu" value=""></h:inputText>
-         </div>
-         
-         <div class="form-group">
-          <label for="cfuente">Color de Fuente</label>
-          <h:inputText type="text" class="form-control" id="cfuente" value=""></h:inputText>
-         </div>
-         
+	         <label for="cmenu" >Color de Menú</label>
+	          <h:selectOneMenu class="form-control" id="cmenu" label="Service Level" value="">
+	          	<f:selectItem itemLabel="Azul" itemValue="Azul" />
+	          	<f:selectItem itemLabel="Negro" itemValue="Negro" />
+	            <f:selectItem itemLabel="Blanco" itemValue="Blanco" />
+	            <f:selectItem itemLabel="Rojo" itemValue="Rojo" />
+	            <f:selectItem itemLabel="Verde" itemValue="Verde" />
+	            <f:selectItem itemLabel="Amarillo" itemValue="Amarillo" />
+	            <f:selectItem itemLabel="Rosado" itemValue="Rosado" />
+	            <f:selectItem itemLabel="Naranja" itemValue="Naranja" />
+	          </h:selectOneMenu>
+	     </div>
+	     
+	     <div class="form-group">
+	         <label for="cfuente" >Color de Fuente</label>
+	          <h:selectOneMenu class="form-control" id="cfuente" label="Service Level" value="">
+	          	<f:selectItem itemLabel="Negro" itemValue="Negro" />
+	            <f:selectItem itemLabel="Blanco" itemValue="Blanco" />
+	            <f:selectItem itemLabel="Rojo" itemValue="Rojo" />
+	            <f:selectItem itemLabel="Azul" itemValue="Azul" />
+	            <f:selectItem itemLabel="Verde" itemValue="Verde" />
+	            <f:selectItem itemLabel="Amarillo" itemValue="Amarillo" />
+	            <f:selectItem itemLabel="Rosado" itemValue="Rosado" />
+	            <f:selectItem itemLabel="Naranja" itemValue="Naranja" />
+	          </h:selectOneMenu>
+	     </div>
+                  
           <div class="form-group">
           	<label for="imagen">Imagen</label> 
           	<br/>      	
