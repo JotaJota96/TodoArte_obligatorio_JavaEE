@@ -5,6 +5,7 @@
 	<projects>
 		<project>TodoArteEJB</project>
 		<project>TodoArteWeb</project>
+		<project>TodoArteWS</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
