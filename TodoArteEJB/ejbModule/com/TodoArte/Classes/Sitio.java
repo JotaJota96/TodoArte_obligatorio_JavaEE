@@ -213,7 +213,6 @@ public class Sitio implements Serializable {
 		} catch (Exception e) {
 			throw new ReaderException(e.getMessage());
 		}
-		
 	}
 
 	public boolean esFan(String idFan) {
