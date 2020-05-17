@@ -1,93 +1,169 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:ui="http://java.sun.com/jsf/facelets">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-    crossorigin="anonymous"></script>
-    
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+		crossorigin="anonymous" />
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+
+	<script>
+		// Codigo de WebSocket para el lado del cliente
+		// creo que no conviene ponerlo en un archivo aparte...
+		
+		// creo la conexion websocket
+		var ws = new WebSocket("#{qABean.webSocketURL}");
+
+		// variables globales de para el cliente del chat
+		var g_idSala = #{qABean.idSala};
+		var g_nickname = '#{qABean.nickname}';
+		
+		// Defino que se debe hacer cuando el cliente recibe un mensaje desde el servidor
+		// el mensaje recibido es un json (ver la funcion 'sendMessage()' para conocer sus atributos)
+		ws.onmessage = function processMessage(message){
+			// convierto lo recibido a un JSON
+			var jsonData = JSON.parse(message.data);
+			
+			// Segun si el mensaje es de parte del servidor o de un usuario
+			if (jsonData.nickname != 'TodoArte'){
+				// si el mensaje es de parte de un usuario
+				
+				var nick = jsonData.nickname; // nickname del usuario que envia el mensaje
+				var msj = jsonData.mensaje; // mensaje enviado por el usuario
+				
+				// AQUI DEBES HACER TU MAGIA CARLOS
+				
+			}else{
+				// mensaje de parte del servidor
+				var txt = jsonData.mensaje; // es una especie de mensaje informativo enviado por el servidor
+				
+				// AQUI DEBES HACER TU MAGIA CARLOS
+				
+			}
+		}
+
+		
+		// espera medio segundo para darle tiempo al servidor a que registre la conexion
+		// luego de la espera, si la conexion se establecio correctamente, se manda un primer mensaje con el ID de la sala, el nickname del usuario y el mensaje clave 'conectar'
+		// Este codigo podria ser mejorado, para hacerlo, revisar:
+		// https://stackoverflow.com/questions/13546424/how-to-wait-for-a-websockets-readystate-to-change
+		if (g_idSala != 0){
+			// si el ID de la sala NO es 0
+			setTimeout(() => {
+				// luego de la espera, si la conexion se establecio correctamente
+				if (ws.readyState === 1) {
+					// preparo el primer mensaje para ingresar a la sala
+					var miJson = new Object();
+					miJson.idSala = g_idSala;
+					miJson.nickname = g_nickname;
+					miJson.mensaje = "conectar";
+					// envia el mensaje
+					ws.send(JSON.stringify(miJson));
+
+					// AQUI DEBES HACER TU MAGIA CARLOS, bah, ni tanto, es habilitar el campo para escribir y el boton de enviar mensaje
+					//document.getElementById('btnSend').removeAttribute("disabled"); 
+	            } else {
+					alert('No fue posible conectar con el servidor\nSi recargas la pagina capaz que anda.')
+	            }}, 500);
+		}else{
+			// si el ID de la sala Es 0, algo está mal, el usuario no debería estar aca...
+			alert('El ID de la sala no es válido');
+		}
+		
+		// Funcion para enviar un mensaje desde el cliente al servidor
+		// al presionar el boton de enviar mensaje se debe llamar esta funcion
+		function sendMessage(){
+			// creo objeto JSON y le relleno los datos
+			var miJson = new Object();
+			miJson.idSala = g_idSala;
+			miJson.nickname = g_nickname;
+			miJson.mensaje = messageText.value; // extraer del texto escrito en el input del mensaje
+
+			// si se escribio algo
+			if (miJson.mensaje != ""){
+				// envio el JSON y vacio el campo de texto
+				ws.send(JSON.stringify(miJson));
+				messageText.value = "";
+			}
+		}
+		
+	</script>
 </h:head>
 
 
 <h:body class="bg-light">
 
-  <ui:include src="heather/heather.xhtml"/>
-  
- <main role="main" class="container mt-5 mb-5">
-	<div class="row">
-		<div class="col-md-1"></div>
-		<div class="col-md-10">
-			<div class="card m-3">
-				<h5 class="card-header">Chat en vivo con Artista</h5>
-				<div class="card-body" style="height: 350px; overflow: auto;">
-				
-					<!-- inicio de comentarios -->
-					
-					<div class="card my-2">
-						<div class="card-body">
-							<h5 class="card-text " style="color: rgb(70,70,255);">Marcelo17</h5>
-							<p class="card-text ">Hola</p>
-						</div>
-					</div>
-					
-					<div class="card my-2">
-						<div class="card-body">
-							<h5 class="card-text " style="color: rgb(70,70,255);">RamiroCabeza</h5>
-							<p class="card-text ">Hola</p>
-						</div>
-					</div>
-					
-					<div class="card my-2">
-						<div class="card-body">
-							<h5 class="card-text " style="color: rgb(70,70,255);">Marcelo17</h5>
-							<p class="card-text ">puto</p>
-						</div>
-					</div>
-					
-					<div class="card my-2">
-						<div class="card-body">
-							<h5 class="card-text " style="color: rgb(70,70,255);">RamiroCabeza</h5>
-							<p class="card-text ">dsfjh dsfkjdh fsdufud sdh fdsyf7d dshfue ee euue eeee</p>
-						</div>
-					</div>
-					
-					
-					
-					<!-- fin de comentarios -->
-				</div>
-				<h5 class="card-footer text-right">
-				<h:form>
-				
-					<div class="row">
+	<ui:include src="heather/heather.xhtml" />
 
-						<div class="col-12 col-lg-9 text-right m-1">
-							<h:inputText type="text" class="form-control" id="chatear" value=""></h:inputText>
+	<main role="main" class="container mt-5 mb-5">
+		<div class="row">
+			<div class="col-12 col-md-10 mx-auto">
+				<div class="card m-3">
+					<h5 class="card-header">Chat en vivo con Artista</h5>
+					<div class="card-body" style="height: 350px; overflow: auto;">
+
+						<!-- inicio de comentarios -->
+						<div class="card my-2">
+							<div class="card-body">
+								<h5 class="card-text " style="color: rgb(70, 70, 255);">Marcelo17</h5>
+								<p class="card-text ">Hola</p>
+							</div>
 						</div>
-						<div class="col-12 col-lg-2 h-75 d-flex align-content-center">
-							<h:commandButton class="btn btn-primary m-1" value="Comentar" action="Comentar" />
+						
+						<div class="card my-2">
+							<div class="card-body">
+								<h5 class="card-text " style="color: rgb(70, 70, 255);">Marcelo17</h5>
+								<p class="card-text ">Hola</p>
+							</div>
 						</div>
-	
-       				</div>
-       				
-       			</h:form>
-				</h5>
+						
+						<div class="card my-2">
+							<div class="card-body">
+								<h5 class="card-text " style="color: rgb(70, 70, 255);">Marcelo17</h5>
+								<p class="card-text ">Hola</p>
+							</div>
+						</div>
+						
+						<div class="card my-2">
+							<div class="card-body">
+								<h5 class="card-text " style="color: rgb(70, 70, 255);">Marcelo17</h5>
+								<p class="card-text ">Hola</p>
+							</div>
+						</div>
+						
+						<!-- fin de comentarios -->
+					</div>
+					<h:form class="card-footer">
+						<div class="container">
+							<div class="form-row">
+								<div class="input-group align-items-center">
+									<h:inputText type="text" class="form-control" id="chatear" value=""></h:inputText>
+									<h:commandButton class="btn btn-primary m-1" value="Comentar" action="Enviar" />
+								</div>
+							</div>
+						</div>
+					</h:form>
+				</div>
 			</div>
 		</div>
-		<div class="col-md-1"></div>
-	</div>
-</main>
+	</main>
 
-<ui:include src="footer/footer.xhtml"/>
+	<ui:include src="footer/footer.xhtml" />
 
 </h:body>
 

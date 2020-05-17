@@ -21,5 +21,13 @@
 		</navigation-case>
 	</navigation-rule>
 	
+	<navigation-rule>
+		<from-view-id>/IngresarQAtemporal.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>participarQA</from-outcome>
+			<to-view-id>/ParticiparQA.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
 	
 </faces-config>
