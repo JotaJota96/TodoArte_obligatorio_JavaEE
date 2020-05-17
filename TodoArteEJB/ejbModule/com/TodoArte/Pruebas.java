@@ -2,6 +2,7 @@ package com.TodoArte;
 
 import java.sql.Date;
 
+
 import com.TodoArte.Classes.*;
 import com.TodoArte.Enums.*;
 import com.TodoArte.JPAControllerClasses.*;
@@ -15,8 +16,7 @@ public class Pruebas {
 		BackOfficeController bo = new BackOfficeController();
 		
 		cargarDatosDePrueba();
-		fo.suscribirseFanArtista("luc31g","ergo");
-		fo.bloquearDesbloquearUsuarioDeSitio("ergo", "luc31g");
+
 		System.out.println("-- fin --");
 	}
 	
