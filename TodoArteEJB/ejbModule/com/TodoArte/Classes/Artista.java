@@ -1,9 +1,15 @@
 package com.TodoArte.Classes;
 
 import java.io.Serializable;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import javax.json.JsonWriter;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -68,6 +74,33 @@ public class Artista extends Usuario implements Serializable {
     }
     //**********************************************************************
 
+    public static String codificar(Artista artista) {
+		JsonObject json = Json.createObjectBuilder()
+	        .add("nombre", artista.getNombre())
+	        .add("biografia", artista.getBiografia())
+           .build();
+		
+		StringWriter strWriter = new StringWriter();
+		try (JsonWriter jsonWriter = Json.createWriter(strWriter)) {jsonWriter.write(json);}
+		return strWriter.toString();
+	}
+    
+	public static Artista decodificar(String strJson) {
+		StringReader reader = new StringReader(strJson);
+		
+		Artista artista = new Artista();
+		
+        try (JsonReader jsonReader = Json.createReader(reader)) {
+            JsonObject json = jsonReader.readObject();
+            artista.setNombre(json.getString("nombre"));
+            artista.setBiografia(json.getString("biografia"));
+        }catch (Exception e) {
+        	return null;
+		}
+		return artista;
+	}
+
+    
     public void agregarNotificacion(NotificacionArtista notificacion) {
     	notificacion.setId(0);
     	new NotificacionArtistaJpaController().create(notificacion);
