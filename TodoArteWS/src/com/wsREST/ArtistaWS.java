@@ -1,11 +1,17 @@
 package com.wsREST;
 
+import javax.ejb.EJB;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
+import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
+
 @Path("/artista")
 public class ArtistaWS {
+	@EJB
+	FrontOfficeInterface fo;
+	
 
 	/**
 	 * Esta funcion es para hacer pruebas...
