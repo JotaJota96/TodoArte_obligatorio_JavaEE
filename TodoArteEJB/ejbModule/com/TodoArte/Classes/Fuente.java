@@ -1,7 +1,13 @@
 package com.TodoArte.Classes;
 
 import java.io.Serializable;
+import java.io.StringReader;
+import java.io.StringWriter;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import javax.json.JsonWriter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,7 +42,35 @@ public class Fuente implements Serializable {
 	public String getNombre() {
         return this.nombre;
     }
-
+	
+	//****************************************************************************
+	public static String codificar(Fuente fuente) {
+			JsonObject json = Json.createObjectBuilder()
+		        .add("id", fuente.getId())
+		        .add("nombre", fuente.getNombre())
+	           .build();
+			
+			StringWriter strWriter = new StringWriter();
+			try (JsonWriter jsonWriter = Json.createWriter(strWriter)) {jsonWriter.write(json);}
+			return strWriter.toString();
+		}
+		
+		public static Fuente decodificar(String strJson) {
+			StringReader reader = new StringReader(strJson);
+			
+			Fuente fuente = new Fuente();
+			
+	        try (JsonReader jsonReader = Json.createReader(reader)) {
+	            JsonObject json = jsonReader.readObject();
+	            fuente.setId(json.getInt("id"));
+	            fuente.setNombre(json.getString("nombre"));
+	        }catch (Exception e) {
+	        	return null;
+			}
+			return fuente;
+		}
+	//****************************************************************************
+		
     public void setNombre(String nombre) {
     	if(nombre.equals("")){
     		throw new RuntimeException(MensajesExcepciones.nombre);

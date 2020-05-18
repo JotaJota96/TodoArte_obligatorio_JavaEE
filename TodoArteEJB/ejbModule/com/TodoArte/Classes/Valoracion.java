@@ -1,7 +1,13 @@
 package com.TodoArte.Classes;
 
 import java.io.Serializable;
+import java.io.StringReader;
+import java.io.StringWriter;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import javax.json.JsonWriter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,6 +49,34 @@ public class Valoracion implements Serializable{
 		this.val = val;
 		this.miFan = miFan;
 	}
+	
+	//****************************************************************************
+	public static String codificar(Valoracion val) {
+			JsonObject json = Json.createObjectBuilder()
+		        .add("id", val.getId())
+		        .add("valoracion", val.getVal())
+	           .build();
+			
+			StringWriter strWriter = new StringWriter();
+			try (JsonWriter jsonWriter = Json.createWriter(strWriter)) {jsonWriter.write(json);}
+			return strWriter.toString();
+		}
+		
+		public static Valoracion decodificar(String strJson) {
+			StringReader reader = new StringReader(strJson);
+			
+			Valoracion val = new Valoracion();
+			
+	        try (JsonReader jsonReader = Json.createReader(reader)) {
+	            JsonObject json = jsonReader.readObject();
+	            val.setId(json.getInt("id"));
+	          //val.setVal(json.getString("valoracion"));
+	        }catch (Exception e) {
+	        	return null;
+			}
+			return val;
+		}
+	//****************************************************************************
 
 	public int getId() {
 		return this.id;

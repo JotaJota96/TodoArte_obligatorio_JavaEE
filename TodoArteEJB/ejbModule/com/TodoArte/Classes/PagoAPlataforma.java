@@ -1,8 +1,16 @@
 package com.TodoArte.Classes;
 
 import java.io.Serializable;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import javax.json.JsonWriter;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,6 +49,36 @@ public class PagoAPlataforma implements Serializable{
         this.monto = monto;
         this.fechaYHora = fechaYHora;
     }
+    
+  //****************************************************************************
+    public static String codificar(PagoAPlataforma pap) {
+    		JsonObject json = Json.createObjectBuilder()
+    	        .add("id", pap.getId())
+    	        .add("monto", pap.getMonto())
+    	        .add("fechaYHora", pap.getFechaString())
+               .build();
+    		
+    		StringWriter strWriter = new StringWriter();
+    		try (JsonWriter jsonWriter = Json.createWriter(strWriter)) {jsonWriter.write(json);}
+    		return strWriter.toString();
+    	}
+    	
+    	public static PagoAPlataforma decodificar(String strJson) {
+    		StringReader reader = new StringReader(strJson);
+    		
+    		PagoAPlataforma pap = new PagoAPlataforma();
+    		
+            try (JsonReader jsonReader = Json.createReader(reader)) {
+                JsonObject json = jsonReader.readObject();
+                pap.setId(json.getInt("id"));
+                pap.setMonto(json.getInt("monto"));
+                pap.setFechaString(json.getString("fechaYHora"));
+            }catch (Exception e) {
+            	return null;
+    		}
+    		return pap;
+    	}
+    //****************************************************************************
 
     public int getId() {
         return this.id;
@@ -71,4 +109,20 @@ public class PagoAPlataforma implements Serializable{
 		}
         this.fechaYHora = fechaYHora;
     }
+    
+    public String getFechaString() {
+		DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+		String fechaString = df.format(getFechaYHora());
+		return fechaString;
+	}
+	
+	public void setFechaString(String fecha) {
+		java.sql.Date fecFormatoDate = null;
+		try {
+		      SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+		      fecFormatoDate = new java.sql.Date(sdf.parse(fecha).getTime());
+		      setFechaYHora(fecFormatoDate);
+		} catch (Exception ex) {
+		}
+	}
 }

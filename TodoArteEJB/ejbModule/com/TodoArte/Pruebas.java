@@ -1,8 +1,6 @@
 package com.TodoArte;
 
 import java.sql.Date;
-
-
 import com.TodoArte.Classes.*;
 import com.TodoArte.Enums.*;
 import com.TodoArte.JPAControllerClasses.*;
@@ -16,10 +14,9 @@ public class Pruebas {
 		BackOfficeController bo = new BackOfficeController();
 		
 		cargarDatosDePrueba();
-
+		System.out.println(Sexo.Masculino.toString());
 		System.out.println("-- fin --");
 	}
-	
 	public static void cargarDatosDePrueba() {
 		FrontOfficeController fo = new FrontOfficeController();
 		BackOfficeController bo = new BackOfficeController();

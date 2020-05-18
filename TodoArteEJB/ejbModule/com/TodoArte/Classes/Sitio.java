@@ -1,10 +1,16 @@
 package com.TodoArte.Classes;
 
 import java.io.Serializable;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import javax.json.JsonWriter;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -132,6 +138,51 @@ public class Sitio implements Serializable {
         this.MisContenidos = new TreeMap<Integer, Contenido>();
 	}
     //**********************************************************************
+    
+    public static String codificar(Sitio sitio) {
+    		JsonObject json = Json.createObjectBuilder()
+    	        .add("id", sitio.getId())
+    	        .add("precioPremium", sitio.getPrecioPremium())
+    	        .add("colorDeFondo", sitio.getColorDeFondo())
+    	        .add("colorDeMenu", sitio.getColorDeMenu())
+    	        .add("colorDeTexto", sitio.getColorDeTexto())
+    	        .add("rrssYouTube", sitio.getRrssYouTube())
+    	        .add("rrssFacebook", sitio.getRrssFacebook())
+    	        .add("rrssInstagram", sitio.getRrssInstagram())
+    	        .add("rrssTwitter", sitio.getRrssTwitter())
+    	        .add("seccionTwitter", sitio.getSeccionTwitter())
+    	        //.add("imagenPortada", sitio.getImagenPortada())
+               .build();
+    		
+    		StringWriter strWriter = new StringWriter();
+    		try (JsonWriter jsonWriter = Json.createWriter(strWriter)) {jsonWriter.write(json);}
+    		return strWriter.toString();
+    	}
+    	
+    	public static Sitio decodificar(String strJson) {
+    		StringReader reader = new StringReader(strJson);
+    		
+    		Sitio sitio = new Sitio();
+    		
+            try (JsonReader jsonReader = Json.createReader(reader)) {
+                JsonObject json = jsonReader.readObject();
+                sitio.setId(json.getInt("id"));
+                sitio.setPrecioPremium(json.getInt("precioPremium"));
+                sitio.setColorDeFondo(json.getString("colorDeFondo"));
+                sitio.setColorDeMenu(json.getString("colorDeMenu"));
+                sitio.setColorDeTexto(json.getString("colorDeTexto"));
+                sitio.setRrssYouTube(json.getString("rrssYouTube"));
+                sitio.setRrssFacebook(json.getString("rrssFacebook"));
+                sitio.setRrssInstagram(json.getString("rrssInstagram"));
+                sitio.setRrssTwitter(json.getString("rrssTwitter"));
+                sitio.setSeccionTwitter(json.getInt("seccionTwitter"));
+              //sitio.setImagenPortada(json.get("imagenPortada"));
+            }catch (Exception e) {
+            	return null;
+    		}
+    		return sitio;
+    	}
+    
 	public void comprarPremium(String idFan) {
 		// encontrar FanSigueASitio de ese fan y actualizarlo, tambien en BDD
 		

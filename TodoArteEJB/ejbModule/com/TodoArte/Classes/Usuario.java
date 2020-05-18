@@ -2,6 +2,13 @@
 package com.TodoArte.Classes;
 
 import java.io.Serializable;
+import java.io.StringReader;
+import java.io.StringWriter;
+
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import javax.json.JsonWriter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -56,8 +63,8 @@ public abstract class Usuario implements Serializable{
         this.correo = correo;
         this.saldo = saldo;
         this.imagen = imagen;
-    }
-
+    }  	
+    
     public String getNikname() {
         return this.nikname;
     }

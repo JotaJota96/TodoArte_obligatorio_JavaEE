@@ -1,10 +1,18 @@
 package com.TodoArte.Classes;
 
 import java.io.Serializable;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import javax.json.JsonWriter;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -146,6 +154,49 @@ public class Contenido implements Serializable {
 		MisValoracion = new TreeMap<Integer, Valoracion>();
 	}
 	//***************************************************************************
+	public static String codificar(Contenido contenido) {
+			JsonObject json = Json.createObjectBuilder()
+		        .add("id", contenido.getId())
+		        .add("tipo", contenido.getTipo().toString())
+		        .add("privacidad", contenido.getPrivacidad().toString())
+		        .add("precio", contenido.getPrecio())
+		        .add("descripcion", contenido.getDescripcion())
+		        .add("titulo", contenido.getTitulo())
+		        .add("fechaPublicado", contenido.getFechaString())
+		        .add("bloqueado", contenido.getBloqueado())
+		        .add("eliminado", contenido.getEliminado())
+		        //.add("archivo", contenido.getArchivo())
+	           .build();
+			
+			StringWriter strWriter = new StringWriter();
+			try (JsonWriter jsonWriter = Json.createWriter(strWriter)) {jsonWriter.write(json);}
+			return strWriter.toString();
+		}
+		
+		public static Contenido decodificar(String strJson) {
+			StringReader reader = new StringReader(strJson);
+			
+			Contenido contenido = new Contenido();
+			
+	        try (JsonReader jsonReader = Json.createReader(reader)) {
+	            JsonObject json = jsonReader.readObject();
+	            contenido.setId(json.getInt("id"));
+	            contenido.setPrecio(json.getInt("precio"));
+	            contenido.setDescripcion(json.getString("descripcion"));
+	            contenido.setTitulo(json.getString("titulo"));
+	            contenido.setFechaString(json.getString("fechaPublicado"));
+	            contenido.setBloqueado(json.getBoolean("bloqueado"));
+	            contenido.setEliminado(json.getBoolean("eliminado"));
+	            
+
+	            //contenido.setTipo(json.getString("tipo"));
+	            //contenido.setPrivacidad(json.getString("privacidad"));
+	            //contenido.setArchivo(json.getInt("archivo"));
+	        }catch (Exception e) {
+	        	return null;
+			}
+			return contenido;
+		}
 	
 	public void crearValoracion(Valoracion val, Fan fan) {
 		// vincular la valoracion con el fan
@@ -344,5 +395,20 @@ public class Contenido implements Serializable {
 		MisValoracion = misValoracion;
 	}
 	
+	public String getFechaString() {
+		DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+		String fechaString = df.format(getFechaPublicado());
+		return fechaString;
+	}
+	
+	public void setFechaString(String fecha) {
+		java.sql.Date fecFormatoDate = null;
+		try {
+		      SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+		      fecFormatoDate = new java.sql.Date(sdf.parse(fecha).getTime());
+		      setFechaPublicado(fecFormatoDate);
+		} catch (Exception ex) {
+		}
+	}
 	
 }
