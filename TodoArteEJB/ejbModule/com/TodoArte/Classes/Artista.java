@@ -78,6 +78,10 @@ public class Artista extends Usuario implements Serializable {
 		JsonObject json = Json.createObjectBuilder()
 	        .add("nombre", artista.getNombre())
 	        .add("biografia", artista.getBiografia())
+	        .add("nikname", artista.getNikname())
+	        .add("contrasenia", artista.getContrasenia())
+	        .add("correo", artista.getCorreo())
+	        .add("saldo", artista.getSaldo())
            .build();
 		
 		StringWriter strWriter = new StringWriter();
@@ -94,6 +98,11 @@ public class Artista extends Usuario implements Serializable {
             JsonObject json = jsonReader.readObject();
             artista.setNombre(json.getString("nombre"));
             artista.setBiografia(json.getString("biografia"));
+            artista.setNikname(json.getString("nikname"));
+            artista.setContrasenia(json.getString("contrasenia"));
+            artista.setCorreo(json.getString("correo"));
+            artista.setSaldo(json.getInt("saldo"));
+          //artista.setImagen(json.getInt("imagen"));
         }catch (Exception e) {
         	return null;
 		}

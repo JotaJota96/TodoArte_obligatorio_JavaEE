@@ -98,7 +98,12 @@ public class Fan extends Usuario implements Serializable {
 	        .add("apellido", fan.getApellido())
 	        .add("ubicacion", fan.getUbicacion())
 	        .add("fechaNac", fan.getFechaString())
+	        .add("nikname", fan.getNikname())
+	        .add("contrasenia", fan.getContrasenia())
+	        .add("correo", fan.getCorreo())
+	        .add("saldo", fan.getSaldo())
 	        .add("sexo", fan.getSexo().toString())
+	      //.add("imagen", msj.getImagen())
            .build();
 		
 		StringWriter strWriter = new StringWriter();
@@ -117,7 +122,12 @@ public class Fan extends Usuario implements Serializable {
             fan.setApellido(json.getString("apellido"));
             fan.setUbicacion(json.getString("ubicacion"));
             fan.setFechaString(json.getString("fechaNac"));
-            //fan.setSexo(json.getString("sexo"));
+            fan.setNikname(json.getString("nikname"));
+            fan.setContrasenia(json.getString("contrasenia"));
+            fan.setCorreo(json.getString("correo"));
+            fan.setSaldo(json.getInt("saldo"));
+          //fan.setImagen(json.getInt("imagen"));
+          //fan.setSexo(json.getString("sexo"));
         }catch (Exception e) {
         	return null;
 		}
