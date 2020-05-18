@@ -110,6 +110,10 @@ public class WebSocketServerEndpoint {
 			userSession.getUserProperties().put("nickname", mc.getNickname());
 			userSession.getUserProperties().put("idSala", mc.getIdSala());
 			
+			// Envia un mensaje a todos los usuarios para avisar que alguien se ha unido
+			MensajeChat mcNuevaConexion = new MensajeChat(mc.getIdSala(), "TodoArte", mc.getNickname() + " se ha unido al chat");
+			enviarMensajeATodos(mc.getIdSala(), mcNuevaConexion);
+			
 			// agrego la sesion a la sala que le corresponde
 			salas.get(mc.getIdSala()).add(userSession);
 			
@@ -142,10 +146,15 @@ public class WebSocketServerEndpoint {
 		}else {
 			// si SI tiene una sala asignada, obtengo su ID
 			int idSala = (int) userSession.getUserProperties().get("idSala");
+			String nickname = (String) userSession.getUserProperties().get("nickname");
 			// por las dudas verifico que la sala existe
 			if (salas.containsKey(idSala)) {
 				// quito la sesion de la coleccion de sesiones de esa sala especifica
 				salas.get(idSala).remove(userSession);
+
+				// Envia un mensaje a todos los usuarios para avisar que alguien se ha unido
+				MensajeChat mcNuevaConexion = new MensajeChat(idSala, "TodoArte", nickname + " se ha ido");
+				enviarMensajeATodos(mc.getIdSala(), mcNuevaConexion);
 			}else {
 				// y si entra aca, pues ni idea que pasa...
 			}
