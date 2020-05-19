@@ -58,7 +58,7 @@ public class FanController implements FanInterface{
 		FanJpaController fjpa = new FanJpaController();
 		Fan fan = fjpa.findFan(idUsuario);
 		if(fan != null){
-			if(fan.getContrasenia() == contrasenia){
+			if(fan.getContrasenia().equals(contrasenia)){
 				return fan;
 			}
 		}

@@ -168,7 +168,7 @@ public class ArtistaController implements ArtistaInterface{
 		ArtistaJpaController Ajpa = new ArtistaJpaController();
 		Artista artista = Ajpa.findArtista(idUsuario);
 		if(artista != null){
-			if(artista.getContrasenia() == contrasenia){
+			if(artista.getContrasenia().equals(contrasenia)){
 				return artista;
 			}
 		}

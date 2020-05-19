@@ -50,7 +50,7 @@ public class Comentario implements Serializable{
 		if(texto.equals("")){
     		throw new RuntimeException(MensajesExcepciones.texto);
     	}
-		if(fechaYHora.equals(null)){
+		if(fechaYHora == null){
     		throw new RuntimeException(MensajesExcepciones.fechaYHora);
     	}
 		if(miFan == null){
@@ -129,7 +129,7 @@ public class Comentario implements Serializable{
 	}
 
 	public void setMiFan(Fan miFan) {
-		if(miFan.equals(null)){
+		if(miFan == null){
     		throw new RuntimeException(MensajesExcepciones.miFan);
     	}
 		this.miFan = miFan;

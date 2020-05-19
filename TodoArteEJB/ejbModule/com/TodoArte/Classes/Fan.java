@@ -72,13 +72,13 @@ public class Fan extends Usuario implements Serializable {
 		if(apellido.equals("")){
     		throw new RuntimeException(MensajesExcepciones.apellido);
     	}
-		if(fechaNac.equals(null)){
+		if(fechaNac == null){
     		throw new RuntimeException(MensajesExcepciones.fechaYHora);
     	}
 		if(ubicacion.equals("")){
     		throw new RuntimeException(MensajesExcepciones.ubicacion);
     	}
-		if(sexo.equals(null)){
+		if(sexo == null){
     		throw new RuntimeException(MensajesExcepciones.sexo);
     	}
 		
@@ -170,7 +170,7 @@ public class Fan extends Usuario implements Serializable {
     }
 
     public void setFechaNac(Date fechaNac) {
-    	if(fechaNac.equals(null)){
+    	if(fechaNac == null){
     		throw new RuntimeException(MensajesExcepciones.fechaYHora);
     	}
 		
@@ -194,7 +194,7 @@ public class Fan extends Usuario implements Serializable {
 	}
 
 	public void setSexo(Sexo sexo) {
-		if(sexo.equals(null)){
+		if(sexo == null){
     		throw new RuntimeException(MensajesExcepciones.sexo);
     	}
 		

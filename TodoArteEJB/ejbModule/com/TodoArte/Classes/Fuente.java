@@ -38,10 +38,6 @@ public class Fuente implements Serializable {
 		this.id = id;
 		this.nombre = nombre;
 	}
-    
-	public String getNombre() {
-        return this.nombre;
-    }
 	
 	//****************************************************************************
 	public static String codificar(Fuente fuente) {
@@ -71,6 +67,10 @@ public class Fuente implements Serializable {
 		}
 	//****************************************************************************
 		
+	public String getNombre() {
+	        return this.nombre;
+	}
+	
     public void setNombre(String nombre) {
     	if(nombre.equals("")){
     		throw new RuntimeException(MensajesExcepciones.nombre);
