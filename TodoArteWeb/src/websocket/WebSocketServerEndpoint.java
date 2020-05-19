@@ -153,8 +153,11 @@ public class WebSocketServerEndpoint {
 				salas.get(idSala).remove(userSession);
 
 				// Envia un mensaje a todos los usuarios para avisar que alguien se ha unido
-				MensajeChat mcNuevaConexion = new MensajeChat(idSala, "TodoArte", nickname + " se ha ido");
-				enviarMensajeATodos(mc.getIdSala(), mcNuevaConexion);
+				MensajeChat mcParaTodos = new MensajeChat(idSala, "TodoArte", nickname + " se ha ido");
+				try {
+					enviarMensajeATodos(mcParaTodos.getIdSala(), mcParaTodos);
+				} catch (IOException e) {
+				}
 			}else {
 				// y si entra aca, pues ni idea que pasa...
 			}
