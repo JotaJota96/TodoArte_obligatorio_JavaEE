@@ -48,6 +48,7 @@ public abstract class MensajesExcepciones {
 	public static final String saldoInsuficiente = "Su saldo es insuficiente";
 	public static final String usuarioNoExiste = "No existe un usuario con ese nickname o email";
 	public static final String fanNoSeguidor = "El fan no es seguidor";
+	public static final String fechaNacimientoPosterior = "La fecha de nacimiento no puede ser posterior a la actual";
 }
 
 

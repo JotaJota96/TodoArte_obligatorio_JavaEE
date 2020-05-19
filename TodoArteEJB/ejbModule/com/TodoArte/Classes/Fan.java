@@ -66,19 +66,26 @@ public class Fan extends Usuario implements Serializable {
 
 	public Fan(String nikname, String contrasenia, String correo, float saldo, byte[] imagen, String nombre, String apellido, Date fechaNac, String ubicacion, Sexo sexo) {
 		super(nikname, contrasenia, correo, saldo, imagen);
-		if(nombre.equals("")){
+		if(nombre.equals("") || nombre.equals(null)){
     		throw new RuntimeException(MensajesExcepciones.nombre);
     	}
-		if(apellido.equals("")){
+		if(apellido.equals("") || apellido.equals(null)){
     		throw new RuntimeException(MensajesExcepciones.apellido);
     	}
-		if(fechaNac.equals(null)){
+		if(fechaNac == null){
     		throw new RuntimeException(MensajesExcepciones.fechaYHora);
     	}
-		if(ubicacion.equals("")){
-    		throw new RuntimeException(MensajesExcepciones.ubicacion);
-    	}
-		if(sexo.equals(null)){
+	
+		Date fechaActual = new Date(System.currentTimeMillis());
+		
+		java.util.Date fechaNacUtil = new java.util.Date(fechaNac.getTime());
+		java.util.Date fechaActualUtil = new java.util.Date(fechaActual.getTime());
+		
+		if(fechaNacUtil.compareTo(fechaActualUtil) <= 0 ){
+    		throw new RuntimeException(MensajesExcepciones.fechaNacimientoPosterior);
+		}
+		
+		if(sexo == null){
     		throw new RuntimeException(MensajesExcepciones.sexo);
     	}
 		
@@ -181,11 +188,7 @@ public class Fan extends Usuario implements Serializable {
         return this.ubicacion;
     }
 
-    public void setUbicacion(String ubicacion) {
-    	if(ubicacion.equals("")){
-    		throw new RuntimeException(MensajesExcepciones.ubicacion);
-    	}
-		
+    public void setUbicacion(String ubicacion) {	
         this.ubicacion = ubicacion;
     }
 
