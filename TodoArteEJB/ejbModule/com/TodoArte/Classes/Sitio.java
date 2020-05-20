@@ -33,7 +33,6 @@ public class Sitio implements Serializable {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
 	
-	@Lob
     @Column(name = "imagenPortada")
     private byte[] imagenPortada;
 	

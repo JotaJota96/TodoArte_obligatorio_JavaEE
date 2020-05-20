@@ -2,10 +2,8 @@ package com.TodoArte;
 
 import java.sql.Date;
 
-
 import com.TodoArte.Classes.*;
 import com.TodoArte.Enums.*;
-import com.TodoArte.JPAControllerClasses.*;
 import com.TodoArte.FachadeControllers.BackOfficeController;
 import com.TodoArte.FachadeControllers.FrontOfficeController;
 
