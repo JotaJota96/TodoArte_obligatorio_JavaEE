@@ -2,7 +2,6 @@ package com.TodoArte.FachadeControllers;
 
 import java.util.ArrayList;
 
-import javax.ejb.Singleton;
 import javax.ejb.Stateless;
 
 import org.jboss.resteasy.spi.ReaderException;
@@ -23,18 +22,11 @@ import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
 import com.TodoArte.InternalControllers.ArtistaController;
 import com.TodoArte.InternalControllers.ContenidoController;
 import com.TodoArte.InternalControllers.FanController;
-import com.TodoArte.InternalInterfaces.ArtistaInterface;
-import com.TodoArte.InternalInterfaces.ContenidoInterface;
-import com.TodoArte.InternalInterfaces.FanInterface;
 import com.TodoArte.JPAControllerClasses.ArtistaJpaController;
-import com.TodoArte.JPAControllerClasses.ContenidoJpaController;
 import com.TodoArte.JPAControllerClasses.FanJpaController;
 
 @Stateless
 public class FrontOfficeController implements FrontOfficeInterface{
-	
-	FanInterface cFan = new FanController();
-	ArtistaInterface cArtista = new ArtistaController();
 	
 	public FrontOfficeController() {}
 
@@ -55,12 +47,12 @@ public class FrontOfficeController implements FrontOfficeInterface{
 
 	@Override
 	public ArrayList<NotificacionFan> listarNotificacionesFan(String idFan) {
-		return cFan.listarNotificacionesFan(idFan);
+		return new FanController().listarNotificacionesFan(idFan);
 	}
 
 	@Override
 	public ArrayList<NotificacionArtista> listarNotificacionesArtista(String idArtista) {
-		return cArtista.listarNotificacionesArtista(idArtista);
+		return new ArtistaController().listarNotificacionesArtista(idArtista);
 	}
 
 	@Override
@@ -80,21 +72,21 @@ public class FrontOfficeController implements FrontOfficeInterface{
 
 	@Override
 	public Fan registrarUsuarioFan(Fan fan) {
-		return cFan.registrarUsuarioFan(fan);
+		return new FanController().registrarUsuarioFan(fan);
 	}
 
 	@Override
 	public Artista registrarUsuarioArtista(Artista artista, Sitio sitio) {
-		return cArtista.registrarUsuarioArtista(artista, sitio);
+		return new ArtistaController().registrarUsuarioArtista(artista, sitio);
 	}
 
 	@Override
 	public Usuario iniciarSesion(String idUsuario, String contrasenia) {
-		Usuario usu = cFan.iniciarSesion(idUsuario, contrasenia);
+		Usuario usu = new FanController().iniciarSesion(idUsuario, contrasenia);
 		if(usu != null) {
 			return usu;
 		}
-		usu = cArtista.iniciarSesion(idUsuario, contrasenia);
+		usu = new ArtistaController().iniciarSesion(idUsuario, contrasenia);
 		if(usu != null) {
 			return usu;
 		}		
@@ -113,14 +105,14 @@ public class FrontOfficeController implements FrontOfficeInterface{
 
 	@Override
 	public QyAProgramado programarQyA(String idArtista, QyAProgramado qyaProgramado) {
-		return cArtista.programarQyA(idArtista, qyaProgramado);
+		return new ArtistaController().programarQyA(idArtista, qyaProgramado);
 	}
 
 	@Override
 	public Usuario obtenerDatosUsuario(String idUsuario) {
-		Usuario u = cFan.obtenerDatosUsuario(idUsuario);
+		Usuario u = new FanController().obtenerDatosUsuario(idUsuario);
 		if (u == null) {
-			u = cArtista.obtenerDatosUsuario(idUsuario);
+			u = new ArtistaController().obtenerDatosUsuario(idUsuario);
 		}
 		return u;
 	}

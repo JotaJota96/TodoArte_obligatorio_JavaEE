@@ -2,7 +2,6 @@ package com.TodoArte.FachadeControllers;
 
 import java.util.ArrayList;
 
-import javax.ejb.Singleton;
 import javax.ejb.Stateless;
 
 import com.TodoArte.Classes.Administrador;
@@ -16,7 +15,6 @@ import com.TodoArte.FachadeInterfaces.BackOfficeInterface;
 import com.TodoArte.InternalControllers.AdminController;
 import com.TodoArte.InternalControllers.ArtistaController;
 import com.TodoArte.InternalControllers.ContenidoController;
-import com.TodoArte.JPAControllerClasses.CategoriaContenidoJpaController;
 
 @Stateless
 public class BackOfficeController implements BackOfficeInterface {
