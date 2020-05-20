@@ -14,7 +14,7 @@ public class Pruebas {
 		BackOfficeController bo = new BackOfficeController();
 		
 		cargarDatosDePrueba();
-		System.out.println(Sexo.Masculino.toString());
+			
 		System.out.println("-- fin --");
 	}
 	public static void cargarDatosDePrueba() {

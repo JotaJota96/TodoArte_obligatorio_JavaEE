@@ -25,12 +25,20 @@ public class FanController implements FanInterface{
 		if (fan == null) {
 			throw new RuntimeException(MensajesExcepciones.miFan);
 		}
+		if(fan.getNikname().equals("") || fan.getNikname().equals(null)){
+			throw new ReaderException(MensajesExcepciones.nickname);
+		}
+		if(fan.getCorreo().equals("") || fan.getCorreo().equals(null)){
+			throw new ReaderException(MensajesExcepciones.correo);
+		}
+		
 		ArtistaInterface ac = new ArtistaController();
 		
 		FanJpaController fjpa = new FanJpaController();
-		if (fjpa.findFan(fan.getNikname()) != null || ac.obtenerDatosUsuario(fan.getNikname()) != null || ac.obtenerDatosUsuario(fan.getCorreo()) != null){
+		if (fjpa.findFan(fan.getNikname()) != null || fjpa.findFan(fan.getCorreo()) != null || ac.obtenerDatosUsuario(fan.getNikname()) != null || ac.obtenerDatosUsuario(fan.getCorreo()) != null){
 			throw new RuntimeException(MensajesExcepciones.usuarioExiste);
 		}
+		
 		fjpa.create(fan);
 		return fan;
 	}

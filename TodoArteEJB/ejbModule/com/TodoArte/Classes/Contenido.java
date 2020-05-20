@@ -116,15 +116,20 @@ public class Contenido implements Serializable {
     		throw new RuntimeException(MensajesExcepciones.privacidadContenido);
     	}
 		if(privacidad != privacidad.Premium){
-			if(precio < 0){
+			precio = 0;
+		}
+		if(privacidad == privacidad.Premium){
+			if (precio <= 0) {
 	    		throw new RuntimeException(MensajesExcepciones.precio);
-	    	}
+			}
 		}
 		
-		if(descripcion.equals("")){
+		fechaPublicado.setYear(fechaPublicado.getDay()-1900);
+		
+		if(descripcion.equals("") || descripcion.equals(null)){
     		throw new RuntimeException(MensajesExcepciones.descripcion);
     	}
-		if(titulo.equals("")){
+		if(titulo.equals("") || titulo.equals(null)){
     		throw new RuntimeException(MensajesExcepciones.titulo);
     	}
 		if(archivo.equals(null)){
@@ -133,9 +138,20 @@ public class Contenido implements Serializable {
 		if(fechaPublicado.equals(null)){
     		throw new RuntimeException(MensajesExcepciones.fechaYHora);
     	}
+		
+		Date fechaActual = new Date(System.currentTimeMillis());
+		
+		java.util.Date fechaNacUtil = new java.util.Date(fechaPublicado.getTime());
+		java.util.Date fechaActualUtil = new java.util.Date(fechaActual.getTime());
+		
+		if(fechaNacUtil.compareTo(fechaActualUtil) < 0 ){
+    		throw new RuntimeException(MensajesExcepciones.fechaPosterior);
+		}
+		
 		if(miCategoria == null){
     		throw new RuntimeException(MensajesExcepciones.categoria);
     	}
+		
 		
 		this.id = id;
 		this.tipo = tipo;
