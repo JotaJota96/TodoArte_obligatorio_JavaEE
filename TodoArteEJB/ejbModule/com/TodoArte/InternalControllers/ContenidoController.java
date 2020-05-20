@@ -18,6 +18,7 @@ import com.TodoArte.Enums.MensajesExcepciones;
 import com.TodoArte.Enums.Privacidad;
 import com.TodoArte.InternalInterfaces.ArtistaInterface;
 import com.TodoArte.InternalInterfaces.ContenidoInterface;
+import com.TodoArte.JPAControllerClasses.CategoriaContenidoJpaController;
 import com.TodoArte.JPAControllerClasses.ContenidoJpaController;
 import com.TodoArte.JPAControllerClasses.FanJpaController;
 
@@ -177,6 +178,10 @@ public class ContenidoController implements ContenidoInterface{
 		// si el contenido existe, modificarlo
 		// si no existe, decirle al controlador de artista que agregue e contenido para ese artista
 		boolean agregar = (contenido.getId() == 0);
+		
+		if(new CategoriaContenidoJpaController().findCategoriaContenido(contenido.getMiCategoria().getId()) == null){
+			throw new RuntimeException(MensajesExcepciones.contenidoCategoria);
+		}
 		
 		if (agregar) {
 			contenido = new ArtistaController().agregarContenido(idArtista, contenido);

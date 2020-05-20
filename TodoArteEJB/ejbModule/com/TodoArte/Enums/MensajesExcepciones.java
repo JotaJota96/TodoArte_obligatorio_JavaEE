@@ -48,7 +48,11 @@ public abstract class MensajesExcepciones {
 	public static final String saldoInsuficiente = "Su saldo es insuficiente";
 	public static final String usuarioNoExiste = "No existe un usuario con ese nickname o email";
 	public static final String fanNoSeguidor = "El fan no es seguidor";
-	public static final String fechaNacimientoPosterior = "La fecha de nacimiento no puede ser posterior a la actual";
+	public static final String fechaPosterior = "La fecha no puede ser posterior a la actual";
+	public static final String categoriaSitio = "La categoria del sitio no existe";
+	public static final String fuenteSitio = "La fuente del sitio no existe";
+	public static final String artistaExiste = "Ya existe un artista con un nickname o correo igual";
+	public static final String contenidoCategoria = "La categoria del contenido no existe";
 }
 
 
