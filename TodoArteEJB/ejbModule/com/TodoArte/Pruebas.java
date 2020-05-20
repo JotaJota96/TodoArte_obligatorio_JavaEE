@@ -14,19 +14,7 @@ public class Pruebas {
 		BackOfficeController bo = new BackOfficeController();
 		
 		cargarDatosDePrueba();
-		
-		Date fechaNac = new Date(1998, 11, 31);
-		Date fechaActual = new Date(System.currentTimeMillis());
-		
-		java.util.Date fechaNacUtil = new java.util.Date(fechaNac.getTime());
-		java.util.Date fechaActualUtil = new java.util.Date(fechaActual.getTime());
-		
-		if(fechaNacUtil.compareTo(fechaActualUtil) <= 0 ){
-			System.out.println("Bien");
-		}else {
-			System.out.println("mal");
-		}
-		
+			
 		System.out.println("-- fin --");
 	}
 	public static void cargarDatosDePrueba() {

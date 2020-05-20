@@ -166,7 +166,7 @@ public class ArtistaController implements ArtistaInterface{
 			throw new RuntimeException(MensajesExcepciones.correo);
 		}
 		
-		if(new ArtistaJpaController().findArtista(artista.getNikname()) == null || new ArtistaJpaController().findArtista(artista.getCorreo()) == null){
+		if(new ArtistaJpaController().findArtista(artista.getNikname()) != null || new ArtistaJpaController().findArtista(artista.getCorreo()) != null){
 			throw new RuntimeException(MensajesExcepciones.artistaExiste);
 		}
 		
