@@ -10,12 +10,12 @@ import com.TodoArte.FachadeControllers.FrontOfficeController;
 public class Pruebas {
 
 	public static void main(String[] args) {
-		//FrontOfficeController fo = new FrontOfficeController();
-		//BackOfficeController bo = new BackOfficeController();
+		FrontOfficeController fo = new FrontOfficeController();
+		BackOfficeController bo = new BackOfficeController();
 		
-		//cargarDatosDePrueba();
-
-		//System.out.println("-- fin --");
+		cargarDatosDePrueba();
+		
+		System.out.println("-- fin --");
 	}
 	public static void cargarDatosDePrueba() {
 		FrontOfficeController fo = new FrontOfficeController();
