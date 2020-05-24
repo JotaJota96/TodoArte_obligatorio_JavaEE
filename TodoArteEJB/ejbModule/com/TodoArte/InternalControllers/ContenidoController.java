@@ -226,11 +226,20 @@ public class ContenidoController implements ContenidoInterface{
 									privado		contenido
 									premium		error
 		*/
+		
 
 		ContenidoJpaController Cjpa = new ContenidoJpaController();
 		Contenido contenido = Cjpa.findContenido(idContenido);
 		Sitio sitioArtista = new ArtistaController().obtenerDatosUsuario(idArtista).getMiSitio();
 		
+		if(contenido == null){
+			throw new RuntimeException(MensajesExcepciones.contenidoNoExiste);
+		}
+		
+		if(!(sitioArtista.getMisContenidos().containsKey(idContenido))) {
+			throw new RuntimeException(MensajesExcepciones.ContenidoNoPertenece);
+		}
+			
 		if (idFan.equals(idArtista)) {
 			return contenido;
 		}

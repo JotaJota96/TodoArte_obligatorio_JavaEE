@@ -163,5 +163,46 @@ public interface FrontOfficeInterface {
 	 */
 	public ArrayList<Fan> obtenerFansDeSitio(String idArtista);
 	
+	/**
+	 * Devuelve todos las categorias Sitios
+	 * @return Debuelve un array de categorias Sitios
+	 */
+	public ArrayList<CategoriaSitio> obtenerCategoriasSitios();
+	
+
+	/**
+	 * Devuelve todos las Fuente
+	 * @return Debuelve un array de Fuente
+	 */
+	public ArrayList<Fuente> obtenerFuentes();
+	
+
+	/**
+	 * Devuelve todos las Categoria Contenido
+	 * @return Debuelve un array de Categoria Contenido
+	 */
+	public ArrayList<CategoriaContenido> obtenerCategoriasContenido();
+
+	/**
+	 * Devuelve una CategoriaSitio en espesifico
+	 * @param idCategoriaSitio
+	 * @return una CategoriaSitio si no existe devuelve null
+	 */
+	public CategoriaSitio obtenerUnaCategoriasSitios(int idCategoriaSitio);
+	
+	/**
+	 * Devuelve una Fuente en espesifico
+	 * @param idFuente
+	 * @return una Fuente si no existe devuelve null
+	 */
+	public Fuente obtenerUnaFuentes(int idFuente);
+	
+	/**
+	 * Devuelve una CategoriaContenido en espesifico
+	 * @param idCategoriaContenido
+	 * @return una CategoriaContenido si no existe devuelve null
+	 */
+	public CategoriaContenido obtenerUnaCategoriasContenido(int idCategoriaContenido);
+	
 }
 
