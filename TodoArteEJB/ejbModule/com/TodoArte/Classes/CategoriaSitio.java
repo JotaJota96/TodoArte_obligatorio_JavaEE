@@ -1,7 +1,13 @@
 package com.TodoArte.Classes;
 
 import java.io.Serializable;
+import java.io.StringReader;
+import java.io.StringWriter;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import javax.json.JsonWriter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,6 +37,35 @@ public class CategoriaSitio implements Serializable {
 		this.id = id;
 		this.nombreCat = nombreCat;
 	}
+    //*************************************************************************
+    
+    public static String codificar(CategoriaSitio catSitio) {
+		JsonObject json = Json.createObjectBuilder()
+	        .add("id", catSitio.getId())
+	        .add("nombreCat", catSitio.getNombreCat())
+           .build();
+		
+		StringWriter strWriter = new StringWriter();
+		try (JsonWriter jsonWriter = Json.createWriter(strWriter)) {jsonWriter.write(json);}
+		return strWriter.toString();
+	}
+	
+	public static CategoriaSitio decodificar(String strJson) {
+		StringReader reader = new StringReader(strJson);
+		
+		CategoriaSitio catSitio = new CategoriaSitio();
+		
+        try (JsonReader jsonReader = Json.createReader(reader)) {
+            JsonObject json = jsonReader.readObject();
+            catSitio.setId(json.getInt("id"));
+            catSitio.setNombreCat(json.getString("nombreCat"));
+        }catch (Exception e) {
+        	return null;
+		}
+		return catSitio;
+	}
+    
+    //*************************************************************************
 
 	public String getNombreCat() {
         return this.nombreCat;

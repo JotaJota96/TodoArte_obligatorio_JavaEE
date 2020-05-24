@@ -1,6 +1,7 @@
 package beans;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -9,6 +10,7 @@ import javax.inject.Named;
 import com.TodoArte.Classes.Artista;
 import com.TodoArte.Classes.Fan;
 import com.TodoArte.Classes.Usuario;
+import com.TodoArte.Enums.Sexo;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
 
 @Named

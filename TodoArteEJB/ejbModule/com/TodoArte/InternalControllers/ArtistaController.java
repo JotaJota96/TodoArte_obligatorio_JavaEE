@@ -19,8 +19,10 @@ import com.TodoArte.InternalInterfaces.ArtistaInterface;
 import com.TodoArte.InternalInterfaces.FanInterface;
 import com.TodoArte.JPAControllerClasses.SitioJpaController;
 import com.TodoArte.JPAControllerClasses.ArtistaJpaController;
+import com.TodoArte.JPAControllerClasses.CategoriaContenidoJpaController;
 import com.TodoArte.JPAControllerClasses.FanJpaController;
 import com.TodoArte.JPAControllerClasses.FanSigueSitioJpaController;
+import com.TodoArte.JPAControllerClasses.FuenteJpaController;
 
 
 public class ArtistaController implements ArtistaInterface{
@@ -69,7 +71,19 @@ public class ArtistaController implements ArtistaInterface{
 	@Override
 	public ArrayList<PagoAPlataforma> obtenerPagos(String idArtista) {
 		// obtener los pagos del artista y convertirlos en ArrayList
-		return null;
+		
+		Artista artista = (Artista) this.obtenerDatosUsuario(idArtista);
+		if (artista == null) {
+			throw new RuntimeException(MensajesExcepciones.artistaNoExiste);
+		}
+		
+		ArrayList<PagoAPlataforma> ret = new ArrayList<PagoAPlataforma>();
+		
+		for (Map.Entry<Integer, PagoAPlataforma> entry : artista.getPagos().entrySet()) {
+			ret.add(entry.getValue());
+		}
+		
+		return ret;
 	}
 
 	@Override
@@ -131,9 +145,31 @@ public class ArtistaController implements ArtistaInterface{
 		if (artista == null) {
 			throw new RuntimeException(MensajesExcepciones.artista);
 		}
+		
 		if (sitio == null) {
 			throw new RuntimeException(MensajesExcepciones.sitio);
 		}
+		
+		if(new CategoriaContenidoJpaController().findCategoriaContenido(sitio.getMiCategoria().getId()) == null){
+			throw new RuntimeException(MensajesExcepciones.categoriaSitio);
+		}
+		
+		if(new FuenteJpaController().findFuente(sitio.getMiFuente().getId()) == null){
+			throw new RuntimeException(MensajesExcepciones.fuenteSitio);
+		}
+		
+		if(artista.getNikname().equals("") || artista.getNikname().equals(null)){
+			throw new RuntimeException(MensajesExcepciones.nickname);
+		}
+		
+		if(artista.getCorreo().equals("") || artista.getCorreo().equals(null)){
+			throw new RuntimeException(MensajesExcepciones.correo);
+		}
+		
+		if(new ArtistaJpaController().findArtista(artista.getNikname()) != null || new ArtistaJpaController().findArtista(artista.getCorreo()) != null){
+			throw new RuntimeException(MensajesExcepciones.artistaExiste);
+		}
+		
 		FanInterface fc = new FanController();
 		ArtistaJpaController aJpa = new ArtistaJpaController();
 
@@ -187,7 +223,22 @@ public class ArtistaController implements ArtistaInterface{
 		// obtener el artista por id
 		// obtener el sitio del artista
 		// extraer todos los contenidos del sitio, convertirlo a ArrayList y devolver
-		return null;
+		
+		Sitio sitioArtista = new ArtistaJpaController().findArtista(idArtista).getMiSitio();
+		if (sitioArtista == null) {
+			throw new RuntimeException(MensajesExcepciones.artistaNoExiste);
+		}
+		ArrayList<Contenido> ret = new ArrayList<Contenido>();
+		ContenidoController cjpa = new ContenidoController();
+		
+		for (Map.Entry<Integer, Contenido> entry : sitioArtista.getMisContenidos().entrySet()) {
+			try {
+				ret.add(cjpa.obtenerContenido(idArtista, entry.getValue().getId(), idFan));
+			} catch (Exception e) {
+			}
+		}
+		
+		return ret;
 	}
 
 	@Override
@@ -206,9 +257,23 @@ public class ArtistaController implements ArtistaInterface{
 		// obtener el sitio del artista
 		// decirle al sitio que devuelva un listado con los nicknames de los fans que lo siguen
 		// para cada id obtenido, decirle al controlador de fans que lo devuelva y agregarlo al array de retorno
-		return null;
+		Sitio sitioArtista = new ArtistaJpaController().findArtista(idArtista).getMiSitio();
 		
+		if (sitioArtista == null) {
+			throw new RuntimeException(MensajesExcepciones.artistaNoExiste);
+		}
+		
+		ArrayList<Fan> ret = new ArrayList<Fan>();
+		ArrayList<String> idFans = sitioArtista.obtenerIdDeFans();
+		
+		for (String entry : idFans){
+			ret.add(new FanController().obtenerDatosUsuario(entry));
+		}
+		
+		return ret;
 	}
+		
+	
 
 	@Override
 	public void descontarSaldo(String idUsuario, float monto) {

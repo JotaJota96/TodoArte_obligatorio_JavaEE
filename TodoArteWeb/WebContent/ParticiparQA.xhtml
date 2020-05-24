@@ -47,13 +47,14 @@
 				var msj = jsonData.mensaje; // mensaje enviado por el usuario
 				
 				// AQUI DEBES HACER TU MAGIA CARLOS
+				agregarMensaje(nick, msj);
 				
 			}else{
 				// mensaje de parte del servidor
-				var txt = jsonData.mensaje; // es una especie de mensaje informativo enviado por el servidor
+				var msj = jsonData.mensaje; // es una especie de mensaje informativo enviado por el servidor
 				
 				// AQUI DEBES HACER TU MAGIA CARLOS
-				
+				agregarMensaje(null, msj)
 			}
 		}
 
@@ -88,6 +89,9 @@
 		// Funcion para enviar un mensaje desde el cliente al servidor
 		// al presionar el boton de enviar mensaje se debe llamar esta funcion
 		function sendMessage(){
+			if (ws.readyState !== 1) {
+				return;
+			}
 			// creo objeto JSON y le relleno los datos
 			var miJson = new Object();
 			miJson.idSala = g_idSala;
@@ -101,63 +105,63 @@
 				messageText.value = "";
 			}
 		}
-		
+		var cont = 0;
+		function agregarMensaje(nick, msj){
+			var idNuevoMensaje = "msj_" + cont;
+			cont++;
+			
+			var divPadre = document.getElementById("listaDeComentarios"); //Busco div padre
+			var divCard = document.createElement("div");  //creo div card
+			divCard.id = idNuevoMensaje;
+			var divCardBody = document.createElement("div");  // creo div card-body
+
+			var pMensaje = document.createElement("p");
+			pMensaje.innerText = msj;
+			divPadre.appendChild(divCard); 	
+			divCard.appendChild(divCardBody); 			
+			divCard.className = "card my-2";
+			divCardBody.className = "card-body";
+
+			if(nick==null){
+			    pMensaje.className = "card-text text-center"; 
+				divCardBody.className = "card-body py-2";
+			}else{	
+			    var h5Nick = document.createElement("h5"); 	
+			    h5Nick.innerText = nick;	
+			    pMensaje.className = "card-text"; 
+			    divCardBody.appendChild(h5Nick); 
+			    h5Nick.className = "card-text"; 	
+			}			
+			divCardBody.appendChild(pMensaje); 
+
+			document.getElementById('listaDeComentarios').scrollTop += 3.141692 * 10000000;
+		}
 	</script>
 </h:head>
 
 
 <h:body class="bg-light">
 
-	<ui:include src="heather/heather.xhtml" />
+  <ui:include src="heather/heatherSimple.xhtml"/>
 
 	<main role="main" class="container mt-5 mb-5">
 		<div class="row">
 			<div class="col-12 col-md-10 mx-auto">
 				<div class="card m-3">
 					<h5 class="card-header">Chat en vivo con Artista</h5>
-					<div class="card-body" style="height: 350px; overflow: auto;">
-
-						<!-- inicio de comentarios -->
-						<div class="card my-2">
-							<div class="card-body">
-								<h5 class="card-text " style="color: rgb(70, 70, 255);">Marcelo17</h5>
-								<p class="card-text ">Hola</p>
-							</div>
-						</div>
-						
-						<div class="card my-2">
-							<div class="card-body">
-								<h5 class="card-text " style="color: rgb(70, 70, 255);">Marcelo17</h5>
-								<p class="card-text ">Hola</p>
-							</div>
-						</div>
-						
-						<div class="card my-2">
-							<div class="card-body">
-								<h5 class="card-text " style="color: rgb(70, 70, 255);">Marcelo17</h5>
-								<p class="card-text ">Hola</p>
-							</div>
-						</div>
-						
-						<div class="card my-2">
-							<div class="card-body">
-								<h5 class="card-text " style="color: rgb(70, 70, 255);">Marcelo17</h5>
-								<p class="card-text ">Hola</p>
-							</div>
-						</div>
-						
-						<!-- fin de comentarios -->
+					<div id="listaDeComentarios" class="card-body" style="height: 350px; overflow: auto;">
+						<!-- Aqui dentro se agregaran los mensajes del chat mediante JavaScript -->
 					</div>
-					<h:form class="card-footer">
+					<div class="card-footer">
 						<div class="container">
 							<div class="form-row">
 								<div class="input-group align-items-center">
-									<h:inputText type="text" class="form-control" id="chatear" value=""></h:inputText>
-									<h:commandButton class="btn btn-primary m-1" value="Comentar" action="Enviar" />
+									<input type="text"  class="form-control" id="messageText"/>
+									<button type="button" class="btn btn-primary m-1" id="btnSend" onclick="sendMessage()">Enviar</button>
 								</div>
 							</div>
 						</div>
-					</h:form>
+					</div>
 				</div>
 			</div>
 		</div>
