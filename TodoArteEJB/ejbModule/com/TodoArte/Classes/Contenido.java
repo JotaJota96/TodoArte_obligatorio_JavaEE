@@ -63,7 +63,6 @@ public class Contenido implements Serializable {
 	private String titulo;
 	
 	@Column(name = "archivo")
-	@Lob
 	private byte[] archivo;
 	
 	@Basic
@@ -131,9 +130,6 @@ public class Contenido implements Serializable {
     	}
 		if(titulo.equals("") || titulo.equals(null)){
     		throw new RuntimeException(MensajesExcepciones.titulo);
-    	}
-		if(archivo.equals(null)){
-    		throw new RuntimeException(MensajesExcepciones.archivo);
     	}
 		if(fechaPublicado.equals(null)){
     		throw new RuntimeException(MensajesExcepciones.fechaYHora);

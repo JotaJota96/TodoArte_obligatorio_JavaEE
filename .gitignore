@@ -3,6 +3,7 @@
 **/.directory
 .metadata/
 **/*.ini
+**/build/
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 TodoArte/.metadata
@@ -68,7 +69,6 @@ TodoArte/.worksheet
 #.project 
 
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
 TodoArteEJB/.metadata
 TodoArteEJB/bin/
 TodoArteEJB/tmp/

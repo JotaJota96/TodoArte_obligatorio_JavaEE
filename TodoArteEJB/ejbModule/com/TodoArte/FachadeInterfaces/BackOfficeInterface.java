@@ -2,6 +2,8 @@ package com.TodoArte.FachadeInterfaces;
 
 import java.util.ArrayList;
 
+import javax.ejb.Local;
+
 import com.TodoArte.Classes.Administrador;
 import com.TodoArte.Classes.CategoriaContenido;
 import com.TodoArte.Classes.CategoriaSitio;
@@ -10,6 +12,7 @@ import com.TodoArte.Classes.NotificacionArtista;
 import com.TodoArte.Classes.PagoAPlataforma;
 import com.TodoArte.Classes.Reporte;
 
+@Local
 public interface BackOfficeInterface {
 	/**
 	 * Bloquea o desbloquea un artista. Si el artista se encuentra bloqueado, lo desbloquea. Si el artista se  encuentra desbloqueado, lo bloquea

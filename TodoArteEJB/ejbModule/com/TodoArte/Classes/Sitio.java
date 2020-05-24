@@ -25,8 +25,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.jboss.resteasy.spi.ReaderException;
-
 import com.TodoArte.Enums.MensajesExcepciones;
 import com.TodoArte.JPAControllerClasses.ContenidoJpaController;
 import com.TodoArte.JPAControllerClasses.FanSigueSitioJpaController;
@@ -41,7 +39,6 @@ public class Sitio implements Serializable {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
 	
-	@Lob
     @Column(name = "imagenPortada")
     private byte[] imagenPortada;
 	
@@ -192,7 +189,7 @@ public class Sitio implements Serializable {
 			try {
 				new FanSigueSitioJpaController().edit(fss);
 			} catch (Exception e) {
-				throw new ReaderException(e.getMessage());
+				throw new RuntimeException(e.getMessage());
 			}
 		}
 		
@@ -216,7 +213,7 @@ public class Sitio implements Serializable {
 			try {
 				new FanSigueSitioJpaController().edit(fss);
 			} catch (Exception e) {
-				throw new ReaderException(e.getMessage());
+				throw new RuntimeException(e.getMessage());
 			}
 		}
 	}
@@ -262,7 +259,7 @@ public class Sitio implements Serializable {
 		try {
 			new ContenidoJpaController().edit(contenido);
 		} catch (Exception e) {
-			throw new ReaderException(e.getMessage());
+			throw new RuntimeException(e.getMessage());
 		}
 	}
 

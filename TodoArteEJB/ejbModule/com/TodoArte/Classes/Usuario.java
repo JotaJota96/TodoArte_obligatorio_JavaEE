@@ -34,7 +34,6 @@ public abstract class Usuario implements Serializable{
 	@Column(name = "saldo")
     protected float saldo;
 	
-	@Lob
 	@Column(name = "imagen")
     protected byte[] imagen;
     

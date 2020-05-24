@@ -10,4 +10,10 @@
       <context-root>TodoArteWeb</context-root>
     </web>
   </module>
+  <module>
+    <web>
+      <web-uri>TodoArteWS.war</web-uri>
+      <context-root>TodoArteWS</context-root>
+    </web>
+  </module>
 </application>
