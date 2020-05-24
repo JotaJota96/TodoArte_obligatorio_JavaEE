@@ -1,6 +1,7 @@
 package com.TodoArte.InternalControllers;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.validation.constraints.Null;
 
@@ -8,6 +9,7 @@ import com.TodoArte.Classes.Artista;
 import com.TodoArte.Classes.Comentario;
 import com.TodoArte.Classes.Contenido;
 import com.TodoArte.Classes.Fan;
+import com.TodoArte.Classes.PagoAPlataforma;
 import com.TodoArte.Classes.Reporte;
 import com.TodoArte.Classes.Sitio;
 import com.TodoArte.Classes.Usuario;
@@ -16,6 +18,7 @@ import com.TodoArte.Enums.MensajesExcepciones;
 import com.TodoArte.Enums.Privacidad;
 import com.TodoArte.InternalInterfaces.ArtistaInterface;
 import com.TodoArte.InternalInterfaces.ContenidoInterface;
+import com.TodoArte.JPAControllerClasses.CategoriaContenidoJpaController;
 import com.TodoArte.JPAControllerClasses.ContenidoJpaController;
 import com.TodoArte.JPAControllerClasses.FanJpaController;
 
@@ -53,7 +56,19 @@ public class ContenidoController implements ContenidoInterface{
 	public ArrayList<Reporte> obtenerReportes(int idContenido) {
 		// obtener el contenido por su ID
 		// obtener sus reportes y convertirlos en ArrayList para devolverlos
-		return null;
+		Contenido contenido = new ContenidoJpaController().findContenido(idContenido);
+		
+		if(contenido == null){
+			throw new RuntimeException(MensajesExcepciones.contenidoNoExiste);
+		}
+				
+		ArrayList<Reporte> ret = new ArrayList<Reporte>();
+		
+		for (Map.Entry<Integer, Reporte> entry : contenido.getMisReporte().entrySet()) {
+			ret.add(entry.getValue());
+		}
+		
+		return ret;
 	}
 
 	@Override
@@ -164,6 +179,10 @@ public class ContenidoController implements ContenidoInterface{
 		// si no existe, decirle al controlador de artista que agregue e contenido para ese artista
 		boolean agregar = (contenido.getId() == 0);
 		
+		if(new CategoriaContenidoJpaController().findCategoriaContenido(contenido.getMiCategoria().getId()) == null){
+			throw new RuntimeException(MensajesExcepciones.contenidoCategoria);
+		}
+		
 		if (agregar) {
 			contenido = new ArtistaController().agregarContenido(idArtista, contenido);
 		}else {
@@ -211,6 +230,10 @@ public class ContenidoController implements ContenidoInterface{
 		ContenidoJpaController Cjpa = new ContenidoJpaController();
 		Contenido contenido = Cjpa.findContenido(idContenido);
 		Sitio sitioArtista = new ArtistaController().obtenerDatosUsuario(idArtista).getMiSitio();
+		
+		if (idFan.equals(idArtista)) {
+			return contenido;
+		}
 		
 		if(sitioArtista.esFan(idFan) == false) {
 			if(contenido.getPrivacidad() == Privacidad.Publico){

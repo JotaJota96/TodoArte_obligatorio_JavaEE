@@ -33,8 +33,7 @@ public class BackOfficeController implements BackOfficeInterface {
 
 	@Override
 	public ArrayList<Reporte> obtenerReportes(int idContenido) {
-		// TODO Auto-generated method stub
-		return null;
+		return new ContenidoController().obtenerReportes(idContenido);
 	}
 
 	@Override
@@ -64,8 +63,7 @@ public class BackOfficeController implements BackOfficeInterface {
 
 	@Override
 	public ArrayList<PagoAPlataforma> obtenerPagos(String idArtista) {
-		// TODO Auto-generated method stub
-		return null;
+		return new ArtistaController().obtenerPagos(idArtista);
 	}
 
 	@Override

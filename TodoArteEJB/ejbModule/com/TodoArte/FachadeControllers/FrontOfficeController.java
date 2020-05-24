@@ -142,8 +142,7 @@ public class FrontOfficeController implements FrontOfficeInterface{
 
 	@Override
 	public ArrayList<Contenido> obtenerContenido(String idArtista, String idFan) {
-		// TODO Auto-generated method stub
-		return null;
+		return new ArtistaController().obtenerContenido(idArtista, idFan);
 	}
 
 	@Override
@@ -154,8 +153,7 @@ public class FrontOfficeController implements FrontOfficeInterface{
 
 	@Override
 	public ArrayList<Fan> obtenerFansDeSitio(String idArtista) {
-		// TODO Auto-generated method stub
-		return null;
+		return new ArtistaController().obtenerFansDeSitio(idArtista);
 	}
 
 }

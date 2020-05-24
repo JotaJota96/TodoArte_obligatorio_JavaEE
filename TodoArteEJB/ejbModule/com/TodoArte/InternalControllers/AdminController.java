@@ -44,7 +44,7 @@ public class AdminController implements AdminInterface{
 		AdministradorJpaController Ajpa = new AdministradorJpaController();
 		Administrador adm = Ajpa.findAdministrador(id);
 		if(adm != null){
-			if(adm.getContrasenia() == contrasenia){
+			if(adm.getContrasenia().equals(contrasenia)){
 				return adm;
 			}
 		}		
