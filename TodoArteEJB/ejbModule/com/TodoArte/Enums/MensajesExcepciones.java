@@ -53,6 +53,7 @@ public abstract class MensajesExcepciones {
 	public static final String fuenteSitio = "La fuente del sitio no existe";
 	public static final String artistaExiste = "Ya existe un artista con un nickname o correo igual";
 	public static final String contenidoCategoria = "La categoria del contenido no existe";
+	public static final String ContenidoNoPertenece = "El Artista no contiene el contenido";
 }
 
 

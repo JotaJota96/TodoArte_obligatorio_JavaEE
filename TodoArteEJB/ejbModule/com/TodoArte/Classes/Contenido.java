@@ -123,31 +123,18 @@ public class Contenido implements Serializable {
 			}
 		}
 		
-		fechaPublicado.setYear(fechaPublicado.getDay()-1900);
-		
 		if(descripcion.equals("") || descripcion.equals(null)){
     		throw new RuntimeException(MensajesExcepciones.descripcion);
     	}
 		if(titulo.equals("") || titulo.equals(null)){
     		throw new RuntimeException(MensajesExcepciones.titulo);
     	}
-		if(fechaPublicado.equals(null)){
-    		throw new RuntimeException(MensajesExcepciones.fechaYHora);
-    	}
 		
 		Date fechaActual = new Date(System.currentTimeMillis());
-		
-		java.util.Date fechaNacUtil = new java.util.Date(fechaPublicado.getTime());
-		java.util.Date fechaActualUtil = new java.util.Date(fechaActual.getTime());
-		
-		if(fechaNacUtil.compareTo(fechaActualUtil) < 0 ){
-    		throw new RuntimeException(MensajesExcepciones.fechaPosterior);
-		}
-		
+			
 		if(miCategoria == null){
     		throw new RuntimeException(MensajesExcepciones.categoria);
     	}
-		
 		
 		this.id = id;
 		this.tipo = tipo;
@@ -156,7 +143,7 @@ public class Contenido implements Serializable {
 		this.descripcion = descripcion;
 		this.titulo = titulo;
 		this.archivo = archivo;
-		this.fechaPublicado = fechaPublicado;
+		this.fechaPublicado = fechaActual;
 		this.bloqueado = false;
 		this.eliminado = false;
 		this.miCategoria = miCategoria;
