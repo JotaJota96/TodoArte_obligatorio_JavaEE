@@ -272,6 +272,8 @@ public class ArtistaController implements ArtistaInterface{
 		
 		return ret;
 	}
+		
+	
 
 	@Override
 	public void descontarSaldo(String idUsuario, float monto) {
