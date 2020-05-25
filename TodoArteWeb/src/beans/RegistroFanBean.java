@@ -1,11 +1,11 @@
 package beans;
 
 import java.io.Serializable;
-import java.sql.Date;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import javax.servlet.http.Part;
 
 import com.TodoArte.Classes.Fan;
 import com.TodoArte.Enums.Sexo;
@@ -20,19 +20,23 @@ public class RegistroFanBean implements Serializable {
 	private Fan fan = new Fan();
 	private String contrasenia2 = "";
 	private java.util.Date fechaUtil = new java.util.Date();
+	private Part file;
 	
 	//--------------------------------------------------------------------------
 	public void registrar() {
-		fan.setFechaNac(new Date(fechaUtil.getTime()));
+		fan.setFechaNac(FuncionesComunes.utilDateToSqlDate(fechaUtil));
 		fan.getFechaNac().setDate(fan.getFechaNac().getDate() + 1);
+
+		Fan nuevoFan = copiarFan(fan);
 		
-		if ( ! contrasenia2.equals(fan.getContrasenia())) {
+		if ( ! contrasenia2.equals(nuevoFan.getContrasenia())) {
 			// las contrasenias no coinciden, error
 		}
+		nuevoFan.setImagen(FuncionesComunes.partToBytes(file));
 		
 		Fan ret = null;
 		try {
-			ret = fo.registrarUsuarioFan(fan);
+			ret = fo.registrarUsuarioFan(nuevoFan);
 		} catch (Exception e) {
 		}
 		
@@ -43,7 +47,29 @@ public class RegistroFanBean implements Serializable {
 		}
 	}
 	
+	private Fan copiarFan(Fan f) {
+		Fan copia = new Fan();
+		copia.setNikname(f.getNikname());
+		copia.setContrasenia(f.getContrasenia());
+		copia.setCorreo(f.getCorreo());
+		copia.setImagen(f.getImagen());
+		copia.setNombre(f.getNombre());
+		copia.setApellido(f.getApellido());
+		copia.setFechaNac(f.getFechaNac());
+		copia.setUbicacion(f.getUbicacion());
+		copia.setSexo(f.getSexo());
+		return copia;
+	}
+	
 	//--------------------------------------------------------------------------
+	public Part getFile() {
+		return file;
+	} 
+
+	public void setFile(Part file) {
+		this.file = file;
+	}
+	
 	public RegistroFanBean() {
 	}
 	

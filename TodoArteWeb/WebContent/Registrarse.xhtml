@@ -58,7 +58,7 @@
 		<div class="tab-content" id="pills-tabContent">
 			<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 				<!-- Inicio del registro como Fan -->
-				<h:form class="form-signin">
+				<h:form class="form-signin" enctype="multipart/form-data">
 					<div class="row">
 						<div class="col-md-1 "></div>
 						<div class="col-md-5 ">
@@ -105,15 +105,17 @@
 								</span>
 							</div>
 							<!-- Proximamente... -->
-							<!-- 
+							
+							<!--******************************************-->
+							
 							<div class="form-group">
 								<label for="imagen">Imagen</label> 
 								<br/>      	
-								<h:inputFile value="#{bean.file}" id="imagen">
-									<f:ajax listener="#{bean.save}" />
+								<h:inputFile value="#{registroFanBean.file}" id="imagen">
 								</h:inputFile>
 							</div>
-							-->
+							
+							<!--******************************************-->
 						</div>
 						<div class="col-md-5 ">
 
@@ -142,7 +144,7 @@
 								<h:inputText class="form-control" id="fechaNac"
 									required="true" requiredMessage="Debe ingresar su fecha de nacimiento"
 									value="#{registroFanBean.fechaUtil}">
-									<f:convertDateTime pattern="Y-MM-dd"/>
+									<f:convertDateTime pattern="yyyy-MM-dd"/>
 								</h:inputText>
 								<span class="text-danger">
 									<h:message for="fechaNac"/>
