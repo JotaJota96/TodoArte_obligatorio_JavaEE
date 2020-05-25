@@ -1,11 +1,14 @@
 package beans;
 
+import java.io.InputStream;
 import java.io.Serializable;
+import java.nio.file.Paths;
 import java.sql.Date;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import javax.servlet.http.Part;
 
 import com.TodoArte.Classes.Fan;
 import com.TodoArte.Enums.Sexo;
@@ -20,6 +23,8 @@ public class RegistroFanBean implements Serializable {
 	private Fan fan = new Fan();
 	private String contrasenia2 = "";
 	private java.util.Date fechaUtil = new java.util.Date();
+	
+	private Part file;
 	
 	//--------------------------------------------------------------------------
 	public void registrar() {
@@ -43,7 +48,44 @@ public class RegistroFanBean implements Serializable {
 		}
 	}
 	
+	public void save() {
+	    try (InputStream input = file.getInputStream()) {
+	    	/*
+	        Files.copy(input, new File(uploads, filename).toPath());
+	    	System.out.println("se guardo el archivo---------------------------------");
+			*/
+	    	System.out.println("entro---------------------------------");
+	    	Part partImagen = file;
+	        String nombreArchivo = Paths.get(partImagen.getSubmittedFileName()).getFileName().toString();
+	        System.out.println("-----------------------nombreArchivo-----------------"+nombreArchivo);
+	         
+	        InputStream archivoContenido = partImagen.getInputStream();
+	        
+	        System.out.println("algo---------------------------------");
+	        
+	        if (archivoContenido.available() > 0) {
+	            byte[] byteArr = new byte[archivoContenido.available()];
+	            archivoContenido.read(byteArr);
+	            System.out.println("array---------------------------------");
+	            fan.setImagen(byteArr);
+	        } else {
+	        	fan.setImagen(null);
+	        }
+	    }
+	    catch (Exception e) {
+	    	System.out.println("NOOOO se guardo ----------------------------------");
+	    	fan.setImagen(null);
+	    }
+	}
 	//--------------------------------------------------------------------------
+	public Part getFile() {
+		return file;
+	} 
+
+	public void setFile(Part file) {
+		this.file = file;
+	}
+	
 	public RegistroFanBean() {
 	}
 	
