@@ -88,7 +88,9 @@ public class Fan extends Usuario implements Serializable {
 		if(sexo == null){
     		throw new RuntimeException(MensajesExcepciones.sexo);
     	}
+
 		
+		fechaNac.setYear(fechaNac.getYear()-1900);
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.fechaNac = fechaNac;
