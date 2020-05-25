@@ -1,5 +1,6 @@
 package beans;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import javax.ejb.EJB;
@@ -9,11 +10,10 @@ import javax.inject.Named;
 import com.TodoArte.Classes.Fan;
 import com.TodoArte.Enums.Sexo;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
-import com.sun.org.apache.xml.internal.utils.SerializableLocatorImpl;
 
 @Named
 @SessionScoped
-public class RegistroFanBean extends SerializableLocatorImpl {
+public class RegistroFanBean implements Serializable {
 	@EJB
 	FrontOfficeInterface fo;
 	

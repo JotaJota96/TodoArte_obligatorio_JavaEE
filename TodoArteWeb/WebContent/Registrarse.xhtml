@@ -55,26 +55,45 @@
 							<div class="form-group">
 								<label for="nickname">Nickname</label>
 								<h:inputText type="text" class="form-control" id="nickname"
-									value="#{registroFanBean.fan.nikname}"></h:inputText>
+									required="true" requiredMessage="Debe crear un nickname"
+									validator ="#{validarNickname.validate}"
+									value="#{registroFanBean.fan.nikname}" ></h:inputText>
+								<span class="text-danger">
+									<h:message for="nickname"/>
+								</span>
 							</div>
 
 							<div class="form-group">
 								<label for="correo">Correo</label>
 								<h:inputText type="email" class="form-control" id="correo"
+									required="true" requiredMessage="Debe ingresar su correo"
+									validator ="#{validadorCorreo.validate}"
 									value="#{registroFanBean.fan.correo}"></h:inputText>
+								<span class="text-danger">
+									<h:message for="correo"/>
+								</span>
 							</div>
 
 							<div class="form-group">
 								<label for="contrasenia1">Contraseña</label>
-								<h:inputSecret class="form-control" id="contrasenia1"
+								<h:inputSecret class="form-control" id="contrasenia1"		
+									required="true" requiredMessage="Debe crear una contraseña"
 									value="#{registroFanBean.fan.contrasenia}"></h:inputSecret>
+								<span class="text-danger">
+									<h:message for="contrasenia1"/>
+								</span>
 							</div>
 
 							<div class="form-group">
 								<label for="contrasenia2">Verificar</label>
 								<h:inputSecret class="form-control" id="contrasenia2"
+									required="true" requiredMessage="Debe repetir la contraseña"
 									value="#{registroFanBean.contrasenia2}"></h:inputSecret>
+								<span class="text-danger">
+									<h:message for="contrasenia2"/>
+								</span>
 							</div>
+							<!-- Proximamente... -->
 							<!-- 
 							<div class="form-group">
 								<label for="imagen">Imagen</label> 
@@ -90,21 +109,33 @@
 							<div class="form-group">
 								<label for="nombre">Nombre</label>
 								<h:inputText class="form-control" id="nombre"
+									required="true" requiredMessage="Debe ingresar su nombre"
 									value="#{registroFanBean.fan.nombre}"></h:inputText>
+								<span class="text-danger">
+									<h:message for="nombre"/>
+								</span>
 							</div>
 
 							<div class="form-group">
 								<label for="apellido">Apellido</label>
 								<h:inputText class="form-control" id="apellido"
+									required="true" requiredMessage="Debe ingresar su apellido"
 									value="#{registroFanBean.fan.apellido}"></h:inputText>
+								<span class="text-danger">
+									<h:message for="apellido"/>
+								</span>
 							</div>
 
 							<div class="form-group">
 								<label for="fechaNac">Fecha de nacimiento (yyyy-mm-dd)</label>
 								<h:inputText class="form-control" id="fechaNac"
+									required="true" requiredMessage="Debe ingresar su fecha de nacimiento"
 									value="#{registroFanBean.fechaUtil}">
 									<f:convertDateTime pattern="Y-MM-dd"/>
 								</h:inputText>
+								<span class="text-danger">
+									<h:message for="fechaNac"/>
+								</span>
 							</div>
 
 							<div class="form-group">
