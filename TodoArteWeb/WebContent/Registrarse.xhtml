@@ -101,7 +101,6 @@
 								<label for="imagen">Imagen</label> 
 								<br/>      	
 								<h:inputFile value="#{registroFanBean.file}" id="imagen">
-									<f:ajax listener="#{registroFanBean.save}" />
 								</h:inputFile>
 							</div>
 							
@@ -134,7 +133,7 @@
 								<h:inputText class="form-control" id="fechaNac"
 									required="true" requiredMessage="Debe ingresar su fecha de nacimiento"
 									value="#{registroFanBean.fechaUtil}">
-									<f:convertDateTime pattern="Y-MM-dd"/>
+									<f:convertDateTime pattern="yyyy-MM-dd"/>
 								</h:inputText>
 								<span class="text-danger">
 									<h:message for="fechaNac"/>

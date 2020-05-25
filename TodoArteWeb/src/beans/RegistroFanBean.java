@@ -1,9 +1,6 @@
 package beans;
 
-import java.io.InputStream;
 import java.io.Serializable;
-import java.nio.file.Paths;
-import java.sql.Date;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -23,21 +20,23 @@ public class RegistroFanBean implements Serializable {
 	private Fan fan = new Fan();
 	private String contrasenia2 = "";
 	private java.util.Date fechaUtil = new java.util.Date();
-	
 	private Part file;
 	
 	//--------------------------------------------------------------------------
 	public void registrar() {
-		fan.setFechaNac(new Date(fechaUtil.getTime()));
+		fan.setFechaNac(FuncionesComunes.utilDateToSqlDate(fechaUtil));
 		fan.getFechaNac().setDate(fan.getFechaNac().getDate() + 1);
+
+		Fan nuevoFan = copiarFan(fan);
 		
-		if ( ! contrasenia2.equals(fan.getContrasenia())) {
+		if ( ! contrasenia2.equals(nuevoFan.getContrasenia())) {
 			// las contrasenias no coinciden, error
 		}
+		nuevoFan.setImagen(FuncionesComunes.partToBytes(file));
 		
 		Fan ret = null;
 		try {
-			ret = fo.registrarUsuarioFan(fan);
+			ret = fo.registrarUsuarioFan(nuevoFan);
 		} catch (Exception e) {
 		}
 		
@@ -48,35 +47,20 @@ public class RegistroFanBean implements Serializable {
 		}
 	}
 	
-	public void save() {
-	    try (InputStream input = file.getInputStream()) {
-	    	/*
-	        Files.copy(input, new File(uploads, filename).toPath());
-	    	System.out.println("se guardo el archivo---------------------------------");
-			*/
-	    	System.out.println("entro---------------------------------");
-	    	Part partImagen = file;
-	        String nombreArchivo = Paths.get(partImagen.getSubmittedFileName()).getFileName().toString();
-	        System.out.println("-----------------------nombreArchivo-----------------"+nombreArchivo);
-	         
-	        InputStream archivoContenido = partImagen.getInputStream();
-	        
-	        System.out.println("algo---------------------------------");
-	        
-	        if (archivoContenido.available() > 0) {
-	            byte[] byteArr = new byte[archivoContenido.available()];
-	            archivoContenido.read(byteArr);
-	            System.out.println("array---------------------------------");
-	            fan.setImagen(byteArr);
-	        } else {
-	        	fan.setImagen(null);
-	        }
-	    }
-	    catch (Exception e) {
-	    	System.out.println("NOOOO se guardo ----------------------------------");
-	    	fan.setImagen(null);
-	    }
+	private Fan copiarFan(Fan f) {
+		Fan copia = new Fan();
+		copia.setNikname(f.getNikname());
+		copia.setContrasenia(f.getContrasenia());
+		copia.setCorreo(f.getCorreo());
+		copia.setImagen(f.getImagen());
+		copia.setNombre(f.getNombre());
+		copia.setApellido(f.getApellido());
+		copia.setFechaNac(f.getFechaNac());
+		copia.setUbicacion(f.getUbicacion());
+		copia.setSexo(f.getSexo());
+		return copia;
 	}
+	
 	//--------------------------------------------------------------------------
 	public Part getFile() {
 		return file;
