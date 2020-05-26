@@ -160,7 +160,7 @@
 
 							<div class="form-group">
 								<label for="sexo">Sexo</label>
-								<h:selectOneMenu class="form-control"
+								<h:selectOneMenu class="custom-select"
 									value="#{registroFanBean.fan.sexo}">
 									<!-- Esto es como un for, se agrega uno por cada elemento del enum Sexo -->
 									<f:selectItems value="#{registroFanBean.sexo}" var="sex"
@@ -284,7 +284,7 @@
 		
 							<div class="form-group">
 								<label for="cfondo">Color de Fondo</label>
-								<h:selectOneMenu class="form-control" id="cfondo"
+								<h:selectOneMenu class="custom-select" id="cfondo"
 									label="Service Level" value="#{registrarArtistaSitio.sitio.colorDeFondo}">
 									<f:selectItem itemLabel="Blanco" itemValue="Blanco" />
 									<f:selectItem itemLabel="Negro" itemValue="Negro" />
@@ -299,7 +299,7 @@
 		
 							<div class="form-group">
 								<label for="cmenu">Color de Menú</label>
-								<h:selectOneMenu class="form-control" id="cmenu"
+								<h:selectOneMenu class="custom-select" id="cmenu"
 									label="Service Level" value="#{registrarArtistaSitio.sitio.colorDeMenu}">
 									<f:selectItem itemLabel="Azul" itemValue="Azul" />
 									<f:selectItem itemLabel="Negro" itemValue="Negro" />
@@ -314,7 +314,7 @@
 		
 							<div class="form-group">
 								<label for="cfuente">Color de Texto</label>
-								<h:selectOneMenu class="form-control" id="cfuente"
+								<h:selectOneMenu class="custom-select" id="cfuente"
 									label="Service Level" value="#{registrarArtistaSitio.sitio.colorDeTexto}">
 									<f:selectItem itemLabel="Negro" itemValue="Negro" />
 									<f:selectItem itemLabel="Blanco" itemValue="Blanco" />
@@ -327,6 +327,26 @@
 								</h:selectOneMenu>
 							</div>
 		
+							<div class="form-group">
+								<label for="categoria">Categoría</label>
+								<h:selectOneMenu class="custom-select" id="somCategorias"
+									value="#{registrarArtistaSitio.idCategoriaSitio}">
+									<f:selectItems value="#{registrarArtistaSitio.categorias()}" var="cat"
+										itemValue="#{cat.id}" 
+										itemLabel="#{cat.nombreCat}" />
+								</h:selectOneMenu>
+							</div>
+                            
+							<div class="form-group dropdown show">
+								<label for="tfuente">Tipo de fuente</label>
+								<h:selectOneMenu class="custom-select" id="somFuentes"
+									value="#{registrarArtistaSitio.idFuente}">
+									<f:selectItems  value="#{registrarArtistaSitio.fuentes()}" var="fu"
+										itemValue="#{fu.id}" 
+										itemLabel="#{fu.nombre}" />
+								</h:selectOneMenu>
+							</div>
+							
 							<div class="form-group">
 								<label for="imgPortada">Imagen de portada</label> <br />
 								<h:inputFile value="#{registrarArtistaSitio.fotoPortada}" id="imgPortada">
@@ -356,7 +376,7 @@
 		
 							<div class="form-group">
 								<label for="stwitter">Seccion Twitter</label>
-								<h:selectOneMenu class="form-control" id="stwitter"
+								<h:selectOneMenu class="custom-select" id="stwitter"
 									label="Service Level" value="#{registrarArtistaSitio.sitio.seccionTwitter}">
 									<f:selectItem itemLabel="Deshabilitado" itemValue="0" />
 									<f:selectItem itemLabel="Izquierda" itemValue="1" />

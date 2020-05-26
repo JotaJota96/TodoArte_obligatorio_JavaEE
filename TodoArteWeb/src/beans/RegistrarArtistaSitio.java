@@ -1,6 +1,7 @@
 package beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -24,6 +25,8 @@ public class RegistrarArtistaSitio implements Serializable{
 	private String contrasenia2 = "";
 	private Part fotoPerfil;
 	private Part fotoPortada;
+	private int idCategoriaSitio;
+	private int idFuente;
 	
 	//---------------------------------------------------------------------
 	
@@ -39,8 +42,8 @@ public class RegistrarArtistaSitio implements Serializable{
 		
 		Artista ret = null;
 		try {
-			CategoriaSitio cs = fo.obtenerUnaCategoriasSitios(1);
-			Fuente f = fo.obtenerUnaFuentes(1);
+			CategoriaSitio cs = fo.obtenerUnaCategoriasSitios(idCategoriaSitio);
+			Fuente f = fo.obtenerUnaFuentes(idFuente);
 
 			nuevoSitio.setMiCategoria(cs);
 			nuevoSitio.setMiFuente(f);
@@ -98,22 +101,47 @@ public class RegistrarArtistaSitio implements Serializable{
 	public void setContrasenia2(String contrasenia2) {
 		this.contrasenia2 = contrasenia2;
 	}
-
 	public Part getFotoPerfil() {
 		return fotoPerfil;
 	}
-
 	public void setFotoPerfil(Part fotoPerfil) {
 		this.fotoPerfil = fotoPerfil;
 	}
-
 	public Part getFotoPortada() {
 		return fotoPortada;
 	}
-
 	public void setFotoPortada(Part fotoPortada) {
 		this.fotoPortada = fotoPortada;
 	}
-
+	public int getIdCategoriaSitio() {
+		return idCategoriaSitio;
+	}
+	public void setIdCategoriaSitio(int idCategoriaSitio) {
+		this.idCategoriaSitio = idCategoriaSitio;
+	}
+	public int getIdFuente() {
+		return idFuente;
+	}
+	public void setIdFuente(int idFuente) {
+		this.idFuente = idFuente;
+	}
+	//-----------------------------------------------------------------------
 	
+	public ArrayList<CategoriaSitio> categorias() {
+		ArrayList<CategoriaSitio> ret = new ArrayList<CategoriaSitio>();
+		try {
+			ret = fo.obtenerCategoriasSitios();
+		} catch (Exception e) {
+		}
+		return ret;
+	}
+
+	public ArrayList<Fuente> fuentes() {
+		ArrayList<Fuente> ret = new ArrayList<Fuente>();
+		try {
+			ret = fo.obtenerFuentes();
+		} catch (Exception e) {
+		}
+		return ret;
+	}
 }
