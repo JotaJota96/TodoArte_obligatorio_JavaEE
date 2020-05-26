@@ -1,18 +1,10 @@
 package com.TodoArte.Classes;
 
 import java.io.Serializable;
-import java.io.StringReader;
-import java.io.StringWriter;
 import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-import javax.json.JsonWriter;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,12 +15,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Null;
 
 import com.TodoArte.Enums.MensajesExcepciones;
 import com.TodoArte.Enums.Privacidad;
@@ -114,27 +104,28 @@ public class Contenido implements Serializable {
 		if(privacidad == null){
     		throw new RuntimeException(MensajesExcepciones.privacidadContenido);
     	}
-		if(privacidad != privacidad.Premium){
+		if(privacidad != Privacidad.Premium){
 			precio = 0;
 		}
-		if(privacidad == privacidad.Premium){
+		if(privacidad == Privacidad.Premium){
 			if (precio <= 0) {
 	    		throw new RuntimeException(MensajesExcepciones.precio);
 			}
 		}
 		
-		if(descripcion.equals("") || descripcion.equals(null)){
+		if(descripcion.equals("")){
     		throw new RuntimeException(MensajesExcepciones.descripcion);
     	}
-		if(titulo.equals("") || titulo.equals(null)){
+		
+		if(titulo.equals("")){
     		throw new RuntimeException(MensajesExcepciones.titulo);
     	}
 		
-		Date fechaActual = new Date(System.currentTimeMillis());
-			
 		if(miCategoria == null){
     		throw new RuntimeException(MensajesExcepciones.categoria);
     	}
+		
+		Date fechaActual = new Date(System.currentTimeMillis());
 		
 		this.id = id;
 		this.tipo = tipo;
@@ -152,51 +143,8 @@ public class Contenido implements Serializable {
 		MisComentario = new TreeMap<Integer, Comentario>();
 		MisValoracion = new TreeMap<Integer, Valoracion>();
 	}
-	//***************************************************************************
-	public static String codificar(Contenido contenido) {
-			JsonObject json = Json.createObjectBuilder()
-		        .add("id", contenido.getId())
-		        .add("tipo", contenido.getTipo().toString())
-		        .add("privacidad", contenido.getPrivacidad().toString())
-		        .add("precio", contenido.getPrecio())
-		        .add("descripcion", contenido.getDescripcion())
-		        .add("titulo", contenido.getTitulo())
-		        .add("fechaPublicado", contenido.getFechaString())
-		        .add("bloqueado", contenido.getBloqueado())
-		        .add("eliminado", contenido.getEliminado())
-		        //.add("archivo", contenido.getArchivo())
-	           .build();
-			
-			StringWriter strWriter = new StringWriter();
-			try (JsonWriter jsonWriter = Json.createWriter(strWriter)) {jsonWriter.write(json);}
-			return strWriter.toString();
-		}
-		
-		public static Contenido decodificar(String strJson) {
-			StringReader reader = new StringReader(strJson);
-			
-			Contenido contenido = new Contenido();
-			
-	        try (JsonReader jsonReader = Json.createReader(reader)) {
-	            JsonObject json = jsonReader.readObject();
-	            contenido.setId(json.getInt("id"));
-	            contenido.setPrecio(json.getInt("precio"));
-	            contenido.setDescripcion(json.getString("descripcion"));
-	            contenido.setTitulo(json.getString("titulo"));
-	            contenido.setFechaString(json.getString("fechaPublicado"));
-	            contenido.setBloqueado(json.getBoolean("bloqueado"));
-	            contenido.setEliminado(json.getBoolean("eliminado"));
-	            
-
-	            //contenido.setTipo(json.getString("tipo"));
-	            //contenido.setPrivacidad(json.getString("privacidad"));
-	            //contenido.setArchivo(json.getInt("archivo"));
-	        }catch (Exception e) {
-	        	return null;
-			}
-			return contenido;
-		}
 	
+	//***************************************************************************	
 	public void crearValoracion(Valoracion val, Fan fan) {
 		// vincular la valoracion con el fan
 		// persistir la valoracion
@@ -253,10 +201,6 @@ public class Contenido implements Serializable {
 	}
 
 	public void setTipo(TipoContenido tipo) {
-		if(tipo == null){
-    		throw new RuntimeException(MensajesExcepciones.tipoContenido);
-    	}
-		
 		this.tipo = tipo;
 	}
 
@@ -265,10 +209,6 @@ public class Contenido implements Serializable {
 	}
 
 	public void setPrivacidad(Privacidad privacidad) {
-		if(privacidad == null){
-    		throw new RuntimeException(MensajesExcepciones.privacidadContenido);
-    	}
-		
 		this.privacidad = privacidad;
 	}
 
@@ -276,13 +216,7 @@ public class Contenido implements Serializable {
 		return precio;
 	}
 
-	public void setPrecio(float precio) {
-		if(privacidad != privacidad.Premium){
-			if(precio < 0){
-	    		throw new RuntimeException(MensajesExcepciones.precio);
-	    	}
-		}
-		
+	public void setPrecio(float precio) {	
 		this.precio = precio;
 	}
 
@@ -291,10 +225,6 @@ public class Contenido implements Serializable {
 	}
 
 	public void setDescripcion(String descripcion) {
-		if(descripcion.equals("")){
-    		throw new RuntimeException(MensajesExcepciones.descripcion);
-    	}
-		
 		this.descripcion = descripcion;
 	}
 
@@ -303,10 +233,6 @@ public class Contenido implements Serializable {
 	}
 
 	public void setTitulo(String titulo) {
-		if(titulo.equals("")){
-    		throw new RuntimeException(MensajesExcepciones.titulo);
-    	}
-		
 		this.titulo = titulo;
 	}
 
@@ -315,10 +241,6 @@ public class Contenido implements Serializable {
 	}
 
 	public void setArchivo(byte[] archivo) {
-		if(archivo.equals(null)){
-    		throw new RuntimeException(MensajesExcepciones.archivo);
-    	}
-		
 		this.archivo = archivo;
 	}
 
@@ -327,10 +249,6 @@ public class Contenido implements Serializable {
 	}
 
 	public void setFechaPublicado(Date fechaPublicado) {
-		if(fechaPublicado.equals(null)){
-    		throw new RuntimeException(MensajesExcepciones.fechaYHora);
-    	}
-		
 		this.fechaPublicado = fechaPublicado;
 	}
 
@@ -355,10 +273,6 @@ public class Contenido implements Serializable {
 	}
 
 	public void setMiCategoria(CategoriaContenido miCategoria) {
-		if(miCategoria == null){
-    		throw new RuntimeException(MensajesExcepciones.categoria);
-    	}
-		
 		this.miCategoria = miCategoria;
 	}
 
@@ -393,21 +307,4 @@ public class Contenido implements Serializable {
 	public void setMisValoracion(Map<Integer, Valoracion> misValoracion) {
 		MisValoracion = misValoracion;
 	}
-	
-	public String getFechaString() {
-		DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
-		String fechaString = df.format(getFechaPublicado());
-		return fechaString;
-	}
-	
-	public void setFechaString(String fecha) {
-		java.sql.Date fecFormatoDate = null;
-		try {
-		      SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
-		      fecFormatoDate = new java.sql.Date(sdf.parse(fecha).getTime());
-		      setFechaPublicado(fecFormatoDate);
-		} catch (Exception ex) {
-		}
-	}
-	
 }
