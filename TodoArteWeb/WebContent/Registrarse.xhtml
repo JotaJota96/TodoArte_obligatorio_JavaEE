@@ -1,200 +1,300 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:ui="http://java.sun.com/jsf/facelets">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-    crossorigin="anonymous"></script>
-    
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+		crossorigin="anonymous" />
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+
 </h:head>
 
 
 <h:body class="bg-light">
 
-  <ui:include src="heather/heatherSimple.xhtml"/>
-  
-<main role="main" class="container mt-5 mb-5">
+	<ui:include src="heather/heatherSimple.xhtml" />
 
- <h2  class="mb-3">Registarse como</h2>
+	<main role="main" class="container mt-5 mb-5">
 
-<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+		<div class="container">
+			<div class="row col-12 col-md-10 m-auto">
+				<h2 class="mb-3">Registarse como</h2>
+			</div>
+		</div>
+		
+		<div class="container">
+			<div class="row col-12 col-md-10 m-auto">
+				<!-- tabs -->
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+					<li class="nav-item"><a class="nav-link active"
+						id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
+						aria-controls="pills-home" aria-selected="true">Fan</a></li>
+					<li class="nav-item"><a class="nav-link" id="pills-profile-tab"
+						data-toggle="pill" href="#pills-profile" role="tab"
+						aria-controls="pills-profile" aria-selected="false">Artista</a></li>
+				</ul>
+				<hr/>
+			</div>
+		</div>
+		
+		<br></br>
+		
+		<!-- tabs -->
+		<div class="tab-content" id="pills-tabContent">
+			<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+				<!-- Inicio del registro como Fan -->
+				<h:form class="form-signin">
+					<div class="row">
+						<div class="col-md-1 "></div>
+						<div class="col-md-5 ">
 
-  <li class="nav-item">
-    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Fan</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Artista</a>
-  </li>
-</ul>
-<hr/>
-<div class="tab-content" id="pills-tabContent">
-  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-  <h:form class="form-signin">
-  <!-- Inicio del registro como Fan -->
-	     <div class="row">
-	       <div class="col-md-1 "></div>
-	       <div class="col-md-5 ">
-	       
-	       <div class="form-group">
-	         <label for="nickname">Nickname</label>
-	         <h:inputText type="text" class="form-control" id="nickname" value=""></h:inputText>
-	        </div>
-	        
-	        <div class="form-group">
-	        	<label for="correo">Correo</label>
-	         	<h:inputText type="email" class="form-control" id="correo" value=""></h:inputText>
-	         </div>
-	         
-	         <div class="form-group">
-	         	<label for="contrasenia1">Contraseña</label>
-	         	<h:inputSecret class="form-control" id="contrasenia1" value=""></h:inputSecret>
-	         </div>
-	         
-	         <div class="form-group">
-	         	<label for="contrasenia2">Verificar</label>
-	         	<h:inputSecret class="form-control" id="contrasenia2" value=""></h:inputSecret>
-	         </div>
-	         
-	         <div class="form-group">
-	         	<label for="imagen">Imagen</label> 
-	         	<br/>      	
-	         	 <h:inputFile value="#{bean.file}" id="imagen">
-	       		<f:ajax listener="#{bean.save}" />
-	   		</h:inputFile>
-	         </div>
-	         
-	       </div>
-	       <div class="col-md-5 ">
-	       
-	       <div class="form-group">
-	       	<label for="nombre">Nombre</label>
-	        <h:inputText  class="form-control" id="nombre" value="" ></h:inputText>
-	        </div>
-	        
-	        <div class="form-group">
-	        	<label for="apellido">Apellido</label>
-	        <h:inputText class="form-control" id="apellido" value=""></h:inputText>
-	         </div>
-	         
-	         <div class="form-group">
-	         	<label for="fechaNac">Fecha de nacimiento</label>
-	        <h:inputText class="form-control" id="fechaNac" value=""></h:inputText>
-	         </div>
-	         
-	         <div class="form-group">
-	         	<label for="ubicacion">Ubicacion</label>
-	        <h:inputText class="form-control" id="ubicacion" value=""></h:inputText>
-	         </div>
-	         
-	         <div class="form-group">
-	         <label for="sexo" >Sexo</label>
-	          <h:selectOneMenu class="form-control" id="sexo" label="Service Level" value="">
-	            <f:selectItem itemLabel="Hombre" itemValue="m" />
-	            <f:selectItem itemLabel="Mujer" itemValue="f" />
-	          </h:selectOneMenu>
-	         </div>
-	         
-	       </div>
-	       <div class="col-md-1 "></div>
-	     </div>
-	     <hr/>
-	     <div class="row">
-	      <div class="col-md-1 "></div>
-	      <div class="col-md-5 "></div>
-	      <div class="col-md-5 d-flex justify-content-end">
-	      	<h:commandButton class="btn btn-danger mt-2 mr-2" value="Canselar" action="cancelar" />
-	      	<h:commandButton class="btn btn-primary mt-2" value="Registrarse" action="register" />
-	      </div>
-	      <div class="col-md-1 "></div>
-	     </div>
-	   </h:form>
-	    <!-- Fin del registro como Fan -->
-	</div>
-	  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-	  
-	  	<!-- Inicio del registro como Artista -->
-	     <h:form class="form-signin">
-	      <div class="row">
-	        <div class="col-md-1 "></div>
-	        <div class="col-md-5 ">
-	        
-	        <div class="form-group">
-	          <label for="nickname">Nickname</label>
-	          <h:inputText type="text" class="form-control" id="nickname" value=""></h:inputText>
-	         </div>
-	         
-	         <div class="form-group">
-	         	<label for="correo">Correo</label>
-	          	<h:inputText type="email" class="form-control" id="correo" value=""></h:inputText>
-	          </div>
-	          
-	          <div class="form-group">
-	          	<label for="contrasenia1">Contraseña</label>
-	          	<h:inputSecret class="form-control" id="contrasenia1" value=""></h:inputSecret>
-	          </div>
-	          
-	          <div class="form-group">
-	          	<label for="contrasenia2">Verificar</label>
-	          	<h:inputSecret class="form-control" id="contrasenia2" value=""></h:inputSecret>
-	          </div>
-	          
-	          <div class="form-group">
-	          	<label for="imagen">Imagen</label> 
-	          	<br/>      	
-	          	 <h:inputFile value="#{bean.file}" id="imagen">
-	        		<f:ajax listener="#{bean.save}" />
-	    		</h:inputFile>
-	          </div>
-	          
-	        </div>
-	        <div class="col-md-5 ">
-	        
-	        <div class="form-group">
-	        	<label for="nombre">Nombre</label>
-		        <h:inputText  class="form-control" id="nombre" value="" ></h:inputText>
-	         </div>
-	         
-	         <div class="form-group">
-	         	<label for="biografia">Biografia</label>
-		        <h:inputTextarea class="form-control" id="biografia" value="#{spintax.content}" rows="3" />
-		        <small id="biografia" class="form-text text-muted">Dé una breve descripción de su persona.</small>
-	          </div>
-	
-	        </div>
-	        <div class="col-md-1 "></div>
-	      </div>
-	      <hr/>
-	      <div class="row">
-		      <div class="col-md-1 "></div>
-		      <div class="col-md-5 "></div>
-		      <div class="col-md-5 d-flex justify-content-end">
-		      	<h:commandButton class="btn btn-danger mt-2 mr-2" value="Canselar" action="cancelar" />
-		      	<a  href="http://localhost:8080/TodoArteWeb/RegistrarSitio.jsf" class="btn btn-primary mt-2">Siguiente</a>
-		      </div>
-		      <div class="col-md-1 "></div>
-	      </div>
-	    </h:form>
-	    
-	    <!-- Fin del registro como Artista -->
+							<div class="form-group">
+								<label for="nickname">Nickname</label>
+								<h:inputText type="text" class="form-control" id="nickname"
+									required="true" requiredMessage="Debe crear un nickname"
+									validator ="#{validarNickname.validate}"
+									value="#{registroFanBean.fan.nikname}" ></h:inputText>
+								<span class="text-danger">
+									<h:message for="nickname"/>
+								</span>
+							</div>
 
-	  </div>
-	</div>
-</main>
+							<div class="form-group">
+								<label for="correo">Correo</label>
+								<h:inputText type="email" class="form-control" id="correo"
+									required="true" requiredMessage="Debe ingresar su correo"
+									validator ="#{validadorCorreo.validate}"
+									value="#{registroFanBean.fan.correo}"></h:inputText>
+								<span class="text-danger">
+									<h:message for="correo"/>
+								</span>
+							</div>
 
-<ui:include src="footer/footer.xhtml"/>
+							<div class="form-group">
+								<label for="contrasenia1">Contraseña</label>
+								<h:inputSecret class="form-control" id="contrasenia1"		
+									required="true" requiredMessage="Debe crear una contraseña"
+									value="#{registroFanBean.fan.contrasenia}"></h:inputSecret>
+								<span class="text-danger">
+									<h:message for="contrasenia1"/>
+								</span>
+							</div>
+
+							<div class="form-group">
+								<label for="contrasenia2">Verificar</label>
+								<h:inputSecret class="form-control" id="contrasenia2"
+									required="true" requiredMessage="Debe repetir la contraseña"
+									value="#{registroFanBean.contrasenia2}"></h:inputSecret>
+								<span class="text-danger">
+									<h:message for="contrasenia2"/>
+								</span>
+							</div>
+							<!-- Proximamente... -->
+							<!-- 
+							<div class="form-group">
+								<label for="imagen">Imagen</label> 
+								<br/>      	
+								<h:inputFile value="#{bean.file}" id="imagen">
+									<f:ajax listener="#{bean.save}" />
+								</h:inputFile>
+							</div>
+							-->
+						</div>
+						<div class="col-md-5 ">
+
+							<div class="form-group">
+								<label for="nombre">Nombre</label>
+								<h:inputText class="form-control" id="nombre"
+									required="true" requiredMessage="Debe ingresar su nombre"
+									value="#{registroFanBean.fan.nombre}"></h:inputText>
+								<span class="text-danger">
+									<h:message for="nombre"/>
+								</span>
+							</div>
+
+							<div class="form-group">
+								<label for="apellido">Apellido</label>
+								<h:inputText class="form-control" id="apellido"
+									required="true" requiredMessage="Debe ingresar su apellido"
+									value="#{registroFanBean.fan.apellido}"></h:inputText>
+								<span class="text-danger">
+									<h:message for="apellido"/>
+								</span>
+							</div>
+
+							<div class="form-group">
+								<label for="fechaNac">Fecha de nacimiento (yyyy-mm-dd)</label>
+								<h:inputText class="form-control" id="fechaNac"
+									required="true" requiredMessage="Debe ingresar su fecha de nacimiento"
+									value="#{registroFanBean.fechaUtil}">
+									<f:convertDateTime pattern="Y-MM-dd"/>
+								</h:inputText>
+								<span class="text-danger">
+									<h:message for="fechaNac"/>
+								</span>
+							</div>
+
+							<div class="form-group">
+								<label for="ubicacion">Ubicacion</label>
+								<h:inputText class="form-control" id="ubicacion"
+									value="#{registroFanBean.fan.ubicacion}"></h:inputText>
+							</div>
+
+							<div class="form-group">
+								<label for="sexo">Sexo</label>
+								<h:selectOneMenu class="form-control"
+									value="#{registroFanBean.fan.sexo}">
+									<!-- Esto es como un for, se agrega uno por cada elemento del enum Sexo -->
+									<f:selectItems value="#{registroFanBean.sexo}" var="sex"
+										itemValue="#{sex}"
+										itemLabel="#{text['registroFanBean.sexo.'.concat(sex)]}" />
+								</h:selectOneMenu>
+							</div>
+						</div>
+						<div class="col-md-1 "></div>
+					</div>
+					<hr />
+					<div class="row">
+						<div class="col-md-1 "></div>
+						<div class="col-md-5 "></div>
+						<div class="col-md-5 d-flex justify-content-end">
+							<h:commandButton class="btn btn-danger mt-2 mr-2"
+								value="Canselar" action="/" />
+							<h:commandButton class="btn btn-primary mt-2" value="Registrarse"
+								actionListener="#{registroFanBean.registrar()}" />
+						</div>
+						<div class="col-md-1 "></div>
+					</div>
+				</h:form>
+				<!-- Fin del registro como Fan -->
+			</div>
+			
+			<div class="tab-pane fade show" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+				<!-- Inicio del registro como Artista -->
+				<h:form class="form-signin">
+					<div class="row">
+						<div class="col-md-1 "></div>
+						<div class="col-md-5 ">
+
+							<div class="form-group">
+								<label for="nickname">Nickname</label>
+								<h:inputText type="text" class="form-control" id="nickname"
+									required="true" requiredMessage="Debe crear un nickname"
+									validator ="#{validarNickname.validate}"
+									value="#{registrarArtistaSitio.artista.nikname}" ></h:inputText>
+								<span class="text-danger">
+									<h:message for="nickname"/>
+								</span>
+							</div>
+
+							<div class="form-group">
+								<label for="correo">Correo</label>
+								<h:inputText type="email" class="form-control" id="correo"
+									required="true" requiredMessage="Debe ingresar su correo"
+									validator ="#{validadorCorreo.validate}"
+									value="#{registrarArtistaSitio.artista.correo}"></h:inputText>
+								<span class="text-danger">
+									<h:message for="correo"/>
+								</span>
+							</div>
+
+							<div class="form-group">
+								<label for="contrasenia1">Contraseña</label>
+								<h:inputSecret class="form-control" id="contrasenia1"		
+									required="true" requiredMessage="Debe crear una contraseña"
+									value="#{registrarArtistaSitio.artista.contrasenia}"></h:inputSecret>
+								<span class="text-danger">
+									<h:message for="contrasenia1"/>
+								</span>
+							</div>
+
+							<div class="form-group">
+								<label for="contrasenia2">Verificar</label>
+								<h:inputSecret class="form-control" id="contrasenia2"
+									required="true" requiredMessage="Debe repetir la contraseña"
+									value="#{registrarArtistaSitio.contrasenia2}"></h:inputSecret>
+								<span class="text-danger">
+									<h:message for="contrasenia2"/>
+								</span>
+							</div>
+							
+							<!-- Proximamente... -->
+							<!-- 
+							<div class="form-group">
+								<label for="imagen">Imagen</label> <br />
+								<h:inputFile value="#{bean.file}" id="imagen">
+									<f:ajax listener="#{bean.save}" />
+								</h:inputFile>
+							</div>
+							 -->
+						</div>
+						<div class="col-md-5 ">
+
+							<div class="form-group">
+								<label for="nombre">Nombre</label>
+								<h:inputText class="form-control" id="nombre"
+									required="true" requiredMessage="Debe ingresar su nombre"
+									value="#{registrarArtistaSitio.artista.nombre}"></h:inputText>
+								<span class="text-danger">
+									<h:message for="nombre"/>
+								</span>
+							</div>
+
+							<div class="form-group">
+								<label for="biografia">Biografia</label>
+								<h:inputTextarea class="form-control" id="biografia"
+									required="true" requiredMessage="Debe ingresar una biografia"
+									value="#{registrarArtistaSitio.artista.biografia}" rows="3" />
+								<small id="biografia" class="form-text text-muted">Dé
+									una breve descripción de su persona.</small>
+								<span class="text-danger">
+									<h:message for="nombre"/>
+								</span>
+							</div>
+						</div>
+						<div class="col-md-1 "></div>
+					</div>
+					<hr />
+					<div class="row">
+						<div class="col-md-1 "></div>
+						<div class="col-md-5 "></div>
+						<div class="col-md-5 d-flex justify-content-end">
+							<h:commandButton class="btn btn-danger mt-2 mr-2"
+								value="Canselar" action="/" />
+							<h:commandButton class="btn btn-primary mt-2" value="Siguiente >"
+								actionListener="#{registrarArtistaSitio.registrar()}" />
+							<!-- 
+							<a href="http://localhost:8080/TodoArteWeb/RegistrarSitio.jsf"
+								class="btn btn-primary mt-2">Siguiente</a>
+							-->
+						</div>
+						<div class="col-md-1 "></div>
+					</div>
+				</h:form>
+				<!-- Fin del registro como Artista -->
+			</div>
+		</div>
+		
+	</main>
+
+	<ui:include src="footer/footer.xhtml" />
 
 </h:body>
 
 </html>
-
 <!-- http://localhost:8080/TodoArteWeb/RegistrarArtista.jsf -->

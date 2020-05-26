@@ -7,9 +7,12 @@ import javax.ejb.Stateless;
 import org.jboss.resteasy.spi.ReaderException;
 
 import com.TodoArte.Classes.Artista;
+import com.TodoArte.Classes.CategoriaContenido;
+import com.TodoArte.Classes.CategoriaSitio;
 import com.TodoArte.Classes.Comentario;
 import com.TodoArte.Classes.Contenido;
 import com.TodoArte.Classes.Fan;
+import com.TodoArte.Classes.Fuente;
 import com.TodoArte.Classes.NotificacionArtista;
 import com.TodoArte.Classes.NotificacionFan;
 import com.TodoArte.Classes.QyAProgramado;
@@ -23,7 +26,11 @@ import com.TodoArte.InternalControllers.ArtistaController;
 import com.TodoArte.InternalControllers.ContenidoController;
 import com.TodoArte.InternalControllers.FanController;
 import com.TodoArte.JPAControllerClasses.ArtistaJpaController;
+import com.TodoArte.JPAControllerClasses.CategoriaContenidoJpaController;
+import com.TodoArte.JPAControllerClasses.CategoriaSitioJpaController;
 import com.TodoArte.JPAControllerClasses.FanJpaController;
+import com.TodoArte.JPAControllerClasses.FuenteJpaController;
+import com.sun.xml.bind.v2.schemagen.xmlschema.List;
 
 @Stateless
 public class FrontOfficeController implements FrontOfficeInterface{
@@ -154,6 +161,39 @@ public class FrontOfficeController implements FrontOfficeInterface{
 	@Override
 	public ArrayList<Fan> obtenerFansDeSitio(String idArtista) {
 		return new ArtistaController().obtenerFansDeSitio(idArtista);
+	}
+
+	@Override
+	public ArrayList<CategoriaSitio> obtenerCategoriasSitios() {
+		ArrayList<CategoriaSitio> ret = new ArrayList<CategoriaSitio>(new CategoriaSitioJpaController().findCategoriaSitioEntities());
+		return ret;
+	}
+
+	@Override
+	public ArrayList<Fuente> obtenerFuentes() {
+		ArrayList<Fuente> ret = new ArrayList<Fuente>(new FuenteJpaController().findFuenteEntities());
+		return ret;
+	}
+
+	@Override
+	public ArrayList<CategoriaContenido> obtenerCategoriasContenido() {
+		ArrayList<CategoriaContenido> ret = new ArrayList<CategoriaContenido>(new CategoriaContenidoJpaController().findCategoriaContenidoEntities());
+		return ret;
+	}
+
+	@Override
+	public CategoriaSitio obtenerUnaCategoriasSitios(int idCategoriaSitio) {
+		return new CategoriaSitioJpaController().findCategoriaSitio(idCategoriaSitio);
+	}
+
+	@Override
+	public Fuente obtenerUnaFuentes(int idFuente) {
+		return new FuenteJpaController().findFuente(idFuente);
+	}
+
+	@Override
+	public CategoriaContenido obtenerUnaCategoriasContenido(int idCategoriaContenido) {
+		return new CategoriaContenidoJpaController().findCategoriaContenido(idCategoriaContenido);
 	}
 
 }
