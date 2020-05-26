@@ -4,6 +4,7 @@ package com.TodoArte.Classes;
 import java.io.Serializable;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.Arrays;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -124,15 +125,12 @@ public abstract class Usuario implements Serializable{
         this.bloqueado = bloqueado;
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-            " nikname='" + getNikname() + "'" +
-            ", contrasenia='" + getContrasenia() + "'" +
-            ", correo='" + getCorreo() + "'" +
-            ", saldo='" + getSaldo() + "'" +
-            ", imagen='" + getImagen() + "'" +
-            "}";
-    }
+	@Override
+	public String toString() {
+		return "Usuario [nikname=" + nikname + ", contrasenia=" + contrasenia + ", correo=" + correo + ", saldo="
+				+ saldo + ", imagen=" + Arrays.toString(imagen) + ", bloqueado=" + bloqueado + "]";
+	}
+
+    
 
 }

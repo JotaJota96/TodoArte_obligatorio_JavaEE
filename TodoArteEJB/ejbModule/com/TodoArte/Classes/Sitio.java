@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -310,7 +311,7 @@ public class Sitio implements Serializable {
 	}
 
 	public void setPrecioPremium(float precioPremium) {
-		if(precioPremium <= 0){
+		if(precioPremium < 0){
             throw new RuntimeException(MensajesExcepciones.precio);
 		}
 		this.precioPremium = precioPremium;
@@ -435,6 +436,16 @@ public class Sitio implements Serializable {
 
 	public void setMisContenidos(Map<Integer, Contenido> misContenidos) {
 		MisContenidos = misContenidos;
+	}
+
+	@Override
+	public String toString() {
+		return "Sitio [id=" + id + ", imagenPortada=" + Arrays.toString(imagenPortada) + ", precioPremium="
+				+ precioPremium + ", colorDeFondo=" + colorDeFondo + ", colorDeMenu=" + colorDeMenu + ", colorDeTexto="
+				+ colorDeTexto + ", rrssYouTube=" + rrssYouTube + ", rrssFacebook=" + rrssFacebook + ", rrssInstagram="
+				+ rrssInstagram + ", rrssTwitter=" + rrssTwitter + ", seccionTwitter=" + seccionTwitter
+				+ ", miCategoria=" + miCategoria + ", miArtista=" + miArtista + ", miFuente=" + miFuente + ", MisFans="
+				+ MisFans + ", MisQyA=" + MisQyA + ", MisContenidos=" + MisContenidos + "]";
 	}
 
     
