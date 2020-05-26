@@ -5,8 +5,11 @@ import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import javax.servlet.http.Part;
 
 import com.TodoArte.Classes.Artista;
+import com.TodoArte.Classes.CategoriaSitio;
+import com.TodoArte.Classes.Fuente;
 import com.TodoArte.Classes.Sitio;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
 
@@ -18,14 +21,60 @@ public class RegistrarArtistaSitio implements Serializable{
 	
 	private Artista artista = new Artista();
 	private Sitio sitio = new Sitio();
-	private String contrasenia2;
+	private String contrasenia2 = "";
+	private Part fotoPerfil;
+	private Part fotoPortada;
+	
 	//---------------------------------------------------------------------
 	
 	public void registrar() {
-		System.out.println("------------");
-		System.out.println(artista);
-		System.out.println(sitio);
-		System.out.println("------------");
+		System.out.println("-------1-----");
+		Artista nuevoArtista = copiarArtista(artista);
+		Sitio nuevoSitio = copiarSitio(sitio);
+		
+		nuevoArtista.setImagen(FuncionesComunes.partToBytes(fotoPerfil));
+		nuevoSitio.setImagenPortada(FuncionesComunes.partToBytes(fotoPortada));
+		nuevoArtista.setMiSitio(nuevoSitio);
+		nuevoSitio.setMiArtista(nuevoArtista);
+		
+		Artista ret = null;
+		try {
+			CategoriaSitio cs = fo.obtenerUnaCategoriasSitios(1);
+			Fuente f = fo.obtenerUnaFuentes(1);
+
+			nuevoSitio.setMiCategoria(cs);
+			nuevoSitio.setMiFuente(f);
+			
+			ret = fo.registrarUsuarioArtista(nuevoArtista, nuevoSitio);
+		} catch (Exception e) {
+			System.out.println("------Excepcion de fo------");
+			System.out.println(e.toString());
+		}
+	}
+	
+	private Artista copiarArtista(Artista a) {
+		Artista copia = new Artista();
+		copia.setNikname(a.getNikname());
+		copia.setContrasenia(a.getContrasenia());
+		copia.setCorreo(a.getCorreo());
+		copia.setImagen(a.getImagen());
+		copia.setNombre(a.getNombre());
+		copia.setBiografia(a.getBiografia());
+		return copia;
+	}
+	
+	private Sitio copiarSitio(Sitio s) {
+		Sitio copia = new Sitio();
+		copia.setPrecioPremium(s.getPrecioPremium());
+		copia.setColorDeFondo(s.getColorDeFondo());
+		copia.setColorDeMenu(s.getColorDeMenu());
+		copia.setColorDeTexto(s.getColorDeTexto());
+		copia.setImagenPortada(s.getImagenPortada());
+		copia.setRrssTwitter(s.getRrssTwitter());
+		copia.setRrssFacebook(s.getRrssFacebook());
+		copia.setRrssInstagram(s.getRrssInstagram());
+		copia.setRrssYouTube(s.getRrssYouTube());
+		return copia;
 	}
 	
 	//---------------------------------------------------------------------
@@ -49,6 +98,22 @@ public class RegistrarArtistaSitio implements Serializable{
 	public void setContrasenia2(String contrasenia2) {
 		this.contrasenia2 = contrasenia2;
 	}
-	
+
+	public Part getFotoPerfil() {
+		return fotoPerfil;
+	}
+
+	public void setFotoPerfil(Part fotoPerfil) {
+		this.fotoPerfil = fotoPerfil;
+	}
+
+	public Part getFotoPortada() {
+		return fotoPortada;
+	}
+
+	public void setFotoPortada(Part fotoPortada) {
+		this.fotoPortada = fotoPortada;
+	}
+
 	
 }

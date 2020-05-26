@@ -3,6 +3,7 @@ package com.TodoArte.Classes;
 import java.io.Serializable;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -168,7 +169,16 @@ public class Artista extends Usuario implements Serializable {
 		
 		this.miSitio = miSitio;
 	}
+
+	@Override
+	public String toString() {
+		return "Artista [nombre=" + nombre + ", biografia=" + biografia + ", notificacion=" + notificacion + ", pagos="
+				+ pagos + ", miSitio=" + miSitio + ", nikname=" + nikname + ", contrasenia=" + contrasenia + ", correo="
+				+ correo + ", saldo=" + saldo + ", imagen=" + Arrays.toString(imagen) + ", bloqueado=" + bloqueado
+				+ "]";
+	}
     
+	
     
 
 }

@@ -6,6 +6,7 @@ import java.io.StringWriter;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -236,4 +237,13 @@ public class Fan extends Usuario implements Serializable {
 		} catch (Exception ex) {
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "Fan [nombre=" + nombre + ", apellido=" + apellido + ", fechaNac=" + fechaNac + ", ubicacion="
+				+ ubicacion + ", sexo=" + sexo + ", notificaciones=" + notificaciones + ", misSitiosSeguidos="
+				+ misSitiosSeguidos + ", nikname=" + nikname + ", contrasenia=" + contrasenia + ", correo=" + correo
+				+ ", saldo=" + saldo + ", imagen=" + Arrays.toString(imagen) + ", bloqueado=" + bloqueado + "]";
+	}
+	
 }
