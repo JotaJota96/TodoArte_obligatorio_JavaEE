@@ -20,40 +20,36 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 </h:head>
 
 <h:body>
-
+	<!-- Bara de navegacion -->
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-		<a class="navbar-brand" href="http://localhost:8080/TodoArteWeb/home.jsf"><img src="img/logo.png" width="50px" height="50px"></img></a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+		<a class="navbar-brand" href="">
+			<img src="img/logo.png" width="50px" height="50px"></img>
+		</a>
+
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarsExampleDefault"
+			aria-controls="navbarsExampleDefault" aria-expanded="false"
+			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
+
 		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 			<ul class="navbar-nav mr-auto">
-			
-				<!--** opcion **-->
 				<li class="nav-item">
-					<a class="nav-link" href="http://localhost:8080/TodoArteWeb/BuscarArtista.jsf">Buscar Artistas</a>
+					<a class="nav-link" href="buscar.jsf">Buscar Artistas</a>
 				</li>
-				<!--************-->
-				
-				<!--** opcion **-->
 				<li class="nav-item">
-					<a class="nav-link" href="http://localhost:8080/TodoArteWeb/MiSitio.jsf">Mi Sitio</a>
+					<a class="nav-link" href="sitio.jsf">Mi Sitio</a>
 				</li>
-				<!--************-->
-				
 			</ul>
+			
 			<ul class="navbar-nav">
-				<!--** opcion **-->
 				<li class="nav-item ">
-					<a class="nav-link" href="http://localhost:8080/TodoArteWeb/login.jsf">Iniciar Secion</a>
+					<a class="nav-link" href="login.jsf">Iniciar Secion</a>
 				</li>
-				<!--************-->
-				
-				<!--** opcion **-->
 				<li class="nav-item ">
-					<a class="nav-link" href="http://localhost:8080/TodoArteWeb/Registrarse.jsf">Registarse</a>
+					<a class="nav-link" href="registro.jsf">Registarse</a>
 				</li>
-				<!--************-->
 			</ul>
 		</div>
 	</nav>

@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" 
-xmlns:h="http://java.sun.com/jsf/html" 
-xmlns:f="http://java.sun.com/jsf/core"
-xmlns:ui="http://java.sun.com/jsf/facelets">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -29,17 +27,14 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
   
 <!--********************************* Inicio    PRIMER TARJETA ***********************************-->
 	<div class="card m-3">
-	<h5 class="card-header">Musica del Artista</h5>
+	<h5 class="card-header">Imagenes del Artista</h5>
 		<div class="row">
 			<div class="col-md-6">
 				<div class="card m-3">
 					<h5 class="card-header">Playa peligrosa</h5>
 					<div class="card-body">
-						
-						<audio controls="x">
-							<source src="music/ls.mp3" type="audio/mp3" />
-						</audio> 
-						
+					
+						<h:graphicImage  width="300px"  value="img/img.jpg"/>
 						<br/>
 						
 						<span class="text-muted">Descripcion:</span>
@@ -132,11 +127,9 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 					<h5 class="card-header">Playa peligrosa</h5>
 					<div class="card-body">
 					
-						<audio controls="x">
-							<source src="music/ls.mp3" type="audio/mp3" />
-						</audio> 
-						
+						<h:graphicImage  width="300px"  value="img/img.jpg"/>
 						<br/>
+						
 						<span class="text-muted">Descripcion:</span>
 						<p class="card-text mt-1">Una imagen hecha para todas esas personas que deseen conoser el peligro en la playa que mas te gusta, no se yo que se, comprala, hace lo que quieras.</p>
 						<hr/>
@@ -221,5 +214,3 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 </h:body>
 
 </html>
-
-<!-- http://localhost:8080/TodoArteWeb/VerMusica.jsf -->

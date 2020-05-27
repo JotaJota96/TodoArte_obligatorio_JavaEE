@@ -30,8 +30,7 @@ public class RegistrarArtistaSitio implements Serializable{
 	
 	//---------------------------------------------------------------------
 	
-	public void registrar() {
-		System.out.println("-------1-----");
+	public String registrar() {
 		Artista nuevoArtista = copiarArtista(artista);
 		Sitio nuevoSitio = copiarSitio(sitio);
 		
@@ -50,9 +49,13 @@ public class RegistrarArtistaSitio implements Serializable{
 			
 			ret = fo.registrarUsuarioArtista(nuevoArtista, nuevoSitio);
 		} catch (Exception e) {
-			System.out.println("------Excepcion de fo------");
-			System.out.println(e.toString());
 		}
+		if (ret == null) {
+			return Redirector.redirect("login.jsf");
+		}else {
+			return Redirector.redirect("sitio.jsf", "id=" + ret.getNikname());
+		}
+		
 	}
 	
 	private Artista copiarArtista(Artista a) {

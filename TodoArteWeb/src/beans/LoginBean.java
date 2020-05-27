@@ -25,17 +25,17 @@ public class LoginBean implements Serializable{
 	
 	
 	public String iniciarSesion() {
-		String outcome = "login";
 		Usuario u = fo.iniciarSesion(nickname, contrasenia);
 
 		if (u == null) {
-			System.out.println("Login fallido");
-		} else if (u instanceof Fan) {
-			outcome = "inicioFan";
+			return Redirector.redirect("login.jsf");
+		}else if (u instanceof Fan) {
+			return Redirector.redirect("home.jsf");
 		}else if (u instanceof Artista) {
-			outcome = "inicioArtista";
+			return Redirector.redirect("sitio.jsf", "id=" + u.getNikname());
+		}else {
+			return Redirector.redirect("login.jsf");
 		}
-		return outcome;
 	}
 	//---------------------------------------------------------
 	public LoginBean() {}

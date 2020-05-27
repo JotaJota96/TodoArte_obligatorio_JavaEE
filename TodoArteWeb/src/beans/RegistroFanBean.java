@@ -23,7 +23,7 @@ public class RegistroFanBean implements Serializable {
 	private Part file;
 	
 	//--------------------------------------------------------------------------
-	public void registrar() {
+	public String registrar() {
 		fan.setFechaNac(FuncionesComunes.utilDateToSqlDate(fechaUtil));
 		fan.getFechaNac().setDate(fan.getFechaNac().getDate() + 1);
 
@@ -41,9 +41,9 @@ public class RegistroFanBean implements Serializable {
 		}
 		
 		if (ret == null) {
-			// no se pudo registrar el fan
+			return Redirector.redirect("login.jsf");
 		}else {
-			// fan registrado exitosamente
+			return Redirector.redirect("home.jsf");
 		}
 	}
 	

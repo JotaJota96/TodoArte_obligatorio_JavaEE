@@ -5,22 +5,7 @@
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
     version="2.3">
 
-	<navigation-rule>
-		<from-view-id>/login.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>login</from-outcome>
-			<to-view-id>/login.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>inicioFan</from-outcome>
-			<to-view-id>/fan.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>inicioArtista</from-outcome>
-			<to-view-id>/artista.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	
+	<!-- Recordar eliminar esto en un futuro -->
 	<navigation-rule>
 		<from-view-id>/IngresarQAtemporal.xhtml</from-view-id>
 		<navigation-case>

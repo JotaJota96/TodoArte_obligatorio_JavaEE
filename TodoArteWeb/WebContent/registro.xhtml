@@ -176,7 +176,7 @@
 							<h:commandButton class="btn btn-danger mt-2 mr-2"
 								value="Cancelar" action="/" />
 							<h:commandButton class="btn btn-primary mt-2" value="Registrarse"
-								actionListener="#{registroFanBean.registrar()}" />
+								action="#{registroFanBean.registrar()}" />
 						</div>
 					</div>
 				</h:form>
@@ -394,11 +394,7 @@
 							<h:commandButton class="btn btn-danger mt-2 mr-2"
 								value="Cancelar" action="/" />
 							<h:commandButton class="btn btn-primary mt-2" value="Registrarse"
-								actionListener="#{registrarArtistaSitio.registrar()}" />
-							<!-- 
-							<a href="http://localhost:8080/TodoArteWeb/RegistrarSitio.jsf"
-								class="btn btn-primary mt-2">Siguiente</a>
-							-->
+								action="#{registrarArtistaSitio.registrar()}" />
 						</div>
 					</div>
 				</h:form>
@@ -414,4 +410,3 @@
 </h:body>
 
 </html>
-<!-- http://localhost:8080/TodoArteWeb/RegistrarArtista.jsf -->
