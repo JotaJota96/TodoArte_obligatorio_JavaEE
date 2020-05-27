@@ -8,7 +8,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 import com.TodoArte.Classes.Artista;
-import com.TodoArte.FachadeControllers.FrontOfficeController;
 import com.TodoArte.FachadeInterfaces.BackOfficeInterface;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
 
@@ -21,8 +20,19 @@ public class BloquearArtista implements Serializable {
 	@EJB
 	BackOfficeInterface bo;
 	FrontOfficeInterface fo;
-	//private ArrayList<Artista> artistas =  fo.;
 	
+	private ArrayList<Artista> artistas = fo.listarArtistas();
+
+	public ArrayList<Artista> getArtistas() {
+		return artistas;
+	}
+
+	public void setArtistas(ArrayList<Artista> artistas) {
+		this.artistas = artistas;
+	}
 	
+	public BloquearArtista() {
+		
+	}
 	
 }

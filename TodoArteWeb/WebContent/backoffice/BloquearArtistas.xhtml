@@ -30,65 +30,32 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 				<div class="card-body" style="height: 350px; overflow: auto;">
 					<!-- ***** Listado de contenido **** -->
 					
-					<!-- ***** contenido 1 **** -->
-					<div class="card my-2">
-						<div class="card-body">
-							<h:form class="form-signin">
-								<div class="row">
-									<div class="col-6">
-						         		<h5>Nombre: <h:outputText value="Marcelito" /></h5>
-									</div>
-									<div class="col-3 ">
-						          		<h:commandButton class="btn  btn-danger " value="Bloquear" action="Bloquear"/>
-									</div>
-									<div class="col-3 ">
-						          		<h:commandButton class="btn  btn-primary " value="Desbloquear" action="Desbloquear"/>
-									</div>
-								</div>	
-							</h:form>
+					<!-- ***** contenido 0 **** -->
+					<!--
+					<ui:repeat value="#{bloquearArtista.artistas}" var="item">
+						<div class="card my-2">
+							<div class="card-body">
+								<h:form class="form-signin">
+									<div class="row">
+										<div class="col-6">
+							         		<h5>Nombre: <h:outputText value="#{item.nikname}" /></h5>
+										</div>
+										<div class="col-3 ">
+							          		<h:commandButton class="btn  btn-danger " value="Bloquear" action="/"/>
+										</div>
+										<div class="col-3 ">
+							          		<h:commandButton class="btn  btn-primary " value="Desbloquear" action="/"/>
+										</div>
+									</div>	
+								</h:form>
+							</div>
 						</div>
-					</div>
-					<!-- ***** fin de contenido 1 **** -->
-					
-					<!-- ***** contenido 1 **** -->
-					<div class="card my-2">
-						<div class="card-body">
-							<h:form class="form-signin">
-								<div class="row">
-									<div class="col-6">
-						         		<h5>Nombre: <h:outputText value="Marcelito" /></h5>
-									</div>
-									<div class="col-3 ">
-						          		<h:commandButton class="btn  btn-danger " value="Bloquear" action="Bloquear"/>
-									</div>
-									<div class="col-3 ">
-						          		<h:commandButton class="btn  btn-primary " value="Desbloquear" action="Desbloquear"/>
-									</div>
-								</div>	
-							</h:form>
-						</div>
-					</div>
-					<!-- ***** fin de contenido 1 **** -->
-					
-					<!-- ***** contenido 1 **** -->
-					<div class="card my-2">
-						<div class="card-body">
-							<h:form class="form-signin">
-								<div class="row">
-									<div class="col-6">
-						         		<h5>Nombre: <h:outputText value="Marcelito" /></h5>
-									</div>
-									<div class="col-3 ">
-						          		<h:commandButton class="btn  btn-danger " value="Bloquear" action="Bloquear"/>
-									</div>
-									<div class="col-3 ">
-						          		<h:commandButton class="btn  btn-primary " value="Desbloquear" action="Desbloquear"/>
-									</div>
-								</div>	
-							</h:form>
-						</div>
-					</div>
-					<!-- ***** fin de contenido 1 **** -->
+					</ui:repeat>
+					-->
+					<ui:repeat value="#{bloquearArtista.artistas}" var="item">
+						<h5>Nombre: <h:outputText value="#{item.nikname}" /></h5>
+					</ui:repeat>
+					<!-- ***** contenido 0 **** -->
 					
 					
 					<!-- ********* fin de Listado de contenido ******* -->
