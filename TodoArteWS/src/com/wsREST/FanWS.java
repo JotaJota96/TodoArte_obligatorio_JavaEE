@@ -3,6 +3,7 @@ package com.wsREST;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -14,12 +15,14 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.TodoArte.Classes.CategoriaContenido;
 import com.TodoArte.Classes.Fan;
+import com.TodoArte.Classes.NotificacionFan;
 import com.TodoArte.Enums.Sexo;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
 
@@ -59,17 +62,44 @@ public class FanWS implements Serializable{
 		 System.out.println(cc.getNombreCategoria());
 	}
 	
+	
+	/**
+	 * Función para registrar un usuario via rest
+	 * @return
+	 */
+	@GET
+	@Path("/notificaciones/{idfan}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response listarNotificacionesFan(@PathParam("idfan") String idFan) {
+		try {
+			System.out.println("Id fan: ---->" + fo);
+			//ArrayList<NotificacionFan> listaNotificaciones = fo.listarNotificacionesFan(idFan);
+			fo.obtenerDatosUsuario(idFan);
+			return Response
+					.status(Response.Status.OK)
+					.entity("impecable " + idFan)
+					.build();
+		} catch (Exception e) {
+			// TODO: handle exception
+			String message = "Error en el JSON que enviaste. Error: " + e.getMessage();
+			return Response
+					.status(Response.Status.BAD_REQUEST)
+					.entity(message)
+					.build();
+		}
+	}
+	
+	
 	/**
 	 * Función para registrar un usuario via rest
 	 * @return
 	 */
 	@POST
-	@Path("/addfan")
+	@Path("/registrar")
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addFan(Fan fan) {
+	public Response registrarUsuarioFan(Fan fan) {
 		try {
-			System.out.println("--------------" + fo);
 			fan = fo.registrarUsuarioFan(fan);
 			return Response
 					.status(Response.Status.CREATED)
@@ -77,7 +107,7 @@ public class FanWS implements Serializable{
 					.build();
 		} catch (Exception e) {
 			// TODO: handle exception
-			String message = "Puta madre, hay un error en el JSON que enviaste. Error: " + e.getMessage();
+			String message = "Error en el JSON que enviaste. Error: " + e.getMessage();
 			return Response
 					.status(Response.Status.BAD_REQUEST)
 					.entity(message)
