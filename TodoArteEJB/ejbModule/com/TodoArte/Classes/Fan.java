@@ -73,7 +73,7 @@ public class Fan extends Usuario implements Serializable {
 		java.util.Date fechaNacUtil = new java.util.Date(fechaNac.getTime());
 		java.util.Date fechaActualUtil = new java.util.Date(fechaActual.getTime());
 		
-		if(fechaNacUtil.compareTo(fechaActualUtil) > 0 ){
+		if(fechaNacUtil.compareTo(fechaActualUtil) <= 0 ){
     		throw new RuntimeException(MensajesExcepciones.fechaPosterior);
 		}
 		
