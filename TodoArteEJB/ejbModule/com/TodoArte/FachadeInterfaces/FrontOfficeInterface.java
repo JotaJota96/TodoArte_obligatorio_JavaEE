@@ -204,5 +204,10 @@ public interface FrontOfficeInterface {
 	 */
 	public CategoriaContenido obtenerUnaCategoriasContenido(int idCategoriaContenido);
 	
+	/**
+	 * Devuelve todos los artistas
+	 * @return Debuelve un array de Artista
+	 */
+	public ArrayList<Artista> listarArtistas();
 }
 

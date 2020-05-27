@@ -196,4 +196,10 @@ public class FrontOfficeController implements FrontOfficeInterface{
 		return new CategoriaContenidoJpaController().findCategoriaContenido(idCategoriaContenido);
 	}
 
+	@Override
+	public ArrayList<Artista> listarArtistas() {
+		ArrayList<Artista> ret = new ArrayList<Artista>(new ArtistaJpaController().findArtistaEntities());
+		return ret;
+	}
+
 }
