@@ -12,6 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
@@ -41,12 +42,12 @@ public class Fan extends Usuario implements Serializable {
 	@Column(name = "sexo")
     private Sexo sexo;
 	
-	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_fan")
 	@MapKey(name = "id")
     private Map<Integer, NotificacionFan> notificaciones;
 
-	@OneToMany(mappedBy = "miFan")
+	@OneToMany(mappedBy = "miFan", fetch = FetchType.EAGER)
 	private Map<Integer, FanSigueSitio> misSitiosSeguidos;
 
     public Fan() {
