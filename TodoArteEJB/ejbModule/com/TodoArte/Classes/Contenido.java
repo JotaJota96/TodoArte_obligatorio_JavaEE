@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -66,26 +67,26 @@ public class Contenido implements Serializable {
 	private boolean eliminado;
 	
 	
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_categoria")
 	private CategoriaContenido miCategoria;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_contenido")
 	@MapKey(name = "id")
 	private Map<Integer, Venta> MisVentas;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_contenido")
 	@MapKey(name = "id")
 	private Map<Integer, Reporte> MisReporte;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_contenido")
 	@MapKey(name = "id")
 	private Map<Integer, Comentario> MisComentario;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_contenido")
 	@MapKey(name = "id")
 	private Map<Integer, Valoracion> MisValoracion;

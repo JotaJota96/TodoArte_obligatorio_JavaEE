@@ -4,6 +4,7 @@ package com.wsREST;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -22,6 +23,7 @@ import javax.ws.rs.core.Response;
 
 import com.TodoArte.Classes.CategoriaContenido;
 import com.TodoArte.Classes.Fan;
+import com.TodoArte.Classes.FanSigueSitio;
 import com.TodoArte.Classes.NotificacionFan;
 import com.TodoArte.Enums.Sexo;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
@@ -62,9 +64,9 @@ public class FanWS implements Serializable{
 		 System.out.println(cc.getNombreCategoria());
 	}
 	
-	
+
 	/**
-	 * Función para registrar un usuario via rest
+	 * Función para obtener las notificaciones de un usuario fan via rest
 	 * @return
 	 */
 	@GET
@@ -72,16 +74,13 @@ public class FanWS implements Serializable{
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response listarNotificacionesFan(@PathParam("idfan") String idFan) {
 		try {
-			System.out.println("Id fan: ---->" + fo);
-			//ArrayList<NotificacionFan> listaNotificaciones = fo.listarNotificacionesFan(idFan);
-			fo.obtenerDatosUsuario(idFan);
+			ArrayList<NotificacionFan> listaNotificaciones = fo.listarNotificacionesFan(idFan);
 			return Response
 					.status(Response.Status.OK)
-					.entity("impecable " + idFan)
+					.entity(listaNotificaciones.toArray())
 					.build();
 		} catch (Exception e) {
-			// TODO: handle exception
-			String message = "Error en el JSON que enviaste. Error: " + e.getMessage();
+			String message = "Ha ocurrido un error: " + e.getMessage();
 			return Response
 					.status(Response.Status.BAD_REQUEST)
 					.entity(message)

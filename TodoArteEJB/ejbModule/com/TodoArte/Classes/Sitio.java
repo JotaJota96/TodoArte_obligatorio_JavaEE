@@ -9,6 +9,7 @@ import java.util.TreeMap;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -63,28 +64,28 @@ public class Sitio implements Serializable {
 	@Column(name = "seccionTwitter")
     private int seccionTwitter;
 	
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_Categoria")
     private CategoriaSitio miCategoria;
 	
-	@OneToOne(mappedBy = "miSitio")
+	@OneToOne(mappedBy = "miSitio", fetch = FetchType.EAGER)
     private Artista miArtista;
 	
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_Fuente")
     private Fuente miFuente;
     
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_Sitio")
 	@MapKey(name = "id")
     private Map<Integer, FanSigueSitio> MisFans;
     
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_Sitio")
 	@MapKey(name = "id")
     private Map<Integer, QyAProgramado> MisQyA;
     
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_Sitio")
 	@MapKey(name = "id")
     private Map<Integer, Contenido> MisContenidos;
