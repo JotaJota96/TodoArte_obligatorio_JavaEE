@@ -2,19 +2,14 @@
 package com.TodoArte.Classes;
 
 import java.io.Serializable;
-import java.io.StringReader;
-import java.io.StringWriter;
+import java.util.Arrays;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-import javax.json.JsonWriter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.Lob;
 
 import com.TodoArte.Enums.MensajesExcepciones;
 
@@ -69,9 +64,6 @@ public abstract class Usuario implements Serializable{
     }
 
     public void setNikname(String nikname) {
-    	if(nikname.equals("")){
-            throw new RuntimeException(MensajesExcepciones.nickname);
-		}
         this.nikname = nikname;
     }
 
@@ -80,9 +72,6 @@ public abstract class Usuario implements Serializable{
     }
 
     public void setContrasenia(String contrasenia) {
-    	if(contrasenia.equals("")){
-            throw new RuntimeException(MensajesExcepciones.contrasenia);
-		}
         this.contrasenia = contrasenia;
     }
 
@@ -91,9 +80,6 @@ public abstract class Usuario implements Serializable{
     }
 
     public void setCorreo(String correo) {
-    	if(correo.equals("")){
-            throw new RuntimeException(MensajesExcepciones.correo);
-		}
         this.correo = correo;
     }
 
@@ -102,9 +88,6 @@ public abstract class Usuario implements Serializable{
     }
 
     public void setSaldo(float saldo) {
-    	if(saldo <= 0){
-            throw new RuntimeException(MensajesExcepciones.saldo);
-		}
         this.saldo = saldo;
     }
 
@@ -124,15 +107,9 @@ public abstract class Usuario implements Serializable{
         this.bloqueado = bloqueado;
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-            " nikname='" + getNikname() + "'" +
-            ", contrasenia='" + getContrasenia() + "'" +
-            ", correo='" + getCorreo() + "'" +
-            ", saldo='" + getSaldo() + "'" +
-            ", imagen='" + getImagen() + "'" +
-            "}";
-    }
-
+	@Override
+	public String toString() {
+		return "Usuario [nikname=" + nikname + ", contrasenia=" + contrasenia + ", correo=" + correo + ", saldo="
+				+ saldo + ", imagen=" + Arrays.toString(imagen) + ", bloqueado=" + bloqueado + "]";
+	}
 }

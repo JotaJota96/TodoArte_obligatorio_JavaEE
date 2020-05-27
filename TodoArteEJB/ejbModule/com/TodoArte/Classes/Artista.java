@@ -1,15 +1,10 @@
 package com.TodoArte.Classes;
 
 import java.io.Serializable;
-import java.io.StringReader;
-import java.io.StringWriter;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-import javax.json.JsonWriter;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import com.TodoArte.Enums.MensajesExcepciones;
@@ -73,42 +67,6 @@ public class Artista extends Usuario implements Serializable {
         this.miSitio.setMiArtista(this);
     }
     //**********************************************************************
-
-    public static String codificar(Artista artista) {
-		JsonObject json = Json.createObjectBuilder()
-	        .add("nombre", artista.getNombre())
-	        .add("biografia", artista.getBiografia())
-	        .add("nikname", artista.getNikname())
-	        .add("contrasenia", artista.getContrasenia())
-	        .add("correo", artista.getCorreo())
-	        .add("saldo", artista.getSaldo())
-           .build();
-		
-		StringWriter strWriter = new StringWriter();
-		try (JsonWriter jsonWriter = Json.createWriter(strWriter)) {jsonWriter.write(json);}
-		return strWriter.toString();
-	}
-    
-	public static Artista decodificar(String strJson) {
-		StringReader reader = new StringReader(strJson);
-		
-		Artista artista = new Artista();
-		
-        try (JsonReader jsonReader = Json.createReader(reader)) {
-            JsonObject json = jsonReader.readObject();
-            artista.setNombre(json.getString("nombre"));
-            artista.setBiografia(json.getString("biografia"));
-            artista.setNikname(json.getString("nikname"));
-            artista.setContrasenia(json.getString("contrasenia"));
-            artista.setCorreo(json.getString("correo"));
-            artista.setSaldo(json.getInt("saldo"));
-          //artista.setImagen(json.getInt("imagen"));
-        }catch (Exception e) {
-        	return null;
-		}
-		return artista;
-	}
-
     
     public void agregarNotificacion(NotificacionArtista notificacion) {
     	notificacion.setId(0);
@@ -122,10 +80,6 @@ public class Artista extends Usuario implements Serializable {
 	}
 
 	public void setNombre(String nombre) {
-		if(nombre.equals("")){
-    		throw new RuntimeException(MensajesExcepciones.nombre);
-    	}
-		
 		this.nombre = nombre;
 	}
 
@@ -134,10 +88,6 @@ public class Artista extends Usuario implements Serializable {
 	}
 
 	public void setBiografia(String biografia) {
-		if(biografia.equals("")){
-    		throw new RuntimeException(MensajesExcepciones.biografia);
-    	}
-		
 		this.biografia = biografia;
 	}
 
@@ -162,13 +112,18 @@ public class Artista extends Usuario implements Serializable {
 	}
 
 	public void setMiSitio(Sitio miSitio) {
-		if(miSitio.equals(null)){
-    		throw new RuntimeException(MensajesExcepciones.sitio);
-    	}
-		
 		this.miSitio = miSitio;
 	}
+
+	@Override
+	public String toString() {
+		return "Artista [nombre=" + nombre + ", biografia=" + biografia + ", notificacion=" + notificacion + ", pagos="
+				+ pagos + ", miSitio=" + miSitio + ", nikname=" + nikname + ", contrasenia=" + contrasenia + ", correo="
+				+ correo + ", saldo=" + saldo + ", imagen=" + Arrays.toString(imagen) + ", bloqueado=" + bloqueado
+				+ "]";
+	}
     
+	
     
 
 }

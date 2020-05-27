@@ -50,34 +50,6 @@ public class Valoracion implements Serializable{
 		this.miFan = miFan;
 	}
 	
-	//****************************************************************************
-	public static String codificar(Valoracion val) {
-			JsonObject json = Json.createObjectBuilder()
-		        .add("id", val.getId())
-		        .add("valoracion", val.getVal())
-	           .build();
-			
-			StringWriter strWriter = new StringWriter();
-			try (JsonWriter jsonWriter = Json.createWriter(strWriter)) {jsonWriter.write(json);}
-			return strWriter.toString();
-		}
-		
-		public static Valoracion decodificar(String strJson) {
-			StringReader reader = new StringReader(strJson);
-			
-			Valoracion val = new Valoracion();
-			
-	        try (JsonReader jsonReader = Json.createReader(reader)) {
-	            JsonObject json = jsonReader.readObject();
-	            val.setId(json.getInt("id"));
-	          //val.setVal(json.getString("valoracion"));
-	        }catch (Exception e) {
-	        	return null;
-			}
-			return val;
-		}
-	//****************************************************************************
-
 	public int getId() {
 		return this.id;
 	}
@@ -91,9 +63,6 @@ public class Valoracion implements Serializable{
 	}
 
 	public void setVal(int val) {
-		if(val>0 && val<6){
-            throw new RuntimeException(MensajesExcepciones.valoracion);
-		}
 		this.val = val;
 	}
 
@@ -102,9 +71,6 @@ public class Valoracion implements Serializable{
 	}
 
 	public void setMiFan(Fan miFan) {
-		if(miFan == null){
-            throw new RuntimeException(MensajesExcepciones.miFan);
-		}
 		this.miFan = miFan;
 	}
 }
