@@ -11,12 +11,14 @@ import com.TodoArte.FachadeControllers.FrontOfficeController;
 public class Pruebas {
 
 	public static void main(String[] args) {
-		//FrontOfficeController fo = new FrontOfficeController();
-		//BackOfficeController bo = new BackOfficeController();
+		FrontOfficeController fo = new FrontOfficeController();
+		BackOfficeController bo = new BackOfficeController();
 		
 		cargarDatosDePrueba(true);
 
-		//System.out.println("-- fin --");
+		fo.listarNotificacionesFan("luc31g");
+		
+		System.out.println("-- fin --");
 	}
 	public static void cargarDatosDePrueba(boolean log) {
 		FrontOfficeController fo = new FrontOfficeController();

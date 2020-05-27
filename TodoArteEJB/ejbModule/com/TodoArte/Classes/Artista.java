@@ -115,15 +115,5 @@ public class Artista extends Usuario implements Serializable {
 		this.miSitio = miSitio;
 	}
 
-	@Override
-	public String toString() {
-		return "Artista [nombre=" + nombre + ", biografia=" + biografia + ", notificacion=" + notificacion + ", pagos="
-				+ pagos + ", miSitio=" + miSitio + ", nikname=" + nikname + ", contrasenia=" + contrasenia + ", correo="
-				+ correo + ", saldo=" + saldo + ", imagen=" + Arrays.toString(imagen) + ", bloqueado=" + bloqueado
-				+ "]";
-	}
-    
-	
-    
 
 }
