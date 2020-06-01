@@ -2,13 +2,9 @@
 package com.wsREST;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Map;
 
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
@@ -22,10 +18,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.TodoArte.Classes.CategoriaContenido;
+import com.TodoArte.Classes.Contenido;
 import com.TodoArte.Classes.Fan;
-import com.TodoArte.Classes.FanSigueSitio;
 import com.TodoArte.Classes.NotificacionFan;
-import com.TodoArte.Enums.Sexo;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
 
 @Path("/fan")
@@ -47,13 +42,38 @@ public class FanWS implements Serializable{
 	@Path("/test")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response test() {
-		Date fecha = new Date(2019,06,05);
-		Fan nuevoFan2 = new Fan("pedro33", "contrasenia", "correo", 0, null,"nombre", "apellido", fecha, "ubicacion", Sexo.Femenino);
-		
-		return Response
-				.status(Response.Status.CREATED)
-				.entity(nuevoFan2)
-				.build();
+		try {
+			String s = "Has llamado ala funcion test";
+			return Response
+					.status(Response.Status.CREATED)
+					.entity(s)
+					.build();
+		} catch (Exception e) {
+			String message = "Ha ocurrido un error: " + e.getMessage();
+			return Response
+					.status(Response.Status.BAD_REQUEST)
+					.entity(message)
+					.build();
+		}
+	}
+	@GET
+	@Path("/testarudo")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response test2() {
+		try {
+			Contenido c = fo.obtenerContenido("ergo", 1, "JotaJota96");
+			Funciones.limpiarVisibilidades(c);
+			return Response
+					.status(Response.Status.CREATED)
+					.entity(c)
+					.build();
+		} catch (Exception e) {
+			String message = "Ha ocurrido un error: " + e.getMessage();
+			return Response
+					.status(Response.Status.BAD_REQUEST)
+					.entity(message)
+					.build();
+		}
 	}
 	
 	
