@@ -1,15 +1,10 @@
 package com.TodoArte.Classes;
 
 import java.io.Serializable;
-import java.io.StringReader;
-import java.io.StringWriter;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-import javax.json.JsonWriter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,7 +32,7 @@ public class FanSigueSitio implements Serializable {
 	@Column(name = "premiun")
     private boolean premiun;
     
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_fan")
     private Fan miFan;
 
@@ -48,6 +43,7 @@ public class FanSigueSitio implements Serializable {
     	if(nickArtista.equals("")){
     		throw new RuntimeException(MensajesExcepciones.nombre);
     	}
+    	
     	if(fan == null){
     		throw new RuntimeException(MensajesExcepciones.Fan);
     	}
@@ -59,38 +55,6 @@ public class FanSigueSitio implements Serializable {
         this.miFan = fan;
     }
     
-  //****************************************************************************
-    public static String codificar(FanSigueSitio fss) {
-    		JsonObject json = Json.createObjectBuilder()
-    	        .add("id", fss.getId())
-    	        .add("nickArtista", fss.getNickArtista())
-    	        .add("bloqueado", fss.getBloqueado())
-    	        .add("premiun", fss.getPremiun())
-               .build();
-    		
-    		StringWriter strWriter = new StringWriter();
-    		try (JsonWriter jsonWriter = Json.createWriter(strWriter)) {jsonWriter.write(json);}
-    		return strWriter.toString();
-    	}
-    	
-    	public static FanSigueSitio decodificar(String strJson) {
-    		StringReader reader = new StringReader(strJson);
-    		
-    		FanSigueSitio fss = new FanSigueSitio();
-    		
-            try (JsonReader jsonReader = Json.createReader(reader)) {
-                JsonObject json = jsonReader.readObject();
-                fss.setId(json.getInt("id"));
-                fss.setNickArtista(json.getString("nickArtista"));
-                fss.setBloqueado(json.getBoolean("bloqueado"));
-                fss.setPremiun(json.getBoolean("premiun"));
-            }catch (Exception e) {
-            	return null;
-    		}
-    		return fss;
-    	}
-    //****************************************************************************
-
     public int getId() {
         return this.id;
     }
@@ -104,10 +68,6 @@ public class FanSigueSitio implements Serializable {
     }
 
     public void setNickArtista(String nickArtista) {
-    	if(nickArtista.equals("")){
-    		throw new RuntimeException(MensajesExcepciones.nombre);
-    	}
-    	
         this.nickArtista = nickArtista;
     }
 
@@ -132,10 +92,6 @@ public class FanSigueSitio implements Serializable {
 	}
 
 	public void setMiFan(Fan miFan) {
-    	if(miFan.equals(null)){
-    		throw new RuntimeException(MensajesExcepciones.Fan);
-    	}
-    	
 		this.miFan = miFan;
 	}
 }

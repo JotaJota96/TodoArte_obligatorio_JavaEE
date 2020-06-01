@@ -62,36 +62,6 @@ public class Venta implements Serializable{
 		this.miFan = miFan;
 	}
 	
-	//****************************************************************************
-	public static String codificar(Venta venta) {
-			JsonObject json = Json.createObjectBuilder()
-		        .add("id", venta.getId())
-		        .add("precio", venta.getPrecio())
-		        .add("fechaYHora", venta.getFechaString())
-	           .build();
-			
-			StringWriter strWriter = new StringWriter();
-			try (JsonWriter jsonWriter = Json.createWriter(strWriter)) {jsonWriter.write(json);}
-			return strWriter.toString();
-		}
-		
-		public static Venta decodificar(String strJson) {
-			StringReader reader = new StringReader(strJson);
-			
-			Venta venta = new Venta();
-			
-	        try (JsonReader jsonReader = Json.createReader(reader)) {
-	            JsonObject json = jsonReader.readObject();
-	            venta.setId(json.getInt("id"));
-	            venta.setPrecio(json.getInt("precio"));
-	            venta.setFechaString(json.getString("fechaYHora"));
-	        }catch (Exception e) {
-	        	return null;
-			}
-			return venta;
-		}
-	//****************************************************************************
-
 	public int getId() {
 		return this.id;
 	}
@@ -105,9 +75,6 @@ public class Venta implements Serializable{
 	}
 
 	public void setPrecio(float precio) {
-		if(precio <= 0){
-            throw new RuntimeException(MensajesExcepciones.precio);
-		}
 		this.precio = precio;
 	}
 
@@ -116,9 +83,6 @@ public class Venta implements Serializable{
 	}
 
 	public void setFechaYHora(Date fechaYHora) {
-		if(fechaYHora == null){
-            throw new RuntimeException(MensajesExcepciones.fechaYHora);
-		}
 		this.fechaYHora = fechaYHora;
 	}
 
@@ -127,26 +91,7 @@ public class Venta implements Serializable{
 	}
 
 	public void setMiFan(Fan miFan) {
-		if(miFan == null){
-            throw new RuntimeException(MensajesExcepciones.miFan);
-		}
 		this.miFan = miFan;
 	}
-	
 
-	public String getFechaString() {
-		DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
-		String fechaString = df.format(getFechaYHora());
-		return fechaString;
-	}
-	
-	public void setFechaString(String fecha) {
-		java.sql.Date fecFormatoDate = null;
-		try {
-		      SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
-		      fecFormatoDate = new java.sql.Date(sdf.parse(fecha).getTime());
-		      setFechaYHora(fecFormatoDate);
-		} catch (Exception ex) {
-		}
-	}
 }
