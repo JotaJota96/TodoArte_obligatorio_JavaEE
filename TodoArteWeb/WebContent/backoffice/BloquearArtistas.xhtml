@@ -28,37 +28,24 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 			<div class="card m-3">
 				<h5 class="card-header">Bloquear Desbloquear Artistas</h5>	 
 				<div class="card-body" style="height: 350px; overflow: auto;">
-					<!-- ***** Listado de contenido **** -->
 					
-					<!-- ***** contenido 0 **** -->
-					<!--
 					<ui:repeat value="#{bloquearArtista.artistas}" var="item">
 						<div class="card my-2">
 							<div class="card-body">
 								<h:form class="form-signin">
 									<div class="row">
-										<div class="col-6">
+										<div class="col-9">
 							         		<h5>Nombre: <h:outputText value="#{item.nikname}" /></h5>
 										</div>
 										<div class="col-3 ">
-							          		<h:commandButton class="btn  btn-danger " value="Bloquear" action="/"/>
-										</div>
-										<div class="col-3 ">
-							          		<h:commandButton class="btn  btn-primary " value="Desbloquear" action="/"/>
+							          		<h:commandButton class="#{bloquearArtista.estaBloqueadoClass(item.nikname)}" value="#{bloquearArtista.estaBloqueadoValue(item.nikname)}" action="#{bloquearArtista.bloquear(item.nikname)}" />
 										</div>
 									</div>	
 								</h:form>
 							</div>
 						</div>
 					</ui:repeat>
-					-->
-					<ui:repeat value="#{bloquearArtista.artistas}" var="item">
-						<h5>Nombre: <h:outputText value="#{item.nikname}" /></h5>
-					</ui:repeat>
-					<!-- ***** contenido 0 **** -->
-					
-					
-					<!-- ********* fin de Listado de contenido ******* -->
+					 
 				</div>
 			</div>
 		</div>
