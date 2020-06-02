@@ -1,25 +1,19 @@
 package com.TodoArte.Classes;
 
 import java.io.Serializable;
-import java.io.StringReader;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-import javax.json.JsonWriter;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
@@ -70,28 +64,28 @@ public class Sitio implements Serializable {
 	@Column(name = "seccionTwitter")
     private int seccionTwitter;
 	
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_Categoria")
     private CategoriaSitio miCategoria;
 	
-	@OneToOne(mappedBy = "miSitio")
+	@OneToOne(mappedBy = "miSitio", fetch = FetchType.EAGER)
     private Artista miArtista;
 	
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_Fuente")
     private Fuente miFuente;
     
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_Sitio")
 	@MapKey(name = "id")
     private Map<Integer, FanSigueSitio> MisFans;
     
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_Sitio")
 	@MapKey(name = "id")
     private Map<Integer, QyAProgramado> MisQyA;
     
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_Sitio")
 	@MapKey(name = "id")
     private Map<Integer, Contenido> MisContenidos;
@@ -109,11 +103,7 @@ public class Sitio implements Serializable {
     	if(miCategoria == null){
             throw new RuntimeException(MensajesExcepciones.categoria);
 		}
-    	/*
-    	if(miArtista == null){
-            throw new RuntimeException(MensajesExcepciones.artista);
-		}
-    	*/
+    	
     	if(miFuente == null){
             throw new RuntimeException(MensajesExcepciones.fuente);
 		}
@@ -136,51 +126,6 @@ public class Sitio implements Serializable {
         this.MisContenidos = new TreeMap<Integer, Contenido>();
 	}
     //**********************************************************************
-    
-    public static String codificar(Sitio sitio) {
-    		JsonObject json = Json.createObjectBuilder()
-    	        .add("id", sitio.getId())
-    	        .add("precioPremium", sitio.getPrecioPremium())
-    	        .add("colorDeFondo", sitio.getColorDeFondo())
-    	        .add("colorDeMenu", sitio.getColorDeMenu())
-    	        .add("colorDeTexto", sitio.getColorDeTexto())
-    	        .add("rrssYouTube", sitio.getRrssYouTube())
-    	        .add("rrssFacebook", sitio.getRrssFacebook())
-    	        .add("rrssInstagram", sitio.getRrssInstagram())
-    	        .add("rrssTwitter", sitio.getRrssTwitter())
-    	        .add("seccionTwitter", sitio.getSeccionTwitter())
-    	        //.add("imagenPortada", sitio.getImagenPortada())
-               .build();
-    		
-    		StringWriter strWriter = new StringWriter();
-    		try (JsonWriter jsonWriter = Json.createWriter(strWriter)) {jsonWriter.write(json);}
-    		return strWriter.toString();
-    	}
-    	
-    	public static Sitio decodificar(String strJson) {
-    		StringReader reader = new StringReader(strJson);
-    		
-    		Sitio sitio = new Sitio();
-    		
-            try (JsonReader jsonReader = Json.createReader(reader)) {
-                JsonObject json = jsonReader.readObject();
-                sitio.setId(json.getInt("id"));
-                sitio.setPrecioPremium(json.getInt("precioPremium"));
-                sitio.setColorDeFondo(json.getString("colorDeFondo"));
-                sitio.setColorDeMenu(json.getString("colorDeMenu"));
-                sitio.setColorDeTexto(json.getString("colorDeTexto"));
-                sitio.setRrssYouTube(json.getString("rrssYouTube"));
-                sitio.setRrssFacebook(json.getString("rrssFacebook"));
-                sitio.setRrssInstagram(json.getString("rrssInstagram"));
-                sitio.setRrssTwitter(json.getString("rrssTwitter"));
-                sitio.setSeccionTwitter(json.getInt("seccionTwitter"));
-              //sitio.setImagenPortada(json.get("imagenPortada"));
-            }catch (Exception e) {
-            	return null;
-    		}
-    		return sitio;
-    	}
-    
 	public void comprarPremium(String idFan) {
 		// encontrar FanSigueASitio de ese fan y actualizarlo, tambien en BDD
 		
@@ -311,9 +256,6 @@ public class Sitio implements Serializable {
 	}
 
 	public void setPrecioPremium(float precioPremium) {
-		if(precioPremium < 0){
-            throw new RuntimeException(MensajesExcepciones.precio);
-		}
 		this.precioPremium = precioPremium;
 	}
 
@@ -386,9 +328,6 @@ public class Sitio implements Serializable {
 	}
 
 	public void setMiCategoria(CategoriaSitio miCategoria) {
-		if(miCategoria == null){
-            throw new RuntimeException(MensajesExcepciones.categoria);
-		}
 		this.miCategoria = miCategoria;
 	}
 
@@ -397,9 +336,6 @@ public class Sitio implements Serializable {
 	}
 
 	public void setMiArtista(Artista miArtista) {
-		if(miArtista == null){
-            throw new RuntimeException(MensajesExcepciones.artista);
-		}
 		this.miArtista = miArtista;
 	}
 
@@ -408,9 +344,6 @@ public class Sitio implements Serializable {
 	}
 
 	public void setMiFuente(Fuente miFuente) {
-		if(miFuente == null){
-            throw new RuntimeException(MensajesExcepciones.fuente);
-		}
 		this.miFuente = miFuente;
 	}
 
