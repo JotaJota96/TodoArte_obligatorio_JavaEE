@@ -28,6 +28,7 @@ import com.TodoArte.InternalControllers.FanController;
 import com.TodoArte.JPAControllerClasses.ArtistaJpaController;
 import com.TodoArte.JPAControllerClasses.CategoriaContenidoJpaController;
 import com.TodoArte.JPAControllerClasses.CategoriaSitioJpaController;
+import com.TodoArte.JPAControllerClasses.ContenidoJpaController;
 import com.TodoArte.JPAControllerClasses.FanJpaController;
 import com.TodoArte.JPAControllerClasses.FuenteJpaController;
 import com.sun.xml.bind.v2.schemagen.xmlschema.List;
@@ -200,6 +201,17 @@ public class FrontOfficeController implements FrontOfficeInterface{
 	public ArrayList<Artista> listarArtistas() {
 		ArrayList<Artista> ret = new ArrayList<Artista>(new ArtistaJpaController().findArtistaEntities());
 		return ret;
+	}
+
+	@Override
+	public ArrayList<Contenido> listarContenido() {
+		ArrayList<Contenido> ret = new ArrayList<Contenido>(new ContenidoJpaController().findContenidoEntities());
+		return ret;
+	}
+
+	@Override
+	public Contenido obtenerUnContenido(int idContenido) {
+		return new ContenidoJpaController().findContenido(idContenido);
 	}
 
 }
