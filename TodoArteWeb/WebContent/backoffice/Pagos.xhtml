@@ -23,68 +23,51 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 	
 <div class="tab-pane fade" id="Pagos" role="tabpanel" aria-labelledby="pills-profile-tab">
 	<div class="row">
-		<div class="col-3"></div>
-		<div class="col-6">
+		<div class="col-12 col-md-10 m-auto">
 			<div class="card m-3">
 				<h5 class="card-header">Obtener información sobre pagos</h5>	 
-				<div class="card-body" style="height: 350px; overflow: auto;">
-					<!-- ***** Listado de contenido **** -->
-					<!-- ***** contenido 1 **** -->
-					<div class="card my-2">
-						<div class="card-body">
-							<h:form class="form-signin">
-								<div class="row text-center">
-									<div class="col-6">
-						         		<h5>Pago numero: <h:outputText value="67" /></h5>
-									</div>
-									<div class="col-6 ">
-						          		<h:commandButton class="btn  btn-primary " value="Informacion" action="Informacion"/>
-									</div>
-								</div>	
-							</h:form>
+				<div class="card-body">
+					<h:form class="form">
+						<div class="row">
+							
+							<div class="form-group col-12 dropdown show">
+								<label for="artista">Artista</label>
+								<h:selectOneMenu class="custom-select" id="artista"
+									value="#{pagosBean.idArtista}">
+									<f:selectItems  value="#{pagosBean.lstArtistas}" var="art"
+										itemValue="#{art.nikname}" 
+										itemLabel="#{art.nikname} - #{art.nombre}" />
+								</h:selectOneMenu>
+							</div>
+							
+							<div class="col-12 text-right">
+				          		<h:commandButton class="btn  btn-primary " value="Actualizar" actionListener="#{pagosBean.actualizarTabla()}"/>
+							</div>
 						</div>
-					</div>
-					<!-- ***** fin de contenido 1 **** -->
+					</h:form>
 					
-					<!-- ***** contenido 1 **** -->
-					<div class="card my-2">
-						<div class="card-body">
-							<h:form class="form-signin">
-								<div class="row text-center">
-									<div class="col-6">
-						         		<h5>Pago numero: <h:outputText value="68" /></h5>
-									</div>
-									<div class="col-6 ">
-						          		<h:commandButton class="btn  btn-primary " value="Informacion" action="Informacion"/>
-									</div>
-								</div>	
-							</h:form>
-						</div>
-					</div>
-					<!-- ***** fin de contenido 1 **** -->
 					
-					<!-- ***** contenido 1 **** -->
-					<div class="card my-2">
-						<div class="card-body">
-							<h:form class="form-signin">
-								<div class="row text-center">
-									<div class="col-6">
-						         		<h5>Pago numero: <h:outputText value="69" /></h5>
-									</div>
-									<div class="col-6 ">
-						          		<h:commandButton class="btn  btn-primary " value="Informacion" action="Informacion"/>
-									</div>
-								</div>	
-							</h:form>
-						</div>
-					</div>
-					<!-- ***** fin de contenido 1 **** -->
-					
-					<!-- ********* fin de Listado de contenido ******* -->
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th scope="col">id</th>
+								<th scope="col">Monto</th>
+								<th scope="col">Fecha</th>
+							</tr>
+						</thead>
+						<tbody>
+							<ui:repeat value="#{pagosBean.lstPagos}" var="pago">
+								<tr>
+									<th scope="row">#{pago.id}</th>
+									<td>#{pago.monto}</td>
+									<td>#{pago.fechaYHora}</td>
+								</tr>
+							</ui:repeat>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
-		<div class="col-3"></div>
 	</div>
 </div>
 	
