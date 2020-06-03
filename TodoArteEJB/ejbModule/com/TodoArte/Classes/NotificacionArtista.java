@@ -31,6 +31,7 @@ public class NotificacionArtista implements Serializable {
     private Date fechaYHora;
 
     public NotificacionArtista() {
+        this.fechaYHora = new Date(System.currentTimeMillis());
     }
 
     public NotificacionArtista(int id, String titulo, String descripcion, Date fechaYHora) {
@@ -40,14 +41,10 @@ public class NotificacionArtista implements Serializable {
     	if(descripcion.equals("")){
             throw new RuntimeException(MensajesExcepciones.descripcion);
 		}
-    	if(fechaYHora == null){
-            throw new RuntimeException(MensajesExcepciones.fechaYHora);
-		}
-    	
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
-        this.fechaYHora = fechaYHora;
+        this.fechaYHora = new Date(System.currentTimeMillis());
     }
 
     public int getId() {
