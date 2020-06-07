@@ -22,42 +22,39 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:body>
 
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top ">
-		<a class="navbar-brand" href="http://localhost:8080/TodoArteWeb/home.jsf"><img src="img/logo.png" width="50px" height="50px"></img></a>
+		<a class="navbar-brand" href="home.jsf">
+			<img src="img/logo.png" width="50px" height="50px"></img>
+		</a>
+		
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
+		
 		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 			<ul class="navbar-nav mr-auto">
-				
-				<!--** opcion **-->
 				<li class="nav-item">
-					<a class="nav-link" href="http://localhost:8080/TodoArteWeb/VerSitio.jsf">Sobre mi</a>
+					<a class="nav-link" href="sitio.jsf">Sobre mi</a>
 				</li>
-				<!--************-->
-			
-				<!--** opcion **-->
 				<li class="nav-item">
-					<a class="nav-link" href="http://localhost:8080/TodoArteWeb/VerImagen.jsf">Imagene</a>
+					<a class="nav-link" href="sitio-imagenes.jsf">Imagene</a>
 				</li>
-				<!--************-->
-				
-				<!--** opcion **-->
 				<li class="nav-item">
-					<a class="nav-link" href="http://localhost:8080/TodoArteWeb/VerVideo.jsf">Video</a>
+					<a class="nav-link" href="sitio-videos.jsf">Video</a>
 				</li>
-				<!--************-->
-				
-				<!--** opcion **-->
 				<li class="nav-item">
-					<a class="nav-link" href="http://localhost:8080/TodoArteWeb/VerMusica.jsf">Musica</a>
+					<a class="nav-link" href="sitio-musica.jsf">Música</a>
 				</li>
-				<!--************-->
-
+				<li class="nav-item">
+					<a class="nav-link" href="sitio-documentos.jsf">Documentos</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="sitio-otros.jsf">Otros</a>
+				</li>
 			</ul>
 			
 			<ul class="navbar-nav mr-4">
 				<li class="nav-item">
-					<a href="http://localhost:8080/TodoArteWeb/Notificaciones.jsf"><img src="img/campana.png" width="30px" height="30px"></img></a>
+					<a href="notificaciones-fan.jsf"><img src="img/campana.png" width="30px" height="30px"></img></a>
 				</li>
 			</ul>
 		</div>

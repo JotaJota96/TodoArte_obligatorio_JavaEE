@@ -17,6 +17,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
+
 </h:head>
 
 <h:body>
@@ -28,13 +29,30 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 
 			<h:form class="form-signin">
 			 	<div class="form-group text-left">
-		          	<label for="nickname">Nombre de Nueva Categoria</label>
-		          	<h:inputText type="text" class="form-control" id="nickname" value=""></h:inputText>
+		          	<label for="nombreSitio">Nombre de Nueva Categoria Contenido Sitio</label>
+		          	<h:inputText required="true" requiredMessage="Debe ingresar un nombre" type="text" class="form-control" id="nombreSitio" value="#{definirCategoria.catSit.nombreCat}"></h:inputText>
+		          	<span class="text-danger">
+							<h:message for="nombreSitio"/>
+					</span>
 	         	</div>
 	         	<div class="form-group text-right">
-		          	<h:commandButton class="btn btn-lg btn-primary mt-2 btn-block" value="Definir" action="Definir"/>
+		          	<h:commandButton class="btn btn-lg btn-primary mt-2 btn-block" value="Definir" action="#{definirCategoria.definirCategoriaSitio()}"/>
 	         	</div>
-	         	<h5>Estado: <h:outputText value="Ingresado exitoso." /></h5>
+		 	</h:form>
+		 	
+		 	<hr/>
+		 	
+		 	<h:form class="form-signin">
+			 	<div class="form-group text-left">
+		          	<label for="nombreContenido">Nombre de Nueva Categoria Contenido</label>
+		          	<h:inputText required="true" requiredMessage="Debe ingresar un nombre" type="text" class="form-control" id="nombreContenido" value="#{definirCategoria.catCont.nombreCategoria}"></h:inputText>
+		          	<span class="text-danger">
+						<h:message for="nombreContenido"/>
+					</span>
+	         	</div>
+	         	<div class="form-group text-right">
+		          	<h:commandButton class="btn btn-lg btn-primary mt-2 btn-block" value="Definir" action="#{definirCategoria.definirCategoriaContenido()}"/>
+	         	</div>
 		 	</h:form>
 
 		</div>

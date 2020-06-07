@@ -8,6 +8,7 @@ import java.util.TreeMap;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
@@ -26,17 +27,17 @@ public class Artista extends Usuario implements Serializable {
 	@Column(name = "biografia")
     private String biografia;
 	
-	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_artista")
 	@MapKey(name = "id")
     private Map<Integer, NotificacionArtista> notificacion;
 	
-	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_artista")
 	@MapKey(name = "id")
     private Map<Integer, PagoAPlataforma> pagos;
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_sitio")
     private Sitio miSitio;
 
@@ -115,15 +116,5 @@ public class Artista extends Usuario implements Serializable {
 		this.miSitio = miSitio;
 	}
 
-	@Override
-	public String toString() {
-		return "Artista [nombre=" + nombre + ", biografia=" + biografia + ", notificacion=" + notificacion + ", pagos="
-				+ pagos + ", miSitio=" + miSitio + ", nikname=" + nikname + ", contrasenia=" + contrasenia + ", correo="
-				+ correo + ", saldo=" + saldo + ", imagen=" + Arrays.toString(imagen) + ", bloqueado=" + bloqueado
-				+ "]";
-	}
-    
-	
-    
 
 }

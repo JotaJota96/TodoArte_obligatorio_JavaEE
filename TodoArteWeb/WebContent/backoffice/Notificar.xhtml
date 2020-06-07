@@ -26,27 +26,50 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 		<div class="col-2"></div>
 		<div class="col-8">
 			<div class="card m-3">
-				<h5 class="card-header">Notificar a los artistas</h5>	 
-				<div class="card-body" style="height: 350px; overflow: auto;">
+				<h5 class="card-header">Notificar a un artista</h5>	 
+				<div class="card-body">
 					<!-- ***** Listado de contenido **** -->
 					
 					<!-- ***** contenido 1 **** -->
-					<div class="card my-2">
-						<div class="card-body">
-							<h:form class="form">
-								<div class="row">
-									<div class="col-6">
-						         		<h5>Nombre: <h:outputText value="Marcelito17" /></h5>
-									</div>
-									<div class="col-4">
-							          	<h:inputText type="text" class="form-control" value=""></h:inputText>
-									</div>
-									<div class="col-2">
-						          		<h:commandButton class="btn  btn-warning " value="Notificar" action="Notificar"/>
-									</div>
-								</div>	
-							</h:form>
-						</div>
+					<div class="my-2">
+						<h:form class="form">
+							<div class="row">
+								
+								<div class="form-group col-12 dropdown show">
+									<label for="artista">Artista</label>
+									<h:selectOneMenu class="custom-select" id="artista"
+										value="#{notificarArtistaBean.idArtista}">
+										<f:selectItems  value="#{notificarArtistaBean.lstArtistas}" var="art"
+											itemValue="#{art.nikname}" 
+											itemLabel="#{art.nikname} - #{art.nombre}" />
+									</h:selectOneMenu>
+								</div>
+								
+								<div class="form-group col-12">
+									<label for="titulo">Título</label>
+									<h:inputText class="form-control" id="titulo"
+										required="true" requiredMessage="Debe ingresar un título"
+										value="#{notificarArtistaBean.notificacion.titulo}"></h:inputText>
+									<span class="text-danger">
+										<h:message for="titulo"/>
+									</span>
+								</div>
+								
+								<div class="form-group col-12">
+									<label for="descripcion">Descripción</label>
+									<h:inputTextarea class="form-control" id="descripcion"
+										required="true" requiredMessage="Debe ingresar una descripcion"
+										value="#{notificarArtistaBean.notificacion.descripcion}" rows="3" />
+									<span class="text-danger">
+										<h:message for="descripcion"/>
+									</span>
+								</div>
+								
+								<div class="col-12 text-right">
+					          		<h:commandButton class="btn  btn-primary " value="Notificar" actionListener="#{notificarArtistaBean.enviarNotificacion()}"/>
+								</div>
+							</div>	
+						</h:form>
 					</div>
 					<!-- ***** fin de contenido 1 **** -->
 					
