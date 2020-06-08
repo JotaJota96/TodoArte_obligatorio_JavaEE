@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+		crossorigin="anonymous" />
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+
+</h:head>
+
+
+<h:body class="bg-light">
+
+	<ui:include src="heather/heatherSimple.xhtml" />
+
+	<main role="main" class="container mt-5 mb-5">
+		<div class="row">
+			<div class="col-md-2"></div>
+
+			<div class="col-md-8">
+				<h4 class="ml-3">Centro de Notificaciones</h4>
+				<div class="card m-3">
+					<div class="card-body" style="height: 400px; overflow: auto;">
+
+						<!-- ***** inicio de la noticia **** -->
+						<div class="card my-2">
+							<div class="card-body">
+								<h5 class="card-text align-middle ">Marcelito17 ha subido
+									un nuevo video</h5>
+							</div>
+						</div>
+
+						<div class="card my-2">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-9">
+										<h5 class="card-text align-middle ">Marcelito17 ha
+											Programado una nueva QA</h5>
+									</div>
+									<div class="col-3">
+										<h:form>
+											<h:commandButton class="btn btn-info" value="Subscribirse"
+												action="Subscribirse" />
+										</h:form>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="card my-2">
+							<div class="card-body">
+								<h5 class="card-text align-middle ">Marcelito17 ha subido
+									una nueva cancion</h5>
+							</div>
+						</div>
+
+						<div class="card my-2">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-9">
+										<h5 class="card-text align-middle ">Marcelito17 ha
+											Iniciado QA</h5>
+									</div>
+									<div class="col-3">
+										<a class="btn btn-info" href="qya.jsf">Participar</a>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="card my-2">
+							<div class="card-body">
+								<h5 class="card-text align-middle ">Marcelito17 ha subido
+									un nuevo video</h5>
+							</div>
+						</div>
+						<!-- ********* fin de la noticia ******* -->
+
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+	</main>
+
+	<ui:include src="footer/footer.xhtml" />
+
+</h:body>
+
+</html>
