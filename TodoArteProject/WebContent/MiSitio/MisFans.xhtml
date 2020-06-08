@@ -34,49 +34,49 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 								<!-- inicio de lista de fans -->
 
 								<!-- ***** inico fan **** -->
-			
-								<div class="card my-2">
-									<div class="card-body">
-										<div class="row text-center">
-											<div class="col-lg-3 my-1">
-												<h5>Hernesto34</h5>
+								<ui:repeat value="#{misFans.listaFan}" var="item">
+									<div class="card my-2">
+										<div class="card-body">
+											<div class="row text-center">
+												<div class="col-lg-3 my-1">
+													<h5>#{item.nikname}</h5>
+												</div>
+												
+												<div class="col-lg-2 my-1"></div>
+												
+												<div class="col-lg-2 my-1">
+													<h:form class="form-signin">   												
+														<h:commandButton class="#{bloquearArtista.estaBloqueadoClass(item.nikname)}" value="#{bloquearArtista.estaBloqueadoValue(item.nikname)}" action="#{misFans.bloquearDesbloquearFan(item.nikname)}"/>
+													</h:form>
+												</div>
+												
+												<!-- 
+												<div class="col-lg-2 my-1">
+													<h:form class="form-signin">
+														<h:commandButton class="btn  btn-warning " value="Desbloquear" action="desbloquear"/>
+													</h:form>
+												</div>
+												 -->
+												
+												<div class="col-lg-3 my-1">
+												
+													<h:form class="form-signin">
+														<a class="btn  btn-primary text-white" onclick="esconder('#{item.nikname}')">Más informacion</a>
+													</h:form>
+												</div>
+												
 											</div>
 											
-											<div class="col-lg-2 my-1"></div>
-											
-											<div class="col-lg-2 my-1">
-												<h:form class="form-signin">   												
-													<h:commandButton class="btn  btn-danger " value="Bloquear" action="bloquear"/>
-												</h:form>
+											<!-- inicio Informacion del fan -->
+											<div id="#{item.nikname}" style="display:none;">
+												<hr/>
+												<h5>Ubicacion: <h:outputText value="#{item.ubicacion}" id="ubicacion"/></h5>
+												<h5>Sexo: <h:outputText value="#{item.sexo}" id="sexo"/></h5>
 											</div>
-											
-											<div class="col-lg-2 my-1">
-												<h:form class="form-signin">
-													<h:commandButton class="btn  btn-warning " value="Desbloquear" action="desbloquear"/>
-												</h:form>
-											</div>
-											
-											
-											<div class="col-lg-3 my-1">
-											
-												<h:form class="form-signin">
-													<a class="btn  btn-primary text-white" onclick="esconder('fan')">Más informacion</a>
-												</h:form>
-											</div>
-											
+											<!-- fin Informacion del fan -->
 										</div>
-										
-										<!-- inicio Informacion del fan -->
-										<div id="fan" style="display:none;">
-											<hr/>
-											<h5>Ubicacion: <h:outputText value="San Jose de mayo" id="ubicacion"/></h5>
-											<h5>Sexo: <h:outputText value="1" id="sexo"/></h5>
-											<h5>Gustos: <h:outputText value="Maluma" id="gustos"/></h5>
-										</div>
-										<!-- fin Informacion del fan -->
 									</div>
-								</div>
-
+								</ui:repeat>
 								<!-- ********* fin fan ******* -->
 								
 								<!-- fin de lista de fans -->
