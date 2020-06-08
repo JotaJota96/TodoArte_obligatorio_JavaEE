@@ -3,14 +3,17 @@ package beans.MiSitio;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Named;
 
 import com.TodoArte.Classes.Fan;
+import com.TodoArte.Classes.FanSigueSitio;
 import com.TodoArte.Classes.PagoAPlataforma;
 import com.TodoArte.Classes.Usuario;
 import com.TodoArte.Enums.Sexo;
@@ -29,10 +32,10 @@ public class MisFans implements Serializable {
 	private BackOfficeInterface bo = new BackOfficeController();
 	
 	private ArrayList<Fan> listaFan = new ArrayList<Fan>();
-	
+	private String idArtista;
 	
 	//-----------funciones-------------------------------
-	
+
 	public void bloquearDesbloquearFan(String idFan) {
 		String idArtista = "ergo"; //idArtista obtenido por la variable secion
 		
@@ -40,7 +43,11 @@ public class MisFans implements Serializable {
 	}
 	
 	public String estaBloqueadoValue(String nikname) {
-		Usuario user = fo.obtenerDatosUsuario(nikname);
+		Fan f = (Fan)fo.obtenerDatosUsuario(nikname);
+		
+		Map<Integer, FanSigueSitio> map = f.getMisSitiosSeguidos();
+		
+		
 		if(user.getBloqueado()) {
 			return "Desbloquear";
 		}
@@ -60,6 +67,14 @@ public class MisFans implements Serializable {
 	}
 	
 	//----------setters getters constructors---------
+	public String getIdArtista() {
+		return idArtista;
+	}
+
+	public void setIdArtista(String idArtista) {
+		this.idArtista = idArtista;
+	}
+	
 	public ArrayList<Fan> getListaFan() {
 		return listaFan;
 	}
@@ -74,7 +89,7 @@ public class MisFans implements Serializable {
 	@PostConstruct
 	public void init() {
 		
-		String idArtista = "ergo"; //idArtista obtenido por la variable secion
+		idArtista = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("nickname");
 		
 		//fo.suscribirseFanArtista("alfajor", "ergo"); //esto altero la base de datos
 				
