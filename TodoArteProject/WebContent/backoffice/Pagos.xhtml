@@ -32,7 +32,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 							
 							<div class="form-group col-12 dropdown show">
 								<label for="artista">Artista</label>
-								<h:selectOneMenu class="custom-select" id="artista"
+								<h:selectOneMenu class="custom-select" id="selectArtista"
 									value="#{pagosBean.idArtista}">
 									<f:selectItems  value="#{pagosBean.lstArtistas}" var="art"
 										itemValue="#{art.nikname}" 
@@ -41,30 +41,35 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 							</div>
 							
 							<div class="col-12 text-right">
-				          		<h:commandButton class="btn  btn-primary " value="Actualizar" actionListener="#{pagosBean.actualizarTabla()}"/>
+				          		<h:commandButton class="btn  btn-primary " id="btnActualizar" value="Actualizar" >
+				          			<f:ajax render="tablaPagos" execute="selectArtista" listener="#{pagosBean.actualizarTabla}" ></f:ajax>
+				          		</h:commandButton>
 							</div>
 						</div>
 					</h:form>
 					
+							
+					<h:dataTable class="table table-bordered" value="#{pagosBean.lstPagos}" var="p" id="tablaPagos">
+		                <h:column>
+		                    <f:facet name="header">
+		                        ID
+		                    </f:facet>
+		                    <h:outputText value="#{p.id}" />
+		                </h:column>
+		                <h:column>
+		                    <f:facet name="header">
+		                        Monto
+		                    </f:facet>
+		                    <h:outputText value="#{p.monto}" />
+		                </h:column>
+		                <h:column>
+		                    <f:facet name="header">
+		                        Fecha
+		                    </f:facet>
+		                    <h:outputText value="#{p.fechaYHora}" />
+		                </h:column>
+		            </h:dataTable>
 					
-					<table class="table table-bordered">
-						<thead>
-							<tr>
-								<th scope="col">id</th>
-								<th scope="col">Monto</th>
-								<th scope="col">Fecha</th>
-							</tr>
-						</thead>
-						<tbody>
-							<ui:repeat value="#{pagosBean.lstPagos}" var="pago">
-								<tr>
-									<th scope="row">#{pago.id}</th>
-									<td>#{pago.monto}</td>
-									<td>#{pago.fechaYHora}</td>
-								</tr>
-							</ui:repeat>
-						</tbody>
-					</table>
 				</div>
 			</div>
 		</div>

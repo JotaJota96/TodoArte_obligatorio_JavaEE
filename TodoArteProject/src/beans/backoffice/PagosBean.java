@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Named;
 
 import com.TodoArte.Classes.Artista;
@@ -27,7 +28,7 @@ public class PagosBean implements Serializable {
 	private List<PagoAPlataforma> lstPagos = new ArrayList<PagoAPlataforma>();
 	private String idArtista;
 	//-- Funciones --------------------------------------------------------------------------------------
-	public void actualizarTabla() {
+	public void actualizarTabla(AjaxBehaviorEvent  event) {
 		try {
 			lstPagos = bo.obtenerPagos(idArtista);
 		} catch (Exception e) {
