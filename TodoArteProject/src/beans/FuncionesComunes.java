@@ -3,6 +3,7 @@ package beans;
 import java.io.InputStream;
 import java.sql.Date;
 
+import javax.faces.context.FacesContext;
 import javax.servlet.http.Part;
 /**
  * Esta clase contiene funciones que pueden ser utiles en cualquier Bean de este proyecto web
@@ -43,6 +44,19 @@ public class FuncionesComunes {
 		return new Date(fechaUtil.getTime());
 	}
 	
+	/**
+	 * Devuelve true si el usuario actual esta logueado como el rol esecificado (admin, fan, artista)
+	 * @param rol
+	 * @return
+	 */
+	public static boolean rolActual(String rol) {
+		String rolSesion = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("rol");
+		if (rolSesion != null) {
+			return rolSesion.equals(rol);
+		}
+		return false;
+	}
+
 	/**
 	 * Para agregar nuevas funciones, recordar que debe ser 'public static'
 	 */
