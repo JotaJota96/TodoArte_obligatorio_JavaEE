@@ -34,107 +34,43 @@
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-md-10">
+			
 				<h4 class="ml-3">Buscar Artista</h4>
 				<div class="card m-3">
 					<h5 class="card-header">
 						<h:form class="form-inline">
-							<h:inputText class="form-control mr-sm-2" type="search"
-								placeholder="Search" aria-label="Search"></h:inputText>
-							<h:commandButton class="btn btn-primary my-1" value="Buscar"
-								action="register" />
+							<h:inputText class="form-control mr-sm-2" id="buscarInput" type="search"
+								placeholder="Search" aria-label="Search" value="#{buscarBean.busqueda}"></h:inputText>
+				          		
+								<h:commandButton class="btn  btn-primary my-1" id="btnActualizar" value="Buscar" >
+				          			<f:ajax render="tablaPagos" execute="buscarInput" listener="#{buscarBean.buscarArtista}" ></f:ajax>
+				          		</h:commandButton>
 						</h:form>
 					</h5>
 
-					<div class="card-body" style="height: 350px; overflow: auto;">
-						<!-- inicio de Artistas -->
-
-						<!-- ***** resultados de la busqueda artista **** -->
-						<div class="card my-2">
-							<div class="card-body">
-								<div class="row">
-									<div class="col-3 text-center">
-										<img src="img/logo.png" width="50px" height="50px"></img>
-									</div>
-
-									<div class="col-5 ">
-										<h5 class="card-text align-middle "
-											style="color: rgb(70, 70, 255);">Marcelo17</h5>
-									</div>
-
-									<div class="col-4 ">
-										<h5 class="card-text align-middle ">Precio Premium: $45</h5>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- ********* fin de la busqueda artista ******* -->
-
-						<!-- ***** resultados de la busqueda artista **** -->
-						<div class="card my-2">
-							<div class="card-body">
-								<div class="row">
-									<div class="col-3 text-center">
-										<img src="img/logo.png" width="50px" height="50px"></img>
-									</div>
-
-									<div class="col-5 ">
-										<h5 class="card-text align-middle "
-											style="color: rgb(70, 70, 255);">Marcelo17</h5>
-									</div>
-
-									<div class="col-4 ">
-										<h5 class="card-text align-middle ">Precio Premium: $45</h5>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<!-- ********* fin de la busqueda artista ******* -->
-
-						<!-- ***** resultados de la busqueda artista **** -->
-						<div class="card my-2">
-							<div class="card-body">
-								<div class="row">
-									<div class="col-3 text-center">
-										<img src="img/logo.png" width="50px" height="50px"></img>
-									</div>
-
-									<div class="col-5 ">
-										<h5 class="card-text align-middle "
-											style="color: rgb(70, 70, 255);">Marcelo17</h5>
-									</div>
-
-									<div class="col-4 ">
-										<h5 class="card-text align-middle ">Precio Premium: $45</h5>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- ********* fin de la busqueda artista ******* -->
-
-						<!-- ***** resultados de la busqueda artista **** -->
-						<div class="card my-2">
-							<div class="card-body">
-								<div class="row">
-									<div class="col-3 text-center">
-										<img src="img/logo.png" width="50px" height="50px"></img>
-									</div>
-
-									<div class="col-5 ">
-										<h5 class="card-text align-middle "
-											style="color: rgb(70, 70, 255);">Marcelo17</h5>
-									</div>
-
-									<div class="col-4 ">
-										<h5 class="card-text align-middle ">Precio Premium: $45</h5>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- ********* fin de la busqueda artista ******* -->
-
+					<div class="card-body" id="Contendor" style="height: 350px; overflow: auto;">
+						<!-- inicio de Artistas -->						
+						<h:dataTable class="table table-bordered" value="#{buscarBean.lstArtistas}" var="p" id="tablaPagos">
+			                <h:column>
+			                    <img src="/recurso/multimedia/usuario/imagen/#{p.nikname}" />
+			                </h:column>
+			                
+			                <h:column>
+			                    <h:outputText value="#{p.nikname}" />
+			                </h:column>
+			                
+			                <h:column>
+			                    <h:outputText value="#{p.nombre}" />
+			                </h:column>
+			                
+			                <h:column>
+			                	<a href="/TodoArteProject/sitio.jsf?id=#{p.nikname}" >ver mas</a>
+			                </h:column>
+			
+			            </h:dataTable>	            
 						<!-- fin de Artistas -->
 					</div>
+					
 				</div>
 			</div>
 			<div class="col-md-1"></div>
