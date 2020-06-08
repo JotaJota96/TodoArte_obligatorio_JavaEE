@@ -23,69 +23,36 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 	
 <div class="tab-pane fade" id="BloquearContenido" role="tabpanel" aria-labelledby="pills-profile-tab">
 	<div class="row">
-		<div class="col-3"></div>
-		<div class="col-6">
+		<div class="col-2"></div>
+		<div class="col-8">
 			<div class="card m-3">
 				<h5 class="card-header">Bloquear contenido</h5>	 
 				<div class="card-body" style="height: 350px; overflow: auto;">
 					<!-- ***** Listado de contenido **** -->
 					
-					<!-- ***** contenido 1 **** -->
-					<div class="card my-2">
-						<div class="card-body">
-							<h:form class="form-signin">
-								<div class="row">
-									<div class="col-8">
-						         		<h5>Titulo: <h:outputText value="playa 67" /></h5>
-									</div>
-									<div class="col-4 ">
-						          		<h:commandButton class="btn  btn-danger " value="Bloquear" action="Bloquear"/>
-									</div>
-								</div>	
-							</h:form>
+					<ui:repeat value="#{bloquearContenido.contenidos}" var="item">
+						<div class="card my-2">
+							<div class="card-body">
+								<h:form class="form-signin">
+									<div class="row">
+										<div class="col-9">
+							         		<h5>#{item.id} - Titulo: #{item.titulo}</h5>
+										</div>
+										<div class="col-3 ">
+							          		<h:commandButton class="#{bloquearContenido.estaBloqueadoClass(item.id)}" value="#{bloquearContenido.estaBloqueadoValue(item.id)}" actionListener="#{bloquearContenido.bloquear(item.id)}" />
+										</div>
+									</div>	
+								</h:form>
+							</div>
 						</div>
-					</div>
-					<!-- ***** fin de contenido 1 **** -->
-					
-					<!-- ***** contenido 1 **** -->
-					<div class="card my-2">
-						<div class="card-body">
-							<h:form class="form-signin">
-								<div class="row">
-									<div class="col-8">
-						         		<h5>Titulo: <h:outputText value="playa 67" /></h5>
-									</div>
-									<div class="col-4 ">
-						          		<h:commandButton class="btn  btn-danger " value="Bloquear" action="Bloquear"/>
-									</div>
-								</div>	
-							</h:form>
-						</div>
-					</div>
-					<!-- ***** fin de contenido 1 **** -->
-					
-					<!-- ***** contenido 1 **** -->
-					<div class="card my-2">
-						<div class="card-body">
-							<h:form class="form-signin">
-								<div class="row">
-									<div class="col-8">
-						         		<h5>Titulo: <h:outputText value="playa 67" /></h5>
-									</div>
-									<div class="col-4 ">
-						          		<h:commandButton class="btn  btn-danger " value="Bloquear" action="Bloquear"/>
-									</div>
-								</div>	
-							</h:form>
-						</div>
-					</div>
-					<!-- ***** fin de contenido 1 **** -->
+					</ui:repeat>
+					 
 					
 					<!-- ********* fin de Listado de contenido ******* -->
 				</div>
 			</div>
 		</div>
-		<div class="col-3"></div>
+		<div class="col-2"></div>
 	</div>
 </div>
 	
