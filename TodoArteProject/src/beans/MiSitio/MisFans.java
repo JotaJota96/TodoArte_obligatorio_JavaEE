@@ -1,25 +1,15 @@
 package beans.MiSitio;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Map;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Named;
 
 import com.TodoArte.Classes.Fan;
-import com.TodoArte.Classes.FanSigueSitio;
-import com.TodoArte.Classes.PagoAPlataforma;
 import com.TodoArte.Classes.Usuario;
-import com.TodoArte.Enums.Sexo;
-import com.TodoArte.FachadeControllers.BackOfficeController;
 import com.TodoArte.FachadeControllers.FrontOfficeController;
-import com.TodoArte.FachadeInterfaces.BackOfficeInterface;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
 
 @Named
@@ -29,26 +19,32 @@ public class MisFans implements Serializable {
 	//----------atrivutos------------------------------
 	private static final long serialVersionUID = 1L;
 	private FrontOfficeInterface fo = new FrontOfficeController();
-	private BackOfficeInterface bo = new BackOfficeController();
+	//private BackOfficeInterface bo = new BackOfficeController();
+	
 	
 	private ArrayList<Fan> listaFan = new ArrayList<Fan>();
+
 	private String idArtista;
 	
 	//-----------funciones-------------------------------
 
 	public void bloquearDesbloquearFan(String idFan) {
 		String idArtista = "ergo"; //idArtista obtenido por la variable secion
-		
 		fo.bloquearDesbloquearUsuarioDeSitio(idArtista, idFan);
 	}
 	
+	public boolean isFanBloqueado(String nikname) {
+		//nikname del fan del cual quiero saber si yo (artista) lo tengo bloquado.
+		String nickArtista = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("nickname");
+		ArrayList<Fan> listaFansDeArtista = fo.obtenerFansDeSitio(nickArtista);
+		
+		return true;
+	}
+	
+	
 	public String estaBloqueadoValue(String nikname) {
-		Fan f = (Fan)fo.obtenerDatosUsuario(nikname);
-		
-		Map<Integer, FanSigueSitio> map = f.getMisSitiosSeguidos();
-		
-		
-		if(user.getBloqueado()) {
+		//nikname del fan que artista quiere bloquear 
+		if(isFanBloqueado(nikname)) {
 			return "Desbloquear";
 		}
 		else {
@@ -57,8 +53,8 @@ public class MisFans implements Serializable {
 	}
 	
 	public String estaBloqueadoClass(String nikname) {
-		Usuario user = fo.obtenerDatosUsuario(nikname);
-		if(user.getBloqueado()) {
+		//nikname del fan que artista quiere bloquear 
+		if(isFanBloqueado(nikname)) {
 			return "btn  btn-success";
 		}
 		else {
@@ -66,15 +62,8 @@ public class MisFans implements Serializable {
 		}	
 	}
 	
-	//----------setters getters constructors---------
-	public String getIdArtista() {
-		return idArtista;
-	}
-
-	public void setIdArtista(String idArtista) {
-		this.idArtista = idArtista;
-	}
 	
+	//----------setters getters constructors---------
 	public ArrayList<Fan> getListaFan() {
 		return listaFan;
 	}
@@ -83,20 +72,24 @@ public class MisFans implements Serializable {
 		this.listaFan = listaFan;
 	}
 
-	public MisFans() {
+	public String getIdArtista() {
+		return idArtista;
+	}
+
+	public void setIdArtista(String idArtista) {
+		this.idArtista = idArtista;
 	}
 	
-	@PostConstruct
-	public void init() {
+	public MisFans() {
 		
-		idArtista = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("nickname");
+		// IMPORTANTE ---- LOGEATE CON ergo 1234 para probar http://localhost:8080/TodoArteProject/sitio-administrar.jsf
+		
 		
 		//fo.suscribirseFanArtista("alfajor", "ergo"); //esto altero la base de datos
-				
+		idArtista = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("nickname");
 		listaFan = fo.obtenerFansDeSitio(idArtista);
-		
-		System.out.println("---------------------listaFan--------------" + listaFan.size());
 	}
+	
 	
 }
  
