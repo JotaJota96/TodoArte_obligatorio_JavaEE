@@ -26,8 +26,7 @@
  <main role="main" class="container mt-5 mb-5">
   
 <!--********************************* Inicio    PRIMER TARJETA ***********************************-->
-
-	<h:panelGroup class="row" layout="block" id="datosArtista">
+	<div class="row">
 		
 		<!-- Por si la seccion de Twitter va a la IZQUIERDA -->
 		<c:if test="#{sitioBean.sitio.seccionTwitter == 1}"> 
@@ -40,7 +39,7 @@
 			</div>
 		</c:if>	
 
-		<div class="col-8 mt-3">
+		<h:panelGroup class="col-8 mt-3" layout="block" id="datosArtista">
 			<div class="row">
 				<div class="col-10">
 					<h3>#{sitioBean.artista.nombre} (#{sitioBean.artista.nikname})</h3>
@@ -48,7 +47,8 @@
 				<div class="col-2">
 					<c:if test="#{sitioBean.mostrarBotonSeguir}"> 
 						<h:form>
-			          		<h:commandButton class="btn btn-primary" id="btnSeguir" value="Seguir">
+			          		<h:commandButton class="btn btn-primary" id="btnSeguir" value="Seguir" action="#{sitioBean.seguir()}">
+			          			<f:param name="id" value="#{sitioBean.idArtista}" />
 			          		</h:commandButton>
 						</h:form>
 			    	</c:if>
@@ -64,22 +64,24 @@
 					<div class="overflow-auto border" style="height: 200px">
 						<p class="card-text mt-1">#{sitioBean.artista.biografia}</p>
 					</div>
-					<div class="row">
-						<div class="col-9">
-							<h5 class="mt-3">Paquete Premium: $#{sitioBean.sitio.precioPremium}</h5>
+					<c:if test="#{sitioBean.sitio.precioPremium > 0}"> 
+						<div class="row">
+							<div class="col-9">
+								<h5 class="mt-3">Paquete Premium: $#{sitioBean.sitio.precioPremium}</h5>
+							</div>
+							<div class="col-3">
+								<c:if test="#{sitioBean.mostrarBotonComprar}"> 
+									<h:form>
+										<h:commandButton class="btn btn-warning my-3" value="Comprar">
+										</h:commandButton>
+									</h:form>
+						    	</c:if>
+							</div>
 						</div>
-						<div class="col-3">
-							<c:if test="#{sitioBean.mostrarBotonComprar}"> 
-								<h:form>
-									<h:commandButton class="btn btn-warning my-3" value="Comprar">
-									</h:commandButton>
-								</h:form>
-					    	</c:if>
-						</div>
-					</div>
+					</c:if>
 				</div>
 			</div>
-		</div>
+		</h:panelGroup>		
 		
 		<!-- Por si la seccion de Twitter va a la DERECHA -->
 		<c:if test="#{sitioBean.sitio.seccionTwitter == 2}"> 
@@ -92,7 +94,7 @@
 				<!-- Fin Twitter -->
 			</div>
       </c:if>
-	</h:panelGroup>
+	</div>
 		
 <!--************************************ FIN    PRIMER TARJETA ***********************************-->
 

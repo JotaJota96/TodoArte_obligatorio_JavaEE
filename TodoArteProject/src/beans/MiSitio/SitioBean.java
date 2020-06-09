@@ -13,6 +13,7 @@ import com.TodoArte.FachadeControllers.FrontOfficeController;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
 
 import beans.FuncionesComunes;
+import beans.Redirector;
 
 @Named
 @RequestScoped
@@ -34,30 +35,48 @@ public class SitioBean implements Serializable{
 	private boolean mostrarBotonSeguir = false;
 	
 	//****************************************************************************
-
-	//****************************************************************************
-	public SitioBean() {
-		idArtista = FuncionesComunes.getParametro("id");
-		artista = (Artista) fo.obtenerDatosUsuario(idArtista);
-		sitio = artista.getMiSitio();
-
-		mostrarIconoFacebook = sitio.getRrssFacebook() != null && !sitio.getRrssFacebook().equals("");
-		mostrarIconoTwitter = sitio.getRrssTwitter() != null && !sitio.getRrssTwitter().equals("");
-		mostrarIconoInstagram = sitio.getRrssInstagram() != null && !sitio.getRrssInstagram().equals("");
-		mostrarIconoYoutube = sitio.getRrssYouTube() != null && !sitio.getRrssYouTube().equals("");
+	public String seguir() {
+		String redireccion = Redirector.redirect("500.jsf");
 		
 		if (FuncionesComunes.rolActual("fan")) {
 			String nick = FuncionesComunes.usuarioActual();
-			mostrarBotonSeguir = true;
-			for (Map.Entry<Integer, FanSigueSitio> entry : sitio.getMisFans().entrySet()) {
-				if (entry.getValue().getMiFan().getNikname().equals(nick)) {
-					if ( ! entry.getValue().getPremiun()) {
-						mostrarBotonComprar = true;
+			try {
+				fo.suscribirseFanArtista(nick, idArtista);
+				redireccion = Redirector.redirect("sitio.jsf", "id=" + idArtista);
+			} catch (Exception e) {
+				System.out.println("CATCH: " + e.getMessage());
+			}
+		}
+		return Redirector.redirect(redireccion);
+	}
+	
+	//****************************************************************************
+	public SitioBean() {
+		try {
+			idArtista = FuncionesComunes.getParametro("id");
+			artista = (Artista) fo.obtenerDatosUsuario(idArtista);
+			sitio = artista.getMiSitio();
+
+			mostrarIconoFacebook = sitio.getRrssFacebook() != null && !sitio.getRrssFacebook().equals("");
+			mostrarIconoTwitter = sitio.getRrssTwitter() != null && !sitio.getRrssTwitter().equals("");
+			mostrarIconoInstagram = sitio.getRrssInstagram() != null && !sitio.getRrssInstagram().equals("");
+			mostrarIconoYoutube = sitio.getRrssYouTube() != null && !sitio.getRrssYouTube().equals("");
+			
+			if (FuncionesComunes.rolActual("fan")) {
+				String nick = FuncionesComunes.usuarioActual();
+				mostrarBotonSeguir = true;
+				for (Map.Entry<Integer, FanSigueSitio> entry : sitio.getMisFans().entrySet()) {
+					if (entry.getValue().getMiFan().getNikname().equals(nick)) {
+						if ( ! entry.getValue().getPremiun()) {
+							mostrarBotonComprar = true;
+						}
+						mostrarBotonSeguir = false;
+						break;
 					}
-					mostrarBotonSeguir = false;
-					break;
 				}
 			}
+		} catch (Exception e) {
+			System.out.println("CATCH: " + e.getMessage());
 		}
 	}
 
