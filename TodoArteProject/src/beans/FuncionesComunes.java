@@ -57,6 +57,14 @@ public class FuncionesComunes {
 		}
 		return false;
 	}
+	
+	/**
+	 * Devuelve el nickname del usuario actual o NULL si no hay uno logueado
+	 * @return Devuelve el nickname del usuario actual o NULL si no hay uno logueado
+	 */
+	public static String usuarioActual() {
+		return (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("nickname");
+	}
 
 	/**
 	 * Devuelve el parametro que viene en la URL (si es que realmente viene)
@@ -65,7 +73,7 @@ public class FuncionesComunes {
 	 */
 	public static String getParametro(String name) {
 		try {
-			return (String) ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getParameter("id");
+			return (String) ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getParameter(name);
 		}catch (Exception e) {
 			return null;
 		}

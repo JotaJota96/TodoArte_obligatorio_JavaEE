@@ -1,15 +1,13 @@
 package beans.MiSitio;
 
 import java.io.Serializable;
+import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.annotation.ManagedProperty;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
 
 import com.TodoArte.Classes.Artista;
+import com.TodoArte.Classes.FanSigueSitio;
 import com.TodoArte.Classes.Sitio;
 import com.TodoArte.FachadeControllers.FrontOfficeController;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
@@ -23,14 +21,17 @@ public class SitioBean implements Serializable{
 	
 	FrontOfficeInterface fo = new FrontOfficeController();
 	
-	private String idArtista;
-	private Artista artista;
-	private Sitio sitio;
+	private String idArtista = "";
+	private Artista artista = new Artista();
+	private Sitio sitio = new Sitio();
 	
 	private boolean mostrarIconoFacebook = false;
 	private boolean mostrarIconoTwitter = false;
 	private boolean mostrarIconoInstagram= false;
 	private boolean mostrarIconoYoutube= false;
+	
+	private boolean mostrarBotonComprar = false;
+	private boolean mostrarBotonSeguir = false;
 	
 	//****************************************************************************
 
@@ -43,9 +44,23 @@ public class SitioBean implements Serializable{
 		mostrarIconoFacebook = sitio.getRrssFacebook() != null && !sitio.getRrssFacebook().equals("");
 		mostrarIconoTwitter = sitio.getRrssTwitter() != null && !sitio.getRrssTwitter().equals("");
 		mostrarIconoInstagram = sitio.getRrssInstagram() != null && !sitio.getRrssInstagram().equals("");
-		setMostrarIconoYoutube(sitio.getRrssYouTube() != null && !sitio.getRrssYouTube().equals(""));
+		mostrarIconoYoutube = sitio.getRrssYouTube() != null && !sitio.getRrssYouTube().equals("");
+		
+		if (FuncionesComunes.rolActual("fan")) {
+			String nick = FuncionesComunes.usuarioActual();
+			mostrarBotonSeguir = true;
+			for (Map.Entry<Integer, FanSigueSitio> entry : sitio.getMisFans().entrySet()) {
+				if (entry.getValue().getMiFan().getNikname().equals(nick)) {
+					if ( ! entry.getValue().getPremiun()) {
+						mostrarBotonComprar = true;
+					}
+					mostrarBotonSeguir = false;
+					break;
+				}
+			}
+		}
 	}
-	
+
 	public String getIdArtista() {
 		return idArtista;
 	}
@@ -87,6 +102,24 @@ public class SitioBean implements Serializable{
 	}
 	public void setMostrarIconoYoutube(boolean mostrarIconoYoutube) {
 		this.mostrarIconoYoutube = mostrarIconoYoutube;
+	}
+
+	public boolean isMostrarBotonComprar() {
+		return mostrarBotonComprar;
+	}
+
+	public void setMostrarBotonComprar(boolean mostrarBotonComprar) {
+		this.mostrarBotonComprar = mostrarBotonComprar;
+	}
+
+
+	public boolean isMostrarBotonSeguir() {
+		return mostrarBotonSeguir;
+	}
+
+
+	public void setMostrarBotonSeguir(boolean mostrarBotonSeguir) {
+		this.mostrarBotonSeguir = mostrarBotonSeguir;
 	}
 	
 }
