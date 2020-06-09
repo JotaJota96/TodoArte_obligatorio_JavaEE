@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.sql.Date;
 
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 /**
  * Esta clase contiene funciones que pueden ser utiles en cualquier Bean de este proyecto web
@@ -57,6 +58,19 @@ public class FuncionesComunes {
 		return false;
 	}
 
+	/**
+	 * Devuelve el parametro que viene en la URL (si es que realmente viene)
+	 * @param name Nombre del parametro
+	 * @return Parametro en la URL o NULL si no viene nada
+	 */
+	public static String getParametro(String name) {
+		try {
+			return (String) ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getParameter("id");
+		}catch (Exception e) {
+			return null;
+		}
+	}
+	
 	/**
 	 * Para agregar nuevas funciones, recordar que debe ser 'public static'
 	 */

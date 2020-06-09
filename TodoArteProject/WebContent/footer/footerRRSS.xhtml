@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" 
 xmlns:h="http://java.sun.com/jsf/html" 
 xmlns:f="http://java.sun.com/jsf/core"
-xmlns:ui="http://java.sun.com/jsf/facelets">
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:c="http://java.sun.com/jsp/jstl/core">
   
 <h:head>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -25,12 +26,19 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 	<div class="footer-copyright bg-dark text-center py-3">
 		<div class="row">
 			<div class="col-4">
-				<div class="row">
-					<div class="col-3"></div>
-					<div class="col-1 "><a href="https://www.facebook.com/"><img src="img/facebook.png" width="30px" height="30px"></img></a></div>
-					<div class="col-1"><a href="https://twitter.com/explore"><img src="img/twitter.png" width="30px" height="30px"></img></a></div>
-					<div class="col-1 "><a href="https://www.instagram.com/"><img src="img/instagram.png" width="30px" height="30px"></img></a></div>
-					<div class="col-6"></div>
+				<div class="row col-4 mx-auto">
+					<c:if test="#{sitioBean.mostrarIconoFacebook}"> 
+						<div class="col-1 "><a href="#{sitioBean.sitio.rrssFacebook}"><img src="img/facebook.png" width="30px" height="30px"></img></a></div>
+			    	</c:if>
+					<c:if test="#{sitioBean.mostrarIconoTwitter}"> 
+						<div class="col-1"><a href="#{sitioBean.sitio.rrssTwitter}"><img src="img/twitter.png" width="30px" height="30px"></img></a></div>
+		    		</c:if>
+					<c:if test="#{sitioBean.mostrarIconoInstagram}"> 
+						<div class="col-1 "><a href="#{sitioBean.sitio.rrssInstagram}"><img src="img/instagram.png" width="30px" height="30px"></img></a></div>
+					</c:if>
+					<c:if test="#{sitioBean.mostrarIconoYoutube}"> 
+						<div class="col-1 "><a href="#{sitioBean.sitio.rrssYouTube}"><img src="img/youtube.png" width="30px" height="30px"></img></a></div>
+					</c:if>
 				</div>
 			</div>
 			<div class="col-4">
