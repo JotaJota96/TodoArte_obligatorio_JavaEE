@@ -7,6 +7,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 import com.TodoArte.Classes.Artista;
+import com.TodoArte.Classes.Fan;
 import com.TodoArte.Classes.FanSigueSitio;
 import com.TodoArte.Classes.Sitio;
 import com.TodoArte.FachadeControllers.FrontOfficeController;
@@ -50,8 +51,34 @@ public class SitioBean implements Serializable{
 		return Redirector.redirect(redireccion);
 	}
 	
+	public String comprar() {
+		String redireccion = Redirector.redirect("500.jsf");
+
+		if (FuncionesComunes.rolActual("fan")) {
+			String nick = FuncionesComunes.usuarioActual();
+			try {
+				fo.comprarPremium(nick, idArtista);
+				redireccion = Redirector.redirect("sitio.jsf", "id=" + idArtista);
+			} catch (Exception e) {
+				System.out.println("CATCH: " + e.getMessage());
+			}
+		}
+		return redireccion;
+	}
+	
+	public boolean saldoSuficienteParaComprar() {
+		if (FuncionesComunes.rolActual("fan")) {
+			String nick = FuncionesComunes.usuarioActual();
+			try {
+				Fan f = (Fan) fo.obtenerDatosUsuario(nick);
+				return f.getSaldo() > sitio.getPrecioPremium();
+			} catch (Exception e) {
+			}
+		}
+		return false;
+	}
 	//****************************************************************************
-	public SitioBean() {
+ 	public SitioBean() {
 		try {
 			idArtista = FuncionesComunes.getParametro("id");
 			artista = (Artista) fo.obtenerDatosUsuario(idArtista);
