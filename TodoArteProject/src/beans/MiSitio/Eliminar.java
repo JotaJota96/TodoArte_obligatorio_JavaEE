@@ -26,9 +26,10 @@ public class Eliminar implements Serializable {
 	
 	//-----------funciones-------------------------------
 
-	public void eliminarContenido(int id) {
+	public void eliminarContenidos(int id) {
 		try {
 			fo.eliminarContenido(idArtista, id);
+			listaContenido = fo.obtenerContenido(idArtista, idArtista);
 		} catch (Exception e) {
 			System.out.println("Error---------"+e);
 		}
