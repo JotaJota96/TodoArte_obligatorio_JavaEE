@@ -32,7 +32,6 @@ public class MisFans implements Serializable {
 	//-----------funciones-------------------------------
 
 	public void bloquearDesbloquearFan(String idFan) {
-		String idArtista = "ergo"; //idArtista obtenido por la variable secion
 		fo.bloquearDesbloquearUsuarioDeSitio(idArtista, idFan);
 	}
 	

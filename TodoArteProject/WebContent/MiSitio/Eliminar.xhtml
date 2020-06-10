@@ -30,37 +30,22 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 				<div class="card-body" style="height: 350px; overflow: auto;">
 					<!-- ***** Listado de contenido **** -->
 					<!-- ***** contenido 1 **** -->
-					<div class="card my-2">
-						<div class="card-body">
-							<h:form class="form-signin">
-								<div class="row text-center">
-									<div class="col-6">
-						         		<h5>Titulo</h5>
-									</div>
-									<div class="col-6 ">
-						          		<h:commandButton class="btn  btn-danger " value="Eliminar" action="Eliminar"/>
-									</div>
-								</div>	
-							</h:form>
+					<ui:repeat value="#{eliminar.listaContenido}" var="item">
+						<div class="card my-2">
+							<div class="card-body">
+								<h:form class="form-signin">
+									<div class="row text-center">
+										<div class="col-6">
+							         		<h5>#{item.titulo}</h5>
+										</div>
+										<div class="col-6 ">
+							          		<h:commandButton class="btn  btn-danger " value="Eliminar" action="#{eliminar.eliminarContenido(item.id)}"/>
+										</div>
+									</div>	
+								</h:form>
+							</div>
 						</div>
-					</div>
-					<!-- ***** fin de contenido 1 **** -->
-					
-					<!-- ***** contenido 1 **** -->
-					<div class="card my-2">
-						<div class="card-body">
-							<h:form class="form-signin">
-								<div class="row text-center">
-									<div class="col-6">
-						         		<h5>Titulo</h5>
-									</div>
-									<div class="col-6 ">
-						          		<h:commandButton class="btn  btn-danger " value="Eliminar" action="Eliminar"/>
-									</div>
-								</div>	
-							</h:form>
-						</div>
-					</div>
+					</ui:repeat>
 					<!-- ***** fin de contenido 1 **** -->
 					<!-- ********* fin de Listado de contenido ******* -->
 				</div>
