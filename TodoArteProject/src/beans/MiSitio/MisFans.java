@@ -2,12 +2,15 @@ package beans.MiSitio;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
+import com.TodoArte.Classes.Artista;
 import com.TodoArte.Classes.Fan;
+import com.TodoArte.Classes.FanSigueSitio;
 import com.TodoArte.Classes.Usuario;
 import com.TodoArte.FachadeControllers.FrontOfficeController;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
@@ -35,15 +38,19 @@ public class MisFans implements Serializable {
 	
 	public boolean isFanBloqueado(String nikname) {
 		//nikname del fan del cual quiero saber si yo (artista) lo tengo bloquado.
-		String nickArtista = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("nickname");
-		ArrayList<Fan> listaFansDeArtista = fo.obtenerFansDeSitio(nickArtista);
+		Artista art = (Artista)fo.obtenerDatosUsuario(idArtista);
 		
-		return true;
+		for (Map.Entry<Integer, FanSigueSitio> entry : art.getMiSitio().getMisFans().entrySet()) {
+			if(entry.getValue().getMiFan().getNikname().equals(nikname)) {
+				return entry.getValue().getBloqueado();
+			}
+		}
+		return false;
 	}
 	
 	
 	public String estaBloqueadoValue(String nikname) {
-		//nikname del fan que artista quiere bloquear 
+		//nikname del fan que artista quiere bloquear
 		if(isFanBloqueado(nikname)) {
 			return "Desbloquear";
 		}
