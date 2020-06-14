@@ -28,108 +28,58 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 				<!-- ***** Listado de contenido **** -->
 				
 				<!-- ***** contenido 1 **** -->
-				<div class="card my-2">
-					<div class="card-body">
-				        <div class="row text-center">
-							<div class="col-lg-3 my-1">
-								<h5>Marcelito17</h5>
+				<ui:repeat value="#{modificarBean.listaContenido}" var="item">
+					<div class="card my-2">
+						<div class="card-body">
+					        <div class="row text-center">
+								<div class="col-lg-3 my-1">
+									<h5>#{item.titulo}</h5>
+								</div>
+								<div class="col-lg-2 my-1"></div>
+								<div class="col-lg-2 my-1"></div>
+								<div class="col-lg-2 my-1"></div>
+								<div class="col-lg-3 my-1">
+									<h:form class="form-signin">
+										<a class="btn  btn-danger text-white" onclick="esconder('fan1')"  >Modificar</a>
+									</h:form>
+								</div>
 							</div>
-							<div class="col-lg-2 my-1"></div>
-							<div class="col-lg-2 my-1"></div>
-							<div class="col-lg-2 my-1"></div>
-							<div class="col-lg-3 my-1">
+							
+							<div id="fan1" class="text-center" style="display:none;">
+								<hr/>
 								<h:form class="form-signin">
-									<a class="btn  btn-danger text-white" onclick="esconder('fan1')">Modificar</a>
+									<div class="row">
+										<div class="col-3">
+							         		<label for="titulo">Titulo</label>
+							         		<h:inputText type="text" class="form-control" id="titulo" value=""></h:inputText>
+										</div>
+										<div class="col-3">
+							          		<label for="precio">Precio</label>
+							          		<h:inputText type="text" class="form-control" id="precio" value=""></h:inputText>
+										</div>
+										<div class="col-6">
+								          	<label for="archivo">Archivo</label> 
+								          	<br/>      	
+								          	<h:inputFile value="#{bean.file}" id="archivo">
+								        	<f:ajax listener="#{bean.save}" />
+								    		</h:inputFile>
+										</div>
+									</div>	
+									<hr/>
+									<div class="row">
+										<div class="col-9">
+							         		<label for="descripcion">Descripcion</label>
+								     		<h:inputTextarea class="form-control" id="descripcion" value="#{spintax.content}" rows="1" />
+										</div>
+										<div class="col-3 text-center mt-4">
+							          		<h:commandButton class="btn  btn-success " value="Guardar" action="Guardar"/>
+										</div>
+									</div>	
 								</h:form>
 							</div>
 						</div>
-						
-						<div id="fan1" class="text-center" style="display:none;">
-							<hr/>
-							<h:form class="form-signin">
-								<div class="row">
-									<div class="col-3">
-						         		<label for="titulo">Titulo</label>
-						         		<h:inputText type="text" class="form-control" id="titulo" value=""></h:inputText>
-									</div>
-									<div class="col-3">
-						          		<label for="precio">Precio</label>
-						          		<h:inputText type="text" class="form-control" id="precio" value=""></h:inputText>
-									</div>
-									<div class="col-6">
-							          	<label for="archivo">Archivo</label> 
-							          	<br/>      	
-							          	<h:inputFile value="#{bean.file}" id="archivo">
-							        	<f:ajax listener="#{bean.save}" />
-							    		</h:inputFile>
-									</div>
-								</div>	
-								<hr/>
-								<div class="row">
-									<div class="col-9">
-						         		<label for="descripcion">Descripcion</label>
-							     		<h:inputTextarea class="form-control" id="descripcion" value="#{spintax.content}" rows="1" />
-									</div>
-									<div class="col-3 text-center mt-4">
-						          		<h:commandButton class="btn  btn-success " value="Guardar" action="Guardar"/>
-									</div>
-								</div>	
-							</h:form>
-						</div>
 					</div>
-				</div>
-				<!-- ***** fin de contenido 1 **** -->
-				
-				<!-- ***** contenido 1 **** -->
-				<div class="card my-2">
-					<div class="card-body">
-				        <div class="row text-center">
-							<div class="col-lg-3 my-1">
-								<h5>Marcelito17</h5>
-							</div>
-							<div class="col-lg-2 my-1"></div>
-							<div class="col-lg-2 my-1"></div>
-							<div class="col-lg-2 my-1"></div>
-							<div class="col-lg-3 my-1">
-								<h:form class="form-signin">
-									<a class="btn  btn-danger text-white" onclick="esconder('fan2')">Modificar</a>
-								</h:form>
-							</div>
-						</div>
-						<div id="fan2" class="text-center" style="display:none;">
-							<hr/>
-							<h:form class="form-signin">
-								<div class="row">
-									<div class="col-3">
-						         		<label for="titulo">Titulo</label>
-						         		<h:inputText type="text" class="form-control" id="titulo" value=""></h:inputText>
-									</div>
-									<div class="col-3">
-						          		<label for="precio">Precio</label>
-						          		<h:inputText type="text" class="form-control" id="precio" value=""></h:inputText>
-									</div>
-									<div class="col-6">
-							          	<label for="archivo">Archivo</label> 
-							          	<br/>      	
-							          	<h:inputFile value="#{bean.file}" id="archivo">
-							        	<f:ajax listener="#{bean.save}" />
-							    		</h:inputFile>
-									</div>
-								</div>	
-								<hr/>
-								<div class="row">
-									<div class="col-9">
-						         		<label for="descripcion">Descripcion</label>
-							     		<h:inputTextarea class="form-control" id="descripcion" value="#{spintax.content}" rows="1" />
-									</div>
-									<div class="col-3 text-center mt-4">
-						          		<h:commandButton class="btn  btn-success " value="Guardar" action="Guardar"/>
-									</div>
-								</div>	
-							</h:form>
-						</div>
-					</div>
-				</div>
+				</ui:repeat>
 				<!-- ***** fin de contenido 1 **** -->
 				
 				<!-- ********* fin de Listado de contenido ******* -->
