@@ -33,6 +33,9 @@ public class SaldoBean implements Serializable {
 
 	public void recargarSaldo() {
 		fo.recargarSaldo(idArtista, monto);
+		
+		Usuario art = fo.obtenerDatosUsuario(idArtista);
+		saldoDelArtista = art.getSaldo();
 	}
 	
 	//----------setters getters constructors---------
@@ -43,7 +46,7 @@ public class SaldoBean implements Serializable {
 		
 		idArtista = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("nickname");
 		
-		Artista art = (Artista)fo.obtenerDatosUsuario(idArtista);
+		Usuario art = fo.obtenerDatosUsuario(idArtista);
 		saldoDelArtista = art.getSaldo();
 	}
 	
