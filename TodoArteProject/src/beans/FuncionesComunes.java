@@ -4,8 +4,11 @@ import java.io.InputStream;
 import java.sql.Date;
 
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import javax.sound.midi.Soundbank;
 /**
  * Esta clase contiene funciones que pueden ser utiles en cualquier Bean de este proyecto web
  * Para llamar una funcion de esta clase, se debe hacer: FuncionesComunes.funcionAEjecutar(...)
@@ -14,6 +17,8 @@ import javax.servlet.http.Part;
 import com.TodoArte.Enums.TipoContenido;
 public class FuncionesComunes {
 
+	//---------------------------------------------------------------------------------------------
+	
 	/**
 	 * Convierte el Part de un HTTP request que contiene un archivo, a un array de bytes
 	 * @param file Part de un HTTP request 
@@ -42,32 +47,83 @@ public class FuncionesComunes {
         	return null;
 	    }
 	}
-	
+
+	//---------------------------------------------------------------------------------------------
+	/**
+	 * Convierte fecha de tipo java.util.Date a java.sql.Date
+	 * @param fechaUtil Fecha a convertir
+	 * @return Resultado de la conversion
+	 */
 	public static java.sql.Date utilDateToSqlDate(java.util.Date fechaUtil){
 		return new Date(fechaUtil.getTime());
 	}
+
+	//---------------------------------------------------------------------------------------------
 	
 	/**
 	 * Devuelve true si el usuario actual esta logueado como el rol esecificado (admin, fan, artista)
-	 * @param rol
+	 * @param rol rol que se quiere saber si está logueado
 	 * @return
 	 */
 	public static boolean rolActual(String rol) {
-		String rolSesion = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("rol");
-		if (rolSesion != null) {
-			return rolSesion.equals(rol);
+		try {
+			String rolSesion = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("rol");
+			if (rolSesion != null) {
+				return rolSesion.equals(rol);
+			}
+		} catch (Exception e) {
 		}
 		return false;
 	}
 	
 	/**
+	 * (para ser usada desde los filtros) Devuelve true si el usuario actual esta logueado como el rol esecificado (admin, fan, artista)
+	 * @param request peticion recibida como parametro en el filtro
+	 * @param rol rol que se quiere saber si está logueado
+	 * @return
+	 */
+	public static boolean rolActual(ServletRequest request, String rol) {
+		try {
+			HttpServletRequest req = (HttpServletRequest) request;
+			String rolSesion = (String ) req.getSession().getAttribute("rol");
+			if (rolSesion != null) {
+				return rolSesion.equals(rol);
+			}
+		} catch (Exception e) {
+		}
+		return false;
+	}
+
+	//---------------------------------------------------------------------------------------------
+	
+	/**
 	 * Devuelve el nickname del usuario actual o NULL si no hay uno logueado
+	 * @param request peticion recibida como parametro en el filtro
 	 * @return Devuelve el nickname del usuario actual o NULL si no hay uno logueado
 	 */
 	public static String usuarioActual() {
-		return (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("nickname");
+		try {
+			return (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("nickname");
+		} catch (Exception e) {
+		}
+		return null;
 	}
 
+	/**
+	 * (para ser usada desde los filtros)  Devuelve el nickname del usuario actual o NULL si no hay uno logueado
+	 * @return Devuelve el nickname del usuario actual o NULL si no hay uno logueado
+	 */
+	public static String usuarioActual(ServletRequest request) {
+		try {
+			HttpServletRequest req = (HttpServletRequest) request;
+			return (String ) req.getSession().getAttribute("nickname");
+		} catch (Exception e) {
+		}
+		return null;
+	}
+
+	//---------------------------------------------------------------------------------------------
+	
 	/**
 	 * Devuelve el parametro que viene en la URL (si es que realmente viene)
 	 * @param name Nombre del parametro
@@ -80,6 +136,23 @@ public class FuncionesComunes {
 			return null;
 		}
 	}
+
+	/**
+	 * (para ser usada desde los filtros) Devuelve el parametro que viene en la URL (si es que realmente viene)
+	 * @param request peticion recibida como parametro en el filtro
+	 * @param name Nombre del parametro
+	 * @return Parametro en la URL o NULL si no viene nada
+	 */
+	public static String getParametro(ServletRequest request, String name) {
+		try {
+			HttpServletRequest req = (HttpServletRequest) request;
+			return (String) req.getParameter(name);
+		} catch (Exception e) {
+		}
+		return null;
+	}
+
+	//---------------------------------------------------------------------------------------------
 	
 	/**
 	 * Debuele la extencion del archivo.

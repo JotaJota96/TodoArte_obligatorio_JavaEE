@@ -18,14 +18,15 @@ public class Pruebas {
 		
 		//cargarDatosDePrueba(true);
 
-		//fo.listarNotificacionesFan("luc31g");
-		
 		//System.out.println("-- fin --");
 		
 	}
 	public static void cargarDatosDePrueba(boolean log) {
 		FrontOfficeController fo = new FrontOfficeController();
 		BackOfficeController bo = new BackOfficeController();
+		
+		bo.agregarAdministrador(new Administrador("admin", "1234", "admin@admin.com"));
+		if (log) System.out.println("Creado Administrador: admin, 1234");
 		
 		CategoriaSitio categoriasSitio[] = {
 				new CategoriaSitio(0, "M�sica"),

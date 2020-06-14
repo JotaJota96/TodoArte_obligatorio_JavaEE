@@ -187,6 +187,22 @@ public class Contenido implements Serializable {
 		new VentaJpaController().create(venta);
 		this.MisVentas.put(venta.getId(), venta);
 	}
+
+	/**
+	 * Calcula el promedio de las valoraciones recibidas
+	 * @return promedio de las valoraciones
+	 */
+	public int getValoracionCalculada() {
+		int ret = 0;
+		for (Map.Entry<Integer, Valoracion> entry : this.MisValoracion.entrySet()) {
+			ret += entry.getValue().getVal();
+		}
+		if (this.MisValoracion.size() > 0) {
+			ret = ret / this.MisValoracion.size();
+		}
+		return ret;
+	}
+	
 	
 	//***************************************************************************
 	public int getId() {
