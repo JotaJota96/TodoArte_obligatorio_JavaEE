@@ -15,6 +15,8 @@ import javax.sound.midi.Soundbank;
  */
 public class FuncionesComunes {
 
+	//---------------------------------------------------------------------------------------------
+	
 	/**
 	 * Convierte el Part de un HTTP request que contiene un archivo, a un array de bytes
 	 * @param file Part de un HTTP request 
@@ -43,10 +45,18 @@ public class FuncionesComunes {
         	return null;
 	    }
 	}
-	
+
+	//---------------------------------------------------------------------------------------------
+	/**
+	 * Convierte fecha de tipo java.util.Date a java.sql.Date
+	 * @param fechaUtil Fecha a convertir
+	 * @return Resultado de la conversion
+	 */
 	public static java.sql.Date utilDateToSqlDate(java.util.Date fechaUtil){
 		return new Date(fechaUtil.getTime());
 	}
+
+	//---------------------------------------------------------------------------------------------
 	
 	/**
 	 * Devuelve true si el usuario actual esta logueado como el rol esecificado (admin, fan, artista)
@@ -63,6 +73,7 @@ public class FuncionesComunes {
 		}
 		return false;
 	}
+	
 	/**
 	 * (para ser usada desde los filtros) Devuelve true si el usuario actual esta logueado como el rol esecificado (admin, fan, artista)
 	 * @param request peticion recibida como parametro en el filtro
@@ -80,15 +91,37 @@ public class FuncionesComunes {
 		}
 		return false;
 	}
+
+	//---------------------------------------------------------------------------------------------
 	
 	/**
 	 * Devuelve el nickname del usuario actual o NULL si no hay uno logueado
+	 * @param request peticion recibida como parametro en el filtro
 	 * @return Devuelve el nickname del usuario actual o NULL si no hay uno logueado
 	 */
 	public static String usuarioActual() {
-		return (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("nickname");
+		try {
+			return (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("nickname");
+		} catch (Exception e) {
+		}
+		return null;
 	}
 
+	/**
+	 * (para ser usada desde los filtros)  Devuelve el nickname del usuario actual o NULL si no hay uno logueado
+	 * @return Devuelve el nickname del usuario actual o NULL si no hay uno logueado
+	 */
+	public static String usuarioActual(ServletRequest request) {
+		try {
+			HttpServletRequest req = (HttpServletRequest) request;
+			return (String ) req.getSession().getAttribute("nickname");
+		} catch (Exception e) {
+		}
+		return null;
+	}
+
+	//---------------------------------------------------------------------------------------------
+	
 	/**
 	 * Devuelve el parametro que viene en la URL (si es que realmente viene)
 	 * @param name Nombre del parametro
@@ -101,6 +134,23 @@ public class FuncionesComunes {
 			return null;
 		}
 	}
+
+	/**
+	 * (para ser usada desde los filtros) Devuelve el parametro que viene en la URL (si es que realmente viene)
+	 * @param request peticion recibida como parametro en el filtro
+	 * @param name Nombre del parametro
+	 * @return Parametro en la URL o NULL si no viene nada
+	 */
+	public static String getParametro(ServletRequest request, String name) {
+		try {
+			HttpServletRequest req = (HttpServletRequest) request;
+			return (String) req.getParameter(name);
+		} catch (Exception e) {
+		}
+		return null;
+	}
+
+	//---------------------------------------------------------------------------------------------
 	
 	/**
 	 * Para agregar nuevas funciones, recordar que debe ser 'public static'
