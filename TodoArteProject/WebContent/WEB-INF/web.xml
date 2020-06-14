@@ -10,13 +10,18 @@
 	</welcome-file-list>
 
 	<error-page>
+		<error-code>401</error-code>
+		<location>/401.jsf</location>
+	</error-page>
+	
+	<error-page>
 		<error-code>404</error-code>
 		<location>/404.jsf</location>
 	</error-page>
 
 	<error-page>
-		<error-code>404</error-code>
-		<location>/404.jsf</location>
+		<error-code>500</error-code>
+		<location>/500.jsf</location>
 	</error-page>
 
 	<servlet>

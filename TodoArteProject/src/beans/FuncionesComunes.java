@@ -4,8 +4,11 @@ import java.io.InputStream;
 import java.sql.Date;
 
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import javax.sound.midi.Soundbank;
 /**
  * Esta clase contiene funciones que pueden ser utiles en cualquier Bean de este proyecto web
  * Para llamar una funcion de esta clase, se debe hacer: FuncionesComunes.funcionAEjecutar(...)
@@ -47,13 +50,33 @@ public class FuncionesComunes {
 	
 	/**
 	 * Devuelve true si el usuario actual esta logueado como el rol esecificado (admin, fan, artista)
-	 * @param rol
+	 * @param rol rol que se quiere saber si está logueado
 	 * @return
 	 */
 	public static boolean rolActual(String rol) {
-		String rolSesion = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("rol");
-		if (rolSesion != null) {
-			return rolSesion.equals(rol);
+		try {
+			String rolSesion = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("rol");
+			if (rolSesion != null) {
+				return rolSesion.equals(rol);
+			}
+		} catch (Exception e) {
+		}
+		return false;
+	}
+	/**
+	 * (para ser usada desde los filtros) Devuelve true si el usuario actual esta logueado como el rol esecificado (admin, fan, artista)
+	 * @param request peticion recibida como parametro en el filtro
+	 * @param rol rol que se quiere saber si está logueado
+	 * @return
+	 */
+	public static boolean rolActual(ServletRequest request, String rol) {
+		try {
+			HttpServletRequest req = (HttpServletRequest) request;
+			String rolSesion = (String ) req.getSession().getAttribute("rol");
+			if (rolSesion != null) {
+				return rolSesion.equals(rol);
+			}
+		} catch (Exception e) {
 		}
 		return false;
 	}
