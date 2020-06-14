@@ -8,6 +8,8 @@ import com.TodoArte.Enums.*;
 import com.TodoArte.FachadeControllers.BackOfficeController;
 import com.TodoArte.FachadeControllers.FrontOfficeController;
 
+import beans.FuncionesComunes;
+
 public class Pruebas {
 
 	public static void main(String[] args) {
@@ -17,6 +19,7 @@ public class Pruebas {
 		//cargarDatosDePrueba(true);
 
 		//System.out.println("-- fin --");
+		
 	}
 	public static void cargarDatosDePrueba(boolean log) {
 		FrontOfficeController fo = new FrontOfficeController();

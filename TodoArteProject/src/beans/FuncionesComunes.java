@@ -13,6 +13,8 @@ import javax.sound.midi.Soundbank;
  * Esta clase contiene funciones que pueden ser utiles en cualquier Bean de este proyecto web
  * Para llamar una funcion de esta clase, se debe hacer: FuncionesComunes.funcionAEjecutar(...)
  */
+
+import com.TodoArte.Enums.TipoContenido;
 public class FuncionesComunes {
 
 	//---------------------------------------------------------------------------------------------
@@ -151,6 +153,54 @@ public class FuncionesComunes {
 	}
 
 	//---------------------------------------------------------------------------------------------
+	
+	/**
+	 * Debuele la extencion del archivo.
+	 * @param nombreDelArchivo, que contiene el nombre completo del archivo (pepito.jpg)
+	 * @return con la extecion del archvo con el punto egemplo (.jpg), null si no tiene extencion
+	 */
+	public static String obtenerExtecion(String nombreDelArchivo) {
+		int lastIndex = nombreDelArchivo.lastIndexOf(".");
+		if(lastIndex ==-1) {
+			return null;
+		}
+		return nombreDelArchivo.substring(lastIndex);
+	}
+	
+	/**
+	 * Devuelve el tipo de contenido correspondiente a la extencion.
+	 * @param extencion, extencion del archivo
+	 * @return TipoContenido
+	 */
+	public static TipoContenido obtenerTipoContenido(String extencion) {
+		if(extencion==null) {
+			return TipoContenido.Otros;
+		}
+		switch (extencion.toLowerCase()) {
+		
+		case ".jpg" :
+		case ".png" :
+		case ".gif" :
+			return TipoContenido.Imagen;
+			
+		case ".mp3" :
+		case ".wav" :
+		case ".ogg" :
+			return TipoContenido.Audio;
+			
+		case ".mp4" :
+		case ".mpeg" :
+		case ".avi" :
+		case ".mov" :
+			return TipoContenido.Video;
+		
+		case ".pdf" :
+			return TipoContenido.PDF;
+			
+		default:
+			return TipoContenido.Otros;
+		}
+	}
 	
 	/**
 	 * Para agregar nuevas funciones, recordar que debe ser 'public static'
