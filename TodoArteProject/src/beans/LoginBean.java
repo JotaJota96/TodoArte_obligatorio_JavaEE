@@ -25,8 +25,12 @@ public class LoginBean implements Serializable{
 	
 	private String nickname;
 	private String contrasenia;
-	
-	
+
+	private boolean fanLogueado = false;
+	private boolean artistaLogueado = false;
+	private boolean adminLogueado = false;
+
+	//***************************************************************************************************
 	public String iniciarSesion() {
 		Usuario u = fo.iniciarSesion(nickname, contrasenia);
 
@@ -41,6 +45,7 @@ public class LoginBean implements Serializable{
 			return Redirector.redirect("login.jsf");
 		}else if (u instanceof Fan) {
 			guardarDatosEnSesion(u);
+			fanLogueado = true;
 			return Redirector.redirect("home.jsf");
 		}else if (u instanceof Artista) {
 			guardarDatosEnSesion(u);
@@ -56,16 +61,25 @@ public class LoginBean implements Serializable{
 		String nick = null;
 		String rol = null;
 		
+		fanLogueado = false;
+		artistaLogueado = false;
+		adminLogueado = false;
+		
 		if (o instanceof Administrador) {
 			nick = ((Administrador) o).getNickname();
 			rol = "admin";
+			adminLogueado = true;
 		}else if (o instanceof Fan) {
 			nick = ((Fan) o).getNikname();
 			rol = "fan";
+			fanLogueado = true;
 		}else if (o instanceof Artista) {
 			nick = ((Artista) o).getNikname();
 			rol = "artista";
-		}		
+			artistaLogueado = true;
+		}
+		
+		nickname = nick;
 		
 		context.getExternalContext().getSessionMap().put("nickname", nick);
 		context.getExternalContext().getSessionMap().put("rol", rol);
@@ -73,7 +87,19 @@ public class LoginBean implements Serializable{
 		// para obener los valores en la sesion
 		//String nick = (String) context.getExternalContext().getSessionMap().get("user");
 	}
-	//---------------------------------------------------------
+	
+	public String cerrarSesion() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.getExternalContext().getSessionMap().remove("nickname");
+		context.getExternalContext().getSessionMap().remove("rol");
+		fanLogueado = false;
+		artistaLogueado = false;
+		adminLogueado = false;
+		nickname = null;
+		return Redirector.redirect("home.jsf");
+	}
+	
+	//***************************************************************************************************
 	public LoginBean() {}
 	
 	public String getNickname() {
@@ -87,6 +113,24 @@ public class LoginBean implements Serializable{
 	}
 	public void setContrasenia(String contrasenia) {
 		this.contrasenia = contrasenia;
+	}
+	public boolean isFanLogueado() {
+		return fanLogueado;
+	}
+	public void setFanLogueado(boolean fanLogueado) {
+		this.fanLogueado = fanLogueado;
+	}
+	public boolean isArtistaLogueado() {
+		return artistaLogueado;
+	}
+	public void setArtistaLogueado(boolean artistaLogueado) {
+		this.artistaLogueado = artistaLogueado;
+	}
+	public boolean isAdminLogueado() {
+		return adminLogueado;
+	}
+	public void setAdminLogueado(boolean adminLogueado) {
+		this.adminLogueado = adminLogueado;
 	}
 	
 	
