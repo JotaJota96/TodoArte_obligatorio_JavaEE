@@ -116,7 +116,7 @@ public class FanWS implements Serializable{
 	 */
 	@POST
 	@Path("/registrar")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response registrarUsuarioFan(Fan fan) {
 		try {

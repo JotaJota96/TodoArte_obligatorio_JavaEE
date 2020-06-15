@@ -50,13 +50,13 @@ public class Servicio  extends Application{
 	POST /comprar
 	void comprarContenido(String, int, int);				hecho
 
-	// Clase UsuarioWS
+	// Clase UsuarioWS  http://localhost:8080/TodoArteProject/api/usuario/login
 	/usuario
 	POST /login
-	Usuario iniciarSesion(String, String); 			hecho
+	Usuario iniciarSesion(String, String); hecho
 	
 	GET /obtener
-	Usuario obtenerDatosUsuario(String);		hecho
+	Usuario obtenerDatosUsuario(String);	hecho   http://localhost:8080/TodoArteProject/api/usuario/obtener
 	
 	PUT /recargar
 	void recargarSaldo(String, float);		hecho

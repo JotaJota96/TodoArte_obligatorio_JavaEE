@@ -99,7 +99,7 @@ public class ContenidoWS implements Serializable {
 	 */
 	@PUT
 	@Path("/agregar/{idartista}")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response agregarModificarContenido(@PathParam("idartista") String idArtista,Contenido Contenido) {
 		try {
@@ -124,7 +124,7 @@ public class ContenidoWS implements Serializable {
 	 */
 	@DELETE
 	@Path("/eliminar")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response eliminarContenido(String idArtista,Integer idContenido) {
 		try {
@@ -149,7 +149,7 @@ public class ContenidoWS implements Serializable {
 	 */
 	@POST
 	@Path("/calificar")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response calificarContenido(Valoracion val, String idFan,Integer idContenido, String idArtista) {
 		try {
@@ -173,7 +173,7 @@ public class ContenidoWS implements Serializable {
 	 */
 	@POST
 	@Path("/comentar")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response comentarContenido(Comentario comentario, String idFan, int idContenido, String idArtista) {
 		try {
@@ -197,7 +197,7 @@ public class ContenidoWS implements Serializable {
 	 */
 	@POST
 	@Path("/reportar")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response reportarContenido(Reporte reporte, String idFan, int idContenido, String idArtista) {
 		try {
@@ -221,7 +221,7 @@ public class ContenidoWS implements Serializable {
 	 */
 	@POST
 	@Path("/comprar")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response comprarContenido(String idFan, int idContenido, int idArtista) {
 		try {
@@ -245,7 +245,7 @@ public class ContenidoWS implements Serializable {
 	 */
 	@POST
 	@Path("/comprar-premium")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response comprarPremium(String idFan, String idArtista) {
 		try {
