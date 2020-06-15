@@ -23,69 +23,64 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:body>
 
 	<div class="tab-pane fade" id="fans" role="tabpanel" aria-labelledby="pills-profile-tab">
-				<div class="row">
-					<div class="col-md-1"></div>
-					<div class="col-md-10">
-					
-						<div class="card m-3">
-							<h5 class="card-header">Listado de Fans</h5>
-							 
-							<div class="card-body" style="height: 350px; overflow: auto;">
-								<!-- inicio de lista de fans -->
-
-								<!-- ***** inico fan **** -->
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-10">
 			
-								<div class="card my-2">
-									<div class="card-body">
-										<div class="row text-center">
-											<div class="col-lg-3 my-1">
-												<h5>Hernesto34</h5>
-											</div>
-											
-											<div class="col-lg-2 my-1"></div>
-											
-											<div class="col-lg-2 my-1">
-												<h:form class="form-signin">   												
-													<h:commandButton class="btn  btn-danger " value="Bloquear" action="bloquear"/>
-												</h:form>
-											</div>
-											
-											<div class="col-lg-2 my-1">
-												<h:form class="form-signin">
-													<h:commandButton class="btn  btn-warning " value="Desbloquear" action="desbloquear"/>
-												</h:form>
-											</div>
-											
-											
-											<div class="col-lg-3 my-1">
-											
-												<h:form class="form-signin">
-													<a class="btn  btn-primary text-white" onclick="esconder('fan')">Más informacion</a>
-												</h:form>
-											</div>
-											
-										</div>
-										
-										<!-- inicio Informacion del fan -->
-										<div id="fan" style="display:none;">
-											<hr/>
-											<h5>Ubicacion: <h:outputText value="San Jose de mayo" id="ubicacion"/></h5>
-											<h5>Sexo: <h:outputText value="1" id="sexo"/></h5>
-											<h5>Gustos: <h:outputText value="Maluma" id="gustos"/></h5>
-										</div>
-										<!-- fin Informacion del fan -->
+				<div class="card m-3">
+					<h5 class="card-header">Listado de Fans</h5>
+					 
+					<div class="card-body" style="height: 350px; overflow: auto;">
+					<!-- inicio de lista de fans -->
+	
+					<!-- ***** inico fan **** -->
+					<ui:repeat value="#{misFans.listaFan}" var="item">
+					 
+						<div class="card my-2">
+							<div class="card-body">
+								<div class="row text-center">
+									<div class="col-lg-3 my-1">
+										<h5>#{item.nikname}</h5>
 									</div>
+									
+									<div class="col-lg-2 my-1"></div>
+									
+									<div class="col-lg-2 my-1">
+										<h:form class="form-signin">   												
+											<h:commandButton class="#{misFans.estaBloqueadoClass(item.nikname)}" value="#{misFans.estaBloqueadoValue(item.nikname)}" action="#{misFans.bloquearDesbloquearFan(item.nikname)}"/>	
+										</h:form>
+									</div>
+									
+									<div class="col-lg-3 my-1">
+									
+										<h:form class="form-signin">
+											<a class="btn  btn-primary text-white" onclick="esconder('#{item.nikname}')">Más informacion</a>
+										</h:form>
+									</div>
+									
 								</div>
-
-								<!-- ********* fin fan ******* -->
 								
-								<!-- fin de lista de fans -->
+								<!-- inicio Informacion del fan -->
+								<div id="#{item.nikname}" style="display:none;">
+									<hr/>
+									<h5>Ubicacion: <h:outputText value="#{item.ubicacion}" id="ubicacion"/></h5>
+									<h5>Sexo: <h:outputText value="#{item.sexo}" id="sexo"/></h5>
+								</div>
+								<!-- fin Informacion del fan -->
 							</div>
 						</div>
+					 
+					</ui:repeat>
+
+					<!-- ********* fin fan ******* -->
+					
+					<!-- fin de lista de fans -->
 					</div>
-					<div class="col-md-1"></div>
 				</div>
 			</div>
+			<div class="col-md-1"></div>
+		</div>
+	</div>
 	
 </h:body>
 </html>

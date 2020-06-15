@@ -233,7 +233,9 @@ public class ArtistaController implements ArtistaInterface{
 		
 		for (Map.Entry<Integer, Contenido> entry : sitioArtista.getMisContenidos().entrySet()) {
 			try {
-				ret.add(cjpa.obtenerContenido(idArtista, entry.getValue().getId(), idFan));
+				if(entry.getValue().getEliminado() == false) {
+					ret.add(cjpa.obtenerContenido(idArtista, entry.getValue().getId(), idFan));
+				}
 			} catch (Exception e) {
 			}
 		}

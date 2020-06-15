@@ -21,46 +21,66 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:body>
 
-<div class="tab-pane fade show active" id="Publicar" role="tabpanel" aria-labelledby="pills-home-tab">
-	<h:form class="form-signin">
+	<div class="tab-pane fade show active" id="Publicar" role="tabpanel" aria-labelledby="pills-home-tab">
 		<div class="row">
 			<div class="col-md-3"></div>
 			<div class="col-md-6 text-center">
 				<h5 class="my-3">Publicar Contenido</h5>
-				<h:form class="form-signin">
+				<h:form class="form-signin" enctype="multipart/form-data">
 				 	<div class="form-group">
 			          <label for="titulo">Titulo</label>
-			          <h:inputText type="text" class="form-control" id="titulo" value=""></h:inputText>
+			          <h:inputText type="text" class="form-control" id="titulo" value="#{publicar.cont.titulo}"></h:inputText>
 			         </div>
-			         
+ 
 			         <div class="form-group">
 			         	<label for="descripcion">Descripcion</label>
-				        <h:inputTextarea class="form-control" id="descripcion" value="#{spintax.content}" rows="3" />
+				        <h:inputTextarea class="form-control" id="descripcion" value="#{publicar.cont.descripcion}" rows="3" />
 				        <small id="biografia" class="form-text text-muted">Dé una breve descripción del Contenido.</small>
 			          </div>
 			         
 			          <div class="form-group">
 			          	<label for="precio">Precio</label>
-			          	<h:inputText type="text" class="form-control" id="precio" value=""></h:inputText>
+			          	<h:inputText type="number" class="form-control" id="precio" value="#{publicar.cont.precio}"></h:inputText>
 			         </div>
+			         
+			         <div class="form-group">
+						<label for="Privacidad">Privacidad</label>
+						<h:selectOneMenu class="custom-select"
+							value="#{publicar.cont.privacidad}">
+							<!-- Esto es como un for, se agrega uno por cada elemento del enum Privacidad -->
+							<f:selectItems value="#{publicar.privacidad}" var="Privacidad"
+								itemValue="#{Privacidad}"
+								itemLabel="#{text['publicar.privacidad.'.concat(Privacidad)]}" />
+						</h:selectOneMenu>
+					</div>
+			         
+			         <div class="form-group dropdown show">
+						<label for="categoria">Catgoria</label>
+						<h:selectOneMenu class="custom-select" id="selectCategoria"
+							value="#{publicar.idCategoria}">
+							<f:selectItems  value="#{publicar.listaDeCategoria}" var="cat"
+								itemValue="#{cat.id}" 
+								itemLabel="#{cat.nombreCategoria}" />
+						</h:selectOneMenu>
+					</div>
 			         
 			         <div class="form-group mt-5">
 			          	<label for="archivo">Archivo</label> 
-			          	<br/>      	
-			          	 <h:inputFile value="#{bean.file}" id="archivo">
-			        		<f:ajax listener="#{bean.save}" />
-			    		</h:inputFile>
+						<br/>      	
+						<h:inputFile value="#{publicar.file}" id="archivo">
+						</h:inputFile>
 			          </div>
+			          
 			          <br/>
 		         	<div class="form-group">
-			          	<h:commandButton class="btn btn-lg btn-primary btn-block" value="Publicar" action="publicar"/>
+			          	<h:commandButton class="btn btn-lg btn-primary btn-block" value="Publicar" action="#{publicar.publicarContenido()}"/>
 		         	</div>
+								
 			 	</h:form>
 			</div>
 			<div class="col-md-3"></div>
 		</div>
-	</h:form>
-</div>
+	</div>
 	
 </h:body>
 </html>

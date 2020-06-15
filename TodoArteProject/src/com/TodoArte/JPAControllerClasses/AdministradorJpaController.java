@@ -119,7 +119,7 @@ public class AdministradorJpaController implements Serializable {
         	// Yo lo cambie por:
         	
         	Query q;
-        	q = em.createQuery("SELECT f FROM Administrador f WHERE f.nikname = ?1 OR f.correo = ?2");
+        	q = em.createQuery("SELECT a FROM Administrador a WHERE a.nickname = ?1 OR a.correo = ?2");
         	q.setParameter(1, id);
         	q.setParameter(2, id);
         	List<Administrador> aux = (List<Administrador>) q.getResultList();

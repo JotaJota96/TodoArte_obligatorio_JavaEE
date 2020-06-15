@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" 
 xmlns:h="http://java.sun.com/jsf/html" 
 xmlns:f="http://java.sun.com/jsf/core"
-xmlns:ui="http://java.sun.com/jsf/facelets">
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:c="http://java.sun.com/jsp/jstl/core">
   
 <h:head>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -17,6 +18,9 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
+    
+    <h:outputStylesheet library="css" name="general.css"/>
+    
 </h:head>
 
 <h:body>
@@ -32,24 +36,19 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 		
 		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item">
-					<a class="nav-link" href="sitio.jsf">Sobre mi</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="sitio-imagenes.jsf">Imagene</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="sitio-videos.jsf">Video</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="sitio-musica.jsf">Música</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="sitio-documentos.jsf">Documentos</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="sitio-otros.jsf">Otros</a>
-				</li>
+				<ui:repeat var="o" value="#{headerCompletoBean.opciones}">
+					<li class="nav-item">
+						<a class="nav-link" href="#{o[1]}">#{o[0]}</a>
+					</li>
+				</ui:repeat>
+				
+				<!-- Si se esta logueado como artista, muestra el elemento en el menu -->
+				<c:if test="#{headerCompletoBean.mostrarAdministrar}"> 
+					<li class="nav-item">
+						<a class="nav-link" href="sitio-administrar.jsf">Administrar</a>
+					</li>
+			   </c:if>
+				
 			</ul>
 			
 			<ul class="navbar-nav mr-4">

@@ -49,52 +49,28 @@
 					</h5>
 
 					<div class="card-body" id="Contendor" style="height: 350px; overflow: auto;">
-						<!-- inicio de Artistas -->
-
-						<!-- ***** resultados de la busqueda artista **** -->
-						
-					<h:dataTable class="table table-bordered" value="#{buscarBean.lstArtistas}" var="p" id="tablaPagos">
-		                <h:column>
-		                    <img src="/recurso/multimedia/usuario/imagen/#{p.nikname}" />
-		                </h:column>
-		                
-		                <h:column>
-		                    <h:outputText value="#{p.nikname}" />
-		                </h:column>
-		                
-		                <h:column>
-		                    <h:outputText value="#{p.nombre}" />
-		                </h:column>
-		                
-		                <h:column>
-		                	<a href="/TodoArteProject/sitio.jsf?id=#{p.nikname}" >ver mas</a>
-		                </h:column>
-		
-		            </h:dataTable>
-		            
-		            <!-- 
-						<ui:repeat value="#{buscarBean.lstArtistas}" var="item">
-							<div class="card my-2">
-								<div class="card-body">
-									<div class="row">
-										<div class="col-3 text-center">
-											<img src="/recurso/multimedia/usuario/imagen/#{item.nikname}" width="50px" height="50px"></img>
-										</div>
-	
-										<div class="col-9 ">
-											<h5 class="card-text align-middle "
-												style="color: rgb(70, 70, 255);">#{item.nikname}</h5>
-										</div>
-
-									</div>
-								</div>
-							</div>
-						</ui:repeat>
-						 -->
-						<!-- ********* fin de la busqueda artista ******* -->
-
+						<!-- inicio de Artistas -->						
+						<h:dataTable class="table table-bordered" value="#{buscarBean.lstArtistas}" var="p" id="tablaPagos">
+			                <h:column>
+			                    <img class="rounded-circle" width="50" height="auto" src="recurso/multimedia/usuario/imagen/#{p.nikname}" />
+			                </h:column>
+			                
+			                <h:column>
+			                    <h:outputText value="#{p.nikname}" />
+			                </h:column>
+			                
+			                <h:column>
+			                    <h:outputText value="#{p.nombre}" />
+			                </h:column>
+			                
+			                <h:column>
+			                	<a href="/TodoArteProject/sitio.jsf?id=#{p.nikname}" >ver mas</a>
+			                </h:column>
+			
+			            </h:dataTable>	            
 						<!-- fin de Artistas -->
 					</div>
+					
 				</div>
 			</div>
 			<div class="col-md-1"></div>
