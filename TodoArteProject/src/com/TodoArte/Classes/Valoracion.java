@@ -39,8 +39,8 @@ public class Valoracion implements Serializable{
 	}
 
 	public Valoracion(int id, int val, Fan miFan) {
-		if(val>0 && val<6){
-            throw new RuntimeException(MensajesExcepciones.valoracion);
+		if ( ! (val>0 && val<6)){ 
+            throw new RuntimeException(MensajesExcepciones.valoracionRango); 
 		}
 		if(miFan == null){
             throw new RuntimeException(MensajesExcepciones.miFan);

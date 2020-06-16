@@ -201,6 +201,14 @@ public class FuncionesComunes {
 			return TipoContenido.Otros;
 		}
 	}
+
+	/**
+	 * Devuelve la fecha actual
+	 * @return
+	 */
+	public static Date fechaActual() {
+		return new Date(System.currentTimeMillis());
+	}
 	
 	/**
 	 * Para agregar nuevas funciones, recordar que debe ser 'public static'
