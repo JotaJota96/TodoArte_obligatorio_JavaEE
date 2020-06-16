@@ -12,10 +12,12 @@ import com.TodoArte.Classes.Artista;
 import com.TodoArte.Classes.Comentario;
 import com.TodoArte.Classes.Contenido;
 import com.TodoArte.Classes.Fan;
+import com.TodoArte.Classes.Valoracion;
 import com.TodoArte.FachadeControllers.FrontOfficeController;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
 
 import beans.FuncionesComunes;
+import beans.Redirector;
 
 @Named
 @RequestScoped
@@ -33,6 +35,7 @@ public class ContenidoBean implements Serializable {
 	private ArrayList<Contenido> contenidosPDF = new ArrayList<Contenido>();
 	private ArrayList<Contenido> contenidosOtros = new ArrayList<Contenido>();
 	private String[] textoNuevoComentario;
+	private int[] valorNuevaCalificacion;
 	
 	//**************************************************************************************************
 	private void clasificarContenido() {
@@ -78,6 +81,18 @@ public class ContenidoBean implements Serializable {
 		
 		return "";
 	}
+
+	public String Calificar() {
+		int index = Integer.parseInt(FuncionesComunes.getParametro("indice"));
+		int idContenido = Integer.parseInt(FuncionesComunes.getParametro("idContenido"));
+		
+		Fan f = (Fan) fo.obtenerDatosUsuario(FuncionesComunes.usuarioActual());
+		Valoracion val = new Valoracion(0, valorNuevaCalificacion[index], f);
+		
+		fo.calificarContenido(val, f.getNikname(), idContenido, idArtista);
+		
+		return "";
+	}
 	
 	//**************************************************************************************************
 	public ContenidoBean() {
@@ -88,6 +103,10 @@ public class ContenidoBean implements Serializable {
 		artista = (Artista) fo.obtenerDatosUsuario(idArtista);
 		clasificarContenido();
 		textoNuevoComentario = new String[fo.obtenerContenido(idArtista, idFan).size()];
+		valorNuevaCalificacion = new int[fo.obtenerContenido(idArtista, idFan).size()];
+		for (int i = 0; i < valorNuevaCalificacion.length; i++) {
+			valorNuevaCalificacion[i] = 5;
+		}
 	}
 
 	public String getIdArtista() {
@@ -143,6 +162,16 @@ public class ContenidoBean implements Serializable {
 	}
 	public void setTextoNuevoComentario(String[] textoNuevoComentario) {
 		this.textoNuevoComentario = textoNuevoComentario;
+	}
+
+
+	public int[] getValorNuevaCalificacion() {
+		return valorNuevaCalificacion;
+	}
+
+
+	public void setValorNuevaCalificacion(int[] valorNuevaCalificacion) {
+		this.valorNuevaCalificacion = valorNuevaCalificacion;
 	}
 
 	
