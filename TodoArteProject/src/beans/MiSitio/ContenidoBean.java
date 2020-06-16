@@ -97,7 +97,7 @@ public class ContenidoBean implements Serializable {
 	//**************************************************************************************************
 	public ContenidoBean() {
 		idArtista = FuncionesComunes.getParametro("id");
-		if (FuncionesComunes.rolActual("artista") || FuncionesComunes.rolActual("artista")) {
+		if (FuncionesComunes.rolActual("fan") || FuncionesComunes.rolActual("artista")) {
 			idFan = FuncionesComunes.usuarioActual();
 		}
 		artista = (Artista) fo.obtenerDatosUsuario(idArtista);

@@ -146,6 +146,24 @@ public class Contenido implements Serializable {
 	}
 	
 	//***************************************************************************	
+	public boolean fanYaValoro(String idFan) {
+		for (Map.Entry<Integer, Valoracion> entry : MisValoracion.entrySet()) {
+			if (entry.getValue().getMiFan().getNikname().equals(idFan)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean fanYaCompro(String idFan) {
+		for (Map.Entry<Integer, Venta> entry : MisVentas.entrySet()) {
+			if (entry.getValue().getMiFan().getNikname().equals(idFan)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public void crearValoracion(Valoracion val, Fan fan) {
 		// vincular la valoracion con el fan
 		// persistir la valoracion
