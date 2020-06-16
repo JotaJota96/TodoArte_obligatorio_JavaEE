@@ -98,13 +98,13 @@
 						<h5 class="card-header">Comentarios</h5>
 						<div class="card-body" style="height: 300px; overflow: auto;">
 							<ul>
-								<li><p>Hola</p></li>
-								<li><p>Hola todo bien</p></li>
-								<li><p>como andan?</p></li>
-								<li><p>como andan?</p></li>
-								<li><p>como andan?</p></li>
-								<li><p>como andan?</p></li>
-								<li><p>como andan?</p></li>
+								<ui:repeat var="com" value="#{contenidoBean.obtenerComentarios(c.id)}">
+									<li><p>
+										<strong>#{com.miFan.nikname}:</strong> <small>(#{" "}#{com.fechaYHora})</small>
+										<br/>
+										#{com.texto}
+									</p></li>
+								</ui:repeat>
 							</ul>
 						</div>
 						<h5 class="card-footer text-right">

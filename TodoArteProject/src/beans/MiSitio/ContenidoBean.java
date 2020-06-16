@@ -2,6 +2,7 @@ package beans.MiSitio;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.enterprise.context.RequestScoped;
@@ -54,16 +55,15 @@ public class ContenidoBean implements Serializable {
 		}
 	}
 	
-	/*
-	public ArrayList<Comentario> obtenerComentarios(Contenido c){
+	
+	public List<Comentario> obtenerComentarios(int idComentario){
 		ArrayList<Comentario> ret = new ArrayList<Comentario>();
 		
-		for (Map.Entry<Integer, Comentario> entry : c.getMisComentario().entrySet()) {
+		for (Map.Entry<Integer, Comentario> entry : fo.obtenerContenido(idArtista, idComentario, idFan).getMisComentario().entrySet()) {
 			ret.add(entry.getValue());
 		}
 		return ret;
 	}
-	*/
 	
 	//**************************************************************************************************
 	public ContenidoBean() {
@@ -78,63 +78,48 @@ public class ContenidoBean implements Serializable {
 	public String getIdArtista() {
 		return idArtista;
 	}
-
 	public void setIdArtista(String idArtista) {
 		this.idArtista = idArtista;
 	}
-
 	public String getIdFan() {
 		return idFan;
 	}
-
 	public void setIdFan(String idFan) {
 		this.idFan = idFan;
 	}
-
 	public Artista getArtista() {
 		return artista;
 	}
-
 	public void setArtista(Artista artista) {
 		this.artista = artista;
 	}
-
 	public ArrayList<Contenido> getContenidosAudio() {
 		return contenidosAudio;
 	}
-
 	public void setContenidosAudio(ArrayList<Contenido> contenidosAudio) {
 		this.contenidosAudio = contenidosAudio;
 	}
-
 	public ArrayList<Contenido> getContenidosImagen() {
 		return contenidosImagen;
 	}
-
 	public void setContenidosImagen(ArrayList<Contenido> contenidosImagen) {
 		this.contenidosImagen = contenidosImagen;
 	}
-
 	public ArrayList<Contenido> getContenidosVideo() {
 		return contenidosVideo;
 	}
-
 	public void setContenidosVideo(ArrayList<Contenido> contenidosVideo) {
 		this.contenidosVideo = contenidosVideo;
 	}
-
 	public ArrayList<Contenido> getContenidosPDF() {
 		return contenidosPDF;
 	}
-
 	public void setContenidosPDF(ArrayList<Contenido> contenidosPDF) {
 		this.contenidosPDF = contenidosPDF;
 	}
-
 	public ArrayList<Contenido> getContenidosOtros() {
 		return contenidosOtros;
 	}
-
 	public void setContenidosOtros(ArrayList<Contenido> contenidosOtros) {
 		this.contenidosOtros = contenidosOtros;
 	}
