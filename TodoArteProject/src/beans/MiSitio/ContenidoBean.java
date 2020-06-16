@@ -11,6 +11,7 @@ import javax.inject.Named;
 import com.TodoArte.Classes.Artista;
 import com.TodoArte.Classes.Comentario;
 import com.TodoArte.Classes.Contenido;
+import com.TodoArte.Classes.Fan;
 import com.TodoArte.FachadeControllers.FrontOfficeController;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
 
@@ -31,6 +32,7 @@ public class ContenidoBean implements Serializable {
 	private ArrayList<Contenido> contenidosVideo = new ArrayList<Contenido>();
 	private ArrayList<Contenido> contenidosPDF = new ArrayList<Contenido>();
 	private ArrayList<Contenido> contenidosOtros = new ArrayList<Contenido>();
+	private String[] textoNuevoComentario;
 	
 	//**************************************************************************************************
 	private void clasificarContenido() {
@@ -65,6 +67,18 @@ public class ContenidoBean implements Serializable {
 		return ret;
 	}
 	
+	public String comentar() {
+		int index = Integer.parseInt(FuncionesComunes.getParametro("indice"));
+		int idContenido = Integer.parseInt(FuncionesComunes.getParametro("idContenido"));
+		
+		Fan f = (Fan) fo.obtenerDatosUsuario(FuncionesComunes.usuarioActual());
+		Comentario com = new Comentario(0, textoNuevoComentario[index], FuncionesComunes.fechaActual(), f);
+		
+		fo.comentarContenido(com, f.getNikname(), idContenido, idArtista);
+		
+		return "";
+	}
+	
 	//**************************************************************************************************
 	public ContenidoBean() {
 		idArtista = FuncionesComunes.getParametro("id");
@@ -73,6 +87,7 @@ public class ContenidoBean implements Serializable {
 		}
 		artista = (Artista) fo.obtenerDatosUsuario(idArtista);
 		clasificarContenido();
+		textoNuevoComentario = new String[fo.obtenerContenido(idArtista, idFan).size()];
 	}
 
 	public String getIdArtista() {
@@ -123,5 +138,12 @@ public class ContenidoBean implements Serializable {
 	public void setContenidosOtros(ArrayList<Contenido> contenidosOtros) {
 		this.contenidosOtros = contenidosOtros;
 	}
+	public String[] getTextoNuevoComentario() {
+		return textoNuevoComentario;
+	}
+	public void setTextoNuevoComentario(String[] textoNuevoComentario) {
+		this.textoNuevoComentario = textoNuevoComentario;
+	}
+
 	
 }
