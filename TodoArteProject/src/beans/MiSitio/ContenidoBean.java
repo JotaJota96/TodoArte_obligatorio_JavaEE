@@ -12,6 +12,7 @@ import com.TodoArte.Classes.Artista;
 import com.TodoArte.Classes.Comentario;
 import com.TodoArte.Classes.Contenido;
 import com.TodoArte.Classes.Fan;
+import com.TodoArte.Classes.Reporte;
 import com.TodoArte.Classes.Valoracion;
 import com.TodoArte.FachadeControllers.FrontOfficeController;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
@@ -36,6 +37,7 @@ public class ContenidoBean implements Serializable {
 	private ArrayList<Contenido> contenidosOtros = new ArrayList<Contenido>();
 	private String[] textoNuevoComentario;
 	private int[] valorNuevaCalificacion;
+	private String[] textoNuevoReporte;
 	
 	//**************************************************************************************************
 	private void clasificarContenido() {
@@ -82,7 +84,7 @@ public class ContenidoBean implements Serializable {
 		return "";
 	}
 
-	public String Calificar() {
+	public String calificar() {
 		int index = Integer.parseInt(FuncionesComunes.getParametro("indice"));
 		int idContenido = Integer.parseInt(FuncionesComunes.getParametro("idContenido"));
 		
@@ -93,16 +95,29 @@ public class ContenidoBean implements Serializable {
 		
 		return "";
 	}
+
+	public String reportar() {
+		int index = Integer.parseInt(FuncionesComunes.getParametro("indice"));
+		int idContenido = Integer.parseInt(FuncionesComunes.getParametro("idContenido"));
+		
+		Fan f = (Fan) fo.obtenerDatosUsuario(FuncionesComunes.usuarioActual());
+		Reporte rep = new Reporte(0, textoNuevoReporte[index], f);
+		
+		fo.reportarContenido(rep, f.getNikname(), idContenido, idArtista);
+		
+		return "";
+	}
 	
 	//**************************************************************************************************
 	public ContenidoBean() {
 		idArtista = FuncionesComunes.getParametro("id");
-		if (FuncionesComunes.rolActual("artista") || FuncionesComunes.rolActual("artista")) {
+		if (FuncionesComunes.rolActual("fan") || FuncionesComunes.rolActual("artista")) {
 			idFan = FuncionesComunes.usuarioActual();
 		}
 		artista = (Artista) fo.obtenerDatosUsuario(idArtista);
 		clasificarContenido();
 		textoNuevoComentario = new String[fo.obtenerContenido(idArtista, idFan).size()];
+		textoNuevoReporte = new String[fo.obtenerContenido(idArtista, idFan).size()];
 		valorNuevaCalificacion = new int[fo.obtenerContenido(idArtista, idFan).size()];
 		for (int i = 0; i < valorNuevaCalificacion.length; i++) {
 			valorNuevaCalificacion[i] = 5;
@@ -163,15 +178,17 @@ public class ContenidoBean implements Serializable {
 	public void setTextoNuevoComentario(String[] textoNuevoComentario) {
 		this.textoNuevoComentario = textoNuevoComentario;
 	}
-
-
 	public int[] getValorNuevaCalificacion() {
 		return valorNuevaCalificacion;
 	}
-
-
 	public void setValorNuevaCalificacion(int[] valorNuevaCalificacion) {
 		this.valorNuevaCalificacion = valorNuevaCalificacion;
+	}
+	public String[] getTextoNuevoReporte() {
+		return textoNuevoReporte;
+	}
+	public void setTextoNuevoReporte(String[] textoNuevoReporte) {
+		this.textoNuevoReporte = textoNuevoReporte;
 	}
 
 	

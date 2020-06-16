@@ -33,118 +33,158 @@
 	<main role="main" class="container mt-5 mb-5">
 
 		<!--********************************* Inicio    PRIMER TARJETA ***********************************-->
-		<div class="card m-3">
+		<div class="card m-0 m-md-3">
 			<h5 class="card-header">Musica del Artista</h5>
 			<c:forEach var="c" items="#{contenidoBean.contenidosAudio}" varStatus="status">
-				<div class="row">
-				<div class="col-md-6">
-					<div class="card m-3">
-						<h5 class="card-header">#{c.titulo}</h5>
-						<div class="card-body">
-
-							<audio controls="x" class="w-100" src="recurso/multimedia/contenido/#{contenidoBean.idArtista}/#{c.id}">
-							</audio>
-
-							<br /> <span class="text-muted">Descripcion:</span>
-							<p class="card-text mt-1">#{c.descripcion}</p>
-							<hr />
-
-							<div class="row">
-								<div class="col-md-3">
-									<span class="text-muted">Precio:</span>
-									<p class="card-text mt-1">$#{c.precio}</p>
-								</div>
-								<div class="col-md-5">
-									<span class="text-muted">Fecha de Post:</span>
-									<p class="card-text mt-1">#{c.fechaPublicado}</p>
-								</div>
-								<div class="col-md-4">
-									<span class="text-muted">Calificacion:</span>
-									<p class="card-text mt-1">#{c.valoracionCalculada}</p>
+				<div class="row p-1 p-md-3">
+					<div class="col-12 col-md-6 m-0 p-0">
+						<div class="card m-3">
+							<h5 class="card-header">#{c.titulo}</h5>
+							<div class="card-body">
+	
+								<audio controls="x" class="w-100" src="recurso/multimedia/contenido/#{contenidoBean.idArtista}/#{c.id}">
+								</audio>
+								<br />
+								<span class="text-muted">Descripcion:</span>
+								<p class="card-text mt-1">#{c.descripcion}</p>
+								<hr />
+	
+								<div class="row text-center">
+									<div class="col-12 col-lg-3">
+										<span class="text-muted">Precio:</span>
+										<p class="card-text mt-1">$#{c.precio}</p>
+									</div>
+									<div class="col-12 col-lg-5">
+										<span class="text-muted">Fecha de Post:</span>
+										<p class="card-text mt-1">#{c.fechaPublicado}</p>
+									</div>
+									<div class="col-12 col-lg-4">
+										<span class="text-muted">Calificacion:</span>
+										<p class="card-text mt-1">#{c.valoracionCalculada}</p>
+									</div>
 								</div>
 							</div>
+							
+							<!--  Botones de Comprar, Reportar, Calificar -->
+							<c:if test="#{loginBean.fanLogueado}">
+								<div class="card-footer text-center">
+									<div class="row mt-2">
+										<div class="col-12 col-md-6 col-lg-3 my-1 p-1">
+											<c:if test="#{ ! c.fanYaCompro(contenidoBean.idFan)}">
+												<h:commandButton class="btn btn-info mx-auto w-100" 
+													value="Comprar" action="Comprar" />
+											</c:if>
+										</div>
+										<div class="col-12 col-md-6 col-lg-3 my-1 p-1">
+											<!-- Boton que abre el modal para Reportar (el modal esta al final del foreach) -->
+											<button type="button" class="btn btn-danger  mx-auto w-100" data-toggle="modal" data-target="#myModal#{status.index}">Denunciar</button>
+											<!-- Antes estaba este: -->
+											<!-- 
+											<h:commandButton class="btn btn-danger  mx-auto w-100" value="Denunciar" action="Denunciar" />
+											-->
+										</div>
+										<h:form class="col-12 col-md-6">
+											<c:if test="#{ ! c.fanYaValoro(contenidoBean.idFan)}">
+												<div class="row">
+													<div class="col-6  my-1 p-1">
+														<h:commandButton class="btn btn-warning  w-100" value="Califiar" action="#{contenidoBean.calificar()}">
+										          			<f:param name="idContenido" value="#{c.id}" />
+										          			<f:param name="indice" value="#{status.index}" />
+										          			<f:param name="id" value="#{contenidoBean.idArtista}" />
+														</h:commandButton>
+													</div>
+													<div class="col-6  my-1 p-1">
+														<h:selectOneMenu class="form-control w-100"
+															value="#{contenidoBean.valorNuevaCalificacion[status.index]}"
+															id="Califiar" label="Service Level">
+															<f:selectItem itemLabel="1" itemValue="1" />
+															<f:selectItem itemLabel="2" itemValue="2" />
+															<f:selectItem itemLabel="3" itemValue="3" />
+															<f:selectItem itemLabel="4" itemValue="4" />
+															<f:selectItem itemLabel="5" itemValue="5" />
+														</h:selectOneMenu>
+													</div>
+												</div>
+											</c:if>
+										</h:form>
+									</div>
+								</div>
+							</c:if>
+							<!--  FIN Botones de Comprar, Reportar, Calificar -->
+							
 						</div>
-
-						<!--  Botones de Comprar, Reportar, Calificar -->
-						<c:if test="#{loginBean.fanLogueado}">
-							<div class="card-footer text-center">
-								<div class="row mt-2">
-									<div class="col-12 col-md-6 col-lg-3 my-1 p-1">
-										<h:commandButton class="btn btn-info mx-auto w-100"
-											value="Comprar" action="Comprar" />
-									</div>
-									<div class="col-12 col-md-6 col-lg-3 my-1 p-1">
-										<h:commandButton class="btn btn-danger  mx-auto w-100"
-											value="Denunciar" action="Denunciar" />
-									</div>
-									<h:form class="col-12 col-md-6">
+					</div>
+					<div class="col-12 col-md-6 m-0 p-0">
+						<!-- inicio del chat -->
+						<div class="card m-3">
+							<h5 class="card-header">Comentarios</h5>
+							<div class="card-body" style="height: 300px; overflow: auto;">
+								<ul>
+									<ui:repeat var="com" value="#{contenidoBean.obtenerComentarios(c.id)}">
+										<li><p>
+											<strong>#{com.miFan.nikname}:</strong> <small>(#{" "}#{com.fechaYHora})</small>
+											<br/>
+											#{com.texto}
+										</p></li>
+									</ui:repeat>
+								</ul>
+							</div>
+							<c:if test="#{loginBean.fanLogueado}">
+								<div class="card-footer text-right">
+									<h:form>
 										<div class="row">
-											<div class="col-6  my-1 p-1">
-												<h:commandButton class="btn btn-warning  w-100" value="Califiar" action="#{contenidoBean.Calificar()}">
+											<div class="col-12 col-md-9 p-1">
+												<h:inputTextarea  class="form-control" value="#{contenidoBean.textoNuevoComentario[status.index]}" 
+													required="true" requiredMessage="Debe ingresar un texto"/>
+											</div>
+											<div class="col-12 col-md-3 my-2 p-1">
+												<h:commandButton class="btn btn-primary w-100" value="Comentar" action="#{contenidoBean.comentar()}" >
 								          			<f:param name="idContenido" value="#{c.id}" />
 								          			<f:param name="indice" value="#{status.index}" />
 								          			<f:param name="id" value="#{contenidoBean.idArtista}" />
 												</h:commandButton>
 											</div>
-											<div class="col-6  my-1 p-1">
-												<h:selectOneMenu class="form-control w-100"
-													value="#{contenidoBean.valorNuevaCalificacion[status.index]}"
-													id="Califiar" label="Service Level">
-													<f:selectItem itemLabel="1" itemValue="1" />
-													<f:selectItem itemLabel="2" itemValue="2" />
-													<f:selectItem itemLabel="3" itemValue="3" />
-													<f:selectItem itemLabel="4" itemValue="4" />
-													<f:selectItem itemLabel="5" itemValue="5" />
-												</h:selectOneMenu>
-											</div>
 										</div>
 									</h:form>
 								</div>
-							</div>
-						</c:if>
-						<!--  FIN Botones de Comprar, Reportar, Calificar -->
-						
-					</div>
-				</div>
-				<div class="col-md-6">
-					<!-- inicio del chat -->
-					<div class="card m-3">
-						<h5 class="card-header">Comentarios</h5>
-						<div class="card-body" style="height: 300px; overflow: auto;">
-							<ul>
-								<ui:repeat var="com" value="#{contenidoBean.obtenerComentarios(c.id)}">
-									<li><p>
-										<strong>#{com.miFan.nikname}:</strong> <small>(#{" "}#{com.fechaYHora})</small>
-										<br/>
-										#{com.texto}
-									</p></li>
-								</ui:repeat>
-							</ul>
+							</c:if>
 						</div>
-						<c:if test="#{loginBean.fanLogueado}">
-							<div class="card-footer text-right">
-								<h:form>
-									<div class="row">
-										<div class="col-12 col-md-9 p-1">
-											<h:inputTextarea  class="form-control" value="#{contenidoBean.textoNuevoComentario[status.index]}" 
-												required="true" requiredMessage="Debe ingresar un texto"/>
-										</div>
-										<div class="col-12 col-md-3 my-2 p-1">
-											<h:commandButton class="btn btn-primary w-100" value="Comentar" action="#{contenidoBean.comentar()}" >
-							          			<f:param name="idContenido" value="#{c.id}" />
-							          			<f:param name="indice" value="#{status.index}" />
-							          			<f:param name="id" value="#{contenidoBean.idArtista}" />
-											</h:commandButton>
-										</div>
-									</div>
-								</h:form>
-							</div>
-						</c:if>
+						<!-- fin del chat -->
 					</div>
-					<!-- fin del chat -->
 				</div>
-			</div>
-			<hr/>
+				<hr/>
+				
+				<!-- Modal para Reportar -->
+				<div class="modal fade" id="myModal#{status.index}" role="dialog">
+					<div class="modal-dialog">
+						<h:form>
+							<!-- Contenido del modal -->
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">Reportar</h4>
+								</div>
+								<div class="modal-body">
+									<p>¿Qué hay de malo con #{c.titulo}?</p>
+									<h:inputTextarea  class="form-control" 
+										value="#{contenidoBean.textoNuevoReporte[status.index]}" 
+										required="true" requiredMessage="Debe ingresar un texto"/>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+									<h:commandButton class="btn btn-danger"  data-dismiss="modal" value="Enviar"
+										action="#{contenidoBean.reportar()}">
+					          			<f:param name="idContenido" value="#{c.id}" />
+					          			<f:param name="indice" value="#{status.index}" />
+					          			<f:param name="id" value="#{contenidoBean.idArtista}" />
+									</h:commandButton>
+								</div>
+							</div>
+						</h:form>
+						<!-- FIN Contenido del modal -->
+					</div>
+				</div>
+				<!-- FIN Modal para Reportar -->
+				
 			</c:forEach>
 		</div>
 		<!--************************************ FIN    PRIMER TARJETA ***********************************-->
