@@ -76,8 +76,12 @@
 											</c:if>
 										</div>
 										<div class="col-12 col-md-6 col-lg-3 my-1 p-1">
-											<h:commandButton class="btn btn-danger  mx-auto w-100"
-												value="Denunciar" action="Denunciar" />
+											<!-- Boton que abre el modal para Reportar (el modal esta al final del foreach) -->
+											<button type="button" class="btn btn-danger  mx-auto w-100" data-toggle="modal" data-target="#myModal#{status.index}">Denunciar</button>
+											<!-- Antes estaba este: -->
+											<!-- 
+											<h:commandButton class="btn btn-danger  mx-auto w-100" value="Denunciar" action="Denunciar" />
+											-->
 										</div>
 										<h:form class="col-12 col-md-6">
 											<c:if test="#{ ! c.fanYaValoro(contenidoBean.idFan)}">
@@ -149,6 +153,29 @@
 					</div>
 				</div>
 				<hr/>
+				
+				<!-- Modal para Reportar -->
+				<div class="modal fade" id="myModal#{status.index}" role="dialog">
+					<div class="modal-dialog">
+							<!-- Contenido del modal -->
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">Reportar</h4>
+								</div>
+								<div class="modal-body">
+									<p>¿Qué hay de malo con #{c.titulo}?</p>
+									<p>Acá debería haber un text area</p>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+									<button type="button" class="btn btn-danger"  data-dismiss="modal">Enviar</button>
+								</div>
+							</div>
+						<!-- FIN Contenido del modal -->
+					</div>
+				</div>
+				<!-- FIN Modal para Reportar -->
+				
 			</c:forEach>
 		</div>
 		<!--************************************ FIN    PRIMER TARJETA ***********************************-->
