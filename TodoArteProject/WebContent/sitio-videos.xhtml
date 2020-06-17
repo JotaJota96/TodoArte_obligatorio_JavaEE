@@ -83,60 +83,57 @@
 									</div>
 								</div>
 								
-								<!--  Botones de Comprar, Reportar, Calificar -->
-								<c:if test="#{loginBean.fanLogueado}">
-									<div class="card-footer text-center">
-										<div class="row mt-2">
-											<h:form class="col-12 col-md-6 col-lg-3 my-1 p-1">
-												<c:if test="#{contenidoBean.permitirComprar(c)}">
-													<h:commandButton class="btn btn-info mx-auto w-100" 
-														value="Comprar" action="#{contenidoBean.comprar()}">
+							<!--  Botones de Comprar, Reportar, Calificar -->
+							<c:if test="#{loginBean.fanLogueado}">
+								<div class="card-footer text-center">
+									<div class="row mt-2">
+										<h:form class="col-12 col-md-6 col-lg-3 my-1 p-1">
+											<h:commandButton class="btn btn-info mx-auto w-100" 
+												disabled="#{ ! (contenidoBean.permitirComprar(c) and contenidoBean.saldoSuficiente(c))}"
+												value="Comprar" action="#{contenidoBean.comprar()}">
+							          			<f:param name="idContenido" value="#{c.id}" />
+							          			<f:param name="id" value="#{contenidoBean.idArtista}" />
+											</h:commandButton>
+										</h:form>
+										<div class="col-12 col-md-6 col-lg-3 my-1 p-1">
+											<!-- Boton que abre el modal para Reportar (el modal esta al final del foreach) -->
+											<c:if test="#{ ! contenidoBean.permitirComprar(c)}">
+												<button type="button" class="btn btn-danger  mx-auto w-100" data-toggle="modal" data-target="#myModal#{status.index}">Reportar</button>
+											</c:if>
+											<c:if test="#{contenidoBean.permitirComprar(c)}">
+												<button disabled="disabled" type="button" class="btn btn-danger  mx-auto w-100" data-toggle="modal" data-target="#myModal#{status.index}">Reportar</button>
+											</c:if>
+										</div>
+										<h:form class="col-12 col-md-6">
+											<div class="row">
+												<div class="col-6  my-1 p-1">
+													<h:commandButton class="btn btn-warning  w-100" 
+														disabled="${ ! (! c.fanYaValoro(contenidoBean.idFan) and ! contenidoBean.permitirComprar(c))}"
+														value="Califiar"  action="#{contenidoBean.calificar()}">
 									          			<f:param name="idContenido" value="#{c.id}" />
+									          			<f:param name="indice" value="#{status.index}" />
 									          			<f:param name="id" value="#{contenidoBean.idArtista}" />
 													</h:commandButton>
-												</c:if>
-											</h:form>
-											<div class="col-12 col-md-6 col-lg-3 my-1 p-1">
-												<c:if test="#{ ! contenidoBean.permitirComprar(c)}">
-													<!-- Boton que abre el modal para Reportar (el modal esta al final del foreach) -->
-													<button type="button" class="btn btn-danger  mx-auto w-100" data-toggle="modal" data-target="#myModal#{status.index}">Reportar</button>
-													<!-- Antes estaba este: -->
-													<!-- 
-													<h:commandButton class="btn btn-danger  mx-auto w-100" value="Denunciar" action="Denunciar" />
-													-->
-												</c:if>
+												</div>
+												<div class="col-6  my-1 p-1">
+													<h:selectOneMenu class="form-control w-100"
+														disabled="${ ! (! c.fanYaValoro(contenidoBean.idFan) and ! contenidoBean.permitirComprar(c))}"
+														value="#{contenidoBean.valorNuevaCalificacion[status.index]}"
+														id="Califiar" label="Service Level">
+														<f:selectItem itemLabel="1" itemValue="1" />
+														<f:selectItem itemLabel="2" itemValue="2" />
+														<f:selectItem itemLabel="3" itemValue="3" />
+														<f:selectItem itemLabel="4" itemValue="4" />
+														<f:selectItem itemLabel="5" itemValue="5" />
+													</h:selectOneMenu>
+												</div>
 											</div>
-											<h:form class="col-12 col-md-6">
-												<c:if test="#{ ! c.fanYaValoro(contenidoBean.idFan)}">
-													<c:if test="#{ ! contenidoBean.permitirComprar(c)}">
-														<div class="row">
-															<div class="col-6  my-1 p-1">
-																<h:commandButton class="btn btn-warning  w-100" value="Califiar" action="#{contenidoBean.calificar()}">
-												          			<f:param name="idContenido" value="#{c.id}" />
-												          			<f:param name="indice" value="#{status.index}" />
-												          			<f:param name="id" value="#{contenidoBean.idArtista}" />
-																</h:commandButton>
-															</div>
-															<div class="col-6  my-1 p-1">
-																<h:selectOneMenu class="form-control w-100"
-																	value="#{contenidoBean.valorNuevaCalificacion[status.index]}"
-																	id="Califiar" label="Service Level">
-																	<f:selectItem itemLabel="1" itemValue="1" />
-																	<f:selectItem itemLabel="2" itemValue="2" />
-																	<f:selectItem itemLabel="3" itemValue="3" />
-																	<f:selectItem itemLabel="4" itemValue="4" />
-																	<f:selectItem itemLabel="5" itemValue="5" />
-																</h:selectOneMenu>
-															</div>
-														</div>
-													</c:if>
-												</c:if>
-											</h:form>
-										</div>
+										</h:form>
 									</div>
-								</c:if>
-								<!--  FIN Botones de Comprar, Reportar, Calificar -->
-								
+								</div>
+							</c:if>
+							<!--  FIN Botones de Comprar, Reportar, Calificar -->
+							
 							</div>
 						</div>
 						<div class="col-12 col-md-6 m-0 p-0">
