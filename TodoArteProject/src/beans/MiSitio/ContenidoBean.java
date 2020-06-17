@@ -157,6 +157,7 @@ public class ContenidoBean implements Serializable {
 		}
 		return false;
 	}
+	
 	//**************************************************************************************************
 	public ContenidoBean() {
 		idArtista = FuncionesComunes.getParametro("id");
