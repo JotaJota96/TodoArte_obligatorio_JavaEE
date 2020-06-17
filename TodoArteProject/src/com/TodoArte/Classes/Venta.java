@@ -47,7 +47,7 @@ public class Venta implements Serializable{
 	}
 
 	public Venta(int id, float precio, Date fechaYHora, Fan miFan) {
-		if(precio <= 0){
+		if(precio < 0){
             throw new RuntimeException(MensajesExcepciones.precio);
 		}
 		if(fechaYHora == null){

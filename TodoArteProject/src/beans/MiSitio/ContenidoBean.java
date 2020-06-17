@@ -118,6 +118,12 @@ public class ContenidoBean implements Serializable {
 		return "";
 	}
 	
+	public String comprar() {
+		int idContenido = Integer.parseInt(FuncionesComunes.getParametro("idContenido"));
+		fo.comprarContenido(idFan, idContenido, 0);
+		return "";
+	}
+	
 	public boolean mostrarContenido(Contenido c) {
 		if (c.getPrivacidad() != Privacidad.Premium) {
 			return true;
