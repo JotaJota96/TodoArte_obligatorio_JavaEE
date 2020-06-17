@@ -41,21 +41,21 @@
 				</div>
 			</c:if>
 			
-			<c:forEach var="v" items="#{contenidoBean.contenidosVideo}" varStatus="status">
+			<c:forEach var="c" items="#{contenidoBean.contenidosVideo}" varStatus="status">
 				<div class="row p-1 p-md-3">
 						<div class="col-12 col-md-6 m-0 p-0">
 							<div class="card m-3">
-								<h5 class="card-header">#{v.titulo}</h5>
+								<h5 class="card-header">#{c.titulo}</h5>
 								<div class="card-body">
 									
 									<!-- Si hay que mostrar el contenido, se muestra -->
-									<c:if test="#{contenidoBean.mostrarContenido(v)}">
+									<c:if test="#{contenidoBean.mostrarContenido(c)}">
 										<video controls="controls" width="100%">
-											<source src="recurso/multimedia/contenido/#{contenidoBean.idArtista}/#{v.id}" type="video/mp4" />
+											<source src="recurso/multimedia/contenido/#{contenidoBean.idArtista}/#{c.id}" type="video/mp4" />
 										</video>
 									</c:if>
 									<!-- Sino, se le avisa que puede comprarlo -->
-									<c:if test="#{ ! contenidoBean.mostrarContenido(v)}">
+									<c:if test="#{ ! contenidoBean.mostrarContenido(c)}">
 										<div class="text-center">
 											<span class="text-muted">Compra este contenido o hazte premium</span>
 										</div>
@@ -64,21 +64,21 @@
 									
 									<br />
 									<span class="text-muted">Descripcion:</span>
-									<p class="card-text mt-1">#{v.descripcion}</p>
+									<p class="card-text mt-1">#{c.descripcion}</p>
 									<hr />
 		
 									<div class="row text-center">
 										<div class="col-12 col-lg-3">
 											<span class="text-muted">Precio:</span>
-											<p class="card-text mt-1">$#{v.precio}</p>
+											<p class="card-text mt-1">$#{c.precio}</p>
 										</div>
 										<div class="col-12 col-lg-5">
 											<span class="text-muted">Fecha de Post:</span>
-											<p class="card-text mt-1">#{v.fechaPublicado}</p>
+											<p class="card-text mt-1">#{c.fechaPublicado}</p>
 										</div>
 										<div class="col-12 col-lg-4">
 											<span class="text-muted">Calificacion:</span>
-											<p class="card-text mt-1">#{v.valoracionCalculada}</p>
+											<p class="card-text mt-1">#{c.valoracionCalculada}</p>
 										</div>
 									</div>
 								</div>
@@ -88,16 +88,16 @@
 									<div class="card-footer text-center">
 										<div class="row mt-2">
 											<h:form class="col-12 col-md-6 col-lg-3 my-1 p-1">
-												<c:if test="#{contenidoBean.permitirComprar(v)}">
+												<c:if test="#{contenidoBean.permitirComprar(c)}">
 													<h:commandButton class="btn btn-info mx-auto w-100" 
 														value="Comprar" action="#{contenidoBean.comprar()}">
-									          			<f:param name="idContenido" value="#{v.id}" />
+									          			<f:param name="idContenido" value="#{c.id}" />
 									          			<f:param name="id" value="#{contenidoBean.idArtista}" />
 													</h:commandButton>
 												</c:if>
 											</h:form>
 											<div class="col-12 col-md-6 col-lg-3 my-1 p-1">
-												<c:if test="#{ ! contenidoBean.permitirComprar(v)}">
+												<c:if test="#{ ! contenidoBean.permitirComprar(c)}">
 													<!-- Boton que abre el modal para Reportar (el modal esta al final del foreach) -->
 													<button type="button" class="btn btn-danger  mx-auto w-100" data-toggle="modal" data-target="#myModal#{status.index}">Reportar</button>
 													<!-- Antes estaba este: -->
@@ -107,12 +107,12 @@
 												</c:if>
 											</div>
 											<h:form class="col-12 col-md-6">
-												<c:if test="#{ ! v.fanYaValoro(contenidoBean.idFan)}">
-													<c:if test="#{ ! contenidoBean.permitirComprar(v)}">
+												<c:if test="#{ ! c.fanYaValoro(contenidoBean.idFan)}">
+													<c:if test="#{ ! contenidoBean.permitirComprar(c)}">
 														<div class="row">
 															<div class="col-6  my-1 p-1">
 																<h:commandButton class="btn btn-warning  w-100" value="Califiar" action="#{contenidoBean.calificar()}">
-												          			<f:param name="idContenido" value="#{v.id}" />
+												          			<f:param name="idContenido" value="#{c.id}" />
 												          			<f:param name="indice" value="#{status.index}" />
 												          			<f:param name="id" value="#{contenidoBean.idArtista}" />
 																</h:commandButton>
@@ -145,7 +145,7 @@
 								<h5 class="card-header">Comentarios</h5>
 								<div class="card-body" style="height: 300px; overflow: auto;">
 									<ul>
-										<ui:repeat var="com" value="#{contenidoBean.obtenerComentarios(v)}">
+										<ui:repeat var="com" value="#{contenidoBean.obtenerComentarios(c)}">
 											<li><p>
 												<strong>#{com.miFan.nikname}:</strong> <small>(#{" "}#{com.fechaYHora})</small>
 												<br/>
@@ -155,7 +155,7 @@
 									</ul>
 								</div>
 								<c:if test="#{loginBean.fanLogueado}">
-									<c:if test="#{ ! contenidoBean.permitirComprar(v)}">
+									<c:if test="#{ ! contenidoBean.permitirComprar(c)}">
 										<div class="card-footer text-right">
 											<h:form>
 												<div class="row">
@@ -165,7 +165,7 @@
 													</div>
 													<div class="col-12 col-md-3 my-2 p-1">
 														<h:commandButton class="btn btn-primary w-100" value="Comentar" action="#{contenidoBean.comentar()}" >
-										          			<f:param name="idContenido" value="#{v.id}" />
+										          			<f:param name="idContenido" value="#{c.id}" />
 										          			<f:param name="indice" value="#{status.index}" />
 										          			<f:param name="id" value="#{contenidoBean.idArtista}" />
 														</h:commandButton>
@@ -191,7 +191,7 @@
 									<h4 class="modal-title">Reportar</h4>
 								</div>
 								<div class="modal-body">
-									<p>¿Qué hay de malo con #{v.titulo}?</p>
+									<p>¿Qué hay de malo con #{c.titulo}?</p>
 									<h:inputTextarea  class="form-control" 
 										value="#{contenidoBean.textoNuevoReporte[status.index]}" 
 										required="true" requiredMessage="Debe ingresar un texto"/>
@@ -200,7 +200,7 @@
 									<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 									<h:commandButton class="btn btn-danger"  data-dismiss="modal" value="Enviar"
 										action="#{contenidoBean.reportar()}">
-					          			<f:param name="idContenido" value="#{v.id}" />
+					          			<f:param name="idContenido" value="#{c.id}" />
 					          			<f:param name="indice" value="#{status.index}" />
 					          			<f:param name="id" value="#{contenidoBean.idArtista}" />
 									</h:commandButton>
