@@ -153,6 +153,10 @@ public class FrontOfficeController implements FrontOfficeInterface{
 	}
 
 	@Override
+	public ArrayList<Contenido> obtenerContenidoPremium(String idArtista, String idFan){
+		return new ArtistaController().obtenerContenidoPremium(idArtista, idFan);
+	}
+	@Override
 	public void bloquearDesbloquearUsuarioDeSitio(String idArtista, String idFan) {
 		new ArtistaController().bloquearDesbloquearUsuarioDeSitio(idArtista, idFan);
 		

@@ -14,6 +14,7 @@ import com.TodoArte.Classes.Contenido;
 import com.TodoArte.Classes.Fan;
 import com.TodoArte.Classes.Reporte;
 import com.TodoArte.Classes.Valoracion;
+import com.TodoArte.Enums.Privacidad;
 import com.TodoArte.FachadeControllers.FrontOfficeController;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
 
@@ -41,7 +42,17 @@ public class ContenidoBean implements Serializable {
 	
 	//**************************************************************************************************
 	private void clasificarContenido() {
-		for (Contenido c : fo.obtenerContenido(idArtista, idFan)) {
+		ArrayList<Contenido> todosLosContenidos = fo.obtenerContenido(idArtista, idFan);
+
+		if (FuncionesComunes.rolActual("fan")) {
+			if (artista.getMiSitio().esFan(idFan)) {
+				if ( ! artista.getMiSitio().fanEsPremium(idFan)) {
+					todosLosContenidos.addAll(fo.obtenerContenidoPremium(idArtista, idFan));
+				}
+			}
+		}
+		
+		for (Contenido c : todosLosContenidos) {
 			switch (c.getTipo()) {
 			case Audio:
 				contenidosAudio.add(c);
@@ -62,11 +73,10 @@ public class ContenidoBean implements Serializable {
 		}
 	}
 	
-	
-	public List<Comentario> obtenerComentarios(int idComentario){
+	public List<Comentario> obtenerComentarios(Contenido c){
 		ArrayList<Comentario> ret = new ArrayList<Comentario>();
 		
-		for (Map.Entry<Integer, Comentario> entry : fo.obtenerContenido(idArtista, idComentario, idFan).getMisComentario().entrySet()) {
+		for (Map.Entry<Integer, Comentario> entry : c.getMisComentario().entrySet()) {
 			ret.add(entry.getValue());
 		}
 		return ret;
@@ -108,6 +118,39 @@ public class ContenidoBean implements Serializable {
 		return "";
 	}
 	
+	public boolean mostrarContenido(Contenido c) {
+		if (c.getPrivacidad() != Privacidad.Premium) {
+			return true;
+		}
+		if (FuncionesComunes.rolActual("artista")) {
+			return true;
+		}
+		if (FuncionesComunes.rolActual("fan")) {
+			if (artista.getMiSitio().fanEsPremium(idFan)) {
+				return true;
+			}else {
+				return c.fanYaCompro(idFan);
+			}
+		}
+		return false;
+	}
+	
+	public boolean permitirComprar(Contenido c) {
+		if (c.getPrivacidad() != Privacidad.Premium) {
+			return false;
+		}
+		if (FuncionesComunes.rolActual("artista")) {
+			return false;
+		}
+		if (FuncionesComunes.rolActual("fan")) {
+			if (artista.getMiSitio().fanEsPremium(idFan)) {
+				return false;
+			}else {
+				return !c.fanYaCompro(idFan);
+			}
+		}
+		return false;
+	}
 	//**************************************************************************************************
 	public ContenidoBean() {
 		idArtista = FuncionesComunes.getParametro("id");
@@ -116,9 +159,12 @@ public class ContenidoBean implements Serializable {
 		}
 		artista = (Artista) fo.obtenerDatosUsuario(idArtista);
 		clasificarContenido();
-		textoNuevoComentario = new String[fo.obtenerContenido(idArtista, idFan).size()];
-		textoNuevoReporte = new String[fo.obtenerContenido(idArtista, idFan).size()];
-		valorNuevaCalificacion = new int[fo.obtenerContenido(idArtista, idFan).size()];
+		
+		int largo = contenidosAudio.size() + contenidosImagen.size() + contenidosVideo.size() + contenidosPDF.size() + contenidosOtros.size();
+		
+		textoNuevoComentario = new String[largo];
+		textoNuevoReporte = new String[largo];
+		valorNuevaCalificacion = new int[largo];
 		for (int i = 0; i < valorNuevaCalificacion.length; i++) {
 			valorNuevaCalificacion[i] = 5;
 		}

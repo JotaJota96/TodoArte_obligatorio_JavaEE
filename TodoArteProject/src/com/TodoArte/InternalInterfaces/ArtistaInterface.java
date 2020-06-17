@@ -99,6 +99,14 @@ public interface ArtistaInterface {
 	 * @return Si el ID es correcto, devuelve los contenidos del artista, de lo contrario retorna NULL
 	 */
 	public ArrayList<Contenido> obtenerContenido(String idArtista, String idFan);
+
+	/**
+	 * Devuelve contenidos premium de un artista especifico
+	 * @param idArtista ID del artista propietario del contenido que se desea obtener
+	 * @param idFan ID del fan que quiere obtener la informacion (idFan = "" si el usuario es invitado)
+	 * @return Si el ID es correcto, devuelve los contenidos del artista, de lo contrario retorna NULL
+	 */
+	public ArrayList<Contenido> obtenerContenidoPremium(String idArtista, String idFan);
 	
 	/**
 	 * Bloquea o desbloque a un fan del sitio de un artista. Si el fan no se encuentra bloqueado aun, lo bloquea, si ya se encuentra bloqueado, lo desbloquea.
