@@ -158,6 +158,14 @@ public class ContenidoBean implements Serializable {
 		return false;
 	}
 	
+	public boolean saldoSuficiente(Contenido c) {
+		if (FuncionesComunes.rolActual("fan")) {
+			Fan f = (Fan) fo.obtenerDatosUsuario(idFan);
+			return f.getSaldo() >= c.getPrecio();
+		}
+		return false;
+	}
+	
 	//**************************************************************************************************
 	public ContenidoBean() {
 		idArtista = FuncionesComunes.getParametro("id");
