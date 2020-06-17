@@ -51,7 +51,7 @@ public class FiltroLoginRegistro implements Filter {
 		HttpServletResponse res = (HttpServletResponse) response;
 		
 		// Cuando alguien quiera entrar a la pagina 'sitio-administrar.jsf'
-		// si el que esta logueado es un artista
+		// si el que esta logueado es un invitado
 		if (FuncionesComunes.usuarioActual(req) == null) {
 			// todo bien, lo dejo pasar
 			chain.doFilter(request, response);

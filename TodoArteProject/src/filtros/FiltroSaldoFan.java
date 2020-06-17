@@ -14,20 +14,15 @@ import javax.servlet.http.HttpServletResponse;
 import beans.FuncionesComunes;
 
 /**
- * Servlet Filter implementation class FiltroHomeBuscar
+ * Servlet Filter implementation class FiltroSaldoFan
  */
-@WebFilter(
-		description = "Permite el acceso al home y al buscar solo a los fans y visitantes", 
-		urlPatterns = { 
-				"/home.jsf", 
-				"/buscar.jsf"
-		})
-public class FiltroHomeBuscar implements Filter {
+@WebFilter(description = "Permite el acceso a la consulta de saldo solo si se esta logueado como fan", urlPatterns = { "/saldo-fan.jsf" })
+public class FiltroSaldoFan implements Filter {
 
     /**
      * Default constructor. 
      */
-    public FiltroHomeBuscar() {
+    public FiltroSaldoFan() {
         // TODO Auto-generated constructor stub
     }
 
@@ -51,8 +46,8 @@ public class FiltroHomeBuscar implements Filter {
 		HttpServletResponse res = (HttpServletResponse) response;
 		
 		// Cuando alguien quiera entrar a la pagina 'sitio-administrar.jsf'
-		// si no hay  nadie logueado o nel que esta logueado es un fan
-		if (FuncionesComunes.usuarioActual(req) == null || FuncionesComunes.rolActual(req, "fan")) {
+		// si el que esta logueado es un fan
+		if (FuncionesComunes.rolActual(req, "fan")) {
 			// todo bien, lo dejo pasar
 			chain.doFilter(request, response);
 		}else {
