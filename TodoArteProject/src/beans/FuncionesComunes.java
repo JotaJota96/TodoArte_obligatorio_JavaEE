@@ -136,7 +136,17 @@ public class FuncionesComunes {
 			return null;
 		}
 	}
-
+	
+	public static String getPaginaSolicitada() {
+		try {
+			String url = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI();
+			String[] partes = url.split("/");
+			return partes[partes.length - 1];
+		} catch (Exception e) {
+			return Redirector.redirect("500.jsf");
+		}
+	}
+	
 	/**
 	 * (para ser usada desde los filtros) Devuelve el parametro que viene en la URL (si es que realmente viene)
 	 * @param request peticion recibida como parametro en el filtro

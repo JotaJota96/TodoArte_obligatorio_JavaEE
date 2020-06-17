@@ -91,7 +91,7 @@ public class ContenidoBean implements Serializable {
 		
 		fo.comentarContenido(com, f.getNikname(), idContenido, idArtista);
 		
-		return "";
+		return Redirector.redirect(FuncionesComunes.getPaginaSolicitada(), "id="+idArtista);
 	}
 
 	public String calificar() {
@@ -102,8 +102,8 @@ public class ContenidoBean implements Serializable {
 		Valoracion val = new Valoracion(0, valorNuevaCalificacion[index], f);
 		
 		fo.calificarContenido(val, f.getNikname(), idContenido, idArtista);
-		
-		return "";
+
+		return Redirector.redirect(FuncionesComunes.getPaginaSolicitada(), "id="+idArtista);
 	}
 
 	public String reportar() {
@@ -114,14 +114,14 @@ public class ContenidoBean implements Serializable {
 		Reporte rep = new Reporte(0, textoNuevoReporte[index], f);
 		
 		fo.reportarContenido(rep, f.getNikname(), idContenido, idArtista);
-		
-		return "";
+
+		return Redirector.redirect(FuncionesComunes.getPaginaSolicitada(), "id="+idArtista);
 	}
 	
 	public String comprar() {
 		int idContenido = Integer.parseInt(FuncionesComunes.getParametro("idContenido"));
 		fo.comprarContenido(idFan, idContenido, 0);
-		return "";
+		return Redirector.redirect(FuncionesComunes.getPaginaSolicitada(), "id="+idArtista);
 	}
 	
 	public boolean mostrarContenido(Contenido c) {
