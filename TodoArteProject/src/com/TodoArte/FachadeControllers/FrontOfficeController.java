@@ -64,17 +64,21 @@ public class FrontOfficeController implements FrontOfficeInterface{
 
 	@Override
 	public void comprarContenido(String idFan, int idContenido, int idArtista) {
-		new ContenidoController().comprarContenido(idFan, idContenido, idArtista); 
+		new ContenidoController().comprarContenido(idFan, idContenido, idArtista);
 	}
 
 	@Override
 	public void comprarPremium(String idFan, String idArtista) {
 		new ArtistaController().comprarPremium(idFan, idArtista);
+		NotificacionArtista noti = new NotificacionArtista(0, "Nuevo premium", "El fan "+idFan+" compro el premium de tu página web", null);
+		new BackOfficeController().notificarArtista(idArtista, noti);
 	}
 
 	@Override
 	public void suscribirseFanArtista(String idFan, String idArtista) {
 		new ArtistaController().suscribirseFanArtista(idFan, idArtista);
+		NotificacionArtista noti = new NotificacionArtista(0, "Nuevo seguidor", "El fan "+idFan+" comenzo a seguir tu página web", null);
+		new BackOfficeController().notificarArtista(idArtista, noti);
 	}
 
 	@Override
@@ -102,7 +106,12 @@ public class FrontOfficeController implements FrontOfficeInterface{
 
 	@Override
 	public Contenido agregarModificarContenido(String idArtista, Contenido contenido) {
-		return new ContenidoController().agregarModificarContenido(idArtista, contenido);
+		Contenido cont = new ContenidoController().agregarModificarContenido(idArtista, contenido);
+		if(cont != null){
+			NotificacionFan noti = new NotificacionFan(0, "Nuevo contenido", idArtista+" acaba de subir un nuevo contenido a su paguina web", null);
+			notificarFansArtista(idArtista, noti);
+		}
+		return cont;
 	}
 
 	@Override
@@ -215,6 +224,26 @@ public class FrontOfficeController implements FrontOfficeInterface{
 	@Override
 	public Contenido obtenerUnContenido(int idContenido) {
 		return new ContenidoJpaController().findContenido(idContenido);
+	}
+	
+	@Override
+	public void notificarFan(String idFan, NotificacionFan notificacion) {
+		new FanController().notificarFan(idFan, notificacion);
+	}
+
+	@Override
+	public void notificarFansArtista(String idArtista, NotificacionFan notificacion) {
+		ArtistaJpaController aJpa = new ArtistaJpaController();
+		Artista a = aJpa.findArtista(idArtista);
+		if (a == null) {
+			throw new RuntimeException(MensajesExcepciones.artistaNoExiste);
+		}
+		ArrayList<Fan> fans = obtenerFansDeSitio(idArtista);
+		
+		for (Fan f : fans) {
+			NotificacionFan noti = new NotificacionFan(0, notificacion.getTitulo(), notificacion.getDescripcion(), notificacion.getFechaYHora());
+			notificarFan(f.getNikname(), noti);
+		}
 	}
 
 }
