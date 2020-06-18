@@ -23,6 +23,9 @@ public abstract class Redirector {
 			salida += "?";
 		}
 		parametros = "faces-redirect=true" + "&" + parametros;
+		if (parametros.charAt(parametros.length() -1) == '&') {
+			parametros = parametros.substring(0, parametros.length() - 1);
+		}
 		return salida + parametros;
 	}
 	

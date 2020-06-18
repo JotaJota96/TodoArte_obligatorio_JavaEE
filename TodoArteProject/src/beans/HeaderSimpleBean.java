@@ -42,11 +42,6 @@ public class HeaderSimpleBean implements Serializable {
 			opcionesDerecha.add(new String[]{"Iniciar sesión", Redirector.redirect("login.jsf")});
 			opcionesDerecha.add(new String[]{"Registrarse", Redirector.redirect("registro.jsf")});
 		}
-		// si es un fan
-		if (FuncionesComunes.rolActual("fan")) {
-			fanLogueado = true;
-		}
-		
 	}
 	
 	
