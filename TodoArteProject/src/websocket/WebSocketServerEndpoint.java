@@ -28,7 +28,7 @@ public class WebSocketServerEndpoint {
 	 */
 	static Map<Integer, Set<Session>> salas = new TreeMap<Integer, Set<Session>>();
 	
-	static String WebSocketURL = "ws://localhost:8080/TodoArteWeb/qya";
+	static String WebSocketURL = "ws://localhost:8080/TodoArteProject/qya";
 	
 	// constructor por defecto
 	public WebSocketServerEndpoint() {}

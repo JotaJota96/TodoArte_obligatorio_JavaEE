@@ -142,13 +142,13 @@
 
 <h:body class="bg-light">
 
-  <ui:include src="heather/heatherSimple.xhtml"/>
+  <ui:include src="heather/heatherCompleto.xhtml"/>
 
 	<main role="main" class="container mt-5 mb-5">
 		<div class="row">
 			<div class="col-12 col-md-10 mx-auto">
 				<div class="card m-3">
-					<h5 class="card-header">Chat en vivo con Artista</h5>
+					<h5 class="card-header">Chat en vivo de #{sitioBean.artista.nombre} (#{sitioBean.idArtista}) </h5>
 					<div id="listaDeComentarios" class="card-body" style="height: 350px; overflow: auto;">
 						<!-- Aqui dentro se agregaran los mensajes del chat mediante JavaScript -->
 					</div>

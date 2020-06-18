@@ -49,6 +49,13 @@ xmlns:c="http://java.sun.com/jsp/jstl/core">
 						<a class="nav-link" href="#{oi[1]}">#{oi[0]}</a>
 					</li>
 				</ui:repeat>
+				<c:if test="#{headerCompletoBean.mostrarOpcionQyA}">
+					<h:form>
+						<h:commandLink class="nav-link" action="#{qABean.ingresarAChat()}" value="Q/A" >
+		          			<f:param name="id" value="#{sitioBean.idArtista}" />
+						</h:commandLink>
+					</h:form>
+				</c:if>
 			</ul>
 			<!-- FIN Opciones de la parte izquierda -->
 			
@@ -68,7 +75,8 @@ xmlns:c="http://java.sun.com/jsp/jstl/core">
 					<li class="nav-item">
 						<h:form>
 							<h:commandLink class="nav-link" action="#{loginBean.cerrarSesion()}" value="Cerrar sesión" >
-			          			<f:param name="id" value="#{sitioBean.idArtista}" />							</h:commandLink>
+			          			<f:param name="id" value="#{sitioBean.idArtista}" />
+							</h:commandLink>
 						</h:form>
 					</li>
 				</c:if>
