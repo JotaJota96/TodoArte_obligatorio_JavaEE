@@ -17,10 +17,15 @@ public abstract class Redirector {
 	 */
 	public static String redirect(String pagina, String parametros) {
 		String salida = pagina;
-		if (!parametros.equals("") && parametros.charAt(0) != '?') {
+		if (parametros == null || parametros.equals("")) {
+			salida += "?";
+		}else if (parametros.charAt(0) != '?') {
 			salida += "?";
 		}
 		parametros = "faces-redirect=true" + "&" + parametros;
+		if (parametros.charAt(parametros.length() -1) == '&') {
+			parametros = parametros.substring(0, parametros.length() - 1);
+		}
 		return salida + parametros;
 	}
 	
