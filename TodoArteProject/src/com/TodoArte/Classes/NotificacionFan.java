@@ -41,13 +41,11 @@ public class NotificacionFan implements Serializable {
     	if(descripcion.equals("")){
             throw new RuntimeException(MensajesExcepciones.descripcion);
 		}
-    	if(fechaYHora == null){
-            throw new RuntimeException(MensajesExcepciones.fechaYHora);
-		}
+    	
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
-        this.fechaYHora = fechaYHora;
+        this.fechaYHora = new Date(System.currentTimeMillis());
     }
     
 

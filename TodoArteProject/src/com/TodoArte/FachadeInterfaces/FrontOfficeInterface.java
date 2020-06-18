@@ -231,6 +231,20 @@ public interface FrontOfficeInterface {
 	 */
 	public Contenido obtenerUnContenido(int idContenido);
 	
+	/**
+	 * Envia una notificacion a un artista
+	 * @param idFan ID del fan para notificar
+	 * @param notificacion Notificacion a enviar
+	 */
+	public void notificarFan(String idFan, NotificacionFan notificacion);
+	
+	/**
+	 * Envia una notificacion a un artista
+	 * @param idArtista ID del artista a notificar
+	 * @param notificacion Notificacion a enviar
+	 */
+	public void notificarFansArtista(String idArtista, NotificacionFan notificacion);
+	
 	
 }
 

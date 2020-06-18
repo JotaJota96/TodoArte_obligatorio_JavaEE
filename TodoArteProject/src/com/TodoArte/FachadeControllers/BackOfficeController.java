@@ -9,12 +9,14 @@ import com.TodoArte.Classes.CategoriaContenido;
 import com.TodoArte.Classes.CategoriaSitio;
 import com.TodoArte.Classes.Fuente;
 import com.TodoArte.Classes.NotificacionArtista;
+import com.TodoArte.Classes.NotificacionFan;
 import com.TodoArte.Classes.PagoAPlataforma;
 import com.TodoArte.Classes.Reporte;
 import com.TodoArte.FachadeInterfaces.BackOfficeInterface;
 import com.TodoArte.InternalControllers.AdminController;
 import com.TodoArte.InternalControllers.ArtistaController;
 import com.TodoArte.InternalControllers.ContenidoController;
+import com.TodoArte.InternalControllers.FanController;
 
 @Stateless
 public class BackOfficeController implements BackOfficeInterface {
@@ -40,7 +42,7 @@ public class BackOfficeController implements BackOfficeInterface {
 	public void notificarArtista(String idArtista, NotificacionArtista notificacion) {
 		new ArtistaController().notificarArtista(idArtista, notificacion);
 	}
-
+	
 	@Override
 	public CategoriaSitio agregarCategoriaDeSitio(CategoriaSitio categoriaSitio) {
 		return new AdminController().agregarCategoriaDeSitio(categoriaSitio);
@@ -70,5 +72,4 @@ public class BackOfficeController implements BackOfficeInterface {
 	public Administrador agregarAdministrador(Administrador administrador) {
 		return new AdminController().agregarAdministrador(administrador);
 	}
-
 }
