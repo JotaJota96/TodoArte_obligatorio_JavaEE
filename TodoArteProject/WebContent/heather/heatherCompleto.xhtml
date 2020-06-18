@@ -67,7 +67,8 @@ xmlns:c="http://java.sun.com/jsp/jstl/core">
 					</li>
 					<li class="nav-item">
 						<h:form>
-							<h:commandLink class="nav-link" action="#{loginBean.cerrarSesion()}" value="Cerrar sesión" />
+							<h:commandLink class="nav-link" action="#{loginBean.cerrarSesion()}" value="Cerrar sesión" >
+			          			<f:param name="id" value="#{sitioBean.idArtista}" />							</h:commandLink>
 						</h:form>
 					</li>
 				</c:if>
