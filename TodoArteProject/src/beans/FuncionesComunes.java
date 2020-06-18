@@ -115,6 +115,9 @@ public class FuncionesComunes {
 	 */
 	public static String usuarioActual() {
 		try {
+			if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("rol") == null) {
+				return null;
+			}
 			return (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("nickname");
 		} catch (Exception e) {
 		}
