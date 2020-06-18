@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
+import com.TodoArte.Classes.Artista;
 import com.TodoArte.Classes.Contenido;
 import com.TodoArte.Enums.TipoContenido;
 import com.TodoArte.FachadeControllers.FrontOfficeController;
@@ -28,8 +29,8 @@ public class HeaderCompletoBean implements Serializable {
 	private boolean artistaLogueado = false;
 	private String linkLogo = "";
 	private String nickUsuario = null;
+	private boolean mostrarOpcionQyA = false;
 	
-
 	public ArrayList<String[]> getOpcionesIzquierda() {
 		return opcionesIzquierda;
 	}
@@ -74,9 +75,19 @@ public class HeaderCompletoBean implements Serializable {
 
 		// si es el artista
 		if (FuncionesComunes.rolActual("artista")) {
+			mostrarOpcionQyA = true;
 			opcionesIzquierda.add(new String[]{"Administrar", Redirector.redirect("sitio-administrar.jsf", "id="+idArtista)});
 			linkLogo = Redirector.redirect("sitio.jsf", "id="+idArtista);
 		}
+		
+		// si es un fan y ademas es seguidor del artista
+		if (FuncionesComunes.rolActual("fan")) {
+			String nick = FuncionesComunes.usuarioActual();
+			if (((Artista) fo.obtenerDatosUsuario(idArtista)).getMiSitio().esFan(nick)) {
+				mostrarOpcionQyA = true;
+			}
+		}
+		
 		// si es un visitante o un fan
 		if (FuncionesComunes.usuarioActual() == null || FuncionesComunes.rolActual("fan")) {
 			linkLogo = Redirector.redirect("home.jsf");
@@ -166,5 +177,13 @@ public class HeaderCompletoBean implements Serializable {
 
 	public void setNickUsuario(String nickUsuario) {
 		this.nickUsuario = nickUsuario;
+	}
+
+	public boolean isMostrarOpcionQyA() {
+		return mostrarOpcionQyA;
+	}
+
+	public void setMostrarOpcionQyA(boolean mostrarOpcionQyA) {
+		this.mostrarOpcionQyA = mostrarOpcionQyA;
 	}
 }

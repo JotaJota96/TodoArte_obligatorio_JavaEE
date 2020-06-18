@@ -89,14 +89,21 @@ public class LoginBean implements Serializable{
 	}
 	
 	public String cerrarSesion() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		context.getExternalContext().getSessionMap().remove("nickname");
-		context.getExternalContext().getSessionMap().remove("rol");
-		fanLogueado = false;
-		artistaLogueado = false;
-		adminLogueado = false;
-		nickname = null;
-		return Redirector.redirect("home.jsf");
+		try {
+			fanLogueado = false;
+			artistaLogueado = false;
+			adminLogueado = false;
+			nickname = null;
+			
+			FacesContext context = FacesContext.getCurrentInstance();
+
+			context.getExternalContext().getSessionMap().remove("nickname");
+			context.getExternalContext().getSessionMap().remove("rol");
+
+			return Redirector.redirect("home.jsf");
+		}catch (Exception e2) {
+			return "home.jsf";
+		}
 	}
 	
 	//***************************************************************************************************

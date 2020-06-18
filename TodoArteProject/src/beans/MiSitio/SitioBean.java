@@ -45,10 +45,10 @@ public class SitioBean implements Serializable{
 				fo.suscribirseFanArtista(nick, idArtista);
 				redireccion = Redirector.redirect("sitio.jsf", "id=" + idArtista);
 			} catch (Exception e) {
-				System.out.println("CATCH: " + e.getMessage());
+				System.out.println("CATCH-2: " + e.getMessage());
 			}
 		}
-		return Redirector.redirect(redireccion);
+		return redireccion;
 	}
 	
 	public String comprar() {

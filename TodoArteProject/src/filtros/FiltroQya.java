@@ -11,23 +11,22 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.TodoArte.Classes.Artista;
+import com.TodoArte.FachadeControllers.FrontOfficeController;
+import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
+
 import beans.FuncionesComunes;
 
 /**
- * Servlet Filter implementation class FiltroSaldoFan
+ * Servlet Filter implementation class FiltroQya
  */
-@WebFilter(
-		description = "Permite el acceso a la consulta de saldo solo si se esta logueado como fan", 
-		urlPatterns = { 
-				"/saldo-fan.jsf" ,
-				"/notificaciones-fan.jsf" 
-})
-public class FiltroSaldoFan implements Filter {
+@WebFilter(description = "Solo permite el acceso a un QyA al artista proipietario y a los fans que lo siguen", urlPatterns = { "/qya.jsf" })
+public class FiltroQya implements Filter {
 
     /**
      * Default constructor. 
      */
-    public FiltroSaldoFan() {
+    public FiltroQya() {
         // TODO Auto-generated constructor stub
     }
 
@@ -39,30 +38,46 @@ public class FiltroSaldoFan implements Filter {
 	}
 
 	//****************************************************************************************************
-    
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		// este codigo se basa en
 		// https://stackoverflow.com/questions/12516349/how-control-access-and-rights-in-jsf
-
+		
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
 		
-		// Cuando alguien quiera entrar a la pagina 'sitio-administrar.jsf'
-		// si el que esta logueado es un fan
-		if (FuncionesComunes.rolActual(req, "fan")) {
-			// todo bien, lo dejo pasar
-			chain.doFilter(request, response);
+		FrontOfficeInterface fo = new FrontOfficeController();
+		String idArtista = FuncionesComunes.getParametro(req, "id");
+		
+		if (idArtista == null) {
+			res.sendRedirect(req.getContextPath() + "/404.jsf");
+		}
+		Artista artista = (Artista) fo.obtenerDatosUsuario(idArtista);
+		if (artista == null) {
+			res.sendRedirect(req.getContextPath() + "/404.jsf");
+		}
+		
+		if (FuncionesComunes.rolActual(req, "artista")) {
+			String nick = FuncionesComunes.usuarioActual(req);
+			
+			if (idArtista.equals(nick)) {
+				chain.doFilter(request, response);
+			}
+		}else if (FuncionesComunes.rolActual(req, "fan")) {
+			String nick = FuncionesComunes.usuarioActual(req);
+			
+			if (artista.getMiSitio().esFan(nick)){
+				chain.doFilter(request, response);
+			}
 		}else {
 			// no no no, aca no podes entrar wacho
 			res.sendRedirect(req.getContextPath() + "/401.jsf");
 		}
 	}
-	
 	//****************************************************************************************************
-	
+
 	/**
 	 * @see Filter#init(FilterConfig)
 	 */
