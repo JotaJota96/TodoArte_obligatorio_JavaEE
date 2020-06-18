@@ -31,7 +31,6 @@ public class NotificacionArtista implements Serializable {
     private Date fechaYHora;
 
     public NotificacionArtista() {
-        this.fechaYHora = new Date(System.currentTimeMillis());
     }
 
     public NotificacionArtista(int id, String titulo, String descripcion, Date fechaYHora) {
