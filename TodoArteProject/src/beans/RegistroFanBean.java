@@ -26,26 +26,27 @@ public class RegistroFanBean implements Serializable {
 	//--------------------------------------------------------------------------
 	@SuppressWarnings("deprecation")
 	public String registrar() {
-		fan.setFechaNac(FuncionesComunes.utilDateToSqlDate(fechaUtil));
-		fan.getFechaNac().setDate(fan.getFechaNac().getDate() + 1);
-
-		Fan nuevoFan = copiarFan(fan);
-		
-		if ( ! contrasenia2.equals(nuevoFan.getContrasenia())) {
-			// las contrasenias no coinciden, error
-		}
-		nuevoFan.setImagen(FuncionesComunes.partToBytes(file));
-		
-		Fan ret = null;
 		try {
+			fan.setFechaNac(FuncionesComunes.utilDateToSqlDate(fechaUtil));
+			fan.getFechaNac().setDate(fan.getFechaNac().getDate() + 1);
+	
+			Fan nuevoFan = copiarFan(fan);
+			
+			if ( ! contrasenia2.equals(nuevoFan.getContrasenia())) {
+				// las contrasenias no coinciden, error
+			}
+			nuevoFan.setImagen(FuncionesComunes.partToBytes(file));
+			
+			Fan ret = null;
 			ret = fo.registrarUsuarioFan(nuevoFan);
+
+			if (ret == null) {
+				return Redirector.redirect("500.jsf");
+			}else {
+				return Redirector.redirect("login.jsf");
+			}
 		} catch (Exception e) {
-		}
-		
-		if (ret == null) {
-			return Redirector.redirect("login.jsf");
-		}else {
-			return Redirector.redirect("home.jsf");
+			return Redirector.redirect("500.jsf");
 		}
 	}
 	
