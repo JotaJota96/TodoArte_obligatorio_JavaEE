@@ -16,6 +16,9 @@ import com.TodoArte.Classes.Usuario;
 import com.TodoArte.FachadeControllers.FrontOfficeController;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
 
+import beans.FuncionesComunes;
+import beans.Redirector;
+
 @Named
 @RequestScoped
 public class SaldoBean implements Serializable {
@@ -32,21 +35,24 @@ public class SaldoBean implements Serializable {
 	
 	//-----------funciones-------------------------------
 
-	public void recargarSaldo() {
-		fo.recargarSaldo(idArtista, monto);
-		
+	public String recargarSaldo() {
+		try {
+			fo.recargarSaldo(idArtista, monto);
+			return Redirector.redirect("saldo-fan.jsf");
+		} catch (Exception e) {
+			return Redirector.redirect("500.jsf");
+		}
 	}
 	
 	//----------setters getters constructors---------
 	
 	public SaldoBean() {
-		
-		// IMPORTANTE ---- LOGEATE CON ergo 1234 para probar http://localhost:8080/TodoArteProject/sitio-administrar.jsf
-		
-		idArtista = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("nickname");
-		
-		Usuario art = fo.obtenerDatosUsuario(idArtista);
-		saldoDelArtista = art.getSaldo();
+		try {
+			idArtista = FuncionesComunes.usuarioActual();
+			Usuario art = fo.obtenerDatosUsuario(idArtista);
+			saldoDelArtista = art.getSaldo();
+		} catch (Exception e) {
+		}
 	}
 	
 	public float getMonto() {
