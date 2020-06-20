@@ -140,15 +140,18 @@
 						<div class="card m-3">
 							<h5 class="card-header">Comentarios</h5>
 							<div class="card-body" style="height: 300px; overflow: auto;">
-								<ul>
-									<ui:repeat var="com" value="#{contenidoBean.obtenerComentarios(c)}">
-										<li><p>
+								<ui:repeat var="com" value="#{contenidoBean.obtenerComentarios(c)}">
+									<div class="row my-3">
+										<div class="col-3 col-sm-2 col-md-3 col-lg-2">
+											<img class="rounded" width="100%" height="auto" src="recurso/multimedia/usuario/imagen/#{com.miFan.nikname}" />
+										</div>
+										<div class="col-9 col-sm-10 col-md-9 col-lg-10">
 											<strong>#{com.miFan.nikname}:</strong> <small>(#{" "}#{com.fechaYHora})</small>
 											<br/>
 											#{com.texto}
-										</p></li>
-									</ui:repeat>
-								</ul>
+										</div>
+									</div>
+								</ui:repeat>
 							</div>
 							<c:if test="#{loginBean.fanLogueado}">
 								<c:if test="#{ ! contenidoBean.permitirComprar(c)}">

@@ -70,7 +70,7 @@ xmlns:c="http://java.sun.com/jsp/jstl/core">
 				
 				<c:if test="#{headerCompletoBean.fanLogueado || headerCompletoBean.artistaLogueado}">
 					<li class="nav-item">
-						<a class="nav-link text-white" href="">#{headerSimpleBean.nickUsuario}</a>
+						<a class="nav-link text-white" href="#{headerCompletoBean.linkLogo}">#{headerSimpleBean.nickUsuario}</a>
 					</li>
 					<li class="nav-item">
 						<h:form>
