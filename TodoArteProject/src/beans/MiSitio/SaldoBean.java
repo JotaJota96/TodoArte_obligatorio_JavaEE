@@ -28,7 +28,7 @@ public class SaldoBean implements Serializable {
 	private FrontOfficeInterface fo = new FrontOfficeController();
 	//private BackOfficeInterface bo = new BackOfficeController();
 
-	private String idArtista;
+	private String idArtista; // tambien es el id del Fan, pero ya estaba hecho asi...
 	private float saldoDelArtista;
 
 	private float monto;
@@ -38,7 +38,12 @@ public class SaldoBean implements Serializable {
 	public String recargarSaldo() {
 		try {
 			fo.recargarSaldo(idArtista, monto);
-			return Redirector.redirect("saldo-fan.jsf");
+			
+			if (FuncionesComunes.rolActual("fan")) {
+				return Redirector.redirect("saldo-fan.jsf");
+			}else {
+				return Redirector.redirect("sitio-administrar.jsf");
+			}
 		} catch (Exception e) {
 			return Redirector.redirect("500.jsf");
 		}

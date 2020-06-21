@@ -3,7 +3,7 @@ package beans.MiSitio;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
@@ -12,7 +12,7 @@ import com.TodoArte.FachadeControllers.FrontOfficeController;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
 
 @Named
-@SessionScoped
+@RequestScoped
 public class Eliminar implements Serializable {
 	
 	//----------atrivutos------------------------------
