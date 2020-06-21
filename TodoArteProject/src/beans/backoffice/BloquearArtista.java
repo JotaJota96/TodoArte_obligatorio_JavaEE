@@ -3,7 +3,7 @@ package beans.backoffice;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 import com.TodoArte.Classes.Artista;
@@ -14,7 +14,7 @@ import com.TodoArte.FachadeInterfaces.BackOfficeInterface;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
 
 @Named
-@RequestScoped
+@SessionScoped
 public class BloquearArtista  implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

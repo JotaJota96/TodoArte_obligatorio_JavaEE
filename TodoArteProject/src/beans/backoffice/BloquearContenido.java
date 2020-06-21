@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 import com.TodoArte.Classes.Contenido;
@@ -14,7 +14,7 @@ import com.TodoArte.FachadeInterfaces.BackOfficeInterface;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
 
 @Named
-@RequestScoped
+@SessionScoped
 public class BloquearContenido  implements Serializable {
 
 	private FrontOfficeInterface fo = new FrontOfficeController();

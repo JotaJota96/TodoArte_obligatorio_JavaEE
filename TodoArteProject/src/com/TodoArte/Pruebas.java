@@ -16,10 +16,9 @@ public class Pruebas {
 		//FrontOfficeController fo = new FrontOfficeController();
 		//BackOfficeController bo = new BackOfficeController();
 		
-		cargarDatosDePrueba(true);
+		//cargarDatosDePrueba(true);
 
 		//System.out.println("-- fin --");
-		
 	}
 	public static void cargarDatosDePrueba(boolean log) {
 		FrontOfficeController fo = new FrontOfficeController();
