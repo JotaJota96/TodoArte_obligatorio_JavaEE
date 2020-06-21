@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
 
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Named;
@@ -15,7 +15,7 @@ import com.TodoArte.FachadeControllers.FrontOfficeController;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
 
 @Named
-@SessionScoped
+@RequestScoped
 public class RevisarContenido  implements Serializable {
 
 	private FrontOfficeInterface fo = new FrontOfficeController();
