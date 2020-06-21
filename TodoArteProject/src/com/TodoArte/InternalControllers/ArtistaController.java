@@ -235,8 +235,14 @@ public class ArtistaController implements ArtistaInterface{
 		
 		for (Map.Entry<Integer, Contenido> entry : sitioArtista.getMisContenidos().entrySet()) {
 			try {
-				if(entry.getValue().getEliminado() == false && entry.getValue().getBloqueado() == false) {
-					ret.add(cjpa.obtenerContenido(idArtista, entry.getValue().getId(), idFan));
+				if(entry.getValue().getEliminado() == false) {
+					if(idArtista.equals(idFan)){
+						ret.add(cjpa.obtenerContenido(idArtista, entry.getValue().getId(), idFan));
+					}else {
+						if(entry.getValue().getBloqueado() == false){
+							ret.add(cjpa.obtenerContenido(idArtista, entry.getValue().getId(), idFan));
+						}
+					}					
 				}
 			} catch (Exception e) {
 			}
@@ -262,10 +268,19 @@ public class ArtistaController implements ArtistaInterface{
 		}
 		
 		for (Map.Entry<Integer, Contenido> entry : sitioArtista.getMisContenidos().entrySet()) {
-			if(entry.getValue().getEliminado() == false && entry.getValue().getBloqueado() == false) {
-				if (entry.getValue().getPrivacidad() == Privacidad.Premium) {
-					ret.add(entry.getValue());
+			if(entry.getValue().getEliminado() == false) {
+				if(idArtista.equals(idFan)) {
+					if (entry.getValue().getPrivacidad() == Privacidad.Premium) {
+						ret.add(entry.getValue());
+					}
+				}else {
+					if(entry.getValue().getBloqueado() == false){
+						if (entry.getValue().getPrivacidad() == Privacidad.Premium) {
+							ret.add(entry.getValue());
+						}
+					}
 				}
+				
 			}
 		}
 		return ret;
