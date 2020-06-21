@@ -36,6 +36,35 @@ public class MisFans implements Serializable {
 		fo.bloquearDesbloquearUsuarioDeSitio(idArtista, idFan);
 	}
 	
+	public String gustosDelFan(Fan miFan) {
+		
+		ArrayList<String> listaCat = new ArrayList<String>();
+		
+		Map<Integer, FanSigueSitio> sitios = miFan.getMisSitiosSeguidos();
+
+		for (Map.Entry<Integer, FanSigueSitio> entry : sitios.entrySet()) {
+			String nicknameArtista = entry.getValue().getNickArtista();
+			Artista art =  (Artista)fo.obtenerDatosUsuario(nicknameArtista);
+			
+			String cat = art.getMiSitio().getMiCategoria().getNombreCat();
+			
+			if(!listaCat.contains(cat)) {
+				listaCat.add(cat);
+			}
+		}
+		
+		if(listaCat.isEmpty()) {
+			return "sin gustos.";
+		}
+		
+		String ret="";
+		for(String s:listaCat) {
+			ret+=s;
+			ret+=", ";
+		}
+		return ret.substring(0, ret.length()-2);
+	}
+	
 	public boolean isFanBloqueado(String nikname) {
 		//nikname del fan del cual quiero saber si yo (artista) lo tengo bloquado.
 		Artista art = (Artista)fo.obtenerDatosUsuario(idArtista);
