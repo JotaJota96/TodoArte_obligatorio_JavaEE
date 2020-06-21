@@ -28,7 +28,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 				<!-- ***** Listado de contenido **** -->
 				
 				<!-- ***** contenido 1 **** -->
-				<ui:repeat value="#{modificarBean.listaContenido}" var="item">
+				<ui:repeat value="#{modificarBean.listaContenido}" var="item" varStatus="index">
 					<div class="card my-2">
 						<div class="card-body">
 					        <div class="row text-center">
@@ -40,39 +40,32 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 								<div class="col-lg-2 my-1"></div>
 								<div class="col-lg-3 my-1">
 									<h:form class="form-signin">
-										<a class="btn  btn-danger text-white" onclick="esconder('fan1')"  >Modificar</a>
+										<a class="btn  btn-danger text-white" onclick="esconder('#{index.index}')" >Modificar</a>
 									</h:form>
 								</div>
 							</div>
 							
-							<div id="fan1" class="text-center" style="display:none;">
+							<div id="#{index.index}" class="text-center" style="display:none;">
 								<hr/>
 								<h:form class="form-signin">
 									<div class="row">
-										<div class="col-3">
+										<div class="col-6">
 							         		<label for="titulo">Titulo</label>
-							         		<h:inputText type="text" class="form-control" id="titulo" value=""></h:inputText>
-										</div>
-										<div class="col-3">
-							          		<label for="precio">Precio</label>
-							          		<h:inputText type="text" class="form-control" id="precio" value=""></h:inputText>
+							         		<h:inputText type="text" class="form-control" id="titulo" value="#{item.titulo}"></h:inputText>
 										</div>
 										<div class="col-6">
-								          	<label for="archivo">Archivo</label> 
-								          	<br/>      	
-								          	<h:inputFile value="#{bean.file}" id="archivo">
-								        	<f:ajax listener="#{bean.save}" />
-								    		</h:inputFile>
+							          		<label for="precio">Precio</label>
+							          		<h:inputText type="text" class="form-control" id="precio" value="#{item.precio}"></h:inputText>
 										</div>
 									</div>	
 									<hr/>
 									<div class="row">
 										<div class="col-9">
 							         		<label for="descripcion">Descripcion</label>
-								     		<h:inputTextarea class="form-control" id="descripcion" value="#{spintax.content}" rows="1" />
+								     		<h:inputTextarea class="form-control" id="descripcion" value="#{item.descripcion}" rows="1" />
 										</div>
 										<div class="col-3 text-center mt-4">
-							          		<h:commandButton class="btn  btn-success " value="Guardar" action="Guardar" disabled="true" />
+							          		<h:commandButton class="btn  btn-success " value="Guardar" action="#{modificarBean.modificarContenido(index.index)}" />
 										</div>
 									</div>	
 								</h:form>

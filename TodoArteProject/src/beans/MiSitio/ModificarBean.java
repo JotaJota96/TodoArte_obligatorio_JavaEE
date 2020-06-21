@@ -12,6 +12,8 @@ import com.TodoArte.Classes.Contenido;
 import com.TodoArte.FachadeControllers.FrontOfficeController;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
 
+import beans.Redirector;
+
 @Named
 @RequestScoped
 public class ModificarBean implements Serializable {
@@ -27,15 +29,20 @@ public class ModificarBean implements Serializable {
 	
 	//-----------funciones-------------------------------
 
-	public void modificarContenido(int id) {
+	public String modificarContenido(int index) {
 		
 		try {
-			//fo.agregarModificarContenido(idArtista, contenido);
-			listaContenido = fo.obtenerContenido(idArtista, idArtista);
+			Contenido c = listaContenido.get(index);
+			fo.agregarModificarContenido(idArtista, c);
+			return Redirector.redirect("sitio-administrar.jsf");
+			
 		} catch (Exception e) {
-			System.out.println("Error---------"+e);
+			System.out.println("Error---------"+e.getMessage());
+			return Redirector.redirect("500.jsf");
 		}
 	}
+	
+	
 	
 	//----------setters getters constructors---------
 
