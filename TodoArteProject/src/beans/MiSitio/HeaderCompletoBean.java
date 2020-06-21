@@ -76,7 +76,7 @@ public class HeaderCompletoBean implements Serializable {
 		// si es el artista
 		if (FuncionesComunes.rolActual("artista")) {
 			mostrarOpcionQyA = true;
-			opcionesIzquierda.add(new String[]{"Administrar", Redirector.redirect("sitio-administrar.jsf", "id="+idArtista)});
+			opcionesIzquierda.add(new String[]{"Administrar", Redirector.redirect("sitio-administrar.jsf")});
 			linkLogo = Redirector.redirect("sitio.jsf", "id="+idArtista);
 		}
 		
@@ -119,7 +119,11 @@ public class HeaderCompletoBean implements Serializable {
 	public HeaderCompletoBean() {
 		try {
 			// cargo el ID del artista
-			this.idArtista = FuncionesComunes.getParametro("id");
+			if (FuncionesComunes.rolActual("artista")) {
+				this.idArtista = FuncionesComunes.usuarioActual();
+			}else {
+				this.idArtista = FuncionesComunes.getParametro("id");
+			}
 			
 			// establezco variables
 			nickUsuario = FuncionesComunes.usuarioActual();
