@@ -30,6 +30,7 @@ public abstract class MensajesExcepciones {
 	public static final String fechaYHora = "Fecha y hora no pueden ser null";
 	public static final String miFan = "Fan no pueden ser null";
 	public static final String valoracion = "Valoracion no pueden ser null";
+	public static final String valoracionRango = "La valoracion esta fuera de rango";
 	public static final String saldo = "Saldo debe ser cero";
 	public static final String reporte = "Reporte no puede ser vac�o";
 	public static final String monto = "Monto debe ser mayor a cero";

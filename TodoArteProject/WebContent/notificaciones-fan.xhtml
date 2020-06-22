@@ -39,57 +39,23 @@
 					<div class="card-body" style="height: 400px; overflow: auto;">
 
 						<!-- ***** inicio de la noticia **** -->
-						<div class="card my-2">
-							<div class="card-body">
-								<h5 class="card-text align-middle ">Marcelito17 ha subido
-									un nuevo video</h5>
-							</div>
-						</div>
-
-						<div class="card my-2">
-							<div class="card-body">
-								<div class="row">
-									<div class="col-9">
-										<h5 class="card-text align-middle ">Marcelito17 ha
-											Programado una nueva QA</h5>
-									</div>
-									<div class="col-3">
-										<h:form>
-											<h:commandButton class="btn btn-info" value="Subscribirse"
-												action="Subscribirse" />
-										</h:form>
+						<ui:repeat value="#{notificacionesBean.listaNotificaciones}" var="item">
+							<div class="card my-2">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-9">
+											<h5 class="card-text">#{item.titulo}</h5>
+										</div>
+										<div class="col-3">
+											<span class="text-muted">#{item.fechaYHora}</span>
+										</div>
+										<div class="m-3">
+											<p class="card-text align-middle ">#{item.descripcion}</p>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-
-						<div class="card my-2">
-							<div class="card-body">
-								<h5 class="card-text align-middle ">Marcelito17 ha subido
-									una nueva cancion</h5>
-							</div>
-						</div>
-
-						<div class="card my-2">
-							<div class="card-body">
-								<div class="row">
-									<div class="col-9">
-										<h5 class="card-text align-middle ">Marcelito17 ha
-											Iniciado QA</h5>
-									</div>
-									<div class="col-3">
-										<a class="btn btn-info" href="qya.jsf">Participar</a>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="card my-2">
-							<div class="card-body">
-								<h5 class="card-text align-middle ">Marcelito17 ha subido
-									un nuevo video</h5>
-							</div>
-						</div>
+						</ui:repeat>
 						<!-- ********* fin de la noticia ******* -->
 
 					</div>

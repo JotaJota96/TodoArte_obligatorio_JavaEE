@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
+import com.TodoArte.Classes.Artista;
 import com.TodoArte.Classes.Contenido;
 import com.TodoArte.Enums.TipoContenido;
 import com.TodoArte.FachadeControllers.FrontOfficeController;
@@ -21,18 +22,28 @@ public class HeaderCompletoBean implements Serializable {
 
 	FrontOfficeInterface fo = new FrontOfficeController();
 	
-	private boolean mostrarAdministrar = false;
 	private String idArtista = "";
-	private ArrayList<String[]> opciones = new ArrayList<String[]>();
+	private ArrayList<String[]> opcionesIzquierda = new ArrayList<String[]>();
+	private ArrayList<String[]> opcionesDerecha= new ArrayList<String[]>();
+	private boolean fanLogueado = false;
+	private boolean artistaLogueado = false;
+	private String linkLogo = "";
+	private String nickUsuario = null;
+	private boolean mostrarOpcionQyA = false;
 	
+	public ArrayList<String[]> getOpcionesIzquierda() {
+		return opcionesIzquierda;
+	}
+
+	public void setOpcionesIzquierda(ArrayList<String[]> opcionesIzquierda) {
+		this.opcionesIzquierda = opcionesIzquierda;
+	}
 
 	//*********************************************************************************************************
-	private void definirOpcionesMenu() {
+	private void definirOpcionesIzquierda() {
 		// Carg en el menu la opcion 'Sobre mi' (siempre debe estar)
-		String opcion[] = new String[2];
-		opcion[0] = "Sobre mí";
-		opcion[1] = Redirector.redirect("sitio.jsf", "id=" + idArtista);
-		opciones.add(opcion);
+		String[] opcion = new String[] {"Sobre mí", Redirector.redirect("sitio.jsf", "id=" + idArtista)};
+		opcionesIzquierda.add(opcion);
 		
 		// Obtengo un listado de los tipos de contenidos disponibles y agrego las opciones al menu
 		ArrayList<TipoContenido> tipos = this.obtenerTiposContenidosDisponibles(fo.obtenerContenido(idArtista, idArtista));
@@ -41,31 +52,54 @@ public class HeaderCompletoBean implements Serializable {
 			// segun el tipo agrego la opcion
 			switch (tc) {
 			case Imagen:
-				opcion[0] = "Imágenes";
-				opcion[1] = Redirector.redirect("sitio-imagenes.jsf", "id=" + idArtista);
+				opcion = new String[] {"Imágenes", Redirector.redirect("sitio-imagenes.jsf", "id=" + idArtista)};
 				break;
 			case Audio:
-				opcion[0] = "Música";
-				opcion[1] =  Redirector.redirect("sitio-musica.jsf", "id=" + idArtista);
+				opcion = new String[] {"Música", Redirector.redirect("sitio-musica.jsf", "id=" + idArtista)};
 				break;
 			case Video:
-				opcion[0] = "Videos";
-				opcion[1] =  Redirector.redirect("sitio-videos.jsf", "id=" + idArtista);
+				opcion = new String[] {"Videos", Redirector.redirect("sitio-videos.jsf", "id=" + idArtista)};
 				break;
 			case PDF:
-				opcion[0] = "PDFs";
-				opcion[1] =  Redirector.redirect("sitio-pdf.jsf", "id=" + idArtista);
+				//opcion = new String[] {"PDFs", Redirector.redirect("sitio-pdf.jsf", "id=" + idArtista)};
 				break;
 			case Otros:
-				opcion[0] = "Otros";
-				opcion[1] =  Redirector.redirect("sitio-otros.jsf", "id=" + idArtista);
+				//opcion = new String[] {"Otros", Redirector.redirect("sitio-otros.jsf", "id=" + idArtista)};
 				break;
 			default:
-				opcion[0] = "WTF?"; // lol xD
-				opcion[1] =  Redirector.redirect("sitio.jsf", "id=" + idArtista);
+				opcion = new String[] {"WTF?", Redirector.redirect("sitio.jsf", "id=" + idArtista)};
 				break;
 			}
-			opciones.add(opcion);
+			opcionesIzquierda.add(opcion);
+		}
+
+		// si es el artista
+		if (FuncionesComunes.rolActual("artista")) {
+			mostrarOpcionQyA = true;
+			opcionesIzquierda.add(new String[]{"Administrar", Redirector.redirect("sitio-administrar.jsf")});
+			linkLogo = Redirector.redirect("sitio.jsf", "id="+idArtista);
+		}
+		
+		// si es un fan y ademas es seguidor del artista
+		if (FuncionesComunes.rolActual("fan")) {
+			String nick = FuncionesComunes.usuarioActual();
+			if (((Artista) fo.obtenerDatosUsuario(idArtista)).getMiSitio().esFan(nick)) {
+				mostrarOpcionQyA = true;
+			}
+		}
+		
+		// si es un visitante o un fan
+		if (FuncionesComunes.usuarioActual() == null || FuncionesComunes.rolActual("fan")) {
+			linkLogo = Redirector.redirect("home.jsf");
+		}
+		
+	}
+
+	private void definirOpcionesDerecha() {
+		// si es un visitante
+		if (FuncionesComunes.usuarioActual() == null ) {
+			opcionesDerecha.add(new String[]{"Iniciar sesión", Redirector.redirect("login.jsf")});
+			opcionesDerecha.add(new String[]{"Registrarse", Redirector.redirect("registro.jsf")});
 		}
 	}
 	
@@ -83,20 +117,24 @@ public class HeaderCompletoBean implements Serializable {
 
 	//*********************************************************************************************************
 	public HeaderCompletoBean() {
-		mostrarAdministrar = FuncionesComunes.rolActual("artista");
 		try {
 			// cargo el ID del artista
-			this.idArtista = FuncionesComunes.getParametro("id");
+			if (FuncionesComunes.rolActual("artista")) {
+				this.idArtista = FuncionesComunes.usuarioActual();
+			}else {
+				this.idArtista = FuncionesComunes.getParametro("id");
+			}
+			
+			// establezco variables
+			nickUsuario = FuncionesComunes.usuarioActual();
+			if (FuncionesComunes.rolActual("fan"))   fanLogueado = true;
+			if (FuncionesComunes.rolActual("artista")) artistaLogueado = true;
+			
 			// Cargo las opciones que deben aparecer en el menu
-			this.definirOpcionesMenu();
+			this.definirOpcionesIzquierda();
+			this.definirOpcionesDerecha();
 		}catch (Exception e) {
 		}
-	}
-	public boolean isMostrarAdministrar() {
-		return mostrarAdministrar;
-	}
-	public void setMostrarAdministrar(boolean mostrarAdministrar) {
-		this.mostrarAdministrar = mostrarAdministrar;
 	}
 	public String getIdArtista() {
 		return idArtista;
@@ -104,10 +142,52 @@ public class HeaderCompletoBean implements Serializable {
 	public void setIdArtista(String idArtista) {
 		this.idArtista = idArtista;
 	}
-	public ArrayList<String[]> getOpciones() {
-		return opciones;
+
+	public ArrayList<String[]> getOpcionesDerecha() {
+		return opcionesDerecha;
 	}
-	public void setOpciones(ArrayList<String[]> opciones) {
-		this.opciones = opciones;
+
+	public void setOpcionesDerecha(ArrayList<String[]> opcionesDerecha) {
+		this.opcionesDerecha = opcionesDerecha;
+	}
+
+	public boolean isFanLogueado() {
+		return fanLogueado;
+	}
+
+	public void setFanLogueado(boolean fanLogueado) {
+		this.fanLogueado = fanLogueado;
+	}
+
+	public boolean isArtistaLogueado() {
+		return artistaLogueado;
+	}
+
+	public void setArtistaLogueado(boolean artistaLogueado) {
+		this.artistaLogueado = artistaLogueado;
+	}
+
+	public String getLinkLogo() {
+		return linkLogo;
+	}
+
+	public void setLinkLogo(String linkLogo) {
+		this.linkLogo = linkLogo;
+	}
+
+	public String getNickUsuario() {
+		return nickUsuario;
+	}
+
+	public void setNickUsuario(String nickUsuario) {
+		this.nickUsuario = nickUsuario;
+	}
+
+	public boolean isMostrarOpcionQyA() {
+		return mostrarOpcionQyA;
+	}
+
+	public void setMostrarOpcionQyA(boolean mostrarOpcionQyA) {
+		this.mostrarOpcionQyA = mostrarOpcionQyA;
 	}
 }

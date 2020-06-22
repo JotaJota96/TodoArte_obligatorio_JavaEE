@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <h:head>
 	<link rel="stylesheet"
@@ -32,94 +33,185 @@
 	<main role="main" class="container mt-5 mb-5">
 
 		<!--********************************* Inicio    PRIMER TARJETA ***********************************-->
-		<div class="card m-3">
+		<div class="card m-0 m-md-3">
 			<h5 class="card-header">Musica del Artista</h5>
-			<div class="row">
-				<div class="col-md-6">
-					<div class="card m-3">
-						<h5 class="card-header">Playa peligrosa</h5>
-						<div class="card-body">
-
-							<audio controls="x" class="w-100">
-								<source src="music/ls.mp3" type="audio/mp3" />
-							</audio>
-
-							<br /> <span class="text-muted">Descripcion:</span>
-							<p class="card-text mt-1">Una imagen hecha para todas esas
-								personas que deseen conoser el peligro en la playa que mas te
-								gusta, no se yo que se, comprala, hace lo que quieras.</p>
-							<hr />
-
-							<div class="row">
-								<div class="col-md-3">
-									<span class="text-muted">Precio:</span>
-									<p class="card-text mt-1">$45</p>
-								</div>
-								<div class="col-md-5">
-									<span class="text-muted">Fecha de Post:</span>
-									<p class="card-text mt-1">2020/05/12</p>
-								</div>
-								<div class="col-md-4">
-									<span class="text-muted">Calificacion:</span>
-									<p class="card-text mt-1">5 estrellas</p>
+			<c:if test="#{contenidoBean.contenidosAudio.size() == 0}">
+				<div class="card-body text-center">
+					<h6 class="text-muted">Solo los seguidores pueden ver el contenido</h6>
+				</div>
+			</c:if>
+			
+			<c:forEach var="c" items="#{contenidoBean.contenidosAudio}" varStatus="status">
+				<div class="row p-1 p-md-3">
+					<div class="col-12 col-md-6 m-0 p-0">
+						<div class="card m-3">
+							<h5 class="card-header">#{c.titulo}</h5>
+							<div class="card-body">
+								
+								<!-- Si hay que mostrar el contenido, se muestra -->
+								<c:if test="#{contenidoBean.mostrarContenido(c)}">
+									<audio controls="x" class="w-100" src="recurso/multimedia/contenido/#{contenidoBean.idArtista}/#{c.id}">
+									</audio>
+								</c:if>
+								<!-- Sino, se le avisa que puede comprarlo -->
+								<c:if test="#{ ! contenidoBean.mostrarContenido(c)}">
+									<div class="text-center">
+										<span class="text-muted">Compra este contenido o hazte premium</span>
+									</div>
+									<hr/>
+								</c:if>
+								
+								<br />
+								<span class="text-muted">Descripcion:</span>
+								<p class="card-text mt-1">#{c.descripcion}</p>
+								<hr />
+	
+								<div class="row text-center">
+									<div class="col-12 col-lg-3">
+										<span class="text-muted">Precio:</span>
+										<p class="card-text mt-1">$#{c.precio}</p>
+									</div>
+									<div class="col-12 col-lg-5">
+										<span class="text-muted">Fecha de Post:</span>
+										<p class="card-text mt-1">#{c.fechaPublicado}</p>
+									</div>
+									<div class="col-12 col-lg-4">
+										<span class="text-muted">Calificacion:</span>
+										<p class="card-text mt-1">#{c.valoracionCalculada}</p>
+									</div>
 								</div>
 							</div>
+							
+							<!--  Botones de Comprar, Reportar, Calificar -->
+							<c:if test="#{loginBean.fanLogueado}">
+								<div class="card-footer text-center">
+									<div class="row mt-2">
+										<h:form class="col-12 col-md-6 col-lg-3 my-1 p-1">
+											<h:commandButton class="btn btn-info mx-auto w-100" 
+												disabled="#{ ! (contenidoBean.permitirComprar(c) and contenidoBean.saldoSuficiente(c))}"
+												value="Comprar" action="#{contenidoBean.comprar()}">
+							          			<f:param name="idContenido" value="#{c.id}" />
+							          			<f:param name="id" value="#{contenidoBean.idArtista}" />
+											</h:commandButton>
+										</h:form>
+										<div class="col-12 col-md-6 col-lg-3 my-1 p-1">
+											<!-- Boton que abre el modal para Reportar (el modal esta al final del foreach) -->
+											<c:if test="#{ ! contenidoBean.permitirComprar(c)}">
+												<button type="button" class="btn btn-danger  mx-auto w-100" data-toggle="modal" data-target="#myModal#{status.index}">Reportar</button>
+											</c:if>
+											<c:if test="#{contenidoBean.permitirComprar(c)}">
+												<button disabled="disabled" type="button" class="btn btn-danger  mx-auto w-100" data-toggle="modal" data-target="#myModal#{status.index}">Reportar</button>
+											</c:if>
+										</div>
+										<h:form class="col-12 col-md-6">
+											<div class="row">
+												<div class="col-6  my-1 p-1">
+													<h:commandButton class="btn btn-warning  w-100" 
+														disabled="${ ! (! c.fanYaValoro(contenidoBean.idFan) and ! contenidoBean.permitirComprar(c))}"
+														value="Califiar"  action="#{contenidoBean.calificar()}">
+									          			<f:param name="idContenido" value="#{c.id}" />
+									          			<f:param name="indice" value="#{status.index}" />
+									          			<f:param name="id" value="#{contenidoBean.idArtista}" />
+													</h:commandButton>
+												</div>
+												<div class="col-6  my-1 p-1">
+													<h:selectOneMenu class="form-control w-100"
+														disabled="${ ! (! c.fanYaValoro(contenidoBean.idFan) and ! contenidoBean.permitirComprar(c))}"
+														value="#{contenidoBean.valorNuevaCalificacion[status.index]}"
+														id="Califiar" label="Service Level">
+														<f:selectItem itemLabel="1" itemValue="1" />
+														<f:selectItem itemLabel="2" itemValue="2" />
+														<f:selectItem itemLabel="3" itemValue="3" />
+														<f:selectItem itemLabel="4" itemValue="4" />
+														<f:selectItem itemLabel="5" itemValue="5" />
+													</h:selectOneMenu>
+												</div>
+											</div>
+										</h:form>
+									</div>
+								</div>
+							</c:if>
+							<!--  FIN Botones de Comprar, Reportar, Calificar -->
+							
 						</div>
-
-						<div class="card-footer text-center">
-							<div class="row mt-2">
-								<div class="col-12 col-md-6 col-lg-3 my-1 p-1">
-									<h:commandButton class="btn btn-info mx-auto w-100"
-										value="Comprar" action="Comprar" />
+					</div>
+					<div class="col-12 col-md-6 m-0 p-0">
+						<!-- inicio del chat -->
+						<div class="card m-3">
+							<h5 class="card-header">Comentarios</h5>
+							<div class="card-body" style="height: 300px; overflow: auto;">
+								<ui:repeat var="com" value="#{contenidoBean.obtenerComentarios(c)}">
+									<div class="row my-3">
+										<div class="col-3 col-sm-2 col-md-3 col-lg-2">
+											<img class="rounded" width="100%" height="auto" src="recurso/multimedia/usuario/imagen/#{com.miFan.nikname}" />
+										</div>
+										<div class="col-9 col-sm-10 col-md-9 col-lg-10">
+											<strong>#{com.miFan.nikname}:</strong> <small>(#{" "}#{com.fechaYHora})</small>
+											<br/>
+											#{com.texto}
+										</div>
+									</div>
+								</ui:repeat>
+							</div>
+							<c:if test="#{loginBean.fanLogueado}">
+								<c:if test="#{ ! contenidoBean.permitirComprar(c)}">
+									<div class="card-footer text-right">
+										<h:form>
+											<div class="row">
+												<div class="col-12 col-md-9 p-1">
+													<h:inputTextarea  class="form-control" value="#{contenidoBean.textoNuevoComentario[status.index]}" 
+														required="true" requiredMessage="Debe ingresar un texto"/>
+												</div>
+												<div class="col-12 col-md-3 my-2 p-1">
+													<h:commandButton class="btn btn-primary w-100" value="Comentar" action="#{contenidoBean.comentar()}" >
+									          			<f:param name="idContenido" value="#{c.id}" />
+									          			<f:param name="indice" value="#{status.index}" />
+									          			<f:param name="id" value="#{contenidoBean.idArtista}" />
+													</h:commandButton>
+												</div>
+											</div>
+										</h:form>
+									</div>
+								</c:if>
+							</c:if>
+						</div>
+						<!-- fin del chat -->
+					</div>
+				</div>
+				<hr/>
+				
+				<!-- Modal para Reportar -->
+				<div class="modal fade" id="myModal#{status.index}" role="dialog">
+					<div class="modal-dialog">
+						<h:form>
+							<!-- Contenido del modal -->
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">Reportar</h4>
 								</div>
-								<div class="col-12 col-md-6 col-lg-3 my-1 p-1">
-									<h:commandButton class="btn btn-danger  mx-auto w-100"
-										value="Denunciar" action="Denunciar" />
+								<div class="modal-body">
+									<p>¿Qué hay de malo con #{c.titulo}?</p>
+									<h:inputTextarea  class="form-control" 
+										value="#{contenidoBean.textoNuevoReporte[status.index]}" 
+										required="true" requiredMessage="Debe ingresar un texto"/>
 								</div>
-								<div class="col-12 col-md-6 col-lg-3 my-1 p-1">
-									<h:commandButton class="btn btn-warning  mx-auto w-100"
-										value="Califiar" action="Califiar" />
-								</div>
-								<div class="col-12 col-md-6 col-lg-3 my-1 p-1">
-									<h:selectOneMenu class="form-control mx-auto w-100"
-										id="Califiar" label="Service Level" value="">
-										<f:selectItem itemLabel="1" itemValue="1" />
-										<f:selectItem itemLabel="2" itemValue="2" />
-										<f:selectItem itemLabel="3" itemValue="3" />
-										<f:selectItem itemLabel="4" itemValue="4" />
-										<f:selectItem itemLabel="5" itemValue="5" />
-									</h:selectOneMenu>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+									<h:commandButton class="btn btn-danger"  data-dismiss="modal" value="Enviar"
+										action="#{contenidoBean.reportar()}">
+					          			<f:param name="idContenido" value="#{c.id}" />
+					          			<f:param name="indice" value="#{status.index}" />
+					          			<f:param name="id" value="#{contenidoBean.idArtista}" />
+									</h:commandButton>
 								</div>
 							</div>
-						</div>
+						</h:form>
+						<!-- FIN Contenido del modal -->
 					</div>
 				</div>
-				<div class="col-md-6">
-					<!-- inicio del chat -->
-					<div class="card m-3">
-						<h5 class="card-header">Comentarios</h5>
-						<div class="card-body" style="height: 300px; overflow: auto;">
-							<ul>
-								<li><p>Hola</p></li>
-								<li><p>Hola todo bien</p></li>
-								<li><p>como andan?</p></li>
-								<li><p>como andan?</p></li>
-								<li><p>como andan?</p></li>
-								<li><p>como andan?</p></li>
-								<li><p>como andan?</p></li>
-							</ul>
-						</div>
-						<h5 class="card-footer text-right">
-							<h:form>
-								<h:inputTextarea class="form-control" id="biografia" value="" />
-								<h:commandButton class="btn btn-primary mt-3" value="Comentar"
-									action="Comentar" />
-							</h:form>
-						</h5>
-					</div>
-					<!-- fin del chat -->
-				</div>
-			</div>
+				<!-- FIN Modal para Reportar -->
+				
+			</c:forEach>
 		</div>
 		<!--************************************ FIN    PRIMER TARJETA ***********************************-->
 

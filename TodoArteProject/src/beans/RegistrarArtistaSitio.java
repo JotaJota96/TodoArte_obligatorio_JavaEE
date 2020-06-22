@@ -32,16 +32,17 @@ public class RegistrarArtistaSitio implements Serializable{
 	//---------------------------------------------------------------------
 	
 	public String registrar() {
-		Artista nuevoArtista = copiarArtista(artista);
-		Sitio nuevoSitio = copiarSitio(sitio);
-		
-		nuevoArtista.setImagen(FuncionesComunes.partToBytes(fotoPerfil));
-		nuevoSitio.setImagenPortada(FuncionesComunes.partToBytes(fotoPortada));
-		nuevoArtista.setMiSitio(nuevoSitio);
-		nuevoSitio.setMiArtista(nuevoArtista);
-		
-		Artista ret = null;
 		try {
+			Artista nuevoArtista = copiarArtista(artista);
+			Sitio nuevoSitio = copiarSitio(sitio);
+			
+			nuevoArtista.setImagen(FuncionesComunes.partToBytes(fotoPerfil));
+			nuevoSitio.setImagenPortada(FuncionesComunes.partToBytes(fotoPortada));
+			nuevoArtista.setMiSitio(nuevoSitio);
+			nuevoSitio.setMiArtista(nuevoArtista);
+			
+			Artista ret = null;
+			
 			CategoriaSitio cs = fo.obtenerUnaCategoriasSitios(idCategoriaSitio);
 			Fuente f = fo.obtenerUnaFuentes(idFuente);
 
@@ -49,14 +50,15 @@ public class RegistrarArtistaSitio implements Serializable{
 			nuevoSitio.setMiFuente(f);
 			
 			ret = fo.registrarUsuarioArtista(nuevoArtista, nuevoSitio);
+
+			if (ret == null) {
+				return Redirector.redirect("500.jsf");
+			}else {
+				return Redirector.redirect("login.jsf");
+			}
 		} catch (Exception e) {
+			return Redirector.redirect("500.jsf");
 		}
-		if (ret == null) {
-			return Redirector.redirect("login.jsf");
-		}else {
-			return Redirector.redirect("sitio.jsf", "id=" + ret.getNikname());
-		}
-		
 	}
 	
 	private Artista copiarArtista(Artista a) {

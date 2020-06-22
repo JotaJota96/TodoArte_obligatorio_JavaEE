@@ -1,6 +1,7 @@
 package beans.backoffice;
 
 import java.io.Serializable;
+
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import com.TodoArte.Classes.CategoriaContenido;

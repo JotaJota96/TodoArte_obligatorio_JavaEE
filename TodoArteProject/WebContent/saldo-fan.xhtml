@@ -47,7 +47,11 @@
 							        
 							        <div class="form-group">
 							        	<label for="verificar">Monto</label>
-								        <h:inputText  class="form-control" id="verificar" value="#{saldoBean.monto}" ></h:inputText>
+								        <h:inputText  class="form-control" id="monto" value="#{saldoBean.monto}" 
+								        	validator="#{validarRecargaSaldo.validar}"></h:inputText>
+							        	<span class="text-danger">
+											<h:message for="monto"/>
+										</span>
 							        </div>
 							        
 							        <h:commandButton class="btn btn-primary my-2" value="Recargar" action="#{saldoBean.recargarSaldo()}" />

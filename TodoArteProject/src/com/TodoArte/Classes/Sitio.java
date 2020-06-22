@@ -216,12 +216,12 @@ public class Sitio implements Serializable {
 	
 	public boolean fanBloqueado(String idFan) {
 		// devuelve si el fan se encuentra bloqueado de este sitio
-		return obtenerSeguidor(idFan).getBloqueado();
+		return (esFan(idFan) && obtenerSeguidor(idFan).getBloqueado());
 	}
 	
 	public boolean fanEsPremium(String idFan) {
 		// devuelve si el fan es premium
-		return obtenerSeguidor(idFan).getPremiun();
+		return (esFan(idFan) && obtenerSeguidor(idFan).getPremiun());
 	}
 	
 	private FanSigueSitio obtenerSeguidor(String idFan) {

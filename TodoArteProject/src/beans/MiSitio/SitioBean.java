@@ -45,10 +45,10 @@ public class SitioBean implements Serializable{
 				fo.suscribirseFanArtista(nick, idArtista);
 				redireccion = Redirector.redirect("sitio.jsf", "id=" + idArtista);
 			} catch (Exception e) {
-				System.out.println("CATCH: " + e.getMessage());
+				System.out.println("CATCH-2: " + e.getMessage());
 			}
 		}
-		return Redirector.redirect(redireccion);
+		return redireccion;
 	}
 	
 	public String comprar() {
@@ -80,7 +80,11 @@ public class SitioBean implements Serializable{
 	//****************************************************************************
  	public SitioBean() {
 		try {
-			idArtista = FuncionesComunes.getParametro("id");
+			if (FuncionesComunes.rolActual("artista")) {
+				idArtista = FuncionesComunes.usuarioActual();
+			}else {
+				idArtista = FuncionesComunes.getParametro("id");
+			}
 			artista = (Artista) fo.obtenerDatosUsuario(idArtista);
 			sitio = artista.getMiSitio();
 
@@ -153,17 +157,12 @@ public class SitioBean implements Serializable{
 	public boolean isMostrarBotonComprar() {
 		return mostrarBotonComprar;
 	}
-
 	public void setMostrarBotonComprar(boolean mostrarBotonComprar) {
 		this.mostrarBotonComprar = mostrarBotonComprar;
 	}
-
-
 	public boolean isMostrarBotonSeguir() {
 		return mostrarBotonSeguir;
 	}
-
-
 	public void setMostrarBotonSeguir(boolean mostrarBotonSeguir) {
 		this.mostrarBotonSeguir = mostrarBotonSeguir;
 	}

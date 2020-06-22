@@ -150,6 +150,14 @@ public interface FrontOfficeInterface {
 	public ArrayList<Contenido> obtenerContenido(String idArtista, String idFan);
 	
 	/**
+	 * Devuelve los contenidos premium de un artista especifico
+	 * @param idArtista ID del artista propietario del contenido que se desea obtener
+	 * @param idFan ID del fan que quiere obtener la informacion (idFan = "" si el usuario es invitado)
+	 * @return Si el ID es correcto, devuelve los contenidos del artista, de lo contrario retorna NULL
+	 */
+	public ArrayList<Contenido> obtenerContenidoPremium(String idArtista, String idFan);
+	
+	/**
 	 * Bloquea o desbloque a un fan del sitio de un artista. Si el fan no se encuentra bloqueado aun, lo bloquea, si ya se encuentra bloqueado, lo desbloquea.
 	 * @param idArtista ID del artista del sitio afectado
 	 * @param idFan ID del fan a bloquear del sitio
@@ -222,6 +230,20 @@ public interface FrontOfficeInterface {
 	 * @return Debuelve Contenido
 	 */
 	public Contenido obtenerUnContenido(int idContenido);
+	
+	/**
+	 * Envia una notificacion a un artista
+	 * @param idFan ID del fan para notificar
+	 * @param notificacion Notificacion a enviar
+	 */
+	public void notificarFan(String idFan, NotificacionFan notificacion);
+	
+	/**
+	 * Envia una notificacion a un artista
+	 * @param idArtista ID del artista a notificar
+	 * @param notificacion Notificacion a enviar
+	 */
+	public void notificarFansArtista(String idArtista, NotificacionFan notificacion);
 	
 	
 }

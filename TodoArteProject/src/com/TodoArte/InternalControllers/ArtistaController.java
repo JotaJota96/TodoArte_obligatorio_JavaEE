@@ -15,6 +15,8 @@ import com.TodoArte.Classes.QyAProgramado;
 import com.TodoArte.Classes.Sitio;
 import com.TodoArte.Classes.Usuario;
 import com.TodoArte.Enums.MensajesExcepciones;
+import com.TodoArte.Enums.Privacidad;
+import com.TodoArte.Enums.TipoContenido;
 import com.TodoArte.InternalInterfaces.ArtistaInterface;
 import com.TodoArte.InternalInterfaces.FanInterface;
 import com.TodoArte.JPAControllerClasses.SitioJpaController;
@@ -234,7 +236,13 @@ public class ArtistaController implements ArtistaInterface{
 		for (Map.Entry<Integer, Contenido> entry : sitioArtista.getMisContenidos().entrySet()) {
 			try {
 				if(entry.getValue().getEliminado() == false) {
-					ret.add(cjpa.obtenerContenido(idArtista, entry.getValue().getId(), idFan));
+					if(idArtista.equals(idFan)){
+						ret.add(cjpa.obtenerContenido(idArtista, entry.getValue().getId(), idFan));
+					}else {
+						if(entry.getValue().getBloqueado() == false){
+							ret.add(cjpa.obtenerContenido(idArtista, entry.getValue().getId(), idFan));
+						}
+					}					
 				}
 			} catch (Exception e) {
 			}
@@ -243,6 +251,40 @@ public class ArtistaController implements ArtistaInterface{
 		return ret;
 	}
 
+
+	public ArrayList<Contenido> obtenerContenidoPremium(String idArtista, String idFan) {
+		// obtener el artista por id
+		// obtener el sitio del artista
+		// extraer todos los contenidos premium del sitio, convertirlo a ArrayList y devolver
+		
+		Sitio sitioArtista = new ArtistaJpaController().findArtista(idArtista).getMiSitio();
+		if (sitioArtista == null) {
+			throw new RuntimeException(MensajesExcepciones.artistaNoExiste);
+		}
+		ArrayList<Contenido> ret = new ArrayList<Contenido>();
+		
+		if (sitioArtista.fanBloqueado(idFan)) {
+			return ret;
+		}
+		
+		for (Map.Entry<Integer, Contenido> entry : sitioArtista.getMisContenidos().entrySet()) {
+			if(entry.getValue().getEliminado() == false) {
+				if(idArtista.equals(idFan)) {
+					if (entry.getValue().getPrivacidad() == Privacidad.Premium) {
+						ret.add(entry.getValue());
+					}
+				}else {
+					if(entry.getValue().getBloqueado() == false){
+						if (entry.getValue().getPrivacidad() == Privacidad.Premium) {
+							ret.add(entry.getValue());
+						}
+					}
+				}
+				
+			}
+		}
+		return ret;
+	}
 	@Override
 	public void bloquearDesbloquearUsuarioDeSitio(String idArtista, String idFan) {
 		// obtener el artista por id
@@ -349,5 +391,6 @@ public class ArtistaController implements ArtistaInterface{
 			throw new RuntimeException(e.getMessage());
 		}
 	}
+
     
 }

@@ -6,10 +6,10 @@ import java.sql.Date;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import javax.sound.midi.Soundbank;
+
 /**
+
  * Esta clase contiene funciones que pueden ser utiles en cualquier Bean de este proyecto web
  * Para llamar una funcion de esta clase, se debe hacer: FuncionesComunes.funcionAEjecutar(...)
  */
@@ -93,6 +93,18 @@ public class FuncionesComunes {
 		}
 		return false;
 	}
+	public static String rolActual(ServletRequest request) {
+		try {
+			HttpServletRequest req = (HttpServletRequest) request;
+			String rolSesion = (String ) req.getSession().getAttribute("rol");
+			if (rolSesion != null && rolSesion.equals("")) {
+				return null;
+			}
+			return rolSesion;
+		} catch (Exception e) {
+		}
+		return null;
+	}
 
 	//---------------------------------------------------------------------------------------------
 	
@@ -103,6 +115,9 @@ public class FuncionesComunes {
 	 */
 	public static String usuarioActual() {
 		try {
+			if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("rol") == null) {
+				return null;
+			}
 			return (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("nickname");
 		} catch (Exception e) {
 		}
@@ -136,7 +151,27 @@ public class FuncionesComunes {
 			return null;
 		}
 	}
-
+	
+	public static String getPaginaSolicitada() {
+		try {
+			String url = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI();
+			String[] partes = url.split("/");
+			return partes[partes.length - 1];
+		} catch (Exception e) {
+			return Redirector.redirect("500.jsf");
+		}
+	}
+	public static String getPaginaSolicitada(ServletRequest request) {
+		try {
+			HttpServletRequest req = (HttpServletRequest) request;
+			String url = req.getRequestURI();
+			String[] partes = url.split("/");
+			return partes[partes.length - 1];
+		} catch (Exception e) {
+			return Redirector.redirect("500.jsf");
+		}
+	}
+	
 	/**
 	 * (para ser usada desde los filtros) Devuelve el parametro que viene en la URL (si es que realmente viene)
 	 * @param request peticion recibida como parametro en el filtro
@@ -200,6 +235,14 @@ public class FuncionesComunes {
 		default:
 			return TipoContenido.Otros;
 		}
+	}
+
+	/**
+	 * Devuelve la fecha actual
+	 * @return
+	 */
+	public static Date fechaActual() {
+		return new Date(System.currentTimeMillis());
 	}
 	
 	/**
