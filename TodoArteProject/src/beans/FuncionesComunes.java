@@ -2,6 +2,7 @@ package beans;
 
 import java.io.InputStream;
 import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletRequest;
@@ -244,6 +245,16 @@ public class FuncionesComunes {
 	public static Date fechaActual() {
 		return new Date(System.currentTimeMillis());
 	}
+	
+	
+	public static java.sql.Date haceUnMes() {
+		LocalDate fechaActual = FuncionesComunes.fechaActual().toLocalDate(); //fecha actual
+        LocalDate haceUnMes = fechaActual.minusMonths(1);
+        Date date = java.sql.Date.valueOf(haceUnMes);
+        return date;
+	}
+	
+	
 	
 	/**
 	 * Para agregar nuevas funciones, recordar que debe ser 'public static'
