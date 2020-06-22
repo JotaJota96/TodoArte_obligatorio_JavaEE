@@ -435,7 +435,7 @@ public class ArtistaController implements ArtistaInterface{
 		PagoAPlataforma pap = new PagoAPlataforma(0, total, FuncionesComunes.fechaActual());
 		
 		a.pagarAPlataforma(pap);
-
+		a.setSaldo(a.getSaldo() - pap.getMonto());
 		try {
 			new ArtistaJpaController().edit(a);
 		} catch (Exception e) {
