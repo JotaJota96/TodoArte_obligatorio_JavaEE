@@ -53,7 +53,7 @@ public interface FrontOfficeInterface {
 	 * Agrega un comentario a un contenido de un artista
 	 * @param idFan nickname del usuario que compro el contenido
 	 * @param idContenido es el id del contenido comprado
-	 * @param idArtista nickname del artista due�o del contenido
+	 * @param idArtista nickname del artista duenio del contenido
 	 */
 	public void comprarContenido(String idFan, int idContenido, int idArtista);
 	

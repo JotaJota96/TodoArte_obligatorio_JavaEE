@@ -32,4 +32,10 @@ public class ValidarRecargaSaldo implements Validator<String> {
 		}
 	}
 
+	public void validarMayorIgualACero(FacesContext arg0, UIComponent arg1, Float saldo) throws ValidatorException {
+		if (saldo < 0) {
+			throw new ValidatorException(new FacesMessage("El monto debe ser mayor o igual a cero"));
+		}
+	}
+
 }

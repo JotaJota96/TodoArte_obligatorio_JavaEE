@@ -51,7 +51,7 @@ public class EstadisticasBean implements Serializable{
 	public String pagarAPlataforma() {
 		try {
 			fo.pagarAPlataforma(FuncionesComunes.usuarioActual());
-			return Redirector.redirect("sitio-administrar.jsf");
+			return Redirector.redirect("sitio-administrar.jsf", "tab=5");
 		} catch (Exception e) {
 			return Redirector.redirect("500.jsf");
 		}

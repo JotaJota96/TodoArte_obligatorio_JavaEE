@@ -15,6 +15,8 @@ import com.TodoArte.FachadeControllers.FrontOfficeController;
 import com.TodoArte.FachadeInterfaces.BackOfficeInterface;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
 
+import beans.Redirector;
+
 @Named
 @SessionScoped
 public class NotificarArtistaBean implements Serializable {
@@ -28,13 +30,15 @@ public class NotificarArtistaBean implements Serializable {
 	private NotificacionArtista notificacion = new NotificacionArtista();
 	
 	//-- Funciones --------------------------------------------------------------------------------------
-	public void enviarNotificacion() {
+	public String enviarNotificacion() {
 		// creo una nueva notificacion a partir de la que fue rellenada
 		NotificacionArtista na = new NotificacionArtista(0, notificacion.getTitulo(), notificacion.getDescripcion(), null);;
-		try {
+    	try {
 			bo.notificarArtista(idArtista, na);
 			this.notificacion = new NotificacionArtista();
+			return Redirector.redirect("backoffice.jsf", "tab=3");
 		} catch (Exception e) {
+			return Redirector.redirect("500.jsf");
 		}
 	}
 	
