@@ -35,11 +35,13 @@ public class Funciones {
 		    limpiarVisibilidades(o.getMiFan());
 		} else if (obj instanceof Artista){
 			Artista a = (Artista) obj;
+			a.setImagen(null);
 			if (a.getMiSitio() == null) return;
 			a.getMiSitio().setMiArtista(null);
 			limpiarVisibilidades(a.getMiSitio());
 		} else if (obj instanceof Sitio){
 			Sitio s = (Sitio) obj;
+			s.setImagenPortada(null);
 			if (s.getMiArtista() != null) {
 				limpiarVisibilidades(s.getMiArtista());
 			}else {
@@ -52,6 +54,7 @@ public class Funciones {
 			}
 		} else if (obj instanceof Contenido){
 			Contenido c = (Contenido) obj;
+			c.setArchivo(null);
 			for (Map.Entry<Integer, Valoracion> entry : c.getMisValoracion().entrySet()) {
 				limpiarVisibilidades(entry.getValue());
 			}
@@ -66,6 +69,7 @@ public class Funciones {
 			}
 		} else if (obj instanceof Fan){
 			Fan f = (Fan) obj;
+			f.setImagen(null);
 			for (Map.Entry<Integer, FanSigueSitio> entry : f.getMisSitiosSeguidos().entrySet()) {
 				limpiarVisibilidades(entry.getValue());
 			}
