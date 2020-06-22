@@ -2,7 +2,7 @@ package beans.backoffice;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import com.TodoArte.Classes.CategoriaContenido;
 import com.TodoArte.Classes.CategoriaSitio;
@@ -12,7 +12,7 @@ import com.TodoArte.FachadeInterfaces.BackOfficeInterface;
 import beans.Redirector;
 
 @Named
-@RequestScoped
+@SessionScoped
 public class DefinirCategoria implements Serializable {
 	private static final long serialVersionUID = 1L;
 
