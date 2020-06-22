@@ -12,6 +12,7 @@ import javax.inject.Named;
 import com.TodoArte.Classes.Administrador;
 import com.TodoArte.Classes.Artista;
 import com.TodoArte.Classes.Fan;
+import com.TodoArte.Classes.NotificacionArtista;
 import com.TodoArte.Classes.NotificacionFan;
 import com.TodoArte.Classes.Usuario;
 import com.TodoArte.FachadeControllers.BackOfficeController;
@@ -40,6 +41,7 @@ public class NotificacionesBean implements Serializable{
 	
 	public NotificacionesBean() {
 		listaNotificaciones = fo.listarNotificacionesFan(FuncionesComunes.usuarioActual());
+		listaNotificaciones = NotificacionFan.ordenar(listaNotificaciones , true);
 		//Collections.reverse(listaNotificaciones); para invertir la lista
 	}
 	

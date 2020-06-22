@@ -34,13 +34,13 @@ public class BuscarBean implements Serializable {
 		lstArtistas = null;
 		
 		for (Artista a : fo.listarArtistas()) {
-
+			if (a.getBloqueado()) continue; // si esta bloqueado lo saltea
 			if(a.getNikname().contains(busqueda) || a.getNombre().contains(busqueda)) {
 				resultado.add(a);
 			}
 		}
 		lstArtistas = resultado;
-		busqueda = "";
+		//busqueda = "";
 	}
 	
 	//-- Constructor, getters y setters -----------------------------------------------------------------
