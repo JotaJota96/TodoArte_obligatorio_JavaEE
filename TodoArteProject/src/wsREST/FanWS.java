@@ -89,6 +89,7 @@ public class FanWS implements Serializable{
 	/**
 	 * Función para obtener las notificaciones de un usuario fan via rest
 	 * @return
+	 * Test OK
 	 */
 	@GET
 	@Path("/notificaciones/{idfan}")
@@ -96,6 +97,7 @@ public class FanWS implements Serializable{
 	public Response listarNotificacionesFan(@PathParam("idfan") String idFan) {
 		try {
 			ArrayList<NotificacionFan> listaNotificaciones = fo.listarNotificacionesFan(idFan);
+			Funciones.limpiarVisibilidadesLista(listaNotificaciones);
 			return Response
 					.status(Response.Status.OK)
 					.entity(listaNotificaciones.toArray())
@@ -116,7 +118,7 @@ public class FanWS implements Serializable{
 	 */
 	@POST
 	@Path("/registrar")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response registrarUsuarioFan(Fan fan) {
 		try {
