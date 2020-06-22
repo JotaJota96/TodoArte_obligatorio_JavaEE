@@ -16,6 +16,8 @@ import com.TodoArte.Classes.Usuario;
 import com.TodoArte.FachadeControllers.FrontOfficeController;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
 
+import beans.Redirector;
+
 @Named
 @RequestScoped
 public class MisFans implements Serializable {
@@ -32,8 +34,13 @@ public class MisFans implements Serializable {
 	
 	//-----------funciones-------------------------------
 
-	public void bloquearDesbloquearFan(String idFan) {
-		fo.bloquearDesbloquearUsuarioDeSitio(idArtista, idFan);
+	public String bloquearDesbloquearFan(String idFan) {
+		try {
+			fo.bloquearDesbloquearUsuarioDeSitio(idArtista, idFan);
+			return Redirector.redirect("sitio-administrar.jsf", "tab=4");
+		} catch (Exception e) {
+			return Redirector.redirect("500.jsf");
+		}
 	}
 	
 	public String gustosDelFan(Fan miFan) {

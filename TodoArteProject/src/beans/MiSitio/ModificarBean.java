@@ -35,7 +35,7 @@ public class ModificarBean implements Serializable {
 			Contenido c = listaContenido.get(index);
 			
 			fo.agregarModificarContenido(idArtista, c);
-			return Redirector.redirect("sitio-administrar.jsf");
+			return Redirector.redirect("sitio-administrar.jsf", "tab=1");
 			
 		} catch (Exception e) {
 			System.out.println("Error---------"+e.getMessage());

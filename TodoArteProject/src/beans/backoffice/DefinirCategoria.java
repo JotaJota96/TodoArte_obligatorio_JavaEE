@@ -27,9 +27,9 @@ public class DefinirCategoria implements Serializable {
 			bo.agregarCategoriaDeContenido(catCont);
 			catCont = new CategoriaContenido();
 		} catch (Exception e) {
+			return Redirector.redirect("500.jsf");
 		}
-		
-		return Redirector.redirect("DefinirCategoria.jsf");
+		return Redirector.redirect("backoffice.jsf", "tab=5");
 	}
 	
 	public String definirCategoriaSitio() {
@@ -37,8 +37,9 @@ public class DefinirCategoria implements Serializable {
 			bo.agregarCategoriaDeSitio(catSit);
 			catSit = new CategoriaSitio();
 		} catch (Exception e) {
+			return Redirector.redirect("500.jsf");
 		}
-		return Redirector.redirect("DefinirCategoria.jsf");
+		return Redirector.redirect("backoffice.jsf", "tab=5");
 	}
 	
 	public CategoriaContenido getCatCont() {

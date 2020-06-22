@@ -11,6 +11,8 @@ import com.TodoArte.Classes.Contenido;
 import com.TodoArte.FachadeControllers.FrontOfficeController;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
 
+import beans.Redirector;
+
 @Named
 @RequestScoped
 public class Eliminar implements Serializable {
@@ -26,12 +28,14 @@ public class Eliminar implements Serializable {
 	
 	//-----------funciones-------------------------------
 
-	public void eliminarContenidos(int id) {
+	public String eliminarContenidos(int id) {
 		try {
 			fo.eliminarContenido(idArtista, id);
 			listaContenido = fo.obtenerContenido(idArtista, idArtista);
+			return Redirector.redirect("sitio-administrar.jsf", "tab=2");
 		} catch (Exception e) {
 			System.out.println("Error---------"+e);
+			return Redirector.redirect("500.jsf");
 		}
 	}
 	

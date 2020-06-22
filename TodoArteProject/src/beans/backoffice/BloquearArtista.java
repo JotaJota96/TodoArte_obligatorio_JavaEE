@@ -13,6 +13,8 @@ import com.TodoArte.FachadeControllers.FrontOfficeController;
 import com.TodoArte.FachadeInterfaces.BackOfficeInterface;
 import com.TodoArte.FachadeInterfaces.FrontOfficeInterface;
 
+import beans.Redirector;
+
 @Named
 @SessionScoped
 public class BloquearArtista  implements Serializable {
@@ -51,8 +53,13 @@ public class BloquearArtista  implements Serializable {
 		}	
 	}
 
-    public void bloquear(String nickname) {
-    	bo.bloquearDesbloquearArtista(nickname);
+    public String bloquear(String nickname) {
+    	try {
+        	bo.bloquearDesbloquearArtista(nickname);
+			return Redirector.redirect("backoffice.jsf", "tab=0");
+		} catch (Exception e) {
+			return Redirector.redirect("500.jsf");
+		}
     }
 	
 	public BloquearArtista() {

@@ -42,7 +42,7 @@ public class SaldoBean implements Serializable {
 			if (FuncionesComunes.rolActual("fan")) {
 				return Redirector.redirect("saldo-fan.jsf");
 			}else {
-				return Redirector.redirect("sitio-administrar.jsf");
+				return Redirector.redirect("sitio-administrar.jsf", "tab=3");
 			}
 		} catch (Exception e) {
 			return Redirector.redirect("500.jsf");
