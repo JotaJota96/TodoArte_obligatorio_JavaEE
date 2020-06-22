@@ -53,8 +53,8 @@ public class Servicio  extends Application{
 	// Clase UsuarioWS  http://localhost:8080/TodoArteProject/api/usuario/login
 	/usuario
 	POST /login
-	Usuario iniciarSesion(String, String); hecho
-	
+	Usuario iniciarSesion(String, String); hecho porobada OK
+
 	GET /obtener
 	Usuario obtenerDatosUsuario(String);	hecho   http://localhost:8080/TodoArteProject/api/usuario/obtener
 	

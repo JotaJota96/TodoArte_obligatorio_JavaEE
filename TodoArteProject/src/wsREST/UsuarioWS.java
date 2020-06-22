@@ -12,6 +12,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -40,18 +41,18 @@ public class UsuarioWS implements Serializable {
 	}
 	
 	/**
-	 * Función para iniciar sesión
-	 *
+	 * Función para iniciar sesión	 
 	 * @return
+	 * Testing OK
 	 */
 	@POST
 	@Path("/login")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response iniciarSesion(String idUsuario, String contrasenia) {
-		System.out.println("idUsuario: "+ idUsuario + " password: " + contrasenia);
-		try {
-			Usuario usuario = fo.iniciarSesion(idUsuario, contrasenia);
+	public Response iniciarSesion(DtLogin dtLogin) {
+		try {			
+			Usuario usuario = fo.iniciarSesion(dtLogin.getIdUsuario(), dtLogin.getContrasenia());
+			System.out.println(usuario.getNikname());
 			return Response
 					.status(Response.Status.OK)
 					.entity(usuario)
@@ -67,8 +68,11 @@ public class UsuarioWS implements Serializable {
 	}
 	
 	/**
-	 * Función para obtener los datos de un usuario, testing ok
+	 * Función para obtener los datos de un usuario
 	 * @return
+	 * 
+	 * Testing OK
+	 * 
 	 */
 	@GET
 	@Path("/obtener/{idUsuario}")
@@ -76,12 +80,12 @@ public class UsuarioWS implements Serializable {
 	public Response obtenerDatosUsuario(@PathParam("idUsuario")String idUsuario) {
 		try {
 			Usuario usuario = fo.obtenerDatosUsuario(idUsuario);
+			Funciones.limpiarVisibilidades(usuario);
 			return Response
 					.status(Response.Status.OK)
 					.entity(usuario)
 					.build();
-		} catch (Exception e) {
-			
+		} catch (Exception e) {			
 			String message = "Error al obtener los datos del usuario. Error: " + e.getMessage();
 			return Response
 					.status(Response.Status.BAD_REQUEST)
@@ -93,19 +97,20 @@ public class UsuarioWS implements Serializable {
 	/**
 	 * Función que recarga el saldo de un usuario, sea fan o artista
 	 * @return
+	 * testing OK
 	 */
 	@PUT
 	@Path("/recargar")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response recargarSaldo(String idUsuario, float monto) {
+	public Response recargarSaldo(DtRecargarUser dtRecarga) {
 		try {
-			fo.recargarSaldo(idUsuario, monto);
+			fo.recargarSaldo(dtRecarga.getIdUsuario(), dtRecarga.getMonto());
 			return Response
 					.status(Response.Status.OK)
+					.entity(null)
 					.build();
-		} catch (Exception e) {
-			
+		} catch (Exception e) {			
 			String message = "Error al recargar saldo. Error: " + e.getMessage();
 			return Response
 					.status(Response.Status.BAD_REQUEST)
