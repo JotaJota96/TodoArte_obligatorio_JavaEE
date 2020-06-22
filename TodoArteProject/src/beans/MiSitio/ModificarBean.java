@@ -33,6 +33,7 @@ public class ModificarBean implements Serializable {
 		
 		try {
 			Contenido c = listaContenido.get(index);
+			
 			fo.agregarModificarContenido(idArtista, c);
 			return Redirector.redirect("sitio-administrar.jsf");
 			
