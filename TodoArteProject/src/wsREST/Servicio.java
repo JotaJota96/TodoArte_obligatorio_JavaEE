@@ -20,35 +20,46 @@ public class Servicio  extends Application{
 
 
 /*
-// Clase ContenidoWS
-/contenido
-GET /obtener/uno
-Contenido obtenerContenido(String, int, String);
-GET /obtener/todos
-ArrayList<Contenido> obtenerContenido(String, String);
-POST /agregar
-Contenido agregarModificarContenido(String, Contenido);
-PUT /modificar
-Contenido agregarModificarContenido(String, Contenido);
-DELETE /eliminar
-void eliminarContenido(String, int);
-POST /calificar
-void calificarContenido(Valoracion, String, int, String);
-POST /comentar
-void comentarContenido(Comentario, String, int, String);
-POST /reportar
-void reportarContenido(Reporte, String, int, String);
-POST /comprar
-void comprarContenido(String, int, int);
+	// Clase ContenidoWS
+	/contenido
+	 * 
+	GET /obtener/uno
+	Contenido obtenerContenido(String, int, String); 	hecho
 
-// Clase UsuarioWS
-/usuario
-POST /login
-Usuario iniciarSesion(String, String);
-GET /obtener
-Usuario obtenerDatosUsuario(String);
-PUT /recargar
-void recargarSaldo(String, float);
+	GET /obtener/todos
+	ArrayList<Contenido> obtenerContenido(String, String); hecho
+	
+	POST /agregar
+	Contenido agregarModificarContenido(String, Contenido); hecho
+	
+	PUT /modificar
+	Contenido agregarModificarContenido(String, Contenido); hecho
+
+	DELETE /eliminar
+	void eliminarContenido(String, int); 					hecho
+	
+	POST /calificar
+	void calificarContenido(Valoracion, String, int, String);	hecho
+	
+	POST /comentar
+	void comentarContenido(Comentario, String, int, String);	hecho
+	
+	POST /reportar
+	void reportarContenido(Reporte, String, int, String); 		hecho
+	
+	POST /comprar
+	void comprarContenido(String, int, int);				hecho
+
+	// Clase UsuarioWS  http://localhost:8080/TodoArteProject/api/usuario/login
+	/usuario
+	POST /login
+	Usuario iniciarSesion(String, String); hecho porobada OK
+
+	GET /obtener
+	Usuario obtenerDatosUsuario(String);	hecho   http://localhost:8080/TodoArteProject/api/usuario/obtener
+	
+	PUT /recargar
+	void recargarSaldo(String, float);		hecho
 
 // Clase FanWS
 	/fan
@@ -59,20 +70,25 @@ void recargarSaldo(String, float);
 	POST /bloquear
 	void bloquearDesbloquearUsuarioDeSitio(String, String);
 
-// Clase ArtistaWS
+	// Clase ArtistaWS
 	/artista
-	POST /registrar
-	Artista registrarUsuarioArtista(Artista, Sitio);
+	POST /registrar										
+	Artista registrarUsuarioArtista(Artista, Sitio);     hecho
+	
 	GET /notificaciones
-	ArrayList<NotificacionArtista> listarNotificacionesArtista(String);
+	ArrayList<NotificacionArtista> listarNotificacionesArtista(String);    hecho
+	
 	POST /suscribirse
-	void suscribirseFanArtista(String, String);
+	void suscribirseFanArtista(String, String);				hecho
+	
 	GET /fans
-	ArrayList<Fan> obtenerFansDeSitio(String);
-POST /programar
-QyAProgramado programarQyA(String, QyAProgramado);
-POST /comprar/premium
-void comprarPremium(String, String);
+	ArrayList<Fan> obtenerFansDeSitio(String);				hecho
+	
+	POST /programar
+	QyAProgramado programarQyA(String, QyAProgramado);		Hecho en la clase Artista
+
+	POST /comprar-premium  				                  hecho en la clase contenido
+	void comprarPremium(String, String);
 
  */
 
