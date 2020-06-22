@@ -32,6 +32,8 @@ import com.TodoArte.JPAControllerClasses.ContenidoJpaController;
 import com.TodoArte.JPAControllerClasses.FanJpaController;
 import com.TodoArte.JPAControllerClasses.FuenteJpaController;
 
+import beans.FuncionesComunes;
+
 @Stateless
 public class FrontOfficeController implements FrontOfficeInterface{
 	
@@ -70,14 +72,14 @@ public class FrontOfficeController implements FrontOfficeInterface{
 	@Override
 	public void comprarPremium(String idFan, String idArtista) {
 		new ArtistaController().comprarPremium(idFan, idArtista);
-		NotificacionArtista noti = new NotificacionArtista(0, "Nuevo premium", "El fan "+idFan+" compro el premium de tu p�gina web", null);
+		NotificacionArtista noti = new NotificacionArtista(0, "Nuevo premium", "El fan "+idFan+" compro el premium de tu página web", FuncionesComunes.fechaActual());
 		new BackOfficeController().notificarArtista(idArtista, noti);
 	}
 
 	@Override
 	public void suscribirseFanArtista(String idFan, String idArtista) {
 		new ArtistaController().suscribirseFanArtista(idFan, idArtista);
-		NotificacionArtista noti = new NotificacionArtista(0, "Nuevo seguidor", "El fan "+idFan+" comenzo a seguir tu p�gina web", null);
+		NotificacionArtista noti = new NotificacionArtista(0, "Nuevo seguidor", "El fan "+idFan+" comenzo a seguir tu página web", FuncionesComunes.fechaActual());
 		new BackOfficeController().notificarArtista(idArtista, noti);
 	}
 
