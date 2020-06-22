@@ -57,26 +57,6 @@ public class FanWS implements Serializable{
 					.build();
 		}
 	}
-	@GET
-	@Path("/testarudo")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response test2() {
-		try {
-			Contenido c = fo.obtenerContenido("ergo", 1, "JotaJota96");
-			Funciones.limpiarVisibilidades(c);
-			return Response
-					.status(Response.Status.CREATED)
-					.entity(c)
-					.build();
-		} catch (Exception e) {
-			String message = "Ha ocurrido un error: " + e.getMessage();
-			return Response
-					.status(Response.Status.BAD_REQUEST)
-					.entity(message)
-					.build();
-		}
-	}
-	
 	
 //	@POST
 //	@Path("/categoria")
@@ -123,12 +103,12 @@ public class FanWS implements Serializable{
 	public Response registrarUsuarioFan(Fan fan) {
 		try {
 			fan = fo.registrarUsuarioFan(fan);
+			Funciones.limpiarVisibilidades(fan);
 			return Response
 					.status(Response.Status.CREATED)
 					.entity(fan)
 					.build();
 		} catch (Exception e) {
-			// TODO: handle exception
 			String message = "Error en el JSON que enviaste. Error: " + e.getMessage();
 			return Response
 					.status(Response.Status.BAD_REQUEST)
