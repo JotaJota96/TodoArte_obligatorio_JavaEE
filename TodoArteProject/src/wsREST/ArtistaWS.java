@@ -160,13 +160,15 @@ public class ArtistaWS implements Serializable {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response programarQyA(DtProgramarQA dtProgramarQA) {
 		try {
-			
+			throw new RuntimeException("Funcion aun no implementada");
+			/*
 			QyAProgramado qyAProgramado =  fo.programarQyA(dtProgramarQA.getIdArtista(), dtProgramarQA.getqAProgramado());
 			Funciones.limpiarVisibilidades(qyAProgramado);
 			return Response
 					.status(Response.Status.CREATED)
 					.entity(qyAProgramado)
 					.build();
+			*/
 		} catch (Exception e) {
 			
 			String message = "Error al crear un qyaProgramado. Error: " + e.getMessage();
