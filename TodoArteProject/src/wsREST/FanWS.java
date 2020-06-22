@@ -125,8 +125,9 @@ public class FanWS implements Serializable{
 	@Path("/bloquear")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public Response bloquearDesbloquearUsuarioDeSitio(String idArtista, String idFan) {
+	public Response bloquearDesbloquearUsuarioDeSitio(DtSuscribirse dtSuscribirse) {
 		try {
+			fo.bloquearDesbloquearUsuarioDeSitio(dtSuscribirse.getIdArtista(), dtSuscribirse.getIdFan());
 			return Response
 					.status(Response.Status.OK)
 					.build();
