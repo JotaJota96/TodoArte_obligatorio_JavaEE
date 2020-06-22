@@ -36,6 +36,7 @@ public class NotificacionesArtistaBean implements Serializable{
 	
 	public NotificacionesArtistaBean() {
 		listaNotificaciones = fo.listarNotificacionesArtista(FuncionesComunes.usuarioActual());
+		listaNotificaciones = NotificacionArtista.ordenar(listaNotificaciones , true);
 		//Collections.reverse(listaNotificaciones); para invertir la lista
 	}
 
