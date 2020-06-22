@@ -55,9 +55,9 @@ public class Pruebas {
 
 		// ----------------------------------------------------------
 		Fuente fuentes[] = {
-				new Fuente(0, "Arial"),
-				new Fuente(0, "Comic Sans"),
-				new Fuente(0, "Times New Roman")
+				new Fuente(0, "\"Comic Sans MS\", cursive, sans-serif"),
+				new Fuente(0, "Arial, Helvetica, sans-serif"),
+				new Fuente(0, "\"Courier New\", Courier, monospace")
 		};
 		for (int i = 0; i < fuentes.length; i++) {
 			fuentes[i] = bo.agregarFuente(fuentes[i]);
