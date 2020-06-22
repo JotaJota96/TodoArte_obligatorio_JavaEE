@@ -245,6 +245,11 @@ public interface FrontOfficeInterface {
 	 */
 	public void notificarFansArtista(String idArtista, NotificacionFan notificacion);
 	
+	/**
+	 * Calcula el monto que el artista debe pagar a la plataforma y se lo descuenta
+	 * @param idArtista ID del artista que realiza el pago
+	 */
+	public void pagarAPlataforma(String idArtista);
 	
 }
 

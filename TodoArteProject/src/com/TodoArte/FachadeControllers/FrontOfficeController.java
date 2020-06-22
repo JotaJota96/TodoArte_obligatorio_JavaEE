@@ -70,14 +70,14 @@ public class FrontOfficeController implements FrontOfficeInterface{
 	@Override
 	public void comprarPremium(String idFan, String idArtista) {
 		new ArtistaController().comprarPremium(idFan, idArtista);
-		NotificacionArtista noti = new NotificacionArtista(0, "Nuevo premium", "El fan "+idFan+" compro el premium de tu página web", null);
+		NotificacionArtista noti = new NotificacionArtista(0, "Nuevo premium", "El fan "+idFan+" compro el premium de tu pï¿½gina web", null);
 		new BackOfficeController().notificarArtista(idArtista, noti);
 	}
 
 	@Override
 	public void suscribirseFanArtista(String idFan, String idArtista) {
 		new ArtistaController().suscribirseFanArtista(idFan, idArtista);
-		NotificacionArtista noti = new NotificacionArtista(0, "Nuevo seguidor", "El fan "+idFan+" comenzo a seguir tu página web", null);
+		NotificacionArtista noti = new NotificacionArtista(0, "Nuevo seguidor", "El fan "+idFan+" comenzo a seguir tu pï¿½gina web", null);
 		new BackOfficeController().notificarArtista(idArtista, noti);
 	}
 
@@ -244,6 +244,11 @@ public class FrontOfficeController implements FrontOfficeInterface{
 			NotificacionFan noti = new NotificacionFan(0, notificacion.getTitulo(), notificacion.getDescripcion(), notificacion.getFechaYHora());
 			notificarFan(f.getNikname(), noti);
 		}
+	}
+
+	@Override
+	public void pagarAPlataforma(String idArtista) {
+		new ArtistaController().pagarAPlataforma(idArtista);
 	}
 
 }

@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <h:head>
 	<link rel="stylesheet"
@@ -34,12 +35,15 @@
 					<div class="card-header">
 						<h5>Pagar a la plataforma</h5>
 					</div>
-
+					
 					<div class="card-body">
 						<h:form class="form-signin">
-							<h:commandButton class="btn btn-primary px-5" value="Pagar" />
+							<h:commandButton disabled="#{ ! estadisticasBean.permitirPagar}" class="btn btn-primary px-5" value="Pagar" action="#{estadisticasBean.pagarAPlataforma()}" />
 						</h:form>
-					</div>	
+						<br/>
+						
+						<span class="text-muted"> #{estadisticasBean.ultimoPago}</span>
+					</div>
 				</div>
 			
 			

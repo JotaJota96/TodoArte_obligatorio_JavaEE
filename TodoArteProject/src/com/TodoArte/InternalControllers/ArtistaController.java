@@ -1,5 +1,6 @@
 package com.TodoArte.InternalControllers;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -14,12 +15,16 @@ import com.TodoArte.Classes.PagoAPlataforma;
 import com.TodoArte.Classes.QyAProgramado;
 import com.TodoArte.Classes.Sitio;
 import com.TodoArte.Classes.Usuario;
+import com.TodoArte.Classes.Venta;
 import com.TodoArte.Enums.MensajesExcepciones;
 import com.TodoArte.Enums.Privacidad;
 import com.TodoArte.Enums.TipoContenido;
 import com.TodoArte.InternalInterfaces.ArtistaInterface;
 import com.TodoArte.InternalInterfaces.FanInterface;
 import com.TodoArte.JPAControllerClasses.SitioJpaController;
+
+import beans.FuncionesComunes;
+
 import com.TodoArte.JPAControllerClasses.ArtistaJpaController;
 import com.TodoArte.JPAControllerClasses.CategoriaContenidoJpaController;
 import com.TodoArte.JPAControllerClasses.FanJpaController;
@@ -392,5 +397,57 @@ public class ArtistaController implements ArtistaInterface{
 		}
 	}
 
+	public void pagarAPlataforma(String idArtista) {
+		float montoBase = 100; // pesos
+		float porcentajeSeguidoresPremium = 0.1F; // porciento
+		float porcentajeContenidoVendido = 0.05F; // porciento
+		float total = 0;
+		
+		Artista a = new ArtistaJpaController().findArtista(idArtista);
+		if (a == null) {
+			throw new RuntimeException(MensajesExcepciones.artistaNoExiste);
+		}
+		Sitio s = a.getMiSitio();
+
+		// pago base
+		total += montoBase;
+		
+		// pago por suscriptores premium
+		float contador = 0;
+		for (Map.Entry<Integer, FanSigueSitio> entry : s.getMisFans().entrySet()) {
+			if (entry.getValue().getPremiun()) {
+				contador++;
+			}
+		}
+		total += (contador * s.getPrecioPremium()) * porcentajeSeguidoresPremium;
+		
+		// pago por contenido vendido
+		float montoContenidoVendido = 0;
+		for (Map.Entry<Integer, Contenido> entry : s.getMisContenidos().entrySet()) {
+			for (Map.Entry<Integer, Venta> entrada : entry.getValue().getMisVentas().entrySet()) {
+				if (entrada.getValue().getFechaYHora().compareTo(FuncionesComunes.haceUnMes()) >= 0) {
+					montoContenidoVendido += entrada.getValue().getPrecio();
+				}
+			}
+		}
+		total += montoContenidoVendido * porcentajeContenidoVendido;
+		
+		PagoAPlataforma pap = new PagoAPlataforma(0, total, FuncionesComunes.fechaActual());
+		
+		a.pagarAPlataforma(pap);
+		a.setSaldo(a.getSaldo() - pap.getMonto());
+		try {
+			new ArtistaJpaController().edit(a);
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
+	}
     
 }
+
+
+
+
+
+
+

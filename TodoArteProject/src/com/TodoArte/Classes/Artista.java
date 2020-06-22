@@ -17,6 +17,7 @@ import javax.persistence.Table;
 
 import com.TodoArte.Enums.MensajesExcepciones;
 import com.TodoArte.JPAControllerClasses.NotificacionArtistaJpaController;
+import com.TodoArte.JPAControllerClasses.PagoAPlataformaJpaController;
 
 @Entity
 @Table(name = "artista")
@@ -74,7 +75,21 @@ public class Artista extends Usuario implements Serializable {
     	new NotificacionArtistaJpaController().create(notificacion);
     	this.notificacion.put(notificacion.getId(), notificacion);
     }
-    
+
+	public void pagarAPlataforma(PagoAPlataforma pap) {
+		pap.setId(0);
+		new PagoAPlataformaJpaController().create(pap);
+		this.pagos.put(pap.getId(), pap);
+	}
+	
+	public PagoAPlataforma obtenerUltimoPago() {
+		PagoAPlataforma ret = null;
+		for (Map.Entry<Integer, PagoAPlataforma> entry : pagos.entrySet()) {
+			ret = entry.getValue();
+		}
+		return ret;
+	}
+	
     //**********************************************************************
 	public String getNombre() {
 		return nombre;
@@ -115,6 +130,5 @@ public class Artista extends Usuario implements Serializable {
 	public void setMiSitio(Sitio miSitio) {
 		this.miSitio = miSitio;
 	}
-
 
 }
