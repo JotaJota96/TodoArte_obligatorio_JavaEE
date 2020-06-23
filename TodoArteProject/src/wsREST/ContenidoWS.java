@@ -171,6 +171,7 @@ public class ContenidoWS implements Serializable {
 	public Response agregarModificarContenido(@PathParam("idartista") String idArtista, Contenido Contenido) {
 		try {
 			Contenido contenido = fo.agregarModificarContenido(idArtista, Contenido);
+			Funciones.limpiarVisibilidades(contenido);
 			return Response
 					.status(Response.Status.CREATED)
 					.entity(contenido) //Retorna el contenido creado

@@ -86,6 +86,7 @@ public class ArtistaWS implements Serializable {
 	public Response listarNotificacionesArtista(@PathParam("idartista") String idArtista) {
 		try {
 			ArrayList<NotificacionArtista> listaNotificaciones = fo.listarNotificacionesArtista(idArtista);
+			Funciones.limpiarVisibilidadesLista(listaNotificaciones);
 			return Response
 					.status(Response.Status.OK)
 					.entity(listaNotificaciones.toArray())
