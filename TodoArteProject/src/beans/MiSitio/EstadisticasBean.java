@@ -10,7 +10,9 @@ import javax.inject.Named;
 
 import com.TodoArte.Classes.Artista;
 import com.TodoArte.Classes.Contenido;
+import com.TodoArte.Classes.FanSigueSitio;
 import com.TodoArte.Classes.PagoAPlataforma;
+import com.TodoArte.Classes.Sitio;
 import com.TodoArte.Classes.Valoracion;
 import com.TodoArte.Classes.Venta;
 import com.TodoArte.FachadeControllers.FrontOfficeController;
@@ -31,6 +33,8 @@ public class EstadisticasBean implements Serializable{
 	private Map<Integer, Contenido> mapContenidos = new TreeMap<Integer, Contenido>();
 	private boolean permitirPagar = false;
 	private String  ultimoPago = "";
+	private float porcentaje1;
+	private float porcentaje2;
 	
 	//-- Funciones --------------------------------------------------------------------------------------
 	public String calcularIngresos(int id) {
@@ -57,8 +61,42 @@ public class EstadisticasBean implements Serializable{
 		}
 	}
 	
+	public void calcularPorcentajes() {
+		Artista art = (Artista)fo.obtenerDatosUsuario(FuncionesComunes.usuarioActual());
+		Sitio s = art.getMiSitio();
+		
+		float contador = 0;
+		for (Map.Entry<Integer, FanSigueSitio> entry : s.getMisFans().entrySet()) {
+			if (entry.getValue().getPremiun()) {
+				contador++;
+			}
+		}
+		float isp = contador * s.getPrecioPremium(); //ingresos por subscriptores primium
+		
+		float icv = 0; //ingresos por contenido vendido
+		for (Map.Entry<Integer, Contenido> entry : s.getMisContenidos().entrySet()) {
+			for (Map.Entry<Integer, Venta> entrada : entry.getValue().getMisVentas().entrySet()) {
+				if (entrada.getValue().getFechaYHora().compareTo(FuncionesComunes.haceUnMes()) >= 0) {
+					icv += entrada.getValue().getPrecio();
+				}
+			}
+		}
+		
+		if(icv+isp==0) {
+			porcentaje1=0;
+			porcentaje2=0;
+		}
+		else {
+			porcentaje1 = ((icv*100)/(icv+isp));
+			porcentaje2 = ((isp*100)/(icv+isp));
+		}
+		
+	}
+	
 	//-- Constructor, getters y setters -----------------------------------------------------------------
+	
 	public EstadisticasBean() {
+		calcularPorcentajes();
 		if (!FuncionesComunes.rolActual("artista")) {
 			return;
 		}
@@ -76,7 +114,7 @@ public class EstadisticasBean implements Serializable{
 				}else {
 					permitirPagar = true;
 				}
-				this.ultimoPago = "Ãšltimo pago: " + ultimoPago.getFechaYHora() + ".";
+				this.ultimoPago = "Último pago: " + ultimoPago.getFechaYHora() + ".";
 			}else {
 				this.ultimoPago = "Aun no has realizado ningun pago";
 				permitirPagar = true;
@@ -84,7 +122,18 @@ public class EstadisticasBean implements Serializable{
 		} catch (Exception e) {
 		}
 	}
-
+	public float getPorcentaje1() {
+		return porcentaje1;
+	}
+	public void setPorcentaje1(float porcentaje1) {
+		this.porcentaje1 = porcentaje1;
+	}
+	public float getPorcentaje2() {
+		return porcentaje2;
+	}
+	public void setPorcentaje2(float porcentaje2) {
+		this.porcentaje2 = porcentaje2;
+	}
 	public Map<Integer, Contenido> getMapContenidos() {
 		return mapContenidos;
 	}
