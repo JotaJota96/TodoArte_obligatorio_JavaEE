@@ -120,6 +120,46 @@ public class ContenidoWS implements Serializable {
 		}
 	}
 	
+	
+
+	/**
+	 * Función para obtener todos los contenidos premium de un artista
+	 * @return
+	 */
+	@GET
+	@Path("/obtener/premium/{idartista}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response obtenerContenidosPremium(@PathParam("idartista") String idArtista) {
+		try {
+			return obtenerContenidosPremium(idArtista, "");
+		} catch (Exception e) {
+			String message = "Ha ocurrido un error al obtener los contenidos: " + e.getMessage();
+			return Response
+					.status(Response.Status.BAD_REQUEST)
+					.entity(message)
+					.build();
+		}
+	}
+	@GET
+	@Path("/obtener/premium/{idartista}/{idfan}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response obtenerContenidosPremium(@PathParam("idartista") String idArtista, @PathParam("idfan") String idFan) {
+		try {
+			ArrayList<Contenido> listaContenidos = fo.obtenerContenidoPremium(idArtista, idFan);
+			Funciones.limpiarVisibilidadesLista(listaContenidos);
+			return Response
+					.status(Response.Status.OK)
+					.entity(listaContenidos.toArray())
+					.build();
+		} catch (Exception e) {
+			String message = "Ha ocurrido un error al obtener los contenidos: " + e.getMessage();
+			return Response
+					.status(Response.Status.BAD_REQUEST)
+					.entity(message)
+					.build();
+		}
+	}
+	
 	/**
 	 * Función para crear o actualizar un contenido
 	 * @return
