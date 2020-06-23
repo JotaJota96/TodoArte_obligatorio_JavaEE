@@ -160,13 +160,15 @@ public class ArtistaWS implements Serializable {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response programarQyA(DtProgramarQA dtProgramarQA) {
 		try {
-			
+			throw new RuntimeException("Funcion aun no implementada");
+			/*
 			QyAProgramado qyAProgramado =  fo.programarQyA(dtProgramarQA.getIdArtista(), dtProgramarQA.getqAProgramado());
 			Funciones.limpiarVisibilidades(qyAProgramado);
 			return Response
 					.status(Response.Status.CREATED)
 					.entity(qyAProgramado)
 					.build();
+			*/
 		} catch (Exception e) {
 			
 			String message = "Error al crear un qyaProgramado. Error: " + e.getMessage();
@@ -176,4 +178,30 @@ public class ArtistaWS implements Serializable {
 					.build();
 		}
 	}
+	
+	/**
+	 * Función para comprar premium
+	 * @return
+	 */
+	@POST
+	@Path("/comprar-suscripcion-premium/{idFan}/{idArtista}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response comprarPremium(
+			@PathParam("idFan") String idFan,
+			@PathParam("idArtista") String idArtista) {
+		try {
+			fo.comprarPremium(idFan, idArtista);
+			return Response
+					.status(Response.Status.OK)
+					.build();
+		} catch (Exception e) {
+			String message = "Error al comprar suscripcion premium. Error: " + e.getMessage();
+			return Response
+					.status(Response.Status.BAD_REQUEST)
+					.entity(message)
+					.build();
+		}
+	}
+	
 }

@@ -52,13 +52,16 @@ public class UsuarioWS implements Serializable {
 	public Response iniciarSesion(DtLogin dtLogin) {
 		try {			
 			Usuario usuario = fo.iniciarSesion(dtLogin.getIdUsuario(), dtLogin.getContrasenia());
-			System.out.println(usuario.getNikname());
+			if (usuario == null) {
+				throw new RuntimeException("Usuario o contraseña no válidos");
+			}
+			
+			Funciones.limpiarVisibilidades(usuario);
 			return Response
 					.status(Response.Status.OK)
 					.entity(usuario)
 					.build();
 		} catch (Exception e) {
-			
 			String message = "Error al iniciar sesión. Error: " + e.getMessage();
 			return Response
 					.status(Response.Status.BAD_REQUEST)
@@ -80,6 +83,10 @@ public class UsuarioWS implements Serializable {
 	public Response obtenerDatosUsuario(@PathParam("idUsuario")String idUsuario) {
 		try {
 			Usuario usuario = fo.obtenerDatosUsuario(idUsuario);
+			if (usuario == null) {
+				throw new RuntimeException("Usuario no existe");
+			}
+			
 			Funciones.limpiarVisibilidades(usuario);
 			return Response
 					.status(Response.Status.OK)

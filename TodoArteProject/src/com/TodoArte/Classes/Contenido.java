@@ -168,7 +168,9 @@ public class Contenido implements Serializable {
 		// vincular la valoracion con el fan
 		// persistir la valoracion
 		// agregarlo a la coleccion
-		
+		if (fanYaValoro(fan.getNikname())) {
+			throw new RuntimeException(MensajesExcepciones.fanYaValoro);
+		}
 		val.setMiFan(fan);
 		new ValoracionJpaController().create(val);
 		this.MisValoracion.put(val.getId(), val);
@@ -199,7 +201,10 @@ public class Contenido implements Serializable {
 		// vincular la venta con el fan
 		// persistir la venta
 		// agregarlo a la coleccion
-		
+
+		if (fanYaCompro(fan.getNikname())) {
+			throw new RuntimeException(MensajesExcepciones.fanYaCompro);
+		}
 		Date fechaYHora = new Date(System.currentTimeMillis());
 		Venta venta = new Venta(0, this.getPrecio(), fechaYHora, fan);
 		new VentaJpaController().create(venta);
