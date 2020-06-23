@@ -55,6 +55,8 @@ public abstract class MensajesExcepciones {
 	public static final String artistaExiste = "Ya existe un artista con un nickname o correo igual";
 	public static final String contenidoCategoria = "La categoria del contenido no existe";
 	public static final String ContenidoNoPertenece = "El Artista no contiene el contenido";
+	public static final String fanYaValoro = "El fan ya ha valorado el contenido anteriormente";
+	public static final String fanYaCompro = "El fan ya ha comprado el contenido anteriormente";
 }
 
 
