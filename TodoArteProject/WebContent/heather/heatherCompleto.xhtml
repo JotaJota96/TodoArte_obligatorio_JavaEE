@@ -21,11 +21,18 @@ xmlns:c="http://java.sun.com/jsp/jstl/core">
     
     <h:outputStylesheet library="css" name="general.css"/>
     
+    <style>
+    
+    nav{
+    	background-color: ##{sitioBean.sitio.colorDeMenu} !important;
+    }
+    </style>
+    
 </h:head>
 
 <h:body>
 	<!-- Bara de navegacion -->
-	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top ">
+	<nav class="navbar navbar-expand-md navbar-light  fixed-top ">
 		<!-- Logo -->
 		<a class="navbar-brand" href="#{headerCompletoBean.linkLogo}">
 			<img src="img/logo.png" width="50px" height="50px"></img>
@@ -70,7 +77,7 @@ xmlns:c="http://java.sun.com/jsp/jstl/core">
 				
 				<c:if test="#{headerCompletoBean.fanLogueado || headerCompletoBean.artistaLogueado}">
 					<li class="nav-item">
-						<a class="nav-link text-white" href="#{headerCompletoBean.linkLogo}">#{headerSimpleBean.nickUsuario}</a>
+						<a class="nav-link" href="#{headerCompletoBean.linkLogo}">#{headerSimpleBean.nickUsuario}</a>
 					</li>
 					<li class="nav-item">
 						<h:form>

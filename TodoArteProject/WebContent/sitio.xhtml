@@ -20,12 +20,18 @@
     *{
 		font-family: #{sitioBean.sitio.miFuente.nombre} !important;
     }
+    body{
+    	background-color: ##{sitioBean.sitio.colorDeFondo} !important;
+    }
+    .card{
+    	background-color: #ffffffaf !important;
+    }
     </style>
     
 </h:head>
 
 
-<h:body class="bg-light">
+<h:body>
 
 <ui:include src="heather/heatherCompleto.xhtml"/>
   
@@ -67,7 +73,7 @@
 				</div>
 				<div class="col-8 px-5">
 					<h4>Biografia</h4>
-					<div class="overflow-auto border" style="height: 200px">
+					<div class="overflow-auto" style="height: 200px">
 						<p class="card-text mt-1">#{sitioBean.artista.biografia}</p>
 					</div>
 					<c:if test="#{sitioBean.sitio.precioPremium > 0}"> 

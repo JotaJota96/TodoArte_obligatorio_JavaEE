@@ -27,12 +27,18 @@
     *{
 		font-family: #{sitioBean.sitio.miFuente.nombre} !important;
     }
+    body{
+    	background-color: ##{sitioBean.sitio.colorDeFondo} !important;
+    }
+    .card{
+    	background-color: #ffffffaf !important;
+    }
     </style>
     
 </h:head>
 
 
-<h:body class="bg-light">
+<h:body>
 
 	<ui:include src="heather/heatherCompleto.xhtml" />
 
