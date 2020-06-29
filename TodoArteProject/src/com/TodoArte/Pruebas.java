@@ -142,6 +142,7 @@ public class Pruebas {
 		for (int i = 0; i < fans.length; i++) {
 			fans[i] = fo.registrarUsuarioFan(fans[i]);
 			if (log) System.out.println("Creada Fan: " + fans[i].toString());
+			fo.recargarSaldo(fans[i].getNikname(), 1000);
 		}
 		Contenido contenidos1[] = {
 				new Contenido(0, TipoContenido.Audio, 
@@ -217,6 +218,9 @@ public class Pruebas {
 				new Comentario(0, "Está muy buena esa imagen!", FuncionesComunes.fechaActual(), fans[2]),
 				fans[2].getNikname(), 5, "ergo");
 		if (log) System.out.println("Creados comentarios");
+		
+		
+		
 		
 		if (log) System.out.println();
 		if (log) System.out.println("-----------------------------------------");

@@ -83,6 +83,7 @@ public class RegistrarArtistaSitio implements Serializable{
 		copia.setRrssFacebook(s.getRrssFacebook());
 		copia.setRrssInstagram(s.getRrssInstagram());
 		copia.setRrssYouTube(s.getRrssYouTube());
+		copia.setSeccionTwitter(s.getSeccionTwitter());
 		return copia;
 	}
 	
