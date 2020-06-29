@@ -2,17 +2,32 @@
 
 ## Trabajo Obligatorio Edición 2020
 
+**Integrantes del equipo:**
++ Carlos Balbiani
++ Lucas Garrido
++ Juan Álvarez
++ Julio Arrieta
+
 -----------------------------------------------------------------
+
 ## Índice
-+ [Introducción](#Introducción)
-+ [Funcionalidades](#Funcionalidades)
-	+ [Backoffice](#Backoffice)
-		+ [Administradores](#Administradores)
-	+ [Frontoffice](#Frontoffice)
-		+ [Artistas](#Artistas)
-		+ [Fans](#Fans)
-		+ [Invitados](#Invitados)
-+ [Requerimientos Opcionales](#Requerimientos-Opcionales)
+- [Taller de Sistemas de Información JAVA](#taller-de-sistemas-de-información-java)
+	- [Trabajo Obligatorio Edición 2020](#trabajo-obligatorio-edición-2020)
+	- [Índice](#índice)
+	- [Introducción](#introducción)
+	- [Funcionalidades](#funcionalidades)
+		- [Backoffice](#backoffice)
+			- [Administradores](#administradores)
+		- [Frontoffice](#frontoffice)
+			- [Artistas](#artistas)
+			- [Fans](#fans)
+			- [Invitados](#invitados)
+	- [Requerimientos Opcionales](#requerimientos-opcionales)
+	- [Capturas](#capturas)
+		- [Inicio](#inicio)
+		- [Información de un artista](#información-de-un-artista)
+		- [Imágenes de un artista](#imágenes-de-un-artista)
+		- [Estadísticas del sitio de un artista](#estadísticas-del-sitio-de-un-artista)
 
 -----------------------------------------------------------------
 
@@ -37,9 +52,8 @@ Como “TodoArte” va a actuar como plataforma de base, sobre la cual van a mon
 
 El sistema deberá contar con dos módulos. Por un lado el ​backoffice​ para administración general de la plataforma. Es decir que permita tanto la administración de sitios y artistas así como las configuraciones del sistema (gestión de categorías, gestión de usuarios). Y por otro lado un ​frontiffice​ que permita a los usuarios (artistas y fans) acceder al contenido. Todas las funcionalidades del ​frontoffice​ se tienen que poder acceder desde cualquier dispositivo.
 
-
-
 -----------------------------------------------------------------
+
 ## Funcionalidades
 
 ### Backoffice
@@ -90,5 +104,19 @@ Los invitados:
 + Utilización de una base de datos NoSQL (por ej: MongoDB) para la persistencia de​ ​una​ ​parte​ ​de​ ​los​ ​datos​ ​del​ ​sistema.
 + ​Cubrimiento​ ​de​ ​al​ ​menos​ ​80%​ ​de​ ​la​ ​aplicación​ ​con​ ​test​ ​automatizados con Junit.
 
+-----------------------------------------------------------------
+
+## Capturas
+### Inicio
+<img src="./documentacion/capturas/1.png">
+
+### Información de un artista
+<img src="./documentacion/capturas/2.png">
+
+### Imágenes de un artista
+<img src="./documentacion/capturas/3.png">
+
+### Estadísticas del sitio de un artista
+<img src="./documentacion/capturas/4.png">
 
 
