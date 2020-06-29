@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+    
+    <style>
+    *{
+		font-family: #{sitioBean.sitio.miFuente.nombre} !important;
+    }
+    body{
+    	background-color: ##{sitioBean.sitio.colorDeFondo} !important;
+    }
+    .card{
+    	background-color: #ffffffaf !important;
+    }
+    </style>
+    
+</h:head>
+
+
+<h:body>
+
+<ui:include src="heather/heatherCompleto.xhtml"/>
+  
+ <main role="main" class="container mt-5 mb-5">
+  
+<!--********************************* Inicio    PRIMER TARJETA ***********************************-->
+	<div class="row">
+		
+		<!-- Por si la seccion de Twitter va a la IZQUIERDA -->
+		<c:if test="#{sitioBean.sitio.seccionTwitter == 1}"> 
+			<div class="col-4">
+				<!-- Seccion Twitter -->
+	            <div id="tweets" class="overflow-auto border" style="height: 500px">
+	                <a class="twitter-timeline" href="#{sitioBean.sitio.rrssTwitter}">Tweets recientes</a> 
+	                <script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+	            </div>
+			</div>
+		</c:if>	
+
+		<h:panelGroup class="col-8 mt-3" layout="block" id="datosArtista">
+			<div class="row">
+				<div class="col-10">
+					<h3>#{sitioBean.artista.nombre} (#{sitioBean.artista.nikname})</h3>
+				</div>
+				<div class="col-2">
+					<c:if test="#{sitioBean.mostrarBotonSeguir}"> 
+						<h:form>
+			          		<h:commandButton class="btn btn-primary" id="btnSeguir" value="Seguir" action="#{sitioBean.seguir()}">
+			          			<f:param name="id" value="#{sitioBean.idArtista}" />
+			          		</h:commandButton>
+						</h:form>
+			    	</c:if>
+				</div>
+			</div>
+			<hr/>
+			<div class="row">
+				<div class="col-4 text-center">
+					<img class="rounded" width="250" height="auto" src="recurso/multimedia/usuario/imagen/#{sitioBean.artista.nikname}" />
+				</div>
+				<div class="col-8 px-5">
+					<h4>Biografia</h4>
+					<div class="overflow-auto" style="height: 200px">
+						<p class="card-text mt-1">#{sitioBean.artista.biografia}</p>
+					</div>
+					<c:if test="#{sitioBean.sitio.precioPremium > 0}"> 
+						<div class="row mt-3">
+							<div class="col-8 d-flex align-items-center">
+								<h5 class="m-0">Paquete Premium: $#{sitioBean.sitio.precioPremium}</h5>
+							</div>
+							<div class="col-4">
+								<c:if test="#{sitioBean.mostrarBotonComprar}"> 
+									<h:form class="d-flex justify-content-end" >
+										<h:commandButton class="btn btn-warning" disabled="#{!sitioBean.saldoSuficienteParaComprar()}" id="btnComprar" value="Comprar" action="#{sitioBean.comprar()}">
+						          			<f:param name="id" value="#{sitioBean.idArtista}" />
+										</h:commandButton>
+									</h:form>
+						    	</c:if>
+							</div>
+						</div>
+					</c:if>
+				</div>
+			</div>
+		</h:panelGroup>		
+		
+		<!-- Por si la seccion de Twitter va a la DERECHA -->
+		<c:if test="#{sitioBean.sitio.seccionTwitter == 2}"> 
+			<div class="col-4">
+				<!-- Seccion Twitter -->
+	            <div id="tweets" class="overflow-auto border" style="height: 500px">
+	                <a class="twitter-timeline" href="#{sitioBean.sitio.rrssTwitter}">Tweets recientes</a> 
+	                <script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+	            </div>
+				<!-- Fin Twitter -->
+			</div>
+      </c:if>
+	</div>
+		
+<!--************************************ FIN    PRIMER TARJETA ***********************************-->
+
+</main>
+
+<ui:include src="footer/footerRRSS.xhtml"/>
+
+</h:body>
+
+</html>
+

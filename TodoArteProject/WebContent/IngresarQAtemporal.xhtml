@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head></h:head> 
+<body> 
+	<h1>Ingrese los datos para comenzar a chatear</h1>
+    <h:form id="registro-chat">  
+    	<label for="id-sala">ID de sala</label>
+	    <h:inputText id="id-sala" value="#{qABean.idSala}"  converter="javax.faces.Integer" converterMessage="El ID de la sala debe ser un número entero" required="true" requiredMessage="Debe ingresar el ID de una sala"/><br/>  
+        
+    	<label for="nickname">Nickname</label>
+	    <h:inputText id="nickname" value="#{qABean.nickname}" required="true" requiredMessage="Debe crear un nickname"/><br/>  
+	    
+	    <h:commandButton id="btn-ingresar" value="Ingresar" action="#{qABean.ingresarAChat()}"/>  
+    </h:form>  
+    <br></br>
+    <br></br>
+    <div>
+    	<h3>Acerca del chat</h3>
+		<h5>Esta es una pagina prototipo, debe eliminarse en un futuro</h5>
+    	<p>Ingrese el ID de una sala, si la sala no existe, esta se creará, si ya existe, te unirás a ella</p>
+    	<p>Por el momento no se hacen validaciones sobre el nickname, pueden haber varios usuarios  con el mismo nickname y no representa un problema</p>
+    	<p>Es posible acceder a diferentes salas de chat en usando varias pestañas (no es necesario usar el modo incognito)</p>
+    	<p>La comunicacion se realiza mediante JSON. Cada mensaje posee el ID de la sala, el nickname del usuario y el mensaje enviado. Dada esta modularidad, es posible modelar la visa del mensaje modificando el codigo HTML de la pagina del lado del cliente mediante JavaScript</p>
+    </div>
+</body> 
+</html>

@@ -1,0 +1,17 @@
+body {
+	min-height: 100vh;
+	position: relative;
+	padding-bottom: 75px;
+	padding-top: 0px;
+	margin: 0px;
+}
+
+footer {
+	height: 75px;
+	position: absolute;
+	bottom: 0px;
+}
+
+.rrss-img{
+	
+}

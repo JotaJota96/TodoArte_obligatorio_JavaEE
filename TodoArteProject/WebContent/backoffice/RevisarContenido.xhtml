@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:h="http://java.sun.com/jsf/html" 
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:ui="http://java.sun.com/jsf/facelets">
+  
+<h:head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+</h:head>
+
+<h:body>
+	
+<div class="tab-pane fade #{tabActivoBean.paneActivo(1)}" id="RevisarContenido" role="tabpanel" aria-labelledby="pills-profile-tab">
+	<div class="row">
+		<div class="col-6">
+			<div class="card ">
+				<h5 class="card-header">Revisar contenido reportado</h5>	 
+				<div class="card-body" style="height: 350px; overflow: auto;">
+					<!-- ***** Listado de contenido **** -->
+					
+					<ui:repeat value="#{revisarContenido.contenidos}" var="item" varStatus="indice">
+						<div class="card my-2">
+							<div class="card-body">
+								<h:form class="form-signin" id="miForm">
+									<div class="row">
+										<div class="col-9">
+							         		<h5>#{item.id} - #{item.titulo}</h5>
+										</div>
+										<div class="col-3 ">
+							          		<h:commandButton class="btn btn-primary" id="btnRevisar" value="Ver reportes">
+							          			<f:attribute name="idx" value="#{item.id}"></f:attribute>
+							          			<f:ajax render="listaReportes" listener="#{revisarContenido.obtenerReportes}" >
+							          			</f:ajax>
+							          		</h:commandButton>
+										</div>
+									</div>	
+								</h:form>
+							</div>
+						</div>
+					</ui:repeat>
+					
+					<!-- ********* fin de Listado de contenido ******* -->
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-6">
+			<div class="card ">
+				<h5 class="card-header">Reportes</h5>	 
+				<div class="card-body" style="height: 350px; overflow: auto;">
+					
+				    <h:panelGroup id="listaReportes">
+				        <ui:repeat value="#{revisarContenido.reportes}" var="r">
+				            <div class="row col-12">
+				            	<div class="col-12">
+									<H5>#{r.reporte}</H5>
+				            	</div>
+				            	<div class="col-12">
+									<P>Reportado por: #{r.miFan.nikname}</P>
+				            	</div>
+				            	<hr></hr>
+				            </div>
+				        </ui:repeat>
+				    </h:panelGroup>
+					
+					<!-- 
+					<h:dataTable class="table table-bordered" value="#{revisarContenido.reportes}" var="r" id="tablaReportes">
+		                <h:column>
+		                    <f:facet name="header">
+		                        ID
+		                    </f:facet>
+		                    <h:outputText value="#{r.id}" />
+		                </h:column>
+		                <h:column>
+		                    <f:facet name="header">
+		                        Reporte
+		                    </f:facet>
+		                    <h:outputText value="#{r.reporte}" />
+		                </h:column>
+		                <h:column>
+		                    <f:facet name="header">
+		                        Reportante
+		                    </f:facet>
+		                    <h:outputText value="#{r.miFan.nikname}" />
+		                </h:column>
+					</h:dataTable>
+					 -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	
+	
+</h:body>
+</html>

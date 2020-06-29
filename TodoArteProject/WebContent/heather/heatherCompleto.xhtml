@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:h="http://java.sun.com/jsf/html" 
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:c="http://java.sun.com/jsp/jstl/core">
+  
+<h:head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+    
+    <h:outputStylesheet library="css" name="general.css"/>
+    
+    <style>
+    
+    nav{
+    	background-color: ##{sitioBean.sitio.colorDeMenu} !important;
+    }
+    </style>
+    
+</h:head>
+
+<h:body>
+	<!-- Bara de navegacion -->
+	<nav class="navbar navbar-expand-md navbar-light  fixed-top ">
+		<!-- Logo -->
+		<a class="navbar-brand" href="#{headerCompletoBean.linkLogo}">
+			<img src="img/logo.png" width="50px" height="50px"></img>
+		</a>
+		
+		<!-- Boton hamburguesa -->
+		<button class="navbar-toggler" type="button"  data-toggle="collapse" 
+			data-target="#navbarsExampleDefault" 
+			aria-controls="navbarsExampleDefault" 
+			aria-expanded="false" 
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		
+		<!-- Opciones del menu -->
+		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+			<!-- Opciones de la parte izquierda -->
+			<ul class="navbar-nav mr-auto">
+				<ui:repeat var="oi" value="#{headerCompletoBean.opcionesIzquierda}">
+					<li class="nav-item">
+						<a class="nav-link" href="#{oi[1]}">#{oi[0]}</a>
+					</li>
+				</ui:repeat>
+				<c:if test="#{headerCompletoBean.mostrarOpcionQyA}">
+					<h:form>
+						<h:commandLink class="nav-link" action="#{qABean.ingresarAChat()}" value="Q/A" >
+		          			<f:param name="id" value="#{sitioBean.idArtista}" />
+						</h:commandLink>
+					</h:form>
+				</c:if>
+			</ul>
+			<!-- FIN Opciones de la parte izquierda -->
+			
+			
+			<!-- Opciones de la parte derecha -->
+			<ul class="navbar-nav">
+				<ui:repeat var="od" value="#{headerCompletoBean.opcionesDerecha}">
+					<li class="nav-item">
+						<a class="nav-link" href="#{od[1]}">#{od[0]}</a>
+					</li>
+				</ui:repeat>
+				
+				<c:if test="#{headerCompletoBean.fanLogueado || headerCompletoBean.artistaLogueado}">
+					<li class="nav-item">
+						<a class="nav-link" href="#{headerCompletoBean.linkLogo}">#{headerSimpleBean.nickUsuario}</a>
+					</li>
+					<li class="nav-item">
+						<h:form>
+							<h:commandLink class="nav-link" action="#{loginBean.cerrarSesion()}" value="Cerrar sesión" >
+			          			<f:param name="id" value="#{sitioBean.idArtista}" />
+							</h:commandLink>
+						</h:form>
+					</li>
+				</c:if>
+				
+				<!-- Icono notificaciones -->
+				<c:if test="#{headerCompletoBean.fanLogueado}">
+					<li class="nav-item mx-2 pt-2">
+						<a href="notificaciones-fan.jsf">
+							<img src="img/campana.png" width="30px" height="30px"></img>
+						</a>
+					</li>
+				</c:if>
+				<!-- FIN Icono notificaciones -->
+			</ul>
+			<!-- FIN Opciones de la parte derecha -->
+			
+		</div>
+	</nav>
+	
+	<br/>
+	<br/>
+	
+</h:body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head>
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+		crossorigin="anonymous" />
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+		
+		
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+	   <script src="https://code.highcharts.com/modules/series-label.js"></script>
+	   <script src="https://code.highcharts.com/modules/exporting.js"></script>
+	   <script src="https://code.highcharts.com/modules/export-data.js"></script>
+	   <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    
+</h:head>
+
+<h:body>
+
+	<div class="tab-pane fade #{tabActivoBean.paneActivo(5)}" id="estadisticas" role="tabpanel"
+		aria-labelledby="pills-profile-tab">
+		<div class="row">
+			<div class="col-12">
+			
+				<div class="card m-3 text-center">
+					<div class="card-header">
+						<h5>Pagar a la plataforma</h5>
+					</div>
+					
+					<div class="card-body">
+						<h:form class="form-signin">
+							<h:commandButton disabled="#{ ! estadisticasBean.permitirPagar}" class="btn btn-primary px-5" value="Pagar" action="#{estadisticasBean.pagarAPlataforma()}" />
+						</h:form>
+						<br/>
+						
+						<span class="text-muted"> #{estadisticasBean.ultimoPago}</span>
+					</div>
+				</div>				
+				
+				
+				<!--***************************** inicio de la grafica *******************************-->
+				
+				<div class="card m-3">
+					<div class="card-header">
+						<h5>Grafica</h5>
+					</div>
+					
+					<div class="card-body">
+						<figure class="highcharts-figure">
+		                    <div id="container"></div>
+		                </figure>
+					</div>
+				</div>	                
+                
+                <script>
+                Highcharts.chart('container', {
+                	  chart: {
+                	    plotBackgroundColor: null,
+                	    plotBorderWidth: 0,
+                	    plotShadow: false
+                	  },
+                	  title: {
+                	    text: 'Distribución <br/> de ingresos',
+                	    align: 'center',
+                	    verticalAlign: 'middle',
+                	    y: 60
+                	  },
+                	  tooltip: {
+                	    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                	  },
+                	  accessibility: {
+                	    point: {
+                	      valueSuffix: '%'
+                	    }
+                	  },
+                	  plotOptions: {
+                	    pie: {
+                	      dataLabels: {
+                	        enabled: true,
+                	        distance: -50,
+                	        style: {
+                	          fontWeight: 'bold',
+                	          color: 'white'
+                	        }
+                	      },
+                	      startAngle: -90,
+                	      endAngle: 90,
+                	      center: ['50%', '75%'],
+                	      size: '110%'
+                	    }
+                	  },
+                	  series: [{
+                	    type: 'pie',
+                	    name: 'Distribución de ingresos',
+                	    innerSize: '50%',
+                	    data: [
+                	      ['igresos por contenido', #{estadisticasBean.porcentaje1}],
+                	      ['igresos por subscripciones premium', #{estadisticasBean.porcentaje2}] 
+                	    ]
+                	  }]
+                	});
+
+       			</script>
+        
+        
+        <!--***************************** fin de la grafica *******************************-->
+        <div class="card m-3">
+					<div class="card-header">
+						<h5>Estadisticas</h5>
+					</div>
+
+					<div class="card-body">
+						<!-- inicio de lista de contenidos -->
+						<h:dataTable class="table table-bordered" value="#{estadisticasBean.lstContenidos}" var="c">
+							<h:column>
+								<f:facet name="header">ID</f:facet>
+								<h:outputText value="#{c.id}" />
+							</h:column>
+							
+							<h:column>
+								<f:facet name="header">Título</f:facet>
+								<h:outputText value="#{c.titulo}" />
+							</h:column>
+							
+							<h:column>
+								<f:facet name="header">Cant. valoraciones</f:facet>
+								<h:outputText value="#{c.misValoracion.size()}" />
+							</h:column>
+							
+							<h:column>
+								<f:facet name="header">Valoracion</f:facet>
+								<h:outputText value="#{c.valoracionCalculada}" />
+							</h:column>
+							
+							<h:column>
+								<f:facet name="header">Ingresos</f:facet>
+								<h:outputText value="$ #{estadisticasBean.calcularIngresos(c.id)}" />
+							</h:column>
+							
+							<h:column>
+								<f:facet name="header">Cant. comentarios</f:facet>
+								<h:outputText value="#{c.misComentario.size()}" />
+							</h:column>
+							
+							<h:column>
+								<f:facet name="header">Cant. reportes</f:facet>
+								<h:outputText value="#{c.misReporte.size()}" />
+							</h:column>
+							
+							<h:column>
+								<f:facet name="header">Bloqueado</f:facet>
+								<h:outputText value="#{estadisticasBean.bloqueadoSiNo(c.id)}" />
+							</h:column>
+							
+						</h:dataTable>
+							
+						<!-- fin de lista de contenidos -->
+
+
+						<!-- ***** inico de estadistica **** -->
+						<!-- 
+						<div class="card my-2">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-4">
+										<h5>titulo del contenido</h5>
+									</div>
+									<div class="col-4">
+										<h5>
+											tipo:
+											<h:outputText value=" Imagen" id="tipo1" />
+										</h5>
+									</div>
+									<div class="col-4">
+										<h5>
+											Total de compras:
+											<h:outputText value=" 38 " id="totalde1" />
+										</h5>
+									</div>
+								</div>
+							</div>
+						</div>
+						 -->
+						<!-- ********* fin de estadistica ******* -->
+
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
+</h:body>
+</html>

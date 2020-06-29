@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+		crossorigin="anonymous" />
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+
+</h:head>
+
+
+<h:body class="bg-light">
+
+	<ui:include src="heather/heatherSimple.xhtml" />
+
+	<main role="main" class="container mt-5 mb-5">
+		<h2 class="mb-3">BackOffice</h2>
+
+		<ul class="nav nav-tabs mb-3" id="pills-tab" role="tablist">
+			<li class="nav-item">
+			    <a class="nav-link #{tabActivoBean.tabActivo(0)}" id="pills-profile-tab" data-toggle="pill" href="#BloquearArtistas" role="tab" aria-controls="pills-home" aria-selected="true">Bloquear artistas</a>
+			</li>
+			<li class="nav-item">
+			    <a class="nav-link #{tabActivoBean.tabActivo(1)}" id="pills-profile-tab" data-toggle="pill" href="#RevisarContenido" role="tab" aria-controls="pills-profile" aria-selected="false">Revisar Contenido</a>
+			</li>
+			<li class="nav-item">
+			    <a class="nav-link #{tabActivoBean.tabActivo(2)}" id="pills-profile-tab" data-toggle="pill" href="#BloquearContenido" role="tab" aria-controls="pills-profile" aria-selected="false">Bloquear Contenido</a>
+			</li>
+			<li class="nav-item">
+			    <a class="nav-link #{tabActivoBean.tabActivo(3)}" id="pills-profile-tab" data-toggle="pill" href="#Notificar" role="tab" aria-controls="pills-profile" aria-selected="false">Notificar</a>
+			</li>
+			<li class="nav-item">
+			    <a class="nav-link #{tabActivoBean.tabActivo(4)}" id="pills-profile-tab" data-toggle="pill" href="#Pagos" role="tab" aria-controls="pills-profile" aria-selected="false">Pagos</a>
+			</li>
+			<li class="nav-item">
+			    <a class="nav-link #{tabActivoBean.tabActivo(5)}" id="pills-profile-tab" data-toggle="pill" href="#DefinirCategorias" role="tab" aria-controls="pills-profile" aria-selected="false">Definir Categorias</a>
+			</li>
+		</ul>
+
+		<div class="tab-content" id="pills-tabContent">
+			<ui:include src="backoffice/BloquearArtistas.xhtml" />
+			<ui:include src="backoffice/RevisarContenido.xhtml" />
+			<ui:include src="backoffice/BloquearContenido.xhtml" />
+			<ui:include src="backoffice/Notificar.xhtml" />
+			<ui:include src="backoffice/Pagos.xhtml" />
+			<ui:include src="backoffice/DefinirCategorias.xhtml" />
+		</div>
+	</main>
+
+	<ui:include src="footer/footer.xhtml" />
+
+</h:body>
+
+</html>
+

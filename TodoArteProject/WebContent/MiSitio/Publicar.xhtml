@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:h="http://java.sun.com/jsf/html" 
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:ui="http://java.sun.com/jsf/facelets">
+  
+<h:head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+</h:head>
+
+<h:body>
+
+	<div class="tab-pane fade #{tabActivoBean.paneActivo(0)}" id="Publicar" role="tabpanel" aria-labelledby="pills-home-tab">
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-6 text-center">
+				<h5 class="my-3">Publicar Contenido</h5>
+				<h:form class="form-signin" enctype="multipart/form-data">
+				 	<div class="form-group">
+			          <label for="titulo">Titulo</label>
+			          <h:inputText type="text" class="form-control" id="titulo" value="#{publicar.cont.titulo}"></h:inputText>
+			         </div>
+ 
+			         <div class="form-group">
+			         	<label for="descripcion">Descripcion</label>
+				        <h:inputTextarea class="form-control" id="descripcion" value="#{publicar.cont.descripcion}" rows="3" />
+				        <small id="biografia" class="form-text text-muted">Dé una breve descripción del Contenido.</small>
+			          </div>
+			         
+			          <div class="form-group">
+			          	<label for="precio">Precio</label>
+			          	<h:inputText type="number" class="form-control" id="precio" value="#{publicar.cont.precio}"
+			          		validator="#{validarRecargaSaldo.validarMayorIgualACero}"></h:inputText>
+			          		<span class="text-danger">
+								<h:message for="precio"/>
+							</span>
+			         </div>
+			         
+			         <div class="form-group">
+						<label for="Privacidad">Privacidad</label>
+						<h:selectOneMenu class="custom-select"
+							value="#{publicar.cont.privacidad}">
+							<!-- Esto es como un for, se agrega uno por cada elemento del enum Privacidad -->
+							<f:selectItems value="#{publicar.privacidad}" var="Privacidad"
+								itemValue="#{Privacidad}"
+								itemLabel="#{text['publicar.privacidad.'.concat(Privacidad)]}" />
+						</h:selectOneMenu>
+					</div>
+			         
+			         <div class="form-group dropdown show">
+						<label for="categoria">Catgoria</label>
+						<h:selectOneMenu class="custom-select" id="selectCategoria"
+							value="#{publicar.idCategoria}">
+							<f:selectItems  value="#{publicar.listaDeCategoria}" var="cat"
+								itemValue="#{cat.id}" 
+								itemLabel="#{cat.nombreCategoria}" />
+						</h:selectOneMenu>
+					</div>
+			         
+			         <div class="form-group mt-5">
+			          	<label for="archivo">Archivo</label> 
+						<br/>      	
+						<h:inputFile value="#{publicar.file}" id="archivo">
+						</h:inputFile>
+			          </div>
+			          
+			          <br/>
+		         	<div class="form-group">
+			          	<h:commandButton class="btn btn-lg btn-primary btn-block" value="Publicar" action="#{publicar.publicarContenido()}"/>
+		         	</div>
+								
+			 	</h:form>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+	</div>
+	
+</h:body>
+</html>
