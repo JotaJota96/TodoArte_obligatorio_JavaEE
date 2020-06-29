@@ -9,6 +9,7 @@ import com.TodoArte.Classes.Artista;
 import com.TodoArte.Classes.Comentario;
 import com.TodoArte.Classes.Contenido;
 import com.TodoArte.Classes.Fan;
+import com.TodoArte.Classes.FanSigueSitio;
 import com.TodoArte.Classes.PagoAPlataforma;
 import com.TodoArte.Classes.Reporte;
 import com.TodoArte.Classes.Sitio;
@@ -18,6 +19,7 @@ import com.TodoArte.Enums.MensajesExcepciones;
 import com.TodoArte.Enums.Privacidad;
 import com.TodoArte.InternalInterfaces.ArtistaInterface;
 import com.TodoArte.InternalInterfaces.ContenidoInterface;
+import com.TodoArte.JPAControllerClasses.ArtistaJpaController;
 import com.TodoArte.JPAControllerClasses.CategoriaContenidoJpaController;
 import com.TodoArte.JPAControllerClasses.ContenidoJpaController;
 import com.TodoArte.JPAControllerClasses.FanJpaController;
@@ -165,6 +167,14 @@ public class ContenidoController implements ContenidoInterface{
 		}
 		new FanController().descontarSaldo(idFan, contenido.getPrecio());
 		
+		String strIdArtista ="";
+		for (Artista a : new ArtistaJpaController().findArtistaEntities()) {
+			if (a.getMiSitio().getMisContenidos().containsKey(contenido.getId())) {
+				strIdArtista = a.getNikname();
+				break;
+			}
+		}
+		new ArtistaController().recargarSaldo(strIdArtista, contenido.getPrecio());
 		contenido.crearVenta(fan);
 		try {
 			new ContenidoJpaController().edit(contenido);
