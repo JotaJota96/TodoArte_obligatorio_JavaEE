@@ -69,11 +69,12 @@ public class Publicar implements Serializable {
 		
 		try {
 			fo.agregarModificarContenido(idArtista, nuevoCont);
+			cont = new Contenido();
 		} catch (Exception e) {
 			System.out.println("Error----"+e);
 		}
 		
-		switch (cont.getTipo()) {
+		switch (nuevoCont.getTipo()) {
 		
 		case Imagen:
 			return Redirector.redirect("sitio-imagenes.jsf", "id="+idArtista);
