@@ -114,6 +114,9 @@ public class ArtistaController implements ArtistaInterface{
 		// pedir al controlador fan que le descuente
 		
 		Artista artista = new ArtistaJpaController().findArtista(idArtista);
+		if (artista == null) {
+			throw new RuntimeException(MensajesExcepciones.artistaNoExiste);
+		}
 		Sitio sitio = artista.getMiSitio();
 		
 		if(sitio.getPrecioPremium() > new FanController().obtenerDatosUsuario(idFan).getSaldo()){
@@ -122,6 +125,7 @@ public class ArtistaController implements ArtistaInterface{
 		
 		new FanController().descontarSaldo(idFan, sitio.getPrecioPremium());
 		sitio.comprarPremium(idFan);
+		this.recargarSaldo(artista.getNikname(), sitio.getPrecioPremium());
 	}
 
 	@Override
