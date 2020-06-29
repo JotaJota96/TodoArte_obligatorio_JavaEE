@@ -177,7 +177,6 @@ public class ContenidoWS implements Serializable {
 					.entity(contenido) //Retorna el contenido creado
 					.build();
 		} catch (Exception e) {
-			
 			String message = "Error al crear un contenido. Error: " + e.getMessage();
 			return Response
 					.status(Response.Status.BAD_REQUEST)

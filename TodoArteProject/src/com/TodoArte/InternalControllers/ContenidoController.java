@@ -179,11 +179,13 @@ public class ContenidoController implements ContenidoInterface{
 		// si no existe, decirle al controlador de artista que agregue e contenido para ese artista
 		boolean agregar = (contenido.getId() == 0);
 		
-		if(new CategoriaContenidoJpaController().findCategoriaContenido(contenido.getMiCategoria().getId()) == null){
-			throw new RuntimeException(MensajesExcepciones.contenidoCategoria);
-		}
-		
 		if (agregar) {
+			if(contenido.getMiCategoria() == null || new CategoriaContenidoJpaController().findCategoriaContenido(contenido.getMiCategoria().getId()) == null){
+				throw new RuntimeException(MensajesExcepciones.contenidoCategoria);
+			}
+			if (contenido.getPrivacidad() != Privacidad.Premium) {
+				contenido.setPrecio(0);
+			}
 			contenido = new ArtistaController().agregarContenido(idArtista, contenido);
 		}else {
 			ContenidoJpaController cJpa = new ContenidoJpaController();
@@ -191,8 +193,17 @@ public class ContenidoController implements ContenidoInterface{
 			if (c == null) {
 				throw new RuntimeException(MensajesExcepciones.contenidoNoExiste);
 			}
+			c.setTitulo(contenido.getTitulo());
+			c.setDescripcion(contenido.getDescripcion());
+			c.setPrivacidad(contenido.getPrivacidad());
+			if (c.getPrivacidad() == Privacidad.Premium) {
+				c.setPrecio(contenido.getPrecio());
+			}else {
+				c.setPrecio(0);
+			}
 			try {
-				cJpa.edit(contenido);
+				cJpa.edit(c);
+				contenido = c;
 			} catch (Exception e) {
 				throw new RuntimeException(e.getMessage());
 			}

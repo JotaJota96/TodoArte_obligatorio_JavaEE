@@ -129,6 +129,7 @@ A continuación se muestran los recursos expuestos y un ejemplo del cuerpo de la
 ```
 
 ## (PUT) /api/contenido/agregar-modificar/{idartista}
+**JSON para agregar:**
 ```json
 {
     "id": 0,
@@ -144,6 +145,18 @@ A continuación se muestran los recursos expuestos y un ejemplo del cuerpo de la
     }
 }
 ```
+
+**JSON para modificar:**
+```json
+{
+    "id": 0,
+    "titulo": "titulo",
+    "descripcion": "descripcion",
+    "privacidad": "Publico",
+    "precio": 0.0
+}
+```
+
 
 ## (DELETE) /api/contenido/eliminar/{idartista}/{idContenido}
 ```json
